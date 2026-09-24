@@ -1,0 +1,790 @@
+{
+  "screen": {"id": "Extra_Screens_Track.1", "name": "Extra Screens Track 1", "purpose": "Comprehensive Formula 1 racing-circuit educational database", "schemaVersion": "1.0.0", "researchSnapshotDate": "2026-09-13", "dataPolicy": "Use null or explicit notes when a value is not verified; do not substitute guesses."},
+  "sourcePriority": ["Official Formula 1 circuit/calendar information", "FIA official documents", "Official circuit websites", "Official Grand Prix event sources", "Formula 1 historical records", "Reputable motorsport statistical sources", "Specialist historical sources"],
+  "calendarVerification": {
+    "asOf": "2026-09-13",
+    "originalAnnouncedRounds": 24,
+    "liveCalendarScheduledRounds": 23,
+    "changes": [{"event": "Bahrain Grand Prix", "originalTiming": "April 2026", "finalStatus": "Relocated to Sepang, Malaysia, 2–4 October 2026 and officially presented as the Bahrain Grand Prix in Malaysia."}, {"event": "Saudi Arabian Grand Prix", "originalTiming": "April 2026", "finalStatus": "Did not take place in April and has no replacement round shown on the official live 2026 calendar at the snapshot date."}, {"event": "Spanish Grand Prix at Madring", "timing": "11–13 September 2026", "finalStatus": "New 2026 venue; race-result fields omitted where not exposed in the official page snapshot used during research."}],
+    "sourceUrls": ["https://www.formula1.com/en/racing/2026", "https://www.formula1.com/en/latest/article/formula-1-reveals-calendar-for-2026-season.YctbMZWqBvrgyddrnauo8", "https://www.formula1.com/en/latest/article/bahrain-and-saudi-arabian-grands-prix-will-not-take-place-in-april.1hnqllVG85RSt8pbBzczmL", "https://www.formula1.com/en/latest/article/formula-1-and-fia-confirm-formula-1-and-fia-confirm-malaysia-will-join-2026-calendar-as-host-venue-for-the-bahrain-grand-prix.6lL7vjFEM2VVynRHvg1TCf"]
+  },
+  "statisticDefinitions": {
+    "importantDistinctions": [
+      {"term": "driver victory", "definition": "A driver's World Championship race win at a specified circuit/configuration."},
+      {"term": "constructor victory", "definition": "A race win credited to a constructor/team at a specified circuit/configuration."},
+      {"term": "pole position", "definition": "The official qualifying pole for the event, not a fastest practice or unofficial lap."},
+      {"term": "podium", "definition": "A top-three race finish."},
+      {"term": "fastest race lap", "definition": "The fastest official race lap recorded during the race."},
+      {"term": "official race lap record", "definition": "The fastest officially recognised race lap for the cited configuration; it is not necessarily the fastest qualifying or testing lap."},
+      {"term": "championship event", "definition": "A Formula 1 World Championship event counted under the World Championship rules of its era."},
+      {"term": "non-championship Formula 1 event", "definition": "A Formula 1 event outside the World Championship classification."}
+    ]
+  },
+  "researchSources": [
+    {"url": "https://www.formula1.com/en/racing/2026", "authority": "Formula1.com", "note": "Official live 2026 calendar and circuit/race pages; snapshot used 2026-09-13."},
+    {"url": "https://www.formula1.com/en/latest/article/formula-1-reveals-calendar-for-2026-season.YctbMZWqBvrgyddrnauo8", "authority": "Formula1.com", "note": "Official announced 2026 calendar."},
+    {"url": "https://www.formula1.com/en/latest/article/bahrain-and-saudi-arabian-grands-prix-will-not-take-place-in-april.1hnqllVG85RSt8pbBzczmL", "authority": "Formula1.com", "note": "Official confirmation that Bahrain and Saudi Arabian Grands Prix would not take place in April 2026."},
+    {"url": "https://www.formula1.com/en/latest/article/formula-1-and-fia-confirm-formula-1-and-fia-confirm-malaysia-will-join-2026-calendar-as-host-venue-for-the-bahrain-grand-prix.6lL7vjFEM2VVynRHvg1TCf", "authority": "Formula1.com", "note": "Official confirmation of Sepang as host venue for the Bahrain Grand Prix in Malaysia, Oct 2–4 2026."},
+    {"url": "https://www.fia.com/regulation/category/663", "authority": "FIA", "note": "FIA Appendix O 2026 circuit recognition procedures and related circuit documents."},
+    {"url": "https://www.fia.com/regulations/sporting/fia-homologation", "authority": "FIA", "note": "FIA homologation framework."},
+    {"url": "https://www.fia.com/regulation/fia-formula-1-world-championship-technical-regulations", "authority": "FIA", "note": "2026 Formula 1 technical regulations."},
+    {"url": "https://www.formula1.com/en/latest/article/imola-all-you-need-to-know-about-the-returning-italian-circuit.6ZtC4Qfq4WKcUi3rgaDhD", "authority": "Formula1.com", "note": "Imola history and championship/non-championship chronology."},
+    {"url": "https://www.formula1.com/en/latest/article/formula-1-announces-it-will-race-at-imola-until-2025.Rrtuijub7DtSJKD1uqmIq", "authority": "Formula1.com", "note": "Imola's final announced F1 season in the recent contract period."},
+    {"url": "https://www.formula1.com/en/latest/article/reinterpreting-a-classic-how-hockenheim-was-transformed.6kX5rdmSkR2pi70k0EOnMi", "authority": "Formula1.com", "note": "Hockenheim layout transformation and old/new distances."},
+    {"url": "https://www.formula1.com/en/latest/article/nurburgring-all-you-need-to-know-about-the-german-circuit.2TAWIELS2BSX3KhWmSBCAc", "authority": "Formula1.com", "note": "Nürburgring history including Nordschleife and modern GP circuit."},
+    {"url": "https://www.formula1.com/en/latest/article/explained-why-turkey-is-back-on-the-calendar-from-2027.1BJjW3kYEnR97HxlV7AFuy", "authority": "Formula1.com", "note": "Istanbul Park return from 2027 and nine previous Grands Prix."},
+    {"url": "https://www.formula1.com/en/latest/article/formula-1-returns-to-turkeys-istanbul-park-from-2027-as-part-of-new-five-year-agreement.1I7OZGeDPoC6Vysv3iqadY", "authority": "Formula1.com", "note": "2027–2031 Istanbul Park agreement."},
+    {"url": "https://www.kyalamigrandprixcircuit.com/about-kyalami/", "authority": "Kyalami Grand Prix Circuit", "note": "Official Kyalami history, World Championship rounds and current venue status."},
+    {"url": "https://www.adelaidemotogp.com/en/history-of-the-adelaide-street-circuit", "authority": "Adelaide motorsport event site", "note": "Adelaide street circuit history and 1985–1995 Australian GP period."},
+    {"url": "https://www.formula1.com/en/latest/article/from-pedralbes-to-catalunya-a-short-history-of-the-5-venues-to-have-hosted.3VMs6iFXohT6vYcLAGfgF", "authority": "Formula1.com", "note": "Spanish GP venue history including Jerez and predecessor circuits."},
+    {"url": "https://www.formula1.com/en/latest/article/a-history-of-the-french-gp-in-7-circuits.4jWYb4usZay2AK6geWksCo", "authority": "Formula1.com", "note": "French GP venue history and Magny-Cours event count."},
+    {"url": "https://www.formula1.com/en/latest/article/france-preview-the-stats-and-info-you-need-to-know.1eKv05EB5oyI2wCMMy4qCw", "authority": "Formula1.com", "note": "Paul Ricard configuration history and French GP context."},
+    {"url": "https://www.formula1.com/en/latest/article/miami-is-coming-but-where-else-has-f1-raced-in-the-usa.62oTelm2rpEueOVaQfFNh", "authority": "Formula1.com", "note": "Historical US F1 venues and championship context."},
+    {"url": "https://www.statsf1.com/en/circuit-silverstone/stats-victoire.aspx", "authority": "STATS F1", "note": "Silverstone driver/constructor wins by venue."},
+    {"url": "https://www.statsf1.com/en/circuit-silverstone/stats-meilleur-tour.aspx", "authority": "STATS F1", "note": "Silverstone fastest-lap statistics."},
+    {"url": "https://www.statsf1.com/en/circuit-spa-francorchamps/stats-victoire.aspx", "authority": "STATS F1", "note": "Spa driver victory statistics."},
+    {"url": "https://www.statsf1.com/en/circuit-spa-francorchamps/stats-meilleur-tour.aspx", "authority": "STATS F1", "note": "Spa fastest-lap statistics."},
+    {"url": "https://www.statsf1.com/en/circuit-imola/stats-pole.aspx", "authority": "STATS F1", "note": "Imola qualifying pole statistics."},
+    {"url": "https://www.statsf1.com/en/circuit-imola/stats-meilleur-tour.aspx", "authority": "STATS F1", "note": "Imola fastest-lap statistics."},
+    {"url": "https://www.statsf1.com/en/circuit-imola/stats-podium.aspx", "authority": "STATS F1", "note": "Imola podium statistics."}
+  ],
+  "sections": [
+    {
+      "id": "01",
+      "title": "WHAT IS A GRAND PRIX CIRCUIT?",
+      "slides": [
+        {"id": "01-01", "type": "text", "title": "Racing circuit concept", "content": ["A Grand Prix circuit is a controlled road-course environment engineered for high-speed competition, timing, officiating and emergency response.", "Formula 1 uses both permanent facilities and temporary/street venues; geometry strongly influences car setup, tyres, overtaking and risk."]},
+        {"id": "01-02", "type": "classification", "title": "FIA recognition and homologation", "content": ["FIA circuit recognition is the formal process used to assess a circuit for competition. Formula 1 venues require the applicable FIA grading and event approval.", "Recognition covers geometry, protection, runoff, medical and rescue capability, marshals, access, paddock and other safety considerations; exact requirements depend on the circuit grade and regulations."], "sourceUrls": ["https://www.fia.com/regulation/category/663", "https://www.fia.com/regulations/sporting/fia-homologation"]},
+        {"id": "01-03", "type": "table", "title": "Core infrastructure", "columns": ["Element", "Purpose"], "rows": [["Pit lane", "Controlled area for pit stops and team servicing"], ["Runoff", "Additional recovery/deceleration space outside the racing surface"], ["Barriers", "Contain/redirect vehicles and absorb or manage crash energy"], ["Kerbs", "Define track edge and influence car placement"], ["Marshal posts", "Observe, signal and respond to incidents"], ["Medical facilities", "Enable rapid treatment, rescue and extraction"]]}
+      ]
+    },
+    {
+      "id": "02",
+      "title": "CIRCUIT HISTORY",
+      "slides": [
+        {"id": "02-01", "type": "timeline", "title": "Early Grand Prix tracks", "events": [{"period": "1900s–1920s", "event": "Grand Prix racing develops on long public-road and temporary courses."}, {"period": "1920s–1950s", "event": "Permanent facilities expand while long road circuits remain important."}, {"period": "1950", "event": "Formula 1 World Championship begins."}]},
+        {"id": "02-02", "type": "history", "title": "From road courses to permanent facilities", "content": ["Historic circuits such as the original Spa and Nürburgring used long public-road sections with limited separation from fixed hazards. Permanent facilities enabled more controlled runoff, barriers, marshal access, pit areas and spectator infrastructure.", "Circuit design gradually became an engineered safety system rather than simply a measured road route."]},
+        {"id": "02-03", "type": "timeline", "title": "Safety-driven modernisation", "events": [{"period": "1970s", "event": "Runoff, catch fencing, medical response and barrier development become increasingly central."}, {"period": "1980s–1990s", "event": "Many historic circuits are shortened, reprofiled or removed from F1 as safety expectations rise."}, {"period": "2000s–2020s", "event": "Homologation, energy-absorbing barriers, runoff design and advanced medical systems become integral to modern venue planning."}], "sourceUrls": ["https://www.fia.com/regulation/category/663"]}
+      ]
+    },
+    {
+      "id": "03",
+      "title": "CURRENT FORMULA 1 CIRCUITS",
+      "slides": [
+        {
+          "id": "03-01",
+          "type": "table",
+          "title": "2026 calendar snapshot",
+          "columns": ["Round", "Venue", "Country", "Type", "Status"],
+          "rows": [
+            [1, "Australian Grand Prix", "Australia", "temporary/permanent hybrid", "current 2026 host venue"],
+            [2, "Chinese Grand Prix", "China", "permanent", "current 2026 host venue"],
+            [3, "Japanese Grand Prix", "Japan", "permanent", "current 2026 host venue"],
+            [4, "Miami Grand Prix", "United States", "temporary circuit on private/permanent complex", "current 2026 host venue"],
+            [5, "Canadian Grand Prix", "Canada", "temporary island street/permanent-event hybrid", "current 2026 host venue"],
+            [6, "Monaco Grand Prix", "Monaco", "street", "current 2026 host venue"],
+            [7, "Spanish Grand Prix", "Spain", "permanent", "current 2026 host venue"],
+            [8, "Austrian Grand Prix", "Austria", "permanent", "current 2026 host venue"],
+            [9, "British Grand Prix", "United Kingdom", "permanent", "current 2026 host venue"],
+            [10, "Belgian Grand Prix", "Belgium", "permanent", "current 2026 host venue"],
+            [11, "Hungarian Grand Prix", "Hungary", "permanent", "current 2026 host venue"],
+            [12, "Dutch Grand Prix", "Netherlands", "permanent", "current 2026 host venue"],
+            [13, "Italian Grand Prix", "Italy", "permanent", "current 2026 host venue"],
+            [14, "Spanish Grand Prix", "Spain", "hybrid public roads + private land", "current 2026 host venue"],
+            [15, "Azerbaijan Grand Prix", "Azerbaijan", "street", "current 2026 host venue"],
+            [16, "Bahrain Grand Prix in Malaysia", "Malaysia", "permanent", "current 2026 host venue"],
+            [17, "Singapore Grand Prix", "Singapore", "street", "current 2026 host venue"],
+            [18, "United States Grand Prix", "United States", "permanent", "current 2026 host venue"],
+            [19, "Mexico City Grand Prix", "Mexico", "permanent", "current 2026 host venue"],
+            [20, "São Paulo Grand Prix", "Brazil", "permanent", "current 2026 host venue"],
+            [21, "Las Vegas Grand Prix", "United States", "street", "current 2026 host venue"],
+            [22, "Qatar Grand Prix", "Qatar", "permanent", "current 2026 host venue"],
+            [23, "Abu Dhabi Grand Prix", "United Arab Emirates", "permanent", "current 2026 host venue"]
+          ]
+        },
+        {
+          "id": "03-02",
+          "type": "circuit",
+          "title": "Australian Grand Prix",
+          "circuit": {
+            "id": "australia",
+            "officialName": "Albert Park Circuit",
+            "commonName": "Australian Grand Prix",
+            "status": "current",
+            "geography": {"city": "Melbourne", "country": "Australia", "location": "Melbourne, Australia"},
+            "history": {"firstF1WorldChampionshipRace": 1996, "historicalSignificance": "Albert Park combines public-road character with a permanent-paddock complex; the modern layout was extensively revised ahead of 2022."},
+            "specifications": {"circuitType": "temporary/permanent hybrid", "lengthKm": 5.278, "corners": 14, "raceLaps": 58, "raceDistanceKm": 306.124},
+            "raceLapRecord": {"time": "1:19.813", "holder": "Charles Leclerc", "season": 2024, "definition": "Officially recognised race lap record for the cited configuration; not qualifying, practice or unofficial testing."},
+            "characteristics": {"major": ["street-like parkland roads", "high-speed direction changes", "medium/high-speed corners"], "majorBrakingZones": ["Turns 3, 9-10"], "highSpeedSections": ["Turns 11-12"], "technicalSections": ["Turn 13 hairpin"], "overtakingDifficulty": "medium-high", "streetOrTemporary": false, "elevationCharacter": "Low-relief parkland layout with modest elevation change."},
+            "dataSnapshot": "2026-09-13",
+            "sourceUrls": ["https://www.formula1.com/en/racing/2026", "https://www.formula1.com/en/racing/2026/australia"],
+            "educationalClassification": {"circuitType": "low", "speedClass": "medium", "technicalDemand": "medium", "brakingDemand": "medium", "note": "Educational classification, not an official FIA circuit grade."}
+          }
+        },
+        {
+          "id": "03-03",
+          "type": "circuit",
+          "title": "Chinese Grand Prix",
+          "circuit": {
+            "id": "china",
+            "officialName": "Shanghai International Circuit",
+            "commonName": "Chinese Grand Prix",
+            "status": "current",
+            "geography": {"city": "Shanghai", "country": "China", "location": "Shanghai, China"},
+            "history": {"firstF1WorldChampionshipRace": 2004, "historicalSignificance": "Designed by Hermann Tilke and built for Formula 1's arrival in China."},
+            "specifications": {"circuitType": "permanent", "lengthKm": 5.451, "corners": 16, "raceLaps": 56, "raceDistanceKm": 305.066},
+            "raceLapRecord": {"time": "1:32.238", "holder": "Michael Schumacher", "season": 2004, "definition": "Officially recognised race lap record for the cited configuration; not qualifying, practice or unofficial testing."},
+            "characteristics": {"major": ["long 1.2 km straight", "large-radius corners", "heavy braking"], "majorBrakingZones": ["Turn 1 complex"], "highSpeedSections": ["Turns 7-8"], "technicalSections": ["Turn 14 hairpin"], "overtakingDifficulty": "medium-high", "streetOrTemporary": false, "elevationCharacter": "Generally flat venue with gentle changes around the lap."},
+            "dataSnapshot": "2026-09-13",
+            "sourceUrls": ["https://www.formula1.com/en/racing/2026", "https://www.formula1.com/en/racing/2026/china"],
+            "educationalClassification": {"circuitType": "low", "speedClass": "medium", "technicalDemand": "medium", "brakingDemand": "medium", "note": "Educational classification, not an official FIA circuit grade."}
+          }
+        },
+        {
+          "id": "03-04",
+          "type": "circuit",
+          "title": "Japanese Grand Prix",
+          "circuit": {
+            "id": "japan",
+            "officialName": "Suzuka International Racing Course",
+            "commonName": "Japanese Grand Prix",
+            "status": "current",
+            "geography": {"city": "Suzuka", "country": "Japan", "location": "Suzuka, Japan"},
+            "history": {"firstF1WorldChampionshipRace": 1987, "historicalSignificance": "Suzuka is one of F1's classic driver circuits and uniquely crosses itself on a bridge."},
+            "specifications": {"circuitType": "permanent", "lengthKm": 5.807, "corners": 18, "raceLaps": 53, "raceDistanceKm": 307.471},
+            "raceLapRecord": {"time": "1:30.965", "holder": "Kimi Antonelli", "season": 2025, "definition": "Officially recognised race lap record for the cited configuration; not qualifying, practice or unofficial testing."},
+            "characteristics": {"major": ["figure-eight layout", "S Curves", "130R"], "majorBrakingZones": ["S Curves"], "highSpeedSections": ["130R"], "technicalSections": ["Hairpin"], "overtakingDifficulty": "high", "streetOrTemporary": false, "elevationCharacter": "Noticeable rolling elevation and a cresting high-speed character."},
+            "dataSnapshot": "2026-09-13",
+            "sourceUrls": ["https://www.formula1.com/en/racing/2026", "https://www.formula1.com/en/racing/2026/japan"],
+            "educationalClassification": {"circuitType": "permanent", "speedClass": "high", "technicalDemand": "very high", "brakingDemand": "medium", "note": "Educational classification, not an official FIA circuit grade."}
+          }
+        },
+        {
+          "id": "03-05",
+          "type": "circuit",
+          "title": "Miami Grand Prix",
+          "circuit": {
+            "id": "miami",
+            "officialName": "Miami International Autodrome",
+            "commonName": "Miami Grand Prix",
+            "status": "current",
+            "geography": {"city": "Miami Gardens", "country": "United States", "location": "Miami Gardens, United States"},
+            "history": {"firstF1WorldChampionshipRace": 2022, "historicalSignificance": "Built around the Hard Rock Stadium campus; its infrastructure is temporary but the paddock and roads are purpose-built for the event."},
+            "specifications": {"circuitType": "temporary circuit on private/permanent complex", "lengthKm": 5.412, "corners": 19, "raceLaps": 57, "raceDistanceKm": 308.326},
+            "raceLapRecord": {"time": "1:29.708", "holder": "Max Verstappen", "season": 2023, "definition": "Officially recognised race lap record for the cited configuration; not qualifying, practice or unofficial testing."},
+            "characteristics": {"major": ["stadium complex", "mixed-speed sections", "long straights"], "majorBrakingZones": ["Turns 4-5"], "highSpeedSections": ["Turns 16-17"], "technicalSections": ["Turn 11"], "overtakingDifficulty": "medium", "streetOrTemporary": true, "elevationCharacter": "Generally flat venue around the stadium complex."},
+            "dataSnapshot": "2026-09-13",
+            "sourceUrls": ["https://www.formula1.com/en/racing/2026", "https://www.formula1.com/en/racing/2026/miami"],
+            "educationalClassification": {"circuitType": "temporary", "speedClass": "medium", "technicalDemand": "medium", "brakingDemand": "medium", "note": "Educational classification, not an official FIA circuit grade."}
+          }
+        },
+        {
+          "id": "03-06",
+          "type": "circuit",
+          "title": "Canadian Grand Prix",
+          "circuit": {
+            "id": "canada",
+            "officialName": "Circuit Gilles-Villeneuve",
+            "commonName": "Canadian Grand Prix",
+            "status": "current",
+            "geography": {"city": "Montreal", "country": "Canada", "location": "Montreal, Canada"},
+            "history": {"firstF1WorldChampionshipRace": 1978, "historicalSignificance": "Built on Île Notre-Dame for Expo-era redevelopment; renowned for heavy braking and walls close to racing surfaces."},
+            "specifications": {"circuitType": "temporary island street/permanent-event hybrid", "lengthKm": 4.361, "corners": 14, "raceLaps": 70, "raceDistanceKm": 305.27},
+            "raceLapRecord": {"time": "1:13.078", "holder": "Valtteri Bottas", "season": 2019, "definition": "Officially recognised race lap record for the cited configuration; not qualifying, practice or unofficial testing."},
+            "characteristics": {"major": ["long straights", "chicanes", "low-downforce compromise"], "majorBrakingZones": ["Turns 10-12"], "highSpeedSections": ["Back straight / Casino complex"], "technicalSections": ["Turn 10 hairpin"], "overtakingDifficulty": "high", "streetOrTemporary": true, "elevationCharacter": "Low-relief island circuit with kerb and braking emphasis rather than major elevation."},
+            "dataSnapshot": "2026-09-13",
+            "sourceUrls": ["https://www.formula1.com/en/racing/2026", "https://www.formula1.com/en/racing/2026/canada"],
+            "educationalClassification": {"circuitType": "temporary", "speedClass": "high", "technicalDemand": "medium", "brakingDemand": "high", "note": "Educational classification, not an official FIA circuit grade."}
+          }
+        },
+        {
+          "id": "03-07",
+          "type": "circuit",
+          "title": "Monaco Grand Prix",
+          "circuit": {
+            "id": "monaco",
+            "officialName": "Circuit de Monaco",
+            "commonName": "Monaco Grand Prix",
+            "status": "current",
+            "geography": {"city": "Monte Carlo / Monaco", "country": "Monaco", "location": "Monte Carlo / Monaco, Monaco"},
+            "history": {"firstF1WorldChampionshipRace": 1950, "firstRaceNote": "The first Monaco Grand Prix was held in 1929; it entered the World Championship in 1950 and returned continuously from 1955.", "historicalSignificance": "The modern World Championship history begins in 1950; the event then returned continuously from 1955."},
+            "specifications": {"circuitType": "street", "lengthKm": 3.337, "corners": 19, "raceLaps": 78, "raceDistanceKm": 260.286},
+            "raceLapRecord": {"time": "1:12.909", "holder": "Lewis Hamilton", "season": 2021, "definition": "Officially recognised race lap record for the cited configuration; not qualifying, practice or unofficial testing."},
+            "characteristics": {"major": ["very narrow street course", "minimal runoff", "elevation in urban setting"], "majorBrakingZones": ["Mirabeau / Portier"], "highSpeedSections": ["Tunnel"], "technicalSections": ["Nouvelle Chicane"], "overtakingDifficulty": "very high", "streetOrTemporary": true, "elevationCharacter": "Urban elevation change including the climb from Sainte-Dévote toward Casino."},
+            "dataSnapshot": "2026-09-13",
+            "sourceUrls": ["https://www.formula1.com/en/racing/2026", "https://www.formula1.com/en/racing/2026/monaco"],
+            "educationalClassification": {"circuitType": "street", "speedClass": "low", "technicalDemand": "very high", "brakingDemand": "low", "note": "Educational classification, not an official FIA circuit grade."}
+          }
+        },
+        {
+          "id": "03-08",
+          "type": "circuit",
+          "title": "Spanish Grand Prix",
+          "circuit": {
+            "id": "barcelona",
+            "officialName": "Circuit de Barcelona-Catalunya",
+            "commonName": "Spanish Grand Prix",
+            "status": "current",
+            "geography": {"city": "Montmeló / Barcelona", "country": "Spain", "location": "Montmeló / Barcelona, Spain"},
+            "history": {"firstF1WorldChampionshipRace": 1991, "historicalSignificance": "Developed as part of the Barcelona 1992 Olympic-era infrastructure; opened before the Olympic Games."},
+            "specifications": {"circuitType": "permanent", "lengthKm": 4.657, "corners": 14, "raceLaps": 66, "raceDistanceKm": 307.236},
+            "raceLapRecord": {"time": "1:15.743", "holder": "Oscar Piastri", "season": 2025, "definition": "Officially recognised race lap record for the cited configuration; not qualifying, practice or unofficial testing."},
+            "characteristics": {"major": ["balanced setup test", "long-radius corners", "mixed-speed"], "majorBrakingZones": ["Turn 3"], "highSpeedSections": ["Main straight"], "technicalSections": ["La Caixa"], "overtakingDifficulty": "medium", "streetOrTemporary": false, "elevationCharacter": "Rolling permanent circuit with moderate gradients."},
+            "dataSnapshot": "2026-09-13",
+            "sourceUrls": ["https://www.formula1.com/en/racing/2026", "https://www.formula1.com/en/racing/2026/barcelona-catalunya"],
+            "educationalClassification": {"circuitType": "permanent", "speedClass": "medium", "technicalDemand": "high", "brakingDemand": "medium", "note": "Educational classification, not an official FIA circuit grade."}
+          }
+        },
+        {
+          "id": "03-09",
+          "type": "circuit",
+          "title": "Austrian Grand Prix",
+          "circuit": {
+            "id": "austria",
+            "officialName": "Red Bull Ring",
+            "commonName": "Austrian Grand Prix",
+            "status": "current",
+            "geography": {"city": "Spielberg", "country": "Austria", "location": "Spielberg, Austria"},
+            "history": {"firstF1WorldChampionshipRace": 1970, "historicalSignificance": "The modern venue evolved from the Österreichring/A1-Ring site and retains fast, compact character."},
+            "specifications": {"circuitType": "permanent", "lengthKm": 4.326, "corners": 10, "raceLaps": 71, "raceDistanceKm": 307.026},
+            "raceLapRecord": {"time": "1:07.924", "holder": "Oscar Piastri", "season": 2025, "definition": "Officially recognised race lap record for the cited configuration; not qualifying, practice or unofficial testing."},
+            "characteristics": {"major": ["short lap", "three major straights", "steep gradients"], "majorBrakingZones": ["Turns 1-3"], "highSpeedSections": ["Turns 6-7"], "technicalSections": ["Turn 3"], "overtakingDifficulty": "high", "streetOrTemporary": false, "elevationCharacter": "Pronounced uphill/downhill sections, especially around Turns 1–3."},
+            "dataSnapshot": "2026-09-13",
+            "sourceUrls": ["https://www.formula1.com/en/racing/2026", "https://www.formula1.com/en/racing/2026/austria"],
+            "educationalClassification": {"circuitType": "permanent", "speedClass": "high", "technicalDemand": "medium", "brakingDemand": "high", "note": "Educational classification, not an official FIA circuit grade."}
+          }
+        },
+        {
+          "id": "03-10",
+          "type": "circuit",
+          "title": "British Grand Prix",
+          "circuit": {
+            "id": "great_britain",
+            "officialName": "Silverstone Circuit",
+            "commonName": "British Grand Prix",
+            "status": "current",
+            "geography": {"city": "Silverstone", "country": "United Kingdom", "location": "Silverstone, United Kingdom"},
+            "history": {"firstF1WorldChampionshipRace": 1950, "historicalSignificance": "Hosted the inaugural World Championship Formula 1 race on 13 May 1950."},
+            "specifications": {"circuitType": "permanent", "lengthKm": 5.891, "corners": 18, "raceLaps": 52, "raceDistanceKm": 306.198},
+            "raceLapRecord": {"time": "1:27.097", "holder": "Max Verstappen", "season": 2020, "definition": "Officially recognised race lap record for the cited configuration; not qualifying, practice or unofficial testing."},
+            "characteristics": {"major": ["former RAF airfield", "fast sweepers", "high-speed complexes"], "majorBrakingZones": ["Maggots-Becketts"], "highSpeedSections": ["Hangar Straight"], "technicalSections": ["Vale"], "overtakingDifficulty": "high", "streetOrTemporary": false, "elevationCharacter": "Relatively low-relief airfield site with subtle undulation."},
+            "dataSnapshot": "2026-09-13",
+            "sourceUrls": ["https://www.formula1.com/en/racing/2026", "https://www.formula1.com/en/racing/2026/great-britain"],
+            "educationalClassification": {"circuitType": "permanent", "speedClass": "very high", "technicalDemand": "high", "brakingDemand": "medium", "note": "Educational classification, not an official FIA circuit grade."}
+          }
+        },
+        {
+          "id": "03-11",
+          "type": "circuit",
+          "title": "Belgian Grand Prix",
+          "circuit": {
+            "id": "belgium",
+            "officialName": "Circuit de Spa-Francorchamps",
+            "commonName": "Belgian Grand Prix",
+            "status": "current",
+            "geography": {"city": "Spa-Francorchamps", "country": "Belgium", "location": "Spa-Francorchamps, Belgium"},
+            "history": {"firstF1WorldChampionshipRace": 1950, "historicalSignificance": "The original road circuit was about 14.9 km; the modern circuit is around 7 km."},
+            "specifications": {"circuitType": "permanent", "lengthKm": 7.004, "corners": 19, "raceLaps": 44, "raceDistanceKm": 308.052},
+            "raceLapRecord": {"time": "1:44.701", "holder": "Sergio Perez", "season": 2024, "definition": "Officially recognised race lap record for the cited configuration; not qualifying, practice or unofficial testing."},
+            "characteristics": {"major": ["very long lap", "elevation", "weather variability"], "majorBrakingZones": ["Eau Rouge-Raidillon"], "highSpeedSections": ["Blanchimont"], "technicalSections": ["Les Combes"], "overtakingDifficulty": "very high", "streetOrTemporary": false, "elevationCharacter": "Major elevation variation from the valley floor through Eau Rouge-Raidillon and beyond."},
+            "dataSnapshot": "2026-09-13",
+            "sourceUrls": ["https://www.formula1.com/en/racing/2026", "https://www.formula1.com/en/racing/2026/belgium"],
+            "educationalClassification": {"circuitType": "permanent", "speedClass": "very high", "technicalDemand": "high", "brakingDemand": "high", "note": "Educational classification, not an official FIA circuit grade."}
+          }
+        },
+        {
+          "id": "03-12",
+          "type": "circuit",
+          "title": "Hungarian Grand Prix",
+          "circuit": {
+            "id": "hungary",
+            "officialName": "Hungaroring",
+            "commonName": "Hungarian Grand Prix",
+            "status": "current",
+            "geography": {"city": "Mogyoród / Budapest", "country": "Hungary", "location": "Mogyoród / Budapest, Hungary"},
+            "history": {"firstF1WorldChampionshipRace": 1986, "historicalSignificance": "The circuit was built rapidly in 1985 and hosted Hungary's first Formula 1 World Championship Grand Prix in 1986."},
+            "specifications": {"circuitType": "permanent", "lengthKm": 4.381, "corners": 14, "raceLaps": 70, "raceDistanceKm": 306.63},
+            "raceLapRecord": {"time": "1:16.627", "holder": "Lewis Hamilton", "season": 2020, "definition": "Officially recognised race lap record for the cited configuration; not qualifying, practice or unofficial testing."},
+            "characteristics": {"major": ["narrow racing line", "linked corners", "low average speed"], "majorBrakingZones": ["Turns 6-7"], "highSpeedSections": ["Turn 4"], "technicalSections": ["Turn 1"], "overtakingDifficulty": "high", "streetOrTemporary": false, "elevationCharacter": "Rolling terrain with repeated elevation changes and climbs/falls between corners."},
+            "dataSnapshot": "2026-09-13",
+            "sourceUrls": ["https://www.formula1.com/en/racing/2026", "https://www.formula1.com/en/racing/2026/hungary"],
+            "educationalClassification": {"circuitType": "permanent", "speedClass": "medium", "technicalDemand": "very high", "brakingDemand": "low", "note": "Educational classification, not an official FIA circuit grade."}
+          }
+        },
+        {
+          "id": "03-13",
+          "type": "circuit",
+          "title": "Dutch Grand Prix",
+          "circuit": {
+            "id": "netherlands",
+            "officialName": "Circuit Zandvoort",
+            "commonName": "Dutch Grand Prix",
+            "status": "current",
+            "geography": {"city": "Zandvoort", "country": "Netherlands", "location": "Zandvoort, Netherlands"},
+            "history": {"firstF1WorldChampionshipRace": 1952, "historicalSignificance": "The modern circuit retains a distinctive combination of dunes, banked turns and elevation change."},
+            "specifications": {"circuitType": "permanent", "lengthKm": 4.259, "corners": 14, "raceLaps": 72, "raceDistanceKm": 306.592},
+            "raceLapRecord": {"time": "1:11.097", "holder": "Lewis Hamilton", "season": 2021, "definition": "Officially recognised race lap record for the cited configuration; not qualifying, practice or unofficial testing."},
+            "characteristics": {"major": ["coastal dunes", "banked corners", "short lap"], "majorBrakingZones": ["Scheivlak"], "highSpeedSections": ["Back straight"], "technicalSections": ["Tarzan"], "overtakingDifficulty": "high", "streetOrTemporary": false, "elevationCharacter": "Dune terrain creates visible gradients and banked elevation changes."},
+            "dataSnapshot": "2026-09-13",
+            "sourceUrls": ["https://www.formula1.com/en/racing/2026", "https://www.formula1.com/en/racing/2026/netherlands"],
+            "educationalClassification": {"circuitType": "permanent", "speedClass": "high", "technicalDemand": "high", "brakingDemand": "medium", "note": "Educational classification, not an official FIA circuit grade."}
+          }
+        },
+        {
+          "id": "03-14",
+          "type": "circuit",
+          "title": "Italian Grand Prix",
+          "circuit": {
+            "id": "italy",
+            "officialName": "Autodromo Nazionale Monza",
+            "commonName": "Italian Grand Prix",
+            "status": "current",
+            "geography": {"city": "Monza", "country": "Italy", "location": "Monza, Italy"},
+            "history": {"firstF1WorldChampionshipRace": 1950, "historicalSignificance": "Built in 1922; famous for extreme speed and the surviving old oval banking."},
+            "specifications": {"circuitType": "permanent", "lengthKm": 5.793, "corners": 11, "raceLaps": 53, "raceDistanceKm": 306.72},
+            "raceLapRecord": {"time": "1:20.901", "holder": "Lando Norris", "season": 2025, "definition": "Officially recognised race lap record for the cited configuration; not qualifying, practice or unofficial testing."},
+            "characteristics": {"major": ["very high speed", "low drag", "long straights"], "majorBrakingZones": ["Lesmo"], "highSpeedSections": ["Main straight"], "technicalSections": ["Variante Ascari"], "overtakingDifficulty": "very high", "streetOrTemporary": false, "elevationCharacter": "Mostly low-relief Autodromo with historic banking defining the broader site."},
+            "dataSnapshot": "2026-09-13",
+            "sourceUrls": ["https://www.formula1.com/en/racing/2026", "https://www.formula1.com/en/racing/2026/italy"],
+            "educationalClassification": {"circuitType": "permanent", "speedClass": "very high", "technicalDemand": "medium", "brakingDemand": "high", "note": "Educational classification, not an official FIA circuit grade."}
+          }
+        },
+        {
+          "id": "03-15",
+          "type": "circuit",
+          "title": "Spanish Grand Prix",
+          "circuit": {
+            "id": "spain_madring",
+            "officialName": "Madring",
+            "commonName": "Spanish Grand Prix",
+            "status": "current",
+            "geography": {"city": "Madrid", "country": "Spain", "location": "Madrid, Spain"},
+            "history": {"firstF1WorldChampionshipRace": 2026, "historicalSignificance": "New 2026 venue combining public-road and private-land sections; 2026 race results were not yet reflected on the live page at the September 13 snapshot."},
+            "specifications": {"circuitType": "hybrid public roads + private land", "lengthKm": 5.414, "corners": 22, "raceLaps": 57, "raceDistanceKm": 308.399},
+            "raceLapRecord": {"time": null, "holder": null, "season": null, "definition": "Officially recognised race lap record for the cited configuration; not qualifying, practice or unofficial testing."},
+            "characteristics": {"major": ["340 km/h target-speed straights", "major elevation change", "long banked section"], "majorBrakingZones": ["Turn 12 La Monumental"], "highSpeedSections": ["Long straight sections"], "technicalSections": ["La Monumental"], "overtakingDifficulty": "high", "streetOrTemporary": true, "elevationCharacter": "F1 venue material describes dramatic elevation change."},
+            "raceResultNote": "The 2026 Spanish Grand Prix at Madring was scheduled for 11–13 September; the official live page snapshot used for this database did not expose a result when researched.",
+            "dataSnapshot": "2026-09-13",
+            "sourceUrls": ["https://www.formula1.com/en/racing/2026", "https://www.formula1.com/en/racing/2026/spain"],
+            "educationalClassification": {"circuitType": "hybrid", "speedClass": "high", "technicalDemand": "high", "brakingDemand": "high", "note": "Educational classification, not an official FIA circuit grade."}
+          }
+        },
+        {
+          "id": "03-16",
+          "type": "circuit",
+          "title": "Azerbaijan Grand Prix",
+          "circuit": {
+            "id": "azerbaijan",
+            "officialName": "Baku City Circuit",
+            "commonName": "Azerbaijan Grand Prix",
+            "status": "current",
+            "geography": {"city": "Baku", "country": "Azerbaijan", "location": "Baku, Azerbaijan"},
+            "history": {"firstF1WorldChampionshipRace": 2016, "historicalSignificance": "The 2016 race was titled the European Grand Prix; the event adopted the Azerbaijan Grand Prix name from 2017."},
+            "specifications": {"circuitType": "street", "lengthKm": 6.003, "corners": 20, "raceLaps": 51, "raceDistanceKm": 306.049},
+            "raceLapRecord": {"time": "1:43.009", "holder": "Charles Leclerc", "season": 2019, "definition": "Officially recognised race lap record for the cited configuration; not qualifying, practice or unofficial testing."},
+            "characteristics": {"major": ["very long waterfront straight", "old-city narrow section", "heavy braking"], "majorBrakingZones": ["Turns 5-7 old city"], "highSpeedSections": ["Main/waterfront straight"], "technicalSections": ["Turn 1"], "overtakingDifficulty": "very high", "streetOrTemporary": true, "elevationCharacter": "Predominantly flat urban setting with local gradients near the old city."},
+            "dataSnapshot": "2026-09-13",
+            "sourceUrls": ["https://www.formula1.com/en/racing/2026", "https://www.formula1.com/en/racing/2026/azerbaijan"],
+            "educationalClassification": {"circuitType": "street", "speedClass": "very high", "technicalDemand": "high", "brakingDemand": "high", "note": "Educational classification, not an official FIA circuit grade."}
+          }
+        },
+        {
+          "id": "03-17",
+          "type": "circuit",
+          "title": "Bahrain Grand Prix in Malaysia",
+          "circuit": {
+            "id": "sepang_bahrain",
+            "officialName": "Sepang International Circuit",
+            "commonName": "Bahrain Grand Prix in Malaysia",
+            "status": "current",
+            "geography": {"city": "Sepang / Kuala Lumpur area", "country": "Malaysia", "location": "Sepang / Kuala Lumpur area, Malaysia"},
+            "history": {"firstF1WorldChampionshipRace": 1999, "historicalSignificance": "Malaysia returns to the 2026 calendar as host venue for the Bahrain Grand Prix after the Bahrain event was moved from April."},
+            "specifications": {"circuitType": "permanent", "lengthKm": 5.543, "corners": 15, "raceLaps": 56, "raceDistanceKm": 310.418},
+            "raceLapRecord": {"time": "1:34.080", "holder": "Sebastian Vettel", "season": 2017, "definition": "Officially recognised race lap record for the cited configuration; not qualifying, practice or unofficial testing."},
+            "characteristics": {"major": ["long straights", "wide track", "tropical weather"], "majorBrakingZones": ["Turns 1-2"], "highSpeedSections": ["Back straight"], "technicalSections": ["Turn 15 hairpin"], "overtakingDifficulty": "high", "streetOrTemporary": false, "elevationCharacter": "Rolling purpose-built layout with long-radius bends and braking gradients."},
+            "specialEventNote": "Sepang is the host circuit; the 2026 event is officially the Bahrain Grand Prix in Malaysia after Bahrain was removed from its original April slot.",
+            "dataSnapshot": "2026-09-13",
+            "sourceUrls": ["https://www.formula1.com/en/racing/2026", "https://www.formula1.com/en/racing/2026/bahrain"],
+            "educationalClassification": {"circuitType": "permanent", "speedClass": "high", "technicalDemand": "high", "brakingDemand": "high", "note": "Educational classification, not an official FIA circuit grade."}
+          }
+        },
+        {
+          "id": "03-18",
+          "type": "circuit",
+          "title": "Singapore Grand Prix",
+          "circuit": {
+            "id": "singapore",
+            "officialName": "Marina Bay Street Circuit",
+            "commonName": "Singapore Grand Prix",
+            "status": "current",
+            "geography": {"city": "Singapore", "country": "Singapore", "location": "Singapore, Singapore"},
+            "history": {"firstF1WorldChampionshipRace": 2008, "historicalSignificance": "Formula 1's first night race; the circuit was reduced from 23 to 19 corners for 2023."},
+            "specifications": {"circuitType": "street", "lengthKm": 4.927, "corners": 19, "raceLaps": 62, "raceDistanceKm": 305.337},
+            "raceLapRecord": {"time": "1:33.808", "holder": "Lewis Hamilton", "season": 2025, "definition": "Officially recognised race lap record for the cited configuration; not qualifying, practice or unofficial testing."},
+            "characteristics": {"major": ["night race", "high humidity", "street walls"], "majorBrakingZones": ["Turns 16-17"], "highSpeedSections": ["Raffles Boulevard / main straight"], "technicalSections": ["Turn 7"], "overtakingDifficulty": "high", "streetOrTemporary": true, "elevationCharacter": "Mostly low-relief urban course with bumps and drainage-sensitive road sections."},
+            "dataSnapshot": "2026-09-13",
+            "sourceUrls": ["https://www.formula1.com/en/racing/2026", "https://www.formula1.com/en/racing/2026/singapore"],
+            "educationalClassification": {"circuitType": "street", "speedClass": "medium", "technicalDemand": "very high", "brakingDemand": "medium", "note": "Educational classification, not an official FIA circuit grade."}
+          }
+        },
+        {
+          "id": "03-19",
+          "type": "circuit",
+          "title": "United States Grand Prix",
+          "circuit": {
+            "id": "united_states",
+            "officialName": "Circuit of The Americas",
+            "commonName": "United States Grand Prix",
+            "status": "current",
+            "geography": {"city": "Austin, Texas", "country": "United States", "location": "Austin, Texas, United States"},
+            "history": {"firstF1WorldChampionshipRace": 2012, "historicalSignificance": "Purpose-built F1 facility designed by Hermann Tilke with HKS; Turn 1 features a pronounced uphill approach."},
+            "specifications": {"circuitType": "permanent", "lengthKm": 5.513, "corners": 20, "raceLaps": 56, "raceDistanceKm": 308.432},
+            "raceLapRecord": {"time": "1:36.169", "holder": "Charles Leclerc", "season": 2019, "definition": "Officially recognised race lap record for the cited configuration; not qualifying, practice or unofficial testing."},
+            "characteristics": {"major": ["large elevation change", "fast esses", "mixed-speed technical sector"], "majorBrakingZones": ["Turns 3-6"], "highSpeedSections": ["Back straight"], "technicalSections": ["Turn 11"], "overtakingDifficulty": "high", "streetOrTemporary": false, "elevationCharacter": "Pronounced elevation change; official published total difference is about 30.9 m."},
+            "dataSnapshot": "2026-09-13",
+            "sourceUrls": ["https://www.formula1.com/en/racing/2026", "https://www.formula1.com/en/racing/2026/united-states"],
+            "educationalClassification": {"circuitType": "permanent", "speedClass": "high", "technicalDemand": "high", "brakingDemand": "high", "note": "Educational classification, not an official FIA circuit grade."}
+          }
+        },
+        {
+          "id": "03-20",
+          "type": "circuit",
+          "title": "Mexico City Grand Prix",
+          "circuit": {
+            "id": "mexico",
+            "officialName": "Autódromo Hermanos Rodríguez",
+            "commonName": "Mexico City Grand Prix",
+            "status": "current",
+            "geography": {"city": "Mexico City", "country": "Mexico", "location": "Mexico City, Mexico"},
+            "history": {"firstF1WorldChampionshipRace": 1963, "historicalSignificance": "A 1962 non-championship F1 event preceded the first World Championship Mexican GP in 1963."},
+            "specifications": {"circuitType": "permanent", "lengthKm": 4.304, "corners": 17, "raceLaps": 71, "raceDistanceKm": 305.354},
+            "raceLapRecord": {"time": "1:17.774", "holder": "Valtteri Bottas", "season": 2021, "definition": "Officially recognised race lap record for the cited configuration; not qualifying, practice or unofficial testing."},
+            "characteristics": {"major": ["high altitude", "thin air", "stadium section"], "majorBrakingZones": ["Turns 1-3"], "highSpeedSections": ["Main straight"], "technicalSections": ["Turn 4 complex / stadium entry"], "overtakingDifficulty": "high", "streetOrTemporary": false, "elevationCharacter": "High-altitude venue above 2,000 m; circuit itself has modest geometric elevation change."},
+            "dataSnapshot": "2026-09-13",
+            "sourceUrls": ["https://www.formula1.com/en/racing/2026", "https://www.formula1.com/en/racing/2026/mexico"],
+            "educationalClassification": {"circuitType": "permanent", "speedClass": "high", "technicalDemand": "medium", "brakingDemand": "high", "note": "Educational classification, not an official FIA circuit grade."}
+          }
+        },
+        {
+          "id": "03-21",
+          "type": "circuit",
+          "title": "São Paulo Grand Prix",
+          "circuit": {
+            "id": "brazil",
+            "officialName": "Autódromo José Carlos Pace (Interlagos)",
+            "commonName": "São Paulo Grand Prix",
+            "status": "current",
+            "geography": {"city": "São Paulo", "country": "Brazil", "location": "São Paulo, Brazil"},
+            "history": {"firstF1WorldChampionshipRace": 1973, "historicalSignificance": "The circuit is one of the rare anti-clockwise F1 venues and has retained a strongly undulating character."},
+            "specifications": {"circuitType": "permanent", "lengthKm": 4.309, "corners": 15, "raceLaps": 71, "raceDistanceKm": 305.879},
+            "raceLapRecord": {"time": "1:10.540", "holder": "Valtteri Bottas", "season": 2018, "definition": "Officially recognised race lap record for the cited configuration; not qualifying, practice or unofficial testing."},
+            "characteristics": {"major": ["anti-clockwise lap", "undulating terrain", "mixed-speed"], "majorBrakingZones": ["Senna S"], "highSpeedSections": ["Reta Oposta"], "technicalSections": ["Turn 1/2 Senna S"], "overtakingDifficulty": "high", "streetOrTemporary": false, "elevationCharacter": "Strongly undulating and anti-clockwise with notable rises and descents."},
+            "dataSnapshot": "2026-09-13",
+            "sourceUrls": ["https://www.formula1.com/en/racing/2026", "https://www.formula1.com/en/racing/2026/brazil"],
+            "educationalClassification": {"circuitType": "permanent", "speedClass": "high", "technicalDemand": "high", "brakingDemand": "high", "note": "Educational classification, not an official FIA circuit grade."}
+          }
+        },
+        {
+          "id": "03-22",
+          "type": "circuit",
+          "title": "Las Vegas Grand Prix",
+          "circuit": {
+            "id": "las_vegas",
+            "officialName": "Las Vegas Strip Circuit",
+            "commonName": "Las Vegas Grand Prix",
+            "status": "current",
+            "geography": {"city": "Las Vegas", "country": "United States", "location": "Las Vegas, United States"},
+            "history": {"firstF1WorldChampionshipRace": 2023, "historicalSignificance": "The current Strip circuit is distinct from the Caesars Palace circuit used for the 1981 and 1982 F1 races."},
+            "specifications": {"circuitType": "street", "lengthKm": 6.201, "corners": 17, "raceLaps": 50, "raceDistanceKm": 309.958},
+            "raceLapRecord": {"time": "1:33.365", "holder": "Max Verstappen", "season": 2025, "definition": "Officially recognised race lap record for the cited configuration; not qualifying, practice or unofficial testing."},
+            "characteristics": {"major": ["very long lap", "high-speed straights", "cold-night conditions"], "majorBrakingZones": ["Turns 6-9"], "highSpeedSections": ["Las Vegas Strip straight"], "technicalSections": ["Turn 14"], "overtakingDifficulty": "very high", "streetOrTemporary": true, "elevationCharacter": "Predominantly flat metropolitan streets with limited geometric elevation change."},
+            "historicalLayoutNote": "The current Strip circuit is distinct from the Caesars Palace circuit used for the 1981 and 1982 World Championship races.",
+            "dataSnapshot": "2026-09-13",
+            "sourceUrls": ["https://www.formula1.com/en/racing/2026", "https://www.formula1.com/en/racing/2026/las-vegas"],
+            "educationalClassification": {"circuitType": "street", "speedClass": "very high", "technicalDemand": "medium", "brakingDemand": "high", "note": "Educational classification, not an official FIA circuit grade."}
+          }
+        },
+        {
+          "id": "03-23",
+          "type": "circuit",
+          "title": "Qatar Grand Prix",
+          "circuit": {
+            "id": "qatar",
+            "officialName": "Lusail International Circuit",
+            "commonName": "Qatar Grand Prix",
+            "status": "current",
+            "geography": {"city": "Lusail", "country": "Qatar", "location": "Lusail, Qatar"},
+            "history": {"firstF1WorldChampionshipRace": 2021, "historicalSignificance": "Originally built for motorcycle racing; its fast layout became an F1 venue in 2021."},
+            "specifications": {"circuitType": "permanent", "lengthKm": 5.419, "corners": 16, "raceLaps": 57, "raceDistanceKm": 308.611},
+            "raceLapRecord": {"time": "1:22.384", "holder": "Lando Norris", "season": 2024, "definition": "Officially recognised race lap record for the cited configuration; not qualifying, practice or unofficial testing."},
+            "characteristics": {"major": ["fast flowing corners", "long main straight", "night/race heat management"], "majorBrakingZones": ["Turns 4-10"], "highSpeedSections": ["Main straight"], "technicalSections": ["Turn 6"], "overtakingDifficulty": "high", "streetOrTemporary": false, "elevationCharacter": "Generally flat and flowing, with modest local gradients."},
+            "dataSnapshot": "2026-09-13",
+            "sourceUrls": ["https://www.formula1.com/en/racing/2026", "https://www.formula1.com/en/racing/2026/qatar"],
+            "educationalClassification": {"circuitType": "permanent", "speedClass": "high", "technicalDemand": "high", "brakingDemand": "medium", "note": "Educational classification, not an official FIA circuit grade."}
+          }
+        },
+        {
+          "id": "03-24",
+          "type": "circuit",
+          "title": "Abu Dhabi Grand Prix",
+          "circuit": {
+            "id": "abu_dhabi",
+            "officialName": "Yas Marina Circuit",
+            "commonName": "Abu Dhabi Grand Prix",
+            "status": "current",
+            "geography": {"city": "Abu Dhabi", "country": "United Arab Emirates", "location": "Abu Dhabi, United Arab Emirates"},
+            "history": {"firstF1WorldChampionshipRace": 2009, "historicalSignificance": "The 2021 redesign removed several slow corners and opened faster racing lines."},
+            "specifications": {"circuitType": "permanent", "lengthKm": 5.281, "corners": 16, "raceLaps": 58, "raceDistanceKm": 306.188},
+            "raceLapRecord": {"time": "1:25.637", "holder": "Kevin Magnussen", "season": 2024, "definition": "Officially recognised race lap record for the cited configuration; not qualifying, practice or unofficial testing."},
+            "characteristics": {"major": ["long straights", "night race", "post-2021 fast-flowing revision"], "majorBrakingZones": ["Turns 5-6"], "highSpeedSections": ["Back straight"], "technicalSections": ["Turns 6-9"], "overtakingDifficulty": "high", "streetOrTemporary": false, "elevationCharacter": "Generally low-relief artificial-island setting with modest gradients."},
+            "dataSnapshot": "2026-09-13",
+            "sourceUrls": ["https://www.formula1.com/en/racing/2026", "https://www.formula1.com/en/racing/2026/united-arab-emirates"],
+            "educationalClassification": {"circuitType": "permanent", "speedClass": "high", "technicalDemand": "medium", "brakingDemand": "high", "note": "Educational classification, not an official FIA circuit grade."}
+          }
+        }
+      ]
+    },
+    {
+      "id": "04",
+      "title": "HISTORIC FORMULA 1 CIRCUITS",
+      "slides": [
+        {
+          "id": "04-01",
+          "type": "table",
+          "title": "Historic World Championship venues",
+          "columns": ["Circuit", "Country", "Active years", "Championship events", "Status"],
+          "rows": [
+            ["Autodromo Enzo e Dino Ferrari", "Italy", "1963–2025", "27 championship San Marino GPs through 2006; five later Emilia-Romagna GPs (2020, 2021, 2022, 2024, 2025), 32 total derived from F1 year records", "F1 stopped after 2025 under the calendar arrangement; venue remains an active race facility."],
+            ["Hockenheimring", "Germany", "1970–2019", "35 World Championship Grands Prix, derived from official listed championship years (1970; 1977–1984; 1986–2006; 2008; 2010; 2012; 2019)", "F1 has not raced at Hockenheim since 2019."],
+            ["Nürburgring", "Germany", "1984–2020", "World Championship races used the modern GP circuit from 1984/1985 and 1995–2013, plus the 2020 Eifel GP; aggregate historical counts vary by definition.", "No current F1 round."],
+            ["Fuji Speedway", "Japan", "1976–2008", "4 World Championship Grands Prix: 1976, 1977, 2007, 2008", "Returned off the F1 calendar after 2008."],
+            ["Kyalami Grand Prix Circuit", "South Africa", "1967–1993", "20 World Championship rounds, according to Kyalami's official history (1967–1985, 1992–1993).", "No current F1 round."],
+            ["Istanbul Park", "Turkey", "2005–2021", "9 World Championship Grands Prix through 2021.", "Not on 2026 calendar; announced to return from 2027 under a new agreement."],
+            ["Adelaide Street Circuit", "Australia", "1985–1995", "11 Australian Grands Prix at Adelaide.", "Replaced by Melbourne from 1996."],
+            ["Circuito de Jerez", "Spain", "1986–1997", "6 World Championship events: five Spanish GPs (1986–1990) and the 1997 European GP.", "No current F1 round."],
+            ["Circuit de Nevers Magny-Cours", "France", "1991–2008", "18 French Grands Prix.", "No current F1 round after the 2008 French GP at Magny-Cours."],
+            ["Circuit Paul Ricard", "France", "1971–2022 with gaps", "Hosted multiple World Championship French GPs across different eras and configurations; exact total is not stated here because layout/event definitions vary.", "No 2026 F1 round."],
+            ["Sochi Autodrom", "Russia", "2014–2021", "8 World Championship Russian GPs, 2014–2021.", "Removed from the F1 calendar; no 2026 event."],
+            ["Korean International Circuit", "South Korea", "2010–2013", "4 World Championship Korean GPs.", "No current F1 round."],
+            ["Buddh International Circuit", "India", "2011–2013", "3 World Championship Indian GPs.", "No current F1 round."],
+            ["Sebring International Raceway", "United States", "1959", "1 World Championship United States GP.", "One-off F1 championship event; Sebring returned to endurance racing prominence."],
+            ["Riverside International Raceway", "United States", "1960", "1 World Championship United States GP.", "One-off F1 championship venue."],
+            ["Watkins Glen International", "United States", "1961–1980", "20 World Championship United States Grands Prix.", "F1 left after 1980; venue remains active for other racing."],
+            ["Phoenix Street Circuit", "United States", "1989–1991", "3 World Championship United States Grands Prix.", "Removed after 1991."],
+            ["Long Beach street circuit", "United States", "1976–1983", "8 World Championship United States Grands Prix.", "F1 left after 1983; Long Beach continues as a major motorsport event venue."],
+            ["Detroit street circuit", "United States", "1982–1988", "7 World Championship Detroit Grands Prix.", "F1 left after 1988."],
+            ["Dallas Fair Park street circuit", "United States", "1984", "1 World Championship Dallas GP.", "One-off event after extreme heat and track-surface problems."]
+          ]
+        },
+        {
+          "id": "04-02",
+          "type": "history",
+          "title": "Historic circuit detail records",
+          "circuits": [
+            {"id": "imola", "name": "Autodromo Enzo e Dino Ferrari", "country": "Italy", "city": "Imola", "yearsActive": "1963–2025", "status": "historic", "championshipEvents": "27 championship San Marino GPs through 2006; five later Emilia-Romagna GPs (2020, 2021, 2022, 2024, 2025), 32 total derived from F1 year records", "statusNote": "F1 stopped after 2025 under the calendar arrangement; venue remains an active race facility.", "historicalSignificance": "First non-championship F1 race 1963; first Italian GP 1980; San Marino GP 1981–2006; modern return as Emilia-Romagna GP 2020.", "layoutEvolution": "Major safety and runoff changes followed the 1994 weekend; current circuit differs substantially from pre-1994 character.", "currentStatus": "Current circuit remains in use for motorsport."},
+            {"id": "hockenheim", "name": "Hockenheimring", "country": "Germany", "city": "Hockenheim", "yearsActive": "1970–2019", "status": "historic", "championshipEvents": "35 World Championship Grands Prix, derived from official listed championship years (1970; 1977–1984; 1986–2006; 2008; 2010; 2012; 2019)", "statusNote": "F1 has not raced at Hockenheim since 2019.", "historicalSignificance": "Famous for the very fast forest straights before the 2002 redesign.", "layoutEvolution": "The old 6.8 km layout was replaced by a roughly 4.5 km layout for 2002, reducing the forest section; modernization was driven by safety and economic considerations.", "currentStatus": "Current circuit operates without F1."},
+            {"id": "nurburgring", "name": "Nürburgring", "country": "Germany", "city": "Nürburg", "yearsActive": "1984–2020", "status": "historic", "championshipEvents": "World Championship races used the modern GP circuit from 1984/1985 and 1995–2013, plus the 2020 Eifel GP; aggregate historical counts vary by definition.", "statusNote": "No current F1 round.", "historicalSignificance": "The old Nordschleife opened in 1927; the modern GP circuit opened in 1984.", "layoutEvolution": "F1 moved away from the Nordschleife after 1976 and subsequently used the shorter GP facility.", "currentStatus": "Current venue remains active."},
+            {"id": "fuji", "name": "Fuji Speedway", "country": "Japan", "city": "Oyama", "yearsActive": "1976–2008", "status": "historic", "championshipEvents": "4 World Championship Grands Prix: 1976, 1977, 2007, 2008", "statusNote": "Returned off the F1 calendar after 2008.", "historicalSignificance": "Hosted the first two Japanese World Championship Grands Prix before F1 moved to Suzuka, then returned in 2007–08.", "layoutEvolution": "The circuit underwent major redesign before its F1 return in 2007.", "currentStatus": "Modern Fuji remains an active race circuit."},
+            {"id": "kyalami", "name": "Kyalami Grand Prix Circuit", "country": "South Africa", "city": "Midrand", "yearsActive": "1967–1993", "status": "historic", "championshipEvents": "20 World Championship rounds, according to Kyalami's official history (1967–1985, 1992–1993).", "statusNote": "No current F1 round.", "historicalSignificance": "Central to the South African GP's F1 history; the original layout was much longer than today's.", "layoutEvolution": "Major shortening and modernization transformed the original high-speed road-course character.", "currentStatus": "Current venue is FIA Grade 2."},
+            {"id": "istanbul", "name": "Istanbul Park", "country": "Turkey", "city": "Istanbul", "yearsActive": "2005–2021", "status": "historic", "championshipEvents": "9 World Championship Grands Prix through 2021.", "statusNote": "Not on 2026 calendar; announced to return from 2027 under a new agreement.", "historicalSignificance": "Opened for F1 in 2005; famous for Turn 8's long, multi-apex left-hander.", "layoutEvolution": "Layout has retained its distinctive elevation and multi-apex corner geometry.", "currentStatus": "Confirmed as an F1 venue again from 2027."},
+            {"id": "adelaide", "name": "Adelaide Street Circuit", "country": "Australia", "city": "Adelaide", "yearsActive": "1985–1995", "status": "historic", "championshipEvents": "11 Australian Grands Prix at Adelaide.", "statusNote": "Replaced by Melbourne from 1996.", "historicalSignificance": "Hosted season finales and several championship-defining races; 1994 and 1995 finales were especially significant.", "layoutEvolution": "The street layout was used as a public-road course through the city.", "currentStatus": "Circuit legacy survives through motorsport events."},
+            {"id": "jerez", "name": "Circuito de Jerez", "country": "Spain", "city": "Jerez de la Frontera", "yearsActive": "1986–1997", "status": "historic", "championshipEvents": "6 World Championship events: five Spanish GPs (1986–1990) and the 1997 European GP.", "statusNote": "No current F1 round.", "historicalSignificance": "The 1997 European GP is remembered for the Villeneuve–Schumacher title clash and a controversial Benetton/Ferrari Williams-related finish order.", "layoutEvolution": "Later F1-style test facility use remained important after racing ceased.", "currentStatus": "Current circuit is active."},
+            {"id": "magny_cours", "name": "Circuit de Nevers Magny-Cours", "country": "France", "city": "Magny-Cours", "yearsActive": "1991–2008", "status": "historic", "championshipEvents": "18 French Grands Prix.", "statusNote": "No current F1 round after the 2008 French GP at Magny-Cours.", "historicalSignificance": "Schumacher won eight French GPs at Magny-Cours.", "layoutEvolution": "Long straights and tight hairpin complexes shaped a setup-sensitive lap.", "currentStatus": "Current venue remains an active race facility."},
+            {"id": "paul_ricard", "name": "Circuit Paul Ricard", "country": "France", "city": "Le Castellet", "yearsActive": "1971–2022 with gaps", "status": "historic", "championshipEvents": "Hosted multiple World Championship French GPs across different eras and configurations; exact total is not stated here because layout/event definitions vary.", "statusNote": "No 2026 F1 round.", "historicalSignificance": "Known for the 1.8 km Mistral Straight and extensive runoff used in modern safety development.", "layoutEvolution": "The venue offers 167 potential configurations according to F1's historical material.", "currentStatus": "Current circuit remains active."},
+            {"id": "sochi", "name": "Sochi Autodrom", "country": "Russia", "city": "Sochi", "yearsActive": "2014–2021", "status": "historic", "championshipEvents": "8 World Championship Russian GPs, 2014–2021.", "statusNote": "Removed from the F1 calendar; no 2026 event.", "historicalSignificance": "Built within the Sochi Olympic Park footprint and designed by Hermann Tilke.", "layoutEvolution": "Uses roads around Olympic infrastructure and has a distinctive street-like permanent-event character.", "currentStatus": "Venue remains a motorsport/event site; F1 status inactive."},
+            {"id": "yeongam", "name": "Korean International Circuit", "country": "South Korea", "city": "Yeongam", "yearsActive": "2010–2013", "status": "historic", "championshipEvents": "4 World Championship Korean GPs.", "statusNote": "No current F1 round.", "historicalSignificance": "The circuit hosted the Korean GP for four seasons from the country's F1 debut.", "layoutEvolution": "The purpose-built facility combined a permanent section with a planned waterfront street section.", "currentStatus": "F1 activity ended after 2013."},
+            {"id": "buddh", "name": "Buddh International Circuit", "country": "India", "city": "Greater Noida", "yearsActive": "2011–2013", "status": "historic", "championshipEvents": "3 World Championship Indian GPs.", "statusNote": "No current F1 round.", "historicalSignificance": "Introduced F1 to India in 2011; Sebastian Vettel won the first event.", "layoutEvolution": "High-speed layout with significant elevation differences and a long back straight.", "currentStatus": "Current site hosts other motorsport/activity but not F1."},
+            {"id": "sebring", "name": "Sebring International Raceway", "country": "United States", "city": "Sebring, Florida", "yearsActive": "1959", "status": "historic", "championshipEvents": "1 World Championship United States GP.", "statusNote": "One-off F1 championship event; Sebring returned to endurance racing prominence.", "historicalSignificance": "The 1959 race was the first US round of the F1 World Championship held at Sebring.", "layoutEvolution": "The venue is primarily an endurance racing circuit and retains a mixed-surface heritage.", "currentStatus": "Current active circuit."},
+            {"id": "riverside", "name": "Riverside International Raceway", "country": "United States", "city": "Riverside, California", "yearsActive": "1960", "status": "historic", "championshipEvents": "1 World Championship United States GP.", "statusNote": "One-off F1 championship venue.", "historicalSignificance": "Hosted the 1960 United States GP.", "layoutEvolution": "The circuit had a distinctive fast, flowing road-course character.", "currentStatus": "Facility no longer exists in its original form."},
+            {"id": "watkins_glen", "name": "Watkins Glen International", "country": "United States", "city": "Watkins Glen, New York", "yearsActive": "1961–1980", "status": "historic", "championshipEvents": "20 World Championship United States Grands Prix.", "statusNote": "F1 left after 1980; venue remains active for other racing.", "historicalSignificance": "Was a long-running home of the US GP and a classic autumn F1 venue.", "layoutEvolution": "The circuit evolved from the original road-course concept to a safer permanent layout.", "currentStatus": "Current circuit remains active."},
+            {"id": "phoenix", "name": "Phoenix Street Circuit", "country": "United States", "city": "Phoenix, Arizona", "yearsActive": "1989–1991", "status": "historic", "championshipEvents": "3 World Championship United States Grands Prix.", "statusNote": "Removed after 1991.", "historicalSignificance": "F1 raced at Phoenix's temporary street course during a hot, demanding era of US calendar expansion.", "layoutEvolution": "Narrow urban roads and extreme heat made tyre management important.", "currentStatus": "No current F1 venue."},
+            {"id": "long_beach", "name": "Long Beach street circuit", "country": "United States", "city": "Long Beach, California", "yearsActive": "1976–1983", "status": "historic", "championshipEvents": "8 World Championship United States Grands Prix.", "statusNote": "F1 left after 1983; Long Beach continues as a major motorsport event venue.", "historicalSignificance": "The original US street-race success demonstrated that F1 could operate within an urban event framework.", "layoutEvolution": "Layout and surrounding roads changed over time; current IndyCar configuration is distinct from the historic F1 course.", "currentStatus": "Modern Long Beach remains an active street circuit for other series."},
+            {"id": "detroit", "name": "Detroit street circuit", "country": "United States", "city": "Detroit, Michigan", "yearsActive": "1982–1988", "status": "historic", "championshipEvents": "7 World Championship Detroit Grands Prix.", "statusNote": "F1 left after 1988.", "historicalSignificance": "One of the roughest, most technical urban circuits of its period, with little margin around concrete-lined streets.", "layoutEvolution": "The route was modified during its F1 years as organizers addressed racing and infrastructure issues.", "currentStatus": "No current F1 event."},
+            {"id": "dallas", "name": "Dallas Fair Park street circuit", "country": "United States", "city": "Dallas, Texas", "yearsActive": "1984", "status": "historic", "championshipEvents": "1 World Championship Dallas GP.", "statusNote": "One-off event after extreme heat and track-surface problems.", "historicalSignificance": "The 1984 race was held in severe heat and famously suffered from deteriorating pavement.", "layoutEvolution": "Temporary urban layout around Fair Park.", "currentStatus": "No current F1 event."}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "05",
+      "title": "CIRCUIT TIMELINE",
+      "slides": [
+        {
+          "id": "05-01",
+          "type": "timeline",
+          "title": "World Championship circuit evolution",
+          "events": [
+            {"year": 1950, "event": "Formula 1 World Championship begins; Silverstone hosts the inaugural race."},
+            {"year": 1958, "event": "The World Championship expands its European and African venue footprint."},
+            {"year": 1967, "event": "Kyalami enters the championship."},
+            {"year": 1976, "event": "Fuji hosts Japan's first World Championship race."},
+            {"year": 1981, "event": "Caesars Palace begins the short-lived Las Vegas chapter."},
+            {"year": 1986, "event": "Hungaroring becomes the first Eastern Bloc-era venue to host a championship Grand Prix."},
+            {"year": 1996, "event": "Melbourne replaces Adelaide."},
+            {"year": 2004, "event": "Shanghai becomes a new-generation purpose-built venue."},
+            {"year": 2008, "event": "Singapore introduces the first F1 night race."},
+            {"year": 2012, "event": "COTA returns F1 to a purpose-built US venue."},
+            {"year": 2023, "event": "Current Las Vegas Strip circuit debuts."},
+            {"year": 2026, "event": "Madrid debuts and Sepang hosts the relocated Bahrain Grand Prix."}
+          ]
+        },
+        {"id": "05-02", "type": "timeline", "title": "Calendar expansion and contraction", "events": [{"period": "1990s", "event": "Established European venues coexist with new Asian venues and short-lived street events."}, {"period": "2000s", "event": "China, Bahrain and Turkey expand the calendar while several classic venues disappear."}, {"period": "2010s", "event": "Russia, Azerbaijan and other new venues arrive; selected historic circuits return temporarily."}, {"period": "2020s", "event": "The calendar grows in scale while new street venues, contract changes and returning venues reshape the geography."}]},
+        {"id": "05-03", "type": "history", "title": "Why a venue's history needs event context", "content": ["A circuit can have a long history without every event being a Formula 1 World Championship race. This database separates first use, non-championship F1 events, World Championship events and later returns.", "The same site can also have several configurations, so statistics should be tied to the relevant layout and event definition."]}
+      ]
+    },
+    {
+      "id": "06",
+      "title": "STREET CIRCUITS",
+      "slides": [
+        {"id": "06-01", "type": "text", "title": "What makes a street circuit", "content": ["Street circuits use public roads, semi-public roads or temporarily configured urban roads. Fixed buildings, drainage, utility covers, limited runoff and existing kerbs constrain circuit geometry.", "Temporary construction must also integrate barriers, fencing, pit infrastructure, marshal posts and emergency access into an urban environment."]},
+        {"id": "06-02", "type": "comparison", "title": "Street versus permanent", "columns": ["Attribute", "Street", "Permanent"], "rows": [["Runoff", "Often constrained", "Can be purpose-designed"], ["Walls", "Often close to racing line", "Runoff can provide separation"], ["Infrastructure", "Mostly event-installed", "Mostly fixed"], ["Surface", "Road-derived or event-prepared", "Purpose-built racing surface"], ["Examples", "Monaco, Singapore, Baku, Las Vegas", "Suzuka, Silverstone, Monza"]]},
+        {"id": "06-03", "type": "classification", "title": "Street-circuit priorities", "items": ["Barrier placement", "Temporary fencing", "Road-joint and drainage management", "Surface preparation", "Pit entry/exit integration", "Emergency access", "Marshal sight lines"], "sourceUrls": ["https://www.fia.com/regulation/category/663"]}
+      ]
+    },
+    {
+      "id": "07",
+      "title": "PERMANENT CIRCUITS",
+      "slides": [
+        {"id": "07-01", "type": "text", "title": "Permanent-circuit engineering", "content": ["Permanent venues integrate fixed runoff, barriers, timing loops, medical facilities, service roads, race control, garages and spectator systems.", "They can support several layouts or racing categories without rebuilding the entire venue."]},
+        {"id": "07-02", "type": "comparison", "title": "Examples of design flexibility", "rows": [["Paul Ricard", "Extensive runoff and many possible configurations"], ["Nürburgring", "Multiple identities within the broader venue, including the modern GP circuit and Nordschleife"], ["Monza", "Grand Prix road course beside surviving historic banking"], ["Sepang", "Wide purpose-built track with long straights and large-radius corners"]], "sourceUrls": ["https://www.formula1.com/en/latest/article/france-preview-the-stats-and-info-you-need-to-know.1eKv05EB5oyI2wCMMy4qCw", "https://www.formula1.com/en/latest/article/nurburgring-all-you-need-to-know-about-the-german-circuit.2TAWIELS2BSX3KhWmSBCAc"]}
+      ]
+    },
+    {"id": "08", "title": "HIGH-SPEED CIRCUITS", "slides": [{"id": "08-01", "type": "classification", "title": "High-speed classification", "criteria": ["High average speed", "Long periods at high throttle", "High aerodynamic sensitivity", "High-energy braking", "Low-drag importance", "Fast direction changes"], "examples": ["Monza", "Spa-Francorchamps", "Silverstone", "Suzuka", "Las Vegas"]}, {"id": "08-02", "type": "comparison", "title": "Representative demand profiles", "columns": ["Circuit", "Primary demand", "Example area"], "rows": [["Monza", "Low drag and extreme braking", "Main straight and chicanes"], ["Spa", "Speed plus elevation", "Eau Rouge-Raidillon and Blanchimont"], ["Silverstone", "High-speed cornering", "Copse and Maggots-Becketts"], ["Suzuka", "High-speed precision", "S Curves and 130R"], ["Las Vegas", "Low-drag speed plus braking", "Strip straight and heavy stops"]]}]},
+    {"id": "09", "title": "TECHNICAL CIRCUITS", "slides": [{"id": "09-01", "type": "classification", "title": "Technical classification", "criteria": ["Linked corners", "Low/medium-speed rotation", "Traction-limited exits", "Frequent direction changes", "Kerb sensitivity", "Limited straight-line recovery"], "examples": ["Monaco", "Hungaroring", "Singapore", "Baku old-city section"]}, {"id": "09-02", "type": "text", "title": "Setup consequences", "content": ["Technical circuits reward mechanical balance, traction and precise rotation. Errors in a linked corner sequence can compound into the following corner or straight.", "At wall-lined venues such as Monaco and Singapore, small errors can become race-ending incidents because recovery space is limited."]}]},
+    {
+      "id": "10",
+      "title": "TRACK SURFACE",
+      "slides": [
+        {"id": "10-01", "type": "text", "title": "Asphalt, aggregate and grip", "content": ["Grip depends on aggregate properties, binder, surface texture, tyre rubber, temperature and wear. Roughness can raise mechanical grip but also increase tyre energy and degradation.", "Resurfacing can significantly change track behaviour because new asphalt may be smoother, more or less abrasive, less rubbered-in and differently porous."]},
+        {"id": "10-02", "type": "timeline", "title": "Surface evolution through a weekend", "events": [{"phase": "Initial running", "effect": "Little rubber on the racing line; grip may be lower."}, {"phase": "Practice", "effect": "Repeated running cleans and rubbers-in the line."}, {"phase": "Qualifying", "effect": "Grip can approach a local weekend peak, depending on temperature and support-category activity."}, {"phase": "Race", "effect": "Rubber, tyre pickup, weather and traffic continue changing grip."}, {"phase": "Wet", "effect": "Water film changes friction, drainage and the usable racing line; standing water can become a hydroplaning risk."}]}
+      ]
+    },
+    {
+      "id": "11",
+      "title": "CIRCUIT WEATHER",
+      "slides": [
+        {"id": "11-01", "type": "comparison", "title": "Weather effects", "columns": ["Factor", "Circuit/race effect"], "rows": [["Air temperature", "Changes cooling needs and ambient operating conditions"], ["Track temperature", "Strong influence on tyre warm-up, grip and degradation"], ["Rain", "Reduces grip and changes line/tyre choice"], ["Wind", "Changes aerodynamic balance and braking/corner-entry confidence"], ["Humidity", "Affects thermal load and drying rate"], ["Altitude", "Reduces air density, altering cooling, drag and downforce"]]},
+        {"id": "11-02", "type": "geography", "title": "Weather-sensitive venues", "regions": [["Singapore", "Hot and humid night race"], ["Sepang", "Tropical heat and heavy-rain potential"], ["Spa", "Weather can vary rapidly across the circuit"], ["Mexico City", "High altitude creates unusual air-density effects"], ["Qatar", "Thermal load remains important even under night-race scheduling"]]}
+      ]
+    },
+    {"id": "12", "title": "CIRCUIT ENGINEERING", "slides": [{"id": "12-01", "type": "specification", "title": "Geometric engineering", "items": ["Track width", "Corner radius", "Gradient", "Banking", "Camber", "Kerb profile", "Drainage fall", "Surface texture"]}, {"id": "12-02", "type": "specification", "title": "Race-control infrastructure", "items": ["Pit lane", "Pit entry", "Pit exit", "Timing loops", "Start-light system", "Marshal posts", "Race control", "Service roads"]}, {"id": "12-03", "type": "specification", "title": "Emergency infrastructure", "items": ["Medical centre", "Ambulance and rescue access", "Extraction routes", "Fire response", "Specialist medical arrangements where required", "Debris fencing and controlled access gates"], "sourceUrls": ["https://www.fia.com/regulation/category/663", "https://www.fia.com/regulations/sporting/fia-homologation"]}]},
+    {
+      "id": "13",
+      "title": "SAFETY",
+      "slides": [
+        {"id": "13-01", "type": "text", "title": "FIA homologation and layered safety", "content": ["Circuit safety is a layered system. Homologation evaluates the relationship between track geometry, barriers, runoff, fencing, marshal coverage, medical systems and emergency access.", "The exact device mix is venue- and regulation-specific; this database does not assert the presence of a specific barrier system unless a cited source verifies it."], "sourceUrls": ["https://www.fia.com/regulation/category/663", "https://www.fia.com/regulations/sporting/fia-homologation"]},
+        {"id": "13-02", "type": "classification", "title": "Barrier and runoff concepts", "items": ["Energy-absorbing barrier systems", "Guardrails and concrete barriers where appropriate", "Tyre barriers or other approved systems where appropriate", "TecPro-type systems only where venue documentation verifies use", "Gravel traps", "Asphalt runoff", "Debris fencing", "Barrier gaps and marshal access"]},
+        {"id": "13-03", "type": "text", "title": "Medical, extraction and marshal operations", "content": ["Incident response depends on rapid recognition, trained marshals, signalling and communications. Rescue crews require practical access routes and extraction capability; serious incidents can require specialist medical response and controlled scene management.", "Safety performance therefore depends on the whole circuit operation, not only the visible barrier or runoff."], "sourceUrls": ["https://www.fia.com/regulation/category/663"]}
+      ]
+    },
+    {
+      "id": "14",
+      "title": "CIRCUIT PERFORMANCE CHARACTERISTICS",
+      "slides": [
+        {"id": "14-01", "type": "classification", "title": "Performance axes", "axes": ["Braking demand", "Traction demand", "Cornering demand", "Downforce requirement", "Straight-line speed", "Tyre energy", "Track evolution", "Overtaking opportunity", "Safety-car sensitivity", "Pit-lane time loss"]},
+        {"id": "14-02", "type": "comparison", "title": "Representative profiles", "columns": ["Circuit", "Braking", "Traction", "Downforce", "Overtaking", "Key characteristic"], "rows": [["Monza", "Very high", "Medium", "Low/medium", "High potential", "Low-drag and heavy-braking"], ["Monaco", "Medium", "High", "High", "Low", "Walls and low-speed traction"], ["Spa", "High", "Medium", "Medium", "High", "Long lap and elevation"], ["Hungaroring", "Medium", "High", "High", "Historically difficult", "Linked technical sequence"], ["Singapore", "Medium/high", "High", "High", "Medium", "Long, physical street lap"], ["Baku", "Very high", "Medium", "Low/medium", "High", "Long straight plus slow old city"], ["Suzuka", "High", "Medium", "High", "Medium", "High-speed precision"]]},
+        {"id": "14-03", "type": "text", "title": "DRS, safety-car and pit-lane effects", "content": ["DRS can influence overtaking on designated straight sections, but the number and location of DRS zones are event-specific and can change.", "Safety-car sensitivity is influenced by walls, runoff, incident density and recovery difficulty. Pit-lane time loss depends on pit-entry geometry, pit-lane speed, entry/exit location and the number of laps affected by a stop."]}
+      ]
+    },
+    {
+      "id": "15",
+      "title": "CIRCUIT STATISTICS",
+      "slides": [
+        {
+          "id": "15-01",
+          "type": "glossary",
+          "title": "Statistic definitions",
+          "definitions": {"championshipRacesHosted": "Number of Formula 1 World Championship Grands Prix held at the specified venue/configuration.", "driverWins": "World Championship race victories by a driver at that circuit; a circuit itself does not 'win' races.", "constructorWins": "World Championship race victories attributed to a constructor/team at that circuit.", "poles": "World Championship qualifying pole positions at the circuit.", "podiums": "World Championship top-three finishes by a driver at the circuit.", "fastestLaps": "World Championship official fastest race laps at the circuit.", "officialRaceLapRecord": "Fastest officially recognised race lap for the relevant configuration; distinct from qualifying, practice and testing.", "attendance": "Published spectator count for a specified event/weekend, using the source's counting method."}
+        },
+        {
+          "id": "15-02",
+          "type": "statistics",
+          "title": "Selected verified venue records",
+          "records": [
+            {"circuit": "Silverstone", "statistic": "driverWins", "leader": "Lewis Hamilton", "value": 9, "sourceUrl": "https://www.statsf1.com/en/circuit-silverstone/stats-victoire.aspx", "definition": "World Championship race wins at Silverstone."},
+            {"circuit": "Silverstone", "statistic": "constructorWins", "leader": "Ferrari", "value": 16, "sourceUrl": "https://www.statsf1.com/en/circuit-silverstone/stats-victoire.aspx", "definition": "World Championship race wins credited to Ferrari at Silverstone."},
+            {"circuit": "Silverstone", "statistic": "fastestLaps", "leaders": ["Nigel Mansell", "Lewis Hamilton"], "value": 6, "sourceUrl": "https://www.statsf1.com/en/circuit-silverstone/stats-meilleur-tour.aspx", "definition": "Official World Championship fastest race laps at Silverstone; 6 each."},
+            {"circuit": "Spa-Francorchamps", "statistic": "driverWins", "leader": "Michael Schumacher", "value": 6, "sourceUrl": "https://www.statsf1.com/en/circuit-spa-francorchamps/stats-victoire.aspx", "definition": "World Championship race wins at Spa-Francorchamps."},
+            {"circuit": "Spa-Francorchamps", "statistic": "fastestLaps", "leader": "Alain Prost", "value": 6, "sourceUrl": "https://www.statsf1.com/en/circuit-spa-francorchamps/stats-meilleur-tour.aspx", "definition": "Official World Championship fastest race laps at Spa-Francorchamps."},
+            {"circuit": "Imola", "statistic": "poles", "leader": "Ayrton Senna", "value": 8, "sourceUrl": "https://www.statsf1.com/en/circuit-imola/stats-pole.aspx", "definition": "World Championship qualifying poles at Imola."},
+            {"circuit": "Imola", "statistic": "podiums", "leader": "Michael Schumacher", "value": 12, "sourceUrl": "https://www.statsf1.com/en/circuit-imola/stats-podium.aspx", "definition": "World Championship top-three finishes at Imola."},
+            {"circuit": "Imola", "statistic": "fastestLaps", "leader": "Michael Schumacher", "value": 5, "sourceUrl": "https://www.statsf1.com/en/circuit-imola/stats-meilleur-tour.aspx", "definition": "Official World Championship fastest race laps at Imola."}
+          ]
+        },
+        {"id": "15-03", "type": "statistics", "title": "Additional verified context", "records": [{"circuit": "Melbourne / Albert Park", "statistic": "2026EventCountContext", "value": "The 2026 Australian Grand Prix was the 29th Formula 1 race at Melbourne and the 40th Australian GP overall.", "sourceUrl": "https://www.formula1.com/en/racing/2026/australia"}, {"circuit": "Hungaroring", "statistic": "singleVenueWinBenchmark", "value": "Lewis Hamilton's eight Hungarian GP wins equal Michael Schumacher's record of eight French GP wins at Magny-Cours for a single venue.", "sourceUrl": "https://www.formula1.com/en/racing/2026/hungary"}, {"circuit": "Circuit of The Americas", "statistic": "elevationDifference", "value": "Published elevation difference is approximately 30.9 m.", "sourceUrl": "https://www.formula1.com/en/racing/2026/united-states"}]},
+        {"id": "15-04", "type": "text", "title": "Record-quality rules", "content": ["A record must be tied to a source, configuration and statistic definition. Qualifying and race laps must never be merged; old and new layouts must not be treated as one timing environment without a clear scope.", "Historical event counts derived from inclusive year sequences are labelled derived rather than presented as independently published statistics."]}
+      ]
+    },
+    {
+      "id": "16",
+      "title": "LAYOUT EVOLUTION",
+      "slides": [
+        {"id": "16-01", "type": "history", "title": "Hockenheim transformation", "circuit": "Hockenheimring", "changes": [{"year": 2002, "change": "The old approximately 6.8 km forest layout was replaced by a roughly 4.5 km layout.", "reason": "Modernisation, safety and economic considerations.", "effect": "Much of the ultra-fast forest-section character was removed and the lap became shorter and more compact."}], "sourceUrl": "https://www.formula1.com/en/latest/article/reinterpreting-a-classic-how-hockenheim-was-transformed.6kX5rdmSkR2pi70k0EOnMi"},
+        {"id": "16-02", "type": "history", "title": "Singapore 2023 revision", "circuit": "Marina Bay Street Circuit", "changes": [{"year": 2023, "change": "Layout reduced from 23 to 19 corners.", "reason": "Circuit redesign and event development.", "effect": "A faster, more open section replaced the previous sequence."}], "sourceUrl": "https://www.formula1.com/en/racing/2026/singapore"},
+        {"id": "16-03", "type": "history", "title": "Abu Dhabi 2021 revision", "circuit": "Yas Marina Circuit", "changes": [{"year": 2021, "change": "Several slow corners were removed or reprofiled.", "reason": "Improve flow and racing.", "effect": "Faster and more flowing lap with altered braking and overtaking characteristics."}], "sourceUrl": "https://www.formula1.com/en/racing/2026/united-arab-emirates"}
+      ]
+    },
+    {
+      "id": "17",
+      "title": "FAMOUS CORNERS AND SECTIONS",
+      "slides": [
+        {"id": "17-01", "type": "table", "title": "Classic high-speed corners", "columns": ["Corner/section", "Circuit", "Characteristics", "Why it matters"], "rows": [["130R", "Suzuka", "Fast left-hander", "High-speed commitment and precision"], ["Eau Rouge–Raidillon", "Spa", "Steep, fast uphill sequence", "Combines gradient and direction change"], ["Copse", "Silverstone", "Very fast corner", "High lateral load and precision"], ["Maggots–Becketts", "Silverstone", "Linked fast direction changes", "Aerodynamic balance test"]]},
+        {"id": "17-02", "type": "table", "title": "Classic braking and traction points", "columns": ["Corner/section", "Circuit", "Characteristics", "Why it matters"], "rows": [["Turn 1", "Baku", "Heavy braking after a long straight", "Major overtaking point"], ["Turn 3", "Austria", "Heavy stop after uphill approach", "Strong braking/overtaking test"], ["Senna S", "Interlagos", "Undulating opening complex", "Braking stability and traction"], ["Turn 1", "Mexico City", "Heavy stop after main straight", "Key overtaking point"], ["Nouvelle Chicane", "Monaco", "Tight street-course braking", "Precision with limited recovery space"]]},
+        {"id": "17-03", "type": "table", "title": "Signature sections", "columns": ["Section", "Circuit", "Educational feature"], "rows": [["La Monumental / Turn 12", "Madring", "Long banked section; F1 material describes about 24% banking and roughly half-kilometre extent"], ["Wall of Champions", "Montreal", "Concrete barrier at the exit area associated with repeated driver incidents"], ["Parabolica / Alboreto", "Monza", "Long final corner feeding the main straight"], ["Tarzan", "Zandvoort", "Slow corner and important overtaking reference"]]},
+        {"id": "17-04", "type": "text", "title": "Corner-learning framework", "content": ["Study every corner through approach speed, braking point, turn-in, apex, minimum speed, exit kerb, traction demand and downstream consequence.", "A corner is strategically important not only because of its speed but because its exit can set up the next braking zone or straight."]}
+      ]
+    },
+    {
+      "id": "18",
+      "title": "CIRCUIT COMPARISON",
+      "slides": [
+        {
+          "id": "18-01",
+          "type": "comparison",
+          "title": "2026 current-circuit classification matrix",
+          "columns": ["Circuit", "Street", "High-speed", "Technical", "Braking", "Traction", "Elevation"],
+          "rows": [["Monaco", "Yes", "Medium", "Very high", "Medium", "High", "Medium"], ["Monza", "No", "Very high", "Medium", "Very high", "Medium", "Low"], ["Spa", "No", "Very high", "High", "High", "Medium", "Very high"], ["Silverstone", "No", "Very high", "High", "High", "Medium", "Low/medium"], ["Suzuka", "No", "High", "Very high", "High", "Medium", "Medium"], ["Hungaroring", "No", "Medium", "Very high", "Medium", "High", "Medium"], ["Singapore", "Yes", "Medium", "Very high", "High", "High", "Low/medium"], ["Baku", "Yes", "Very high", "High", "Very high", "Medium", "Low/medium"], ["Las Vegas", "Yes", "Very high", "Medium", "Very high", "Medium", "Low"], ["Mexico City", "No", "High", "Medium", "High", "Medium", "Very high"], ["COTA", "No", "High", "High", "High", "Medium", "High"]]
+        },
+        {"id": "18-02", "type": "classification", "title": "Classification methodology", "content": ["These labels are educational classifications, not official FIA circuit grades. They summarise physical geometry and typical vehicle-performance demands described by circuit/F1 material.", "A venue can belong to multiple categories simultaneously."]}
+      ]
+    },
+    {
+      "id": "19",
+      "title": "GLOBAL GEOGRAPHY",
+      "slides": [
+        {"id": "19-01", "type": "geography", "title": "Current 2026 geography", "regions": {"Europe": ["Monaco", "Spain / Barcelona-Catalunya", "Spain / Madrid / Madring", "Austria", "Great Britain", "Belgium", "Hungary", "Netherlands", "Italy"], "Asia": ["China", "Japan", "Azerbaijan", "Singapore", "Malaysia / Sepang host for Bahrain GP", "Qatar", "United Arab Emirates"], "Americas": ["Miami", "Canada", "United States / COTA", "Mexico", "Brazil", "Las Vegas"], "Oceania": ["Australia"], "Africa": ["No current 2026 World Championship venue"]}},
+        {"id": "19-02", "type": "geography", "title": "Historical venue reach", "regions": {"Europe": ["Imola", "Hockenheim", "Nürburgring", "Jerez", "Magny-Cours", "Paul Ricard"], "Asia": ["Fuji", "Istanbul Park", "Korean International Circuit", "Buddh International Circuit"], "Africa": ["Kyalami"], "Americas": ["Sebring", "Riverside", "Watkins Glen", "Phoenix", "Long Beach", "Detroit", "Dallas"], "Oceania": ["Adelaide"]}}
+      ]
+    },
+    {
+      "id": "20",
+      "title": "CIRCUIT GLOSSARY",
+      "slides": [
+        {"id": "20-01", "type": "glossary", "title": "Core track terms", "terms": [["Apex", "Point or area near the inside of a corner targeted by the racing line."], ["Camber", "Cross-slope of the track surface."], ["Banking", "Lateral incline deliberately built into a corner."], ["Kerb", "Structured edge feature defining the usable track surface."], ["Runoff", "Area outside the racing surface providing additional recovery/deceleration space."], ["Racing line", "Path chosen to optimise lap time under the current conditions."], ["Braking zone", "Track segment in which speed is reduced for a corner."], ["Sector", "Timed subdivision used to report lap performance."]]},
+        {"id": "20-02", "type": "glossary", "title": "Race-operation terms", "terms": [["Pit lane", "Controlled lane for pit stops and team operations."], ["Pit entry", "Transition from the racing circuit into the pit lane."], ["Pit exit", "Controlled merge from pit lane back to the circuit."], ["DRS zone", "Designated straight segment where DRS may be activated under the event rules."], ["Marshal post", "Station for track officials to observe, signal and respond."], ["Homologation", "Formal approval/recognition process under applicable sporting and technical rules."], ["Debris fencing", "Protective fencing intended to help contain debris around the track."], ["Parc fermé", "Controlled period/area in which car changes are restricted by the sporting regulations."]]}
+      ]
+    },
+    {
+      "id": "21",
+      "title": "VERIFIED HISTORICAL FACTS",
+      "slides": [
+        {
+          "id": "21-01",
+          "type": "table",
+          "title": "Championship versus non-championship examples",
+          "columns": ["Venue", "Fact", "Classification"],
+          "rows": [["Imola", "First Formula 1 race at the venue was non-championship in 1963; first Italian GP there was 1980.", "Non-championship then World Championship"], ["Mexico City", "A 1962 Formula 1 event preceded the first World Championship Mexican GP in 1963.", "Non-championship then World Championship"], ["Spa", "A non-championship Belgian GP occurred at Spa in 1924; championship-era racing began there in 1950.", "Non-championship + World Championship"], ["Indianapolis", "The Indianapolis 500 counted toward the World Championship in 1950–1960, but was not a conventional Formula 1 Grand Prix field.", "Distinct World Championship event context"], ["Las Vegas", "Caesars Palace hosted World Championship races in 1981–1982; the current Strip circuit began in 2023.", "Distinct historic and current layouts"]],
+          "sourceUrls": ["https://www.formula1.com/en/latest/article/imola-all-you-need-to-know-about-the-returning-italian-circuit.6ZtC4Qfq4WKcUi3rgaDhD", "https://www.formula1.com/en/latest/article/miami-is-coming-but-where-else-has-f1-raced-in-the-usa.62oTelm2rpEueOVaYfQFNh", "https://www.formula1.com/en/racing/2026/las-vegas", "https://www.formula1.com/en/racing/2026/mexico", "https://www.formula1.com/en/racing/2026/belgium"]
+        },
+        {"id": "21-02", "type": "timeline", "title": "Major venue transitions", "events": [{"year": 1950, "event": "Silverstone hosts the inaugural World Championship race."}, {"year": 1967, "event": "Kyalami enters the championship."}, {"year": 1976, "event": "Fuji hosts Japan's first championship race."}, {"year": 1986, "event": "Hungaroring hosts Hungary's first championship race."}, {"year": 1996, "event": "Melbourne replaces Adelaide."}, {"year": 2004, "event": "Shanghai debuts."}, {"year": 2008, "event": "Singapore begins the night-race era."}, {"year": 2012, "event": "COTA debuts in the United States."}, {"year": 2023, "event": "Current Las Vegas Strip circuit debuts."}, {"year": 2026, "event": "Madrid debuts; Sepang hosts the relocated Bahrain GP."}]},
+        {
+          "id": "21-03",
+          "type": "text",
+          "title": "2026 verification snapshot",
+          "content": ["The official live 2026 F1 calendar visible on September 13, 2026 lists 23 scheduled rounds. Bahrain and Saudi Arabia were removed from their original April slots; Bahrain's event was preserved at Sepang as the Bahrain Grand Prix in Malaysia on October 2–4, while Saudi Arabia has no 2026 replacement in the live calendar.", "Madrid's event is scheduled for September 11–13, 2026. This database intentionally leaves Madring race-result fields blank until an official result is available in the referenced calendar/race source."],
+          "sourceUrls": ["https://www.formula1.com/en/racing/2026", "https://www.formula1.com/en/latest/article/bahrain-and-saudi-arabian-grands-prix-will-not-take-place-in-april.1hnqllVG85RSt8pbBzczmL", "https://www.formula1.com/en/latest/article/formula-1-and-fia-confirm-formula-1-and-fia-confirm-malaysia-will-join-2026-calendar-as-host-venue-for-the-bahrain-grand-prix.6lL7vjFEM2VVynRHvg1TCf"]
+        }
+      ]
+    }
+  ]
+}

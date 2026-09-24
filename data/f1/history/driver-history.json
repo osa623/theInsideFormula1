@@ -1,0 +1,152 @@
+{
+  "antonelli": {
+    "timeline": [
+      { "year": "2021", "event": "CIK-FIA European OK Karting Champion" },
+      { "year": "2022", "event": "Italian F4 & ADAC F4 Champion (Prema)" },
+      { "year": "2023", "event": "Formula Regional European Champion (FRECA)" },
+      { "year": "2024", "event": "FIA Formula 2 Championship (Prema Racing)" },
+      { "year": "2025", "event": "Mercedes-AMG F1 Reserve & TPC Program" },
+      { "year": "2026", "event": "Mercedes-AMG F1 Race Driver — Championship Leader" }
+    ],
+    "raceResults2026": [
+      { "round": "R01", "name": "BHR", "pos": "P02", "pts": 18, "fl": false, "pole": false },
+      { "round": "R02", "name": "SAU", "pos": "P01", "pts": 25, "fl": false, "pole": true },
+      { "round": "R03", "name": "AUS", "pos": "P01", "pts": 25, "fl": false, "pole": true },
+      { "round": "R04", "name": "JPN", "pos": "P02", "pts": 18, "fl": true, "pole": false },
+      { "round": "R05", "name": "CHN", "pos": "P01", "pts": 25, "fl": false, "pole": true },
+      { "round": "R06", "name": "MIA", "pos": "P01", "pts": 25, "fl": true, "pole": false },
+      { "round": "R07", "name": "EMI", "pos": "P02", "pts": 18, "fl": false, "pole": false },
+      { "round": "R08", "name": "MON", "pos": "P01", "pts": 25, "fl": false, "pole": true },
+      { "round": "R09", "name": "CAN", "pos": "P03", "pts": 15, "fl": false, "pole": false },
+      { "round": "R10", "name": "ESP", "pos": "P05", "pts": 10, "fl": false, "pole": false },
+      { "round": "R11", "name": "AUT", "pos": "P03", "pts": 15, "fl": false, "pole": false },
+      { "round": "R12", "name": "GBR", "pos": "P02", "pts": 18, "fl": true, "pole": false },
+      { "round": "R13", "name": "HUN", "pos": "P07", "pts": 5, "fl": false, "pole": false },
+      { "round": "R14", "name": "ITA", "pos": "P01", "pts": 25, "fl": true, "pole": true }
+    ]
+  },
+  "russell": {
+    "timeline": [
+      { "year": "2017", "event": "GP3 Series Champion (ART Grand Prix)" },
+      { "year": "2018", "event": "FIA Formula 2 Champion (ART Grand Prix)" },
+      { "year": "2019-2021", "event": "Williams Racing F1 Driver" },
+      { "year": "2022-2025", "event": "Mercedes-AMG F1 Driver (3 Grand Prix Wins)" },
+      { "year": "2026", "event": "Mercedes-AMG F1 Lead Driver — P02 Championship" }
+    ],
+    "raceResults2026": [
+      { "round": "R01", "name": "BHR", "pos": "P01", "pts": 25, "fl": false, "pole": true },
+      { "round": "R02", "name": "SAU", "pos": "P03", "pts": 15, "fl": false, "pole": false },
+      { "round": "R03", "name": "AUS", "pos": "P03", "pts": 15, "fl": false, "pole": false },
+      { "round": "R04", "name": "JPN", "pos": "P03", "pts": 15, "fl": false, "pole": false },
+      { "round": "R05", "name": "CHN", "pos": "P03", "pts": 15, "fl": false, "pole": false },
+      { "round": "R06", "name": "MIA", "pos": "P03", "pts": 15, "fl": false, "pole": false },
+      { "round": "R07", "name": "EMI", "pos": "P03", "pts": 15, "fl": false, "pole": false },
+      { "round": "R08", "name": "MON", "pos": "P03", "pts": 15, "fl": false, "pole": false },
+      { "round": "R09", "name": "CAN", "pos": "P03", "pts": 15, "fl": false, "pole": false },
+      { "round": "R10", "name": "ESP", "pos": "P03", "pts": 15, "fl": false, "pole": false },
+      { "round": "R11", "name": "AUT", "pos": "P03", "pts": 15, "fl": false, "pole": false },
+      { "round": "R12", "name": "GBR", "pos": "P06", "pts": 8, "fl": false, "pole": false },
+      { "round": "R13", "name": "HUN", "pos": "P01", "pts": 25, "fl": true, "pole": true },
+      { "round": "R14", "name": "ITA", "pos": "P02", "pts": 18, "fl": true, "pole": false }
+    ]
+  },
+  "hamilton": {
+    "timeline": [
+      { "year": "2007-2012", "event": "McLaren F1 (2008 World Champion)" },
+      { "year": "2013-2024", "event": "Mercedes-AMG F1 (6x World Champion, 84 Wins)" },
+      { "year": "2025", "event": "Historic Transfer to Scuderia Ferrari" },
+      { "year": "2026", "event": "Scuderia Ferrari HP Driver — P03 Championship" }
+    ],
+    "raceResults2026": [
+      { "round": "R01", "name": "BHR", "pos": "P03", "pts": 15, "fl": false, "pole": false },
+      { "round": "R02", "name": "SAU", "pos": "P03", "pts": 15, "fl": false, "pole": false },
+      { "round": "R03", "name": "AUS", "pos": "P02", "pts": 18, "fl": false, "pole": false },
+      { "round": "R04", "name": "JPN", "pos": "P04", "pts": 12, "fl": false, "pole": false },
+      { "round": "R05", "name": "CHN", "pos": "P04", "pts": 12, "fl": false, "pole": false },
+      { "round": "R06", "name": "MIA", "pos": "P03", "pts": 15, "fl": false, "pole": false },
+      { "round": "R07", "name": "EMI", "pos": "P03", "pts": 15, "fl": false, "pole": false },
+      { "round": "R08", "name": "MON", "pos": "P03", "pts": 15, "fl": false, "pole": false },
+      { "round": "R09", "name": "CAN", "pos": "P02", "pts": 18, "fl": false, "pole": false },
+      { "round": "R10", "name": "ESP", "pos": "P04", "pts": 12, "fl": false, "pole": false },
+      { "round": "R11", "name": "AUT", "pos": "P03", "pts": 15, "fl": false, "pole": false },
+      { "round": "R12", "name": "GBR", "pos": "P04", "pts": 12, "fl": false, "pole": false },
+      { "round": "R13", "name": "HUN", "pos": "P04", "pts": 12, "fl": false, "pole": false },
+      { "round": "R14", "name": "ITA", "pos": "P07", "pts": 5, "fl": false, "pole": false }
+    ]
+  },
+  "leclerc": {
+    "timeline": [
+      { "year": "2016", "event": "GP3 Series Champion" },
+      { "year": "2017", "event": "FIA Formula 2 Champion" },
+      { "year": "2018", "event": "Sauber F1 Team Debut" },
+      { "year": "2019-2025", "event": "Scuderia Ferrari (8 Grand Prix Wins, 26 Poles)" },
+      { "year": "2026", "event": "Scuderia Ferrari HP Driver — P04 Championship" }
+    ],
+    "raceResults2026": [
+      { "round": "R01", "name": "BHR", "pos": "P04", "pts": 12, "fl": false, "pole": false },
+      { "round": "R02", "name": "SAU", "pos": "P04", "pts": 12, "fl": false, "pole": false },
+      { "round": "R03", "name": "AUS", "pos": "P04", "pts": 15, "fl": false, "pole": false },
+      { "round": "R04", "name": "JPN", "pos": "P03", "pts": 15, "fl": false, "pole": false },
+      { "round": "R05", "name": "CHN", "pos": "P03", "pts": 15, "fl": false, "pole": false },
+      { "round": "R06", "name": "MIA", "pos": "P04", "pts": 12, "fl": false, "pole": false },
+      { "round": "R07", "name": "EMI", "pos": "P03", "pts": 15, "fl": false, "pole": false },
+      { "round": "R08", "name": "MON", "pos": "P03", "pts": 15, "fl": false, "pole": false },
+      { "round": "R09", "name": "CAN", "pos": "P03", "pts": 15, "fl": false, "pole": false },
+      { "round": "R10", "name": "ESP", "pos": "P03", "pts": 12, "fl": false, "pole": false },
+      { "round": "R11", "name": "AUT", "pos": "P04", "pts": 12, "fl": false, "pole": false },
+      { "round": "R12", "name": "GBR", "pos": "P04", "pts": 12, "fl": false, "pole": false },
+      { "round": "R13", "name": "HUN", "pos": "DNF", "pts": 0, "fl": false, "pole": false },
+      { "round": "R14", "name": "ITA", "pos": "P03", "pts": 15, "fl": false, "pole": false }
+    ]
+  },
+  "verstappen": {
+    "timeline": [
+      { "year": "2015", "event": "Scuderia Toro Rosso F1 Debut (Youngest Starter)" },
+      { "year": "2016-2020", "event": "Red Bull Racing (Youngest Grand Prix Winner)" },
+      { "year": "2021-2024", "event": "4x Consecutive FIA Formula 1 World Champion" },
+      { "year": "2025", "event": "Red Bull Racing (63 Career Wins)" },
+      { "year": "2026", "event": "Oracle Red Bull Racing Driver — Reg. Cycle Transition" }
+    ],
+    "raceResults2026": [
+      { "round": "R01", "name": "BHR", "pos": "P06", "pts": 8, "fl": false, "pole": false },
+      { "round": "R02", "name": "SAU", "pos": "P05", "pts": 10, "fl": false, "pole": false },
+      { "round": "R03", "name": "AUS", "pos": "P05", "pts": 10, "fl": false, "pole": false },
+      { "round": "R04", "name": "JPN", "pos": "P05", "pts": 10, "fl": false, "pole": false },
+      { "round": "R05", "name": "CHN", "pos": "P05", "pts": 10, "fl": false, "pole": false },
+      { "round": "R06", "name": "MIA", "pos": "P05", "pts": 10, "fl": false, "pole": false },
+      { "round": "R07", "name": "EMI", "pos": "P05", "pts": 10, "fl": false, "pole": false },
+      { "round": "R08", "name": "MON", "pos": "P05", "pts": 10, "fl": false, "pole": false },
+      { "round": "R09", "name": "CAN", "pos": "P05", "pts": 10, "fl": false, "pole": false },
+      { "round": "R10", "name": "ESP", "pos": "P05", "pts": 10, "fl": false, "pole": false },
+      { "round": "R11", "name": "AUT", "pos": "DNF", "pts": 0, "fl": false, "pole": false },
+      { "round": "R12", "name": "GBR", "pos": "P05", "pts": 10, "fl": false, "pole": false },
+      { "round": "R13", "name": "HUN", "pos": "P05", "pts": 10, "fl": false, "pole": false },
+      { "round": "R14", "name": "ITA", "pos": "DNF", "pts": 0, "fl": false, "pole": false }
+    ]
+  },
+  "norris": {
+    "timeline": [
+      { "year": "2017", "event": "FIA Formula 3 European Champion (Carlin)" },
+      { "year": "2018", "event": "FIA Formula 2 Vice-Champion" },
+      { "year": "2019-2023", "event": "McLaren F1 Team Race Driver" },
+      { "year": "2024-2025", "event": "McLaren F1 Grand Prix Winner (5 Career Wins)" },
+      { "year": "2026", "event": "McLaren F1 Lead Driver — P05 Championship" }
+    ],
+    "raceResults2026": [
+      { "round": "R01", "name": "BHR", "pos": "P05", "pts": 10, "fl": false, "pole": false },
+      { "round": "R02", "name": "SAU", "pos": "P04", "pts": 12, "fl": false, "pole": false },
+      { "round": "R03", "name": "AUS", "pos": "P04", "pts": 12, "fl": false, "pole": false },
+      { "round": "R04", "name": "JPN", "pos": "P04", "pts": 12, "fl": false, "pole": false },
+      { "round": "R05", "name": "CHN", "pos": "P04", "pts": 12, "fl": false, "pole": false },
+      { "round": "R06", "name": "MIA", "pos": "P04", "pts": 12, "fl": false, "pole": false },
+      { "round": "R07", "name": "EMI", "pos": "P04", "pts": 12, "fl": false, "pole": false },
+      { "round": "R08", "name": "MON", "pos": "P04", "pts": 12, "fl": false, "pole": false },
+      { "round": "R09", "name": "CAN", "pos": "P04", "pts": 12, "fl": false, "pole": false },
+      { "round": "R10", "name": "ESP", "pos": "P04", "pts": 12, "fl": false, "pole": false },
+      { "round": "R11", "name": "AUT", "pos": "P04", "pts": 12, "fl": false, "pole": false },
+      { "round": "R12", "name": "GBR", "pos": "P03", "pts": 15, "fl": true, "pole": true },
+      { "round": "R13", "name": "HUN", "pos": "P04", "pts": 12, "fl": false, "pole": false },
+      { "round": "R14", "name": "ITA", "pos": "P05", "pts": 10, "fl": false, "pole": false }
+    ]
+  }
+}

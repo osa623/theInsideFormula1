@@ -1,0 +1,254 @@
+@import 'tailwindcss' source(none);
+@source '../app';
+@source '../components';
+@source '../lib';
+@source '../hooks';
+@source '../data';
+@import 'tw-animate-css';
+@import 'shadcn/tailwind.css';
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --color-foreground: var(--foreground);
+  --color-background: var(--background);
+  --color-speed: var(--speed);
+  --color-neon: var(--neon);
+  --color-silver: var(--silver);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --font-sans: var(--font-archivo), system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), monospace;
+}
+
+:root {
+  color-scheme: dark;
+  /* Deep racing black system */
+  --background: oklch(0.13 0.005 270);
+  --foreground: oklch(0.97 0.002 100);
+  --card: oklch(0.17 0.006 270);
+  --card-foreground: oklch(0.97 0.002 100);
+  --popover: oklch(0.17 0.006 270);
+  --popover-foreground: oklch(0.97 0.002 100);
+  /* Formula One red */
+  --primary: oklch(0.58 0.235 28);
+  --primary-foreground: oklch(0.98 0.002 100);
+  --secondary: oklch(0.22 0.006 270);
+  --secondary-foreground: oklch(0.97 0.002 100);
+  --muted: oklch(0.22 0.006 270);
+  --muted-foreground: oklch(0.62 0.008 270);
+  --accent: oklch(0.22 0.006 270);
+  --accent-foreground: oklch(0.97 0.002 100);
+  --destructive: oklch(0.58 0.235 28);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 12%);
+  --ring: oklch(0.58 0.235 28);
+  --radius: 0.25rem;
+  /* Electric orange */
+  --speed: oklch(0.72 0.19 45);
+  /* Neon blue */
+  --neon: oklch(0.75 0.14 230);
+  /* Silver metallic */
+  --silver: oklch(0.8 0.01 270);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-background text-foreground;
+    overflow-x: hidden;
+  }
+  ::selection {
+    background: var(--primary);
+    color: var(--primary-foreground);
+  }
+}
+
+/* ------- Film grain noise overlay ------- */
+.noise-overlay {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 256px 256px;
+}
+
+/* ------- Carbon fiber texture ------- */
+.carbon {
+  background-color: oklch(0.15 0.005 270);
+  background-image:
+    linear-gradient(27deg, oklch(0.19 0.005 270) 5px, transparent 5px),
+    linear-gradient(207deg, oklch(0.19 0.005 270) 5px, transparent 5px),
+    linear-gradient(27deg, oklch(0.11 0.005 270) 5px, transparent 5px),
+    linear-gradient(207deg, oklch(0.11 0.005 270) 5px, transparent 5px);
+  background-size: 10px 10px;
+  background-position:
+    0 0,
+    5px 5px,
+    5px 0,
+    0 5px;
+}
+
+/* ------- Glowing text ------- */
+.glow-red {
+  text-shadow:
+    0 0 24px oklch(0.58 0.235 28 / 60%),
+    0 0 80px oklch(0.58 0.235 28 / 30%);
+}
+
+/* ------- Light sweep on hover ------- */
+.light-sweep {
+  position: relative;
+  overflow: hidden;
+}
+.light-sweep::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, transparent 40%, oklch(1 0 0 / 12%) 50%, transparent 60%);
+  transform: translateX(-120%);
+  transition: transform 0.9s cubic-bezier(0.19, 1, 0.22, 1);
+  pointer-events: none;
+}
+.light-sweep:hover::after {
+  transform: translateX(120%);
+}
+
+/* ------- Speed lines ------- */
+@keyframes speedline {
+  0% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(200vw);
+    opacity: 0;
+  }
+}
+.speedline {
+  animation: speedline linear infinite;
+}
+
+/* ------- Ambient gradient drift ------- */
+@keyframes drift {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(6%, -4%) scale(1.08);
+  }
+  66% {
+    transform: translate(-5%, 5%) scale(0.95);
+  }
+}
+.drift {
+  animation: drift 18s ease-in-out infinite;
+}
+
+/* ------- Slow float ------- */
+@keyframes floaty {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-14px);
+  }
+}
+.floaty {
+  animation: floaty 6s ease-in-out infinite;
+}
+
+/* ------- Marquee ------- */
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+.marquee {
+  animation: marquee 22s linear infinite;
+}
+
+/* ------- Image breathe ------- */
+@keyframes breathe {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.04);
+  }
+}
+.breathe {
+  animation: breathe 10s ease-in-out infinite;
+}
+
+/* ------- Pulse glow border ------- */
+@keyframes pulse-glow {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 oklch(0.58 0.235 28 / 0%);
+  }
+  50% {
+    box-shadow: 0 0 32px 2px oklch(0.58 0.235 28 / 35%);
+  }
+}
+.pulse-glow {
+  animation: pulse-glow 3s ease-in-out infinite;
+}
+
+/* Hide default cursor on fine pointers when custom cursor is active */
+@media (pointer: fine) {
+  .custom-cursor-active,
+  .custom-cursor-active a,
+  .custom-cursor-active button {
+    cursor: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .speedline,
+  .drift,
+  .floaty,
+  .marquee,
+  .breathe,
+  .pulse-glow {
+    animation: none;
+  }
+}

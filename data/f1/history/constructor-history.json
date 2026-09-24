@@ -1,0 +1,40 @@
+{
+  "mercedes": {
+    "timeline": [
+      { "year": "1954-1955", "event": "Juan Manuel Fangio Dominance (W196)" },
+      { "year": "2010", "event": "Works Team Return with Michael Schumacher & Nico Rosberg" },
+      { "year": "2014-2021", "event": "Record 8 Consecutive Constructors World Championships" },
+      { "year": "2026", "event": "New Power Unit Era Championship Leader — P01" }
+    ],
+    "championshipYears": [2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]
+  },
+  "ferrari": {
+    "timeline": [
+      { "year": "1950", "event": "Only Team to Compete in Every Formula 1 World Championship Season" },
+      { "year": "1961-1979", "event": "Phil Hill, John Surtees, Niki Lauda & Jody Scheckter Titles" },
+      { "year": "1999-2004", "event": "Michael Schumacher Golden Era — 6 Consecutive Titles" },
+      { "year": "2007-2008", "event": "Kimi Räikkönen Drivers Title & 16th Constructors Championship" },
+      { "year": "2026", "event": "Leclerc & Hamilton All-Star Pairing — P02 Championship" }
+    ],
+    "championshipYears": [1961, 1964, 1975, 1976, 1977, 1979, 1982, 1983, 1999, 2000, 2001, 2002, 2003, 2004, 2007, 2008]
+  },
+  "mclaren": {
+    "timeline": [
+      { "year": "1966", "event": "Founded by Bruce McLaren in Monaco" },
+      { "year": "1974-1989", "event": "Fittipaldi, Hunt, Lauda, Prost & Ayrton Senna Legendary Eras" },
+      { "year": "1998-1999", "event": "Mika Häkkinen MP4/13 World Championships" },
+      { "year": "2008", "event": "Lewis Hamilton First Drivers World Championship" },
+      { "year": "2026", "event": "Lando Norris & Oscar Piastri Title Campaign — P03" }
+    ],
+    "championshipYears": [1974, 1984, 1985, 1988, 1989, 1990, 1991, 1998, 2024]
+  },
+  "redbull": {
+    "timeline": [
+      { "year": "2005", "event": "Red Bull Enters Formula 1 Acquiring Jaguar Racing" },
+      { "year": "2010-2013", "event": "Sebastian Vettel Era — 4 Consecutive Double World Championships" },
+      { "year": "2021-2023", "event": "Max Verstappen Era — RB19 Record 21 Wins in 22 Races" },
+      { "year": "2026", "event": "Oracle Red Bull Powertrains In-House Engine Program" }
+    ],
+    "championshipYears": [2010, 2011, 2012, 2013, 2022, 2023]
+  }
+}

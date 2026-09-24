@@ -1,0 +1,785 @@
+{
+  "screen": {
+    "id": "Extra_Screens_Tyre.1",
+    "name": "THE INSIDE FORMULA 1 — TYRE TECHNOLOGY",
+    "version": "1.0.0",
+    "autoplay": {
+      "enabled": true,
+      "loop": true,
+      "defaultDuration": 10000,
+      "recommendedTransition": "crossfade"
+    },
+    "sections": [
+      {
+        "id": "S01",
+        "title": "TYRE FUNDAMENTALS",
+        "slides": [
+          {
+            "id": "S01-01",
+            "type": "technical",
+            "title": "What a Formula 1 tyre does",
+            "duration": 12000,
+            "content": "A racing tyre converts vehicle load and wheel motion into forces at the track through a deforming contact patch. It contributes to braking, acceleration, cornering, steering response and ride/handling behaviour. Its state is governed by load, pressure, temperature, construction, compound, track and tyre age.",
+            "keyFacts": [
+              "Four tyres are the only direct contact between the car and the racing surface. Aerodynamic downforce increases the load carried by the tyres. Tyre behaviour changes continuously during a lap and stint."
+            ],
+            "sourceUrls": [
+              "https://www.formula1.com/en/latest/article/the-beginners-guide-to-f1-tyres.61SvF0Kfg29UR2SPhakDqd"
+            ]
+          },
+          {
+            "id": "S01-02",
+            "type": "technical",
+            "title": "Contact patch and grip",
+            "duration": 11000,
+            "content": "The contact patch is the instantaneous tyre-to-track contact area. Grip is the usable force the tyre can generate before further slip produces diminishing or unstable returns. Contact-patch shape and pressure distribution change with load, steering, braking, acceleration and temperature.",
+            "keyFacts": [
+              "More contact area does not automatically mean more grip; pressure distribution and rubber state matter. A tyre is intentionally compliant rather than rigid. Grip is a system property involving tyre, car and surface."
+            ],
+            "sourceUrls": [
+              "https://www.formula1.com/en/latest/article/the-beginners-guide-to-f1-tyres.61SvF0Kfg29UR2SPhakDqd"
+            ]
+          },
+          {
+            "id": "S01-03",
+            "type": "technical",
+            "title": "Slip, load and the operating window",
+            "duration": 13000,
+            "content": "Slip angle describes the difference between tyre heading and its direction of travel; longitudinal slip describes wheel/vehicle speed difference during acceleration or braking. Vertical load comes from vehicle weight and aerodynamic load, while tyre force also depends on temperature, pressure and surface condition. The operating window is the range in which the tyre provides the desired grip and stability without excessive degradation.",
+            "keyFacts": [
+              "Controlled slip is necessary to generate high tyre force. Aerodynamic load can increase tyre demand without increasing static mass. Operating windows are compound-, construction-, car- and circuit-dependent."
+            ],
+            "sourceUrls": [
+              "https://www.formula1.com/en/latest/article/f1-glossary-a-e.1MFONigMlQSbSQtpP7YCy2"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "S02",
+        "title": "TYRE ANATOMY",
+        "slides": [
+          {
+            "id": "S02-01",
+            "type": "specification",
+            "title": "Main anatomy",
+            "duration": 12000,
+            "content": "Tread is the track-facing rubber; the sidewall supports deformation; the carcass is the principal load-bearing body. Belts and other reinforcement layers control deformation and stiffness; the bead anchors the tyre to the rim. An inner liner is the gas-retaining layer in a typical tubeless tyre architecture.",
+            "keyFacts": [
+              "This is an educational architecture, not a confidential F1 construction drawing. Exact layer counts, materials and geometry vary by product and regulation. Structural and performance functions are deliberately separated."
+            ],
+            "sourceUrls": [
+              "https://www.pirelli.com/tyres/en-in/motorcycle/tech-and-knowledge"
+            ]
+          },
+          {
+            "id": "S02-02",
+            "type": "technical",
+            "title": "How the layers interact",
+            "duration": 12000,
+            "content": "The carcass and reinforcement package shape how the tyre accepts vertical, lateral and longitudinal loads. The rubber system supplies track-facing friction while the structure controls deformation and steering response. Changing pressure or wheel load changes the state of several layers at once.",
+            "keyFacts": [
+              "Tyre performance cannot be explained by tread compound alone. Construction stiffness affects response and temperature behaviour. The wheel, bead and inflation gas form part of the working assembly."
+            ],
+            "sourceUrls": [
+              "https://www.pirelli.com/tyres/en-in/motorcycle/tech-and-knowledge"
+            ]
+          },
+          {
+            "id": "S02-03",
+            "type": "technical",
+            "title": "Wheel interface and inflation gas",
+            "duration": 12000,
+            "content": "The 2026 FIA Technical Regulations state that tyres may be inflated only with air or nitrogen. The complete wheel has a single fixed internal gas volume and does not permit additional valves, bleed systems or permeable membranes except for stationary inflation/deflation as specified. TPMS is listed as a defined 2026 component, and tyre heating is separately controlled by regulation.",
+            "keyFacts": [
+              "Modern tyre governance covers the complete wheel, not just visible rubber. Inflation medium and pressure behaviour affect the tyre structure. These provisions are 2026-specific and must not be projected backward."
+            ],
+            "sourceUrls": [
+              "https://www.fia.com/system/files/documents/fia_2026_f1_regulations_-_section_c_technical_-_iss_16_-_2026-02-27.pdf"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "S03",
+        "title": "WHAT FORMULA RACING TYRES ARE MADE FROM",
+        "slides": [
+          {
+            "id": "S03-01",
+            "type": "technical",
+            "title": "Material families",
+            "duration": 12000,
+            "content": "Public tyre-industry documentation identifies natural and synthetic rubber systems, textile reinforcement, metallic reinforcement, carbon black, silica and other performance/process materials. Material choice balances elasticity, strength, heat response, durability and manufacturing behaviour. F1-specific ratios and recipes are not publicly disclosed in authoritative detail.",
+            "keyFacts": [
+              "Pirelli states FSC-certified natural rubber has been used in F1 tyres from 2024. Road-tyre material disclosures should not be transferred into an F1 recipe. Material family knowledge is not the same as compound formulation."
+            ],
+            "sourceUrls": [
+              "https://www.pirelli.com/tires/en-us/motorsport/car/formula-1"
+            ]
+          },
+          {
+            "id": "S03-02",
+            "type": "technical",
+            "title": "What a rubber compound is",
+            "duration": 12000,
+            "content": "A tyre compound is an engineered rubber formulation tuned for viscoelastic response, grip, warm-up, wear and temperature sensitivity. Fillers, polymers, processing ingredients and curing behaviour interact to produce the finished material properties. Soft, medium and hard labels describe relative performance intent within an event, not a public chemical formula.",
+            "keyFacts": [
+              "Compound and construction are separate engineering variables. The actual specification can change between seasons. Exact chemistry is commercially sensitive."
+            ],
+            "sourceUrls": [
+              "https://www.formula1.com/en/latest/article/the-beginners-guide-to-f1-tyres.61SvF0Kfg29UR2SPhakDqd"
+            ]
+          },
+          {
+            "id": "S03-03",
+            "type": "factCard",
+            "title": "Why exact recipes are excluded",
+            "duration": 10000,
+            "content": "The database does not invent polymer percentages, filler loading, cure packages or secret additives. Where an authoritative source supports a material family, the database names that family without pretending to know the supplier’s confidential recipe. This preserves educational value while avoiding unsupported technical claims.",
+            "keyFacts": [
+              "A road-product material percentage is not an F1 compound specification. Manufacturer intellectual property changes independently of public regulations. Unknown is preferable to fabricated precision."
+            ],
+            "sourceUrls": [
+              "https://www.pirelli.com/tires/en-us/motorsport/car/formula-1"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "S04",
+        "title": "TYRE MANUFACTURING",
+        "slides": [
+          {
+            "id": "S04-01",
+            "type": "process",
+            "title": "Compound and component preparation",
+            "duration": 14000,
+            "content": "Rubber compounds are prepared and processed into semi-finished materials; reinforcement materials are prepared and coated or otherwise incorporated into components. Public manufacturing education describes preparation of tyre components before final assembly. The exact F1 production temperatures, mixing times and machine settings are proprietary.",
+            "keyFacts": [
+              "Manufacturing combines chemistry, materials engineering and precision assembly. Reinforcement preparation occurs before final curing. Process conditions determine final material and dimensional properties."
+            ],
+            "sourceUrls": [
+              "https://www.pirelli.com/global/en-ww/road/bicycles/where-the-top-bicycle-tyres-are-born-127630/"
+            ]
+          },
+          {
+            "id": "S04-02",
+            "type": "process",
+            "title": "Calendering, extrusion and building",
+            "duration": 13000,
+            "content": "Calendering can create controlled rubber-coated reinforcement sheets or plies. Extrusion creates continuous rubber profiles used for selected components. Building assembles semi-finished components in the intended sequence to create the uncured or 'green' tyre.",
+            "keyFacts": [
+              "The green tyre already contains much of the final architecture before curing. Component geometry and order matter to the cured result. Public process descriptions do not disclose F1 supplier recipes."
+            ],
+            "sourceUrls": [
+              "https://www.pirelli.com/global/en-ww/road/bicycles/where-the-top-bicycle-tyres-are-born-127630/"
+            ]
+          },
+          {
+            "id": "S04-03",
+            "type": "process",
+            "title": "Curing, inspection and race identification",
+            "duration": 14000,
+            "content": "Molding and curing/vulcanization use controlled heat, pressure and time to transform the assembled green tyre into the finished component. Post-cure inspection checks conformity and quality before tyres enter event logistics. FIA technical lists include approved suppliers for tyre barcodes and RFID tags used for identification and traceability.",
+            "keyFacts": [
+              "Vulcanization changes the rubber system into its final cured state. Traceability is part of regulated tyre use. A race tyre is both a manufactured product and a controlled sporting component."
+            ],
+            "sourceUrls": [
+              "https://www.pirelli.com/global/en-ww/road/bicycles/where-the-top-bicycle-tyres-are-born-127630/"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "S05",
+        "title": "TYRE HISTORY",
+        "slides": [
+          {
+            "id": "S05-01",
+            "type": "era",
+            "title": "1950s Grand Prix tyres",
+            "duration": 13000,
+            "content": "At the inaugural 1950 World Championship race at Silverstone, Pirelli supplied tyres to cars including Alfa Romeo and Maserati. Pirelli’s official history records its first F1 participation in the 1950s and departure from the championship after 1957. Early Grand Prix tyres belonged to an era of narrower cars, different suspension, lower aerodynamic loads and different racing surfaces.",
+            "keyFacts": [
+              "1950 is the correct anchor for the modern World Championship history. Historical tyre performance cannot be compared directly with modern C1–C5 compounds. Supplier participation changed over time."
+            ],
+            "sourceUrls": [
+              "https://press.pirelli.com/there-at-the-start-75-years-ago-pirelli-hits-the-500-grands-prix-mark/"
+            ]
+          },
+          {
+            "id": "S05-03",
+            "type": "timeline",
+            "title": "2009–2026: slicks, Pirelli and 18 inches",
+            "duration": 14000,
+            "content": "Slick tyres returned in 2009 as part of a major technical reset. Pirelli began the current exclusive-supplier era in 2011. The 18-inch wheel/tyre package arrived in 2022 after an extensive test programme; in 2026 Pirelli retained 18-inch rims while revising compound range and dimensions for the new car generation.",
+            "keyFacts": [
+              "2022 marked a construction and behaviour change, not only a wheel-size change. The 2026 range is C1 through C5, with three dry compounds selected per event. Pirelli is contracted as exclusive supplier through 2028."
+            ],
+            "sourceUrls": [
+              "https://www.formula1.com/en/latest/article/the-key-regulation-changes-in-f1-history-and-the-teams-that-nailed-them.2iq8c5E6S1HOffT5PBLl6i"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "S06",
+        "title": "ALL MAJOR TYRE VARIATIONS",
+        "slides": [
+          {
+            "id": "S06-01",
+            "type": "comparison",
+            "title": "Slick versus intermediate versus full wet",
+            "duration": 12000,
+            "content": "Slicks have no water grooves and are intended for dry track conditions. Intermediates combine a grooved tread with a compromise between dry performance and water evacuation. Full wets have deeper grooves and are designed to move substantially more water when the track is heavily wet.",
+            "keyFacts": [
+              "For 2026, the dry range is C1–C5 plus intermediate and full-wet tyres. Pirelli retained the intermediate and full-wet tread patterns from 2025 into 2026. The crossover point depends on water depth, rainfall, temperature and track evolution."
+            ],
+            "sourceUrls": [
+              "https://press.pirelli.com/pirelli-reveals-2026-f1-tyres-a-fresh-logo-design-and-new-compounds/"
+            ]
+          },
+          {
+            "id": "S06-02",
+            "type": "specification",
+            "title": "C1–C5 dry compound system",
+            "duration": 12000,
+            "content": "In 2026, C1 is the hardest dry compound and C5 the softest. A Grand Prix receives three nominated slick compounds from the five-compound family. For that event, the highest-numbered nominated compound is called soft, the middle one medium and the lowest one hard; the physical C-number does not change.",
+            "keyFacts": [
+              "Colour follows the event nomination: red soft, yellow medium, white hard. The same C-number can therefore appear as a different event label at another Grand Prix. This naming system is specific to the relevant season."
+            ],
+            "sourceUrls": [
+              "https://press.pirelli.com/pirelli-reveals-2026-f1-tyres-a-fresh-logo-design-and-new-compounds/"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "S07",
+        "title": "COMPOUND TECHNOLOGY",
+        "slides": [
+          {
+            "id": "S07-01",
+            "type": "comparison",
+            "title": "Soft, medium and hard",
+            "duration": 12000,
+            "content": "A softer specification generally aims for higher peak grip and faster performance over a shorter useful life. A harder specification generally trades some peak grip for durability and resistance to long high-energy running. Medium sits between the two, but actual race behaviour depends on construction, weather, track and car setup.",
+            "keyFacts": [
+              "Soft does not always mean fastest over a full stint. Compound ranking is an event-specific hierarchy within the nominated trio. Actual specifications can change from season to season."
+            ],
+            "sourceUrls": [
+              "https://www.formula1.com/en/latest/article/the-beginners-guide-to-f1-tyres.61SvF0Kfg29UR2SPhakDqd"
+            ]
+          },
+          {
+            "id": "S07-03",
+            "type": "technical",
+            "title": "Graining, blistering, cooling and degradation",
+            "duration": 13000,
+            "content": "Graining is a surface disturbance in which rubber can tear, move and accumulate when tyre conditions are unfavourable; Formula1.com links it to a comparatively cool carcass and hotter surface in its explanation. Blistering is associated with excessive carcass heat relative to the surface and can produce visible damage. Cooling can recover the tyre from an excessive thermal state, but severe thermal or mechanical degradation may be irreversible.",
+            "keyFacts": [
+              "Graining and blistering are not synonyms. Mechanical wear and thermal degradation can coexist. A 2026 Austrian GP report documented high thermal degradation without reported graining or blistering."
+            ],
+            "sourceUrls": [
+              "https://www.formula1.com/en/latest/article/the-beginners-guide-to-f1-tyres.61SvF0Kfg29UR2SPhakDqd"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "S08",
+        "title": "TYRE ALLOCATION",
+        "slides": [
+          {
+            "id": "S08-01",
+            "type": "table",
+            "title": "2026 maximum set provisions",
+            "duration": 13000,
+            "content": "The cited 2026 FIA Sporting Regulations specify maximum sets that may be used: standard weekend 13 dry, 5 intermediate and 2 wet; alternative allocation 12 dry, 5 intermediate and 2 wet; standard weekend with an Individual Car Tyre Test arrangement 12 dry, 5 intermediate and 2 wet. These are regulation limits and must be read with return, reservation and session rules. Later 2026 amendments must be checked in the FIA repository before treating any number as permanently current.",
+            "keyFacts": [
+              "Monaco has special wet-tyre provisions. Event inventory descriptions can differ from legal maximums because tyres may be reserved or returned. Do not use a historical 13-set rule as a universal modern rule."
+            ],
+            "sourceUrls": [
+              "https://www.fia.com/regulation/category/2182"
+            ]
+          },
+          {
+            "id": "S08-02",
+            "type": "process",
+            "title": "Returns, reservations and use",
+            "duration": 13000,
+            "content": "The 2026 Sporting Regulations prescribe return points during practice and reserve specific tyres for qualifying or the race. A tyre is counted as used according to the FIA definition, including when the timing transponder or race start condition triggers the rule. Intermediate and full-wet use is constrained by weather declarations and specific sporting provisions.",
+            "keyFacts": [
+              "Return rules are part of allocation management. Qualifying and race-reserved sets reduce the apparent freedom of the total pool. Sprint and standard events require different planning."
+            ],
+            "sourceUrls": [
+              "https://www.fia.com/regulation/category/2182"
+            ]
+          },
+          {
+            "id": "S08-03",
+            "type": "factCard",
+            "title": "2026 event example: Monza",
+            "duration": 11000,
+            "content": "At the 2026 Italian Grand Prix, the nominated slicks were C3, C4 and C5. Formula1.com described the event allocation example as two hard, three medium and eight soft dry sets, with an additional qualifying-reserved soft set concept under the sporting framework. This is an event example, not a universal allocation for every Grand Prix.",
+            "keyFacts": [
+              "Monza therefore represented a relatively soft 2026 nomination: C3 hard, C4 medium, C5 soft. The legal allocation must still be interpreted through the FIA Sporting Regulations. Event previews are useful for understanding what the rule looks like in practice."
+            ],
+            "sourceUrls": [
+              "https://www.formula1.com/en/latest/article/what-tyres-will-the-teams-and-drivers-have-for-the-2026-italian-grand-prix.7nOpWdCgvCBFDGlnODs0gk"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "S09",
+        "title": "HOW TEAMS OBTAIN TYRES",
+        "slides": [
+          {
+            "id": "S09-01",
+            "type": "process",
+            "title": "From supplier to allocated driver",
+            "duration": 12000,
+            "content": "The supplier manufactures and controls the tyres, transports them to the event and supports trackside operation. The FIA sporting system controls which registered tyres are available to each driver. Teams then fit and manage their allocated tyres under the event rules.",
+            "keyFacts": [
+              "Pirelli is the exclusive Formula 1 supplier through 2028. Supply and sporting allocation are separate control layers. Tyres are managed at driver/set level rather than as an uncontrolled team-wide pile."
+            ],
+            "sourceUrls": [
+              "https://corp.formula1.com/formula-1-and-fia-announce-extension-of-pirellis-global-tyre-partnership-through-2028/"
+            ]
+          },
+          {
+            "id": "S09-03",
+            "type": "process",
+            "title": "Trackside team roles",
+            "duration": 12000,
+            "content": "Tyre-supplier personnel provide tyres, technical support and condition guidance at the event. Team tyre technicians handle mounting, balancing and storage operations within the team’s controlled workflow. Race engineers interpret tyre behaviour against lap time, setup, traffic, weather and strategy while the FIA defines legality.",
+            "keyFacts": [
+              "Supplier and team responsibilities are different. Trackside procedures can vary by operation while sporting rules remain binding. Pirelli describes the F1 programme as a technical laboratory for tyre and sustainability development."
+            ],
+            "sourceUrls": [
+              "https://www.pirelli.com/tires/en-us/motorsport/car/formula-1"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "S10",
+        "title": "TYRE PROCEDURES",
+        "slides": [
+          {
+            "id": "S10-01",
+            "type": "process",
+            "title": "Receive, inspect and register",
+            "duration": 11000,
+            "content": "Tyres arriving at a Grand Prix are identified and handled within the event allocation system. Teams inspect physical condition and prepare sets for fitting; registration and status tracking are important because sporting limits depend on individual tyre use. The exact workshop inspection checklist is not universally prescribed in public regulations.",
+            "keyFacts": [
+              "Tyre identification precedes strategic use. FIA rules control allocation; teams control much of the workshop workflow. Unknown workshop details should not be presented as mandatory FIA procedure."
+            ],
+            "sourceUrls": [
+              "https://www.fia.com/regulation/category/2182"
+            ]
+          },
+          {
+            "id": "S10-02",
+            "type": "process",
+            "title": "Mount, balance and set pressure",
+            "duration": 12000,
+            "content": "A team tyre crew mounts a tyre onto its assigned racing rim, balances the complete wheel and establishes the permitted inflation condition. Mounting and balancing affect vibration, steering response and repeatability. The 2026 technical rules constrain the inflation medium and the complete wheel’s internal gas architecture.",
+            "keyFacts": [
+              "The wheel assembly is the performance unit, not the tyre in isolation. Balancing is a team process; legal pressure and gas conditions are governed by regulation. The exact fitting equipment is team/supplier practice, not a single public FIA recipe."
+            ],
+            "sourceUrls": [
+              "https://www.fia.com/system/files/documents/fia_2026_f1_regulations_-_section_c_technical_-_iss_16_-_2026-02-27.pdf"
+            ]
+          },
+          {
+            "id": "S10-03",
+            "type": "technical",
+            "title": "Heating, warming and pit-stop readiness",
+            "duration": 13000,
+            "content": "The 2026 FIA Technical Regulations permit only FIA-compliant blankets as external tyre-heating devices. Blankets use resistive heating elements on the outer tyre surface, with up to three temperature-controllable zones per tyre; the heating system must log recent operations and permit FIA checks. On track, the tyre then develops its running state through braking, cornering, acceleration and ambient conditions.",
+            "keyFacts": [
+              "External tyre-heating methods are regulated, not freely chosen. Cooling provisions are also controlled. Heating rules differ by era, so current 2026 practice must not be projected backward."
+            ],
+            "sourceUrls": [
+              "https://www.fia.com/system/files/documents/fia_2026_f1_regulations_-_section_c_technical_-_iss_16_-_2026-02-27.pdf"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "S11",
+        "title": "TYRE STRATEGY",
+        "slides": [
+          {
+            "id": "S11-01",
+            "type": "comparison",
+            "title": "One-stop versus two-stop",
+            "duration": 13000,
+            "content": "One-stop strategies rely on maintaining competitive pace over longer stints and minimising pit-lane time. Two-stop strategies accept another pit stop to access fresher tyres more often and can reduce exposure to severe degradation. Multi-stop plans become attractive when tyre degradation, track position or neutralisations make fresher rubber especially valuable.",
+            "keyFacts": [
+              "There is no universal best strategy. Pit-lane time, traffic and safety-car probability matter as much as compound pace. The 2026 Austrian GP used both two- and three-stop approaches."
+            ],
+            "sourceUrls": [
+              "https://www.formula1.com/en/latest/article/what-the-teams-said-race-day-in-austria-2026.2c6WyTl6yjshJSwqRsYAK"
+            ]
+          },
+          {
+            "id": "S11-03",
+            "type": "technical",
+            "title": "Safety Car, VSC and weather",
+            "duration": 12000,
+            "content": "Safety Car periods reduce gaps and can make pit-stop losses relatively cheaper; VSC periods also change the effective time cost of a stop. Weather can force a switch between slick, intermediate and full-wet strategy, invalidating a planned dry-compound sequence. Track evolution and traffic can make a theoretical tyre advantage strategically worthless.",
+            "keyFacts": [
+              "Race strategy is a probability problem, not a single pre-race plan. Teams continuously update tyre age, pace, traffic and weather estimates. A neutralisation can create a strategic opportunity without changing the tyre’s physical properties."
+            ],
+            "sourceUrls": [
+              "https://www.formula1.com/en/latest/article/what-the-teams-said-race-day-in-austria-2026.2c6WyTl6yjshJSwqRsYAK"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "S12",
+        "title": "TYRE PERFORMANCE",
+        "slides": [
+          {
+            "id": "S12-01",
+            "type": "statistics",
+            "title": "Performance dimensions",
+            "duration": 11000,
+            "content": "Peak grip measures short-duration force potential; endurance describes retention over many laps. Warm-up describes how quickly useful tyre behaviour is reached; consistency describes repeatability across lap and tyre-age changes. Braking, traction, lateral grip, straight-line efficiency and temperature sensitivity can matter differently by circuit.",
+            "keyFacts": [
+              "A tyre with more peak grip can lose a race if degradation is severe. Performance is measured against the intended stint. The 'best' tyre depends on the task: qualifying, restart, attack or long run."
+            ],
+            "sourceUrls": [
+              "https://www.formula1.com/en/latest/article/the-beginners-guide-to-f1-tyres.61SvF0Kfg29UR2SPhakDqd"
+            ]
+          },
+          {
+            "id": "S12-02",
+            "type": "technical",
+            "title": "Pressure sensitivity",
+            "duration": 12000,
+            "content": "Inflation pressure preloads the tyre structure and changes stiffness, contact behaviour and thermal response. Running pressure is not constant through a lap or stint because the tyre heats and the gas state changes. Formula1’s current tyre education treats pressure as part of the broader operating-window problem rather than an isolated grip control.",
+            "keyFacts": [
+              "Pressure affects contact patch and carcass behaviour together. Pressure sensitivity can change with load and temperature. FIA regulates the wheel/gas architecture while teams optimise within permitted conditions."
+            ],
+            "sourceUrls": [
+              "https://www.fia.com/system/files/documents/fia_2026_f1_regulations_-_section_c_technical_-_iss_16_-_2026-02-27.pdf"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "S13",
+        "title": "TYRE DATA AND ENGINEERING",
+        "slides": [
+          {
+            "id": "S13-01",
+            "type": "technical",
+            "title": "Tyre data channels",
+            "duration": 12000,
+            "content": "Teams and the regulated supplier ecosystem work with tyre pressure, temperature-related information, tyre age, wear observations and vehicle telemetry. Vehicle context includes speed, wheel speed, braking, steering, acceleration, aerodynamic state, fuel load, track temperature and weather. Some internal tyre variables are measured directly while others are estimated through models.",
+            "keyFacts": [
+              "TPMS is a defined 2026 component. No single sensor describes the whole tyre state. Correlation between tyre data and car behaviour is more valuable than a raw number alone."
+            ],
+            "sourceUrls": [
+              "https://www.fia.com/system/files/documents/fia_2026_f1_regulations_-_section_c_technical_-_iss_16_-_2026-02-27.pdf"
+            ]
+          },
+          {
+            "id": "S13-02",
+            "type": "process",
+            "title": "Measurement to engineering decision",
+            "duration": 13000,
+            "content": "Measurements are synchronised with vehicle telemetry, compared against expected operating windows and used to identify warm-up, degradation or damage. Engineers combine physical observations with simulation to estimate stint performance and alternative strategy outcomes. The final decision integrates tyre state with overtaking position, traffic, weather and pit-stop timing.",
+            "keyFacts": [
+              "Tyre models are predictive tools, not guarantees. A model must survive changing fuel load and track conditions. Real running validates simulation assumptions."
+            ],
+            "sourceUrls": [
+              "https://www.formula1.com/en/latest/article/in-numbers-the-staggering-stats-behind-the-development-of-the-all-new-2022.7nYGeDoQbapwvLn1QakUAb"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "S14",
+        "title": "TYRE FAILURE / DAMAGE",
+        "slides": [
+          {
+            "id": "S14-01",
+            "type": "comparison",
+            "title": "Puncture, cut, flat spot and wear",
+            "duration": 13000,
+            "content": "A puncture can create rapid pressure loss; cuts can damage tread or structure; a flat spot is created when a wheel locks and a local area is scrubbed. Excessive wear reduces useful rubber and can change handling; kerb or debris damage can create local structural problems. The same symptom can have multiple causes, so inspection and telemetry must be combined.",
+            "keyFacts": [
+              "Flat spots often appear as vibration because one region has different radius/wear. A puncture can quickly transform a stable tyre into an unsafe condition. Not all visible surface damage implies the same structural risk."
+            ],
+            "sourceUrls": [
+              "https://www.formula1.com/en/latest/article/the-beginners-guide-to-f1-tyres.61SvF0Kfg29UR2SPhakDqd"
+            ]
+          },
+          {
+            "id": "S14-02",
+            "type": "technical",
+            "title": "Overheating, graining and blistering",
+            "duration": 12000,
+            "content": "Excessive sliding and circuit energy can raise tyre temperature beyond the useful range. Graining involves an unfavourable surface/carcass thermal-mechanical relationship and can reduce grip; blistering is more severe thermal damage associated with rubber breakdown. Overheating can cause pace loss before visible physical damage appears.",
+            "keyFacts": [
+              "Graining and blistering are different mechanisms. Blistering indicates material damage rather than only temporary pace loss. Track temperature, setup and driving style influence thermal stress."
+            ],
+            "sourceUrls": [
+              "https://www.formula1.com/en/latest/article/the-beginners-guide-to-f1-tyres.61SvF0Kfg29UR2SPhakDqd"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "S15",
+        "title": "TYRES AND TRACK CHARACTERISTICS",
+        "slides": [
+          {
+            "id": "S15-01",
+            "type": "comparison",
+            "title": "Street, high-speed, high-downforce and abrasive",
+            "duration": 13000,
+            "content": "Street circuits combine low-speed traction, walls, frequent steering changes and often limited room for recovery after a slide. High-speed and high-downforce circuits create large sustained loads that can push the tyre’s thermal and structural limits. Abrasive surfaces tend to increase mechanical wear, while smooth surfaces can make warm-up and maintaining useful temperature more difficult.",
+            "keyFacts": [
+              "Circuit categories overlap; one track can be both high-speed and abrasive. Compound nomination is made for the circuit’s energy and climate, not by the circuit name alone. Tyre behaviour is a coupled car-and-track problem."
+            ],
+            "sourceUrls": [
+              "https://www.formula1.com/en/latest/article/the-beginners-guide-to-f1-tyres.61SvF0Kfg29UR2SPhakDqd"
+            ]
+          },
+          {
+            "id": "S15-02",
+            "type": "technical",
+            "title": "Cold, hot, green and resurfaced asphalt",
+            "duration": 13000,
+            "content": "A cold track can make warm-up more difficult; a hot track can raise thermal load and degradation. A 'green' circuit has less accumulated rubber and its grip state can change rapidly as running builds. A resurfaced circuit can change surface texture, grip, wear and tyre energy compared with the previous pavement.",
+            "keyFacts": [
+              "Track temperature is different from ambient air temperature and both can matter. Practice is used to measure the real surface response rather than rely only on historical data. The same compound can behave differently on different asphalt."
+            ],
+            "sourceUrls": [
+              "https://www.formula1.com/en/latest/article/the-beginners-guide-to-f1-tyres.61SvF0Kfg29UR2SPhakDqd"
+            ]
+          },
+          {
+            "id": "S15-03",
+            "type": "factCard",
+            "title": "2026 Austria: high thermal degradation",
+            "duration": 12000,
+            "content": "Formula1.com’s 2026 Austrian Grand Prix report described high track temperatures and significant thermal degradation. All three nominated compounds were strategically relevant, with both two-stop and three-stop approaches used. The same report said there was no graining or blistering in the race analysis, illustrating that high degradation does not automatically mean visible thermal damage.",
+            "keyFacts": [
+              "Tyre wear rate and thermal degradation are not identical. Circuit energy can make a harder tyre attractive even when a softer tyre is theoretically faster. A race-specific observation should not be generalized into a permanent circuit rule."
+            ],
+            "sourceUrls": [
+              "https://www.formula1.com/en/latest/article/what-the-teams-said-race-day-in-austria-2026.2c6WyTl6yjshJSwqRsYAK"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "S16",
+        "title": "TYRE SUPPLY HISTORY",
+        "slides": [
+          {
+            "id": "S16-01",
+            "type": "timeline",
+            "title": "Pirelli: 1950s to 2028",
+            "duration": 13000,
+            "content": "Pirelli supplied tyres at the inaugural 1950 World Championship race at Silverstone and left its first championship era after 1957. Pirelli returned in the 1980s and remained present into 1991; its historical account records a break in official presence during 1987–1988. Pirelli returned as the championship’s exclusive supplier in 2011, and the partnership was extended through 2028 in June 2026.",
+            "keyFacts": [
+              "Pirelli’s own history provides the clearest dates for its participation. Supplier eras must be read with the car, engine and regulation era. The current exclusive-supplier contract extends to 2028."
+            ],
+            "sourceUrls": [
+              "https://press.pirelli.com/there-at-the-start-75-years-ago-pirelli-hits-the-500-grands-prix-mark/"
+            ]
+          },
+          {
+            "id": "S16-02",
+            "type": "timeline",
+            "title": "Goodyear, Michelin and Bridgestone",
+            "duration": 13000,
+            "content": "Formula1.com documents Goodyear’s 1981 return to challenge Michelin and describes four compounds labelled A–D in that period. Bridgestone entered F1 in 1997 as a second supplier, beginning another major tyre-development era. The early 2000s featured a Bridgestone-versus-Michelin tyre war; tyre performance and durability became championship-level competitive variables.",
+            "keyFacts": [
+              "Historical compound labels do not map directly to modern C1–C5. Supplier wars encouraged different technical philosophies and strategic approaches. The competition era ended before today’s controlled single-supplier model."
+            ],
+            "sourceUrls": [
+              "https://www.formula1.com/en/latest/article/france-81-the-perfectly-timed-tyre-change-that-secured-alain-prosts-first-f1.7tB65bx7MGYXuVsb0R2Jr4"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "S17",
+        "title": "TYRE RULES AND GOVERNANCE",
+        "slides": [
+          {
+            "id": "S17-01",
+            "type": "technical",
+            "title": "FIA authority and rule layers",
+            "duration": 12000,
+            "content": "FIA Technical Regulations define the physical tyre/wheel system and permitted equipment; Sporting Regulations define allocation, use, returns and event procedures. The tyre supplier designs and manufactures within the homologated sporting framework. Teams operate their allocated tyres and equipment within those rules.",
+            "keyFacts": [
+              "A technically compliant tyre can still be sporting-rule illegal if used outside its allocation. Technical and sporting documents should be cited separately. The regulation issue date matters because tyre rules change by season."
+            ],
+            "sourceUrls": [
+              "https://www.fia.com/regulation/category/2182"
+            ]
+          },
+          {
+            "id": "S17-02",
+            "type": "technical",
+            "title": "Current 2026 examples",
+            "duration": 13000,
+            "content": "For 2026, the FIA states that tyres may be inflated only with air or nitrogen and that the complete wheel has one fixed internal gas volume subject to stated exceptions. Only FIA-compliant tyre blankets are permitted as external heating devices; cooling is limited to permitted methods, with specific temporary fan provisions. TPMS is a defined component, and blanket systems have controlled zones plus operational data-logging requirements.",
+            "keyFacts": [
+              "These are current 2026 provisions, not historical F1 rules. The rules govern both performance-affecting hardware and compliance evidence. Current rules should be rechecked against the latest FIA issue before deployment if amended."
+            ],
+            "sourceUrls": [
+              "https://www.fia.com/system/files/documents/fia_2026_f1_regulations_-_section_c_technical_-_iss_16_-_2026-02-27.pdf"
+            ]
+          },
+          {
+            "id": "S17-03",
+            "type": "factCard",
+            "title": "Legality across the tyre lifecycle",
+            "duration": 11000,
+            "content": "A modern F1 tyre is subject to supplier/homologation requirements, identification, allocation, use restrictions and possible FIA inspection. FIA Technical List No. 54 covers homologated suppliers for tyre barcodes and RFID tags. Post-session and post-event handling can therefore be part of regulatory control as well as engineering analysis.",
+            "keyFacts": [
+              "Traceability is a compliance function. Allocation is a sporting rule, not merely a warehouse process. Inspection can concern the physical tyre and its associated identity."
+            ],
+            "sourceUrls": [
+              "https://www.fia.com/regulation/category/761"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "S18",
+        "title": "AFTER THE RACE",
+        "slides": [
+          {
+            "id": "S18-01",
+            "type": "process",
+            "title": "Used, unused and damaged tyres",
+            "duration": 12000,
+            "content": "Tyres leave the track with a known event history: session, driver, compound/specification and lap exposure. Some tyres can be inspected or retained for technical analysis; others can be returned or processed under supplier and event procedures. The exact post-race sequence is not a single universally published procedure for every event and season.",
+            "keyFacts": [
+              "Do not assume every used tyre follows the same disposal route. Event rules and supplier procedures govern specific handling. Tyre condition remains useful information after racing."
+            ],
+            "sourceUrls": [
+              "https://www.fia.com/regulation/category/2182"
+            ]
+          },
+          {
+            "id": "S18-03",
+            "type": "text",
+            "title": "Sustainability and circular materials",
+            "duration": 11000,
+            "content": "Pirelli publicly describes FSC-certified natural rubber in its F1 tyres from 2024 and broader work with recycled or bio-derived materials in road products. Examples in road products include recycled metallic materials, recovered carbon black and other bio-based components; these disclosures are not evidence of an identical F1 recipe. A responsible database therefore separates verified F1 statements from wider tyre-industry material research.",
+            "keyFacts": [
+              "Sustainability claims must be product-specific. Road-tyre material innovation does not prove an F1 construction change. F1 development also considers performance, safety and sporting requirements."
+            ],
+            "sourceUrls": [
+              "https://www.pirelli.com/tires/en-us/motorsport/car/formula-1"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "S19",
+        "title": "TYRE GLOSSARY",
+        "slides": [
+          {
+            "id": "S19-01",
+            "type": "glossary",
+            "title": "Tyre and vehicle physics",
+            "duration": 12000,
+            "content": "contact patch — instantaneous area where tyre and track interact. grip — useful frictional force the tyre can generate. slip angle — angular difference between tyre heading and travel direction. longitudinal slip — wheel/vehicle speed difference during braking or traction. vertical load — force pressing the tyre onto the track. downforce — aerodynamic force that increases tyre load. carcass — principal load-bearing body of the tyre. bead — tyre region that anchors the tyre to the rim.",
+            "keyFacts": [
+              "These are educational definitions rather than full mathematical tyre-model definitions. Load, slip and temperature interact. Formula1.com and Pirelli provide public terminology and tyre-construction education."
+            ],
+            "sourceUrls": [
+              "https://www.formula1.com/en/latest/article/f1-glossary-a-e.1MFONigMlQSbSQtpP7YCy2"
+            ]
+          },
+          {
+            "id": "S19-02",
+            "type": "glossary",
+            "title": "Temperature and failure terms",
+            "duration": 12000,
+            "content": "operating window — range of tyre conditions that provides the desired performance. warm-up — moving the tyre toward useful operating conditions. thermal degradation — performance loss associated with sustained or excessive heat. mechanical degradation — performance loss associated with wear and mechanical stress. graining — surface rubber disturbance associated with an unfavourable tyre state. blistering — heat-related rubber damage that can produce visible blisters. flat spot — locally worn region caused by wheel lock. aquaplaning — loss of effective tyre/track contact over water.",
+            "keyFacts": [
+              "Graining and blistering are distinct mechanisms. A flat spot is mechanically produced; a blister is thermally associated. Aquaplaning concerns water separation rather than dry-track grip."
+            ],
+            "sourceUrls": [
+              "https://www.formula1.com/en/latest/article/f1-glossary-a-e.1MFONigMlQSbSQtpP7YCy2"
+            ]
+          },
+          {
+            "id": "S19-03",
+            "type": "glossary",
+            "title": "Strategy and regulation terms",
+            "duration": 12000,
+            "content": "stint — running period between pit stops. undercut — pitting earlier to exploit fresh-tyre pace. overcut — staying out longer while a rival pits. tyre offset — deliberate difference in tyre age or specification. compound nomination — three dry compounds selected for a Grand Prix. tyre allocation — regulated sets available to a driver. returned tyre — set handed back under sporting-regulation deadlines. used tyre — tyre meeting the FIA definition of use under the relevant session rules.",
+            "keyFacts": [
+              "Allocation is a sporting concept as well as a logistics process. The exact meaning of 'used' is defined by FIA Sporting Regulations. Hard/medium/soft are event labels assigned to the nominated trio."
+            ],
+            "sourceUrls": [
+              "https://www.fia.com/regulation/category/2182"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "S20",
+        "title": "HISTORICAL / TECHNICAL FACTS",
+        "slides": [
+          {
+            "id": "S20-01",
+            "type": "factCard",
+            "title": "2026 reference facts",
+            "duration": 11000,
+            "content": "The 2026 Pirelli dry range is C1 through C5, with C1 hardest and C5 softest. Three slick compounds are nominated at each Grand Prix from that five-compound range. The 2026 wheel/tyre package retains 18-inch rims while the tyre dimensions are revised from the 2025 package. Pirelli remains Formula 1’s exclusive supplier through 2028. Pirelli states that FSC-certified natural rubber has been used in its F1 tyres from 2024.",
+            "keyFacts": [
+              "The C-number is permanent within the season’s range; hard/medium/soft are event labels. The 18-inch statement is specifically about the 2026 package. Supplier status is current to September 2026 based on the June 2026 announcement."
+            ],
+            "sourceUrls": [
+              "https://press.pirelli.com/pirelli-reveals-2026-f1-tyres-a-fresh-logo-design-and-new-compounds/"
+            ]
+          },
+          {
+            "id": "S20-02",
+            "type": "statistics",
+            "title": "2022 18-inch development facts",
+            "duration": 11000,
+            "content": "Formula1.com reported more than 10,000 indoor-test hours and 5,000 simulation hours for the all-new 2022 tyre programme. It also reported 70 virtual prototypes, roughly 20,000 km of 2021 testing and nine of ten teams using mule cars. Pirelli reported 28 days of testing in 2021 for the programme.",
+            "keyFacts": [
+              "These numbers describe the 2022 18-inch development programme only. They demonstrate the scale of modern tyre development. Simulation and physical testing were used together."
+            ],
+            "sourceUrls": [
+              "https://www.formula1.com/en/latest/article/in-numbers-the-staggering-stats-behind-the-development-of-the-all-new-2022.7nYGeDoQbapwvLn1QakUAb"
+            ]
+          },
+          {
+            "id": "S20-03",
+            "type": "timeline",
+            "title": "Seven tyre milestones",
+            "duration": 13000,
+            "content": "1950 — Pirelli supplied tyres at the inaugural World Championship race at Silverstone. 1997 — Bridgestone entered F1 as a second supplier. 1998 — Grooved dry tyres were introduced after the cars were narrowed. 2005 — Tyre changes during pit stops were banned, increasing the importance of durability management. 2009 — Slick tyres returned during a major regulation reset. 2011 — Pirelli began the current exclusive-supplier era. 2022 — 18-inch tyres arrived after extensive development; 2026 — the 18-inch package evolved again for the new regulations.",
+            "keyFacts": [
+              "These dates mark changes in regulation or supplier structure, not every technical tyre innovation. The same physical design principles should never be assumed unchanged across these eras. Historical understanding requires reading tyre rules together with chassis and aerodynamic rules."
+            ],
+            "sourceUrls": [
+              "https://press.pirelli.com/there-at-the-start-75-years-ago-pirelli-hits-the-500-grands-prix-mark/"
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

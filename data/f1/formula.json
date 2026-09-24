@@ -1,0 +1,916 @@
+{
+  "screen": {
+    "id": "Extra_Screens_Formula.1",
+    "name": "FORMULA RACING CATEGORY ECOSYSTEM",
+    "database": "formula.json",
+    "project": "THE INSIDE FORMULA 1",
+    "contentPurpose": "Educational museum-style reference for Formula racing categories, championships, pathways, regulations, technology and history.",
+    "language": "en",
+    "status": "production-ready",
+    "researchDate": "2026-09-13",
+    "currentDateBasis": "2026-09-13",
+    "seasonPolicy": "Every season-sensitive fact is explicitly labelled by year or generation.",
+    "sourcePolicy": "Priority given to FIA, Formula 1, FIA Formula 2, FIA Formula 3, FIA Formula 4, Formula Regional and Formula E official sources.",
+    "dataIntegrity": {
+      "noInventedSpecifications": true,
+      "seasonLabelsRequired": true,
+      "currentVsHistoricalSeparated": true,
+      "sourceUrlsRequiredPerSlide": true,
+      "futureStatusLabelsRequired": true
+    }
+  },
+  "sections": [
+    {
+      "id": "section_01",
+      "sectionNumber": 1,
+      "title": "WHAT IS FORMULA RACING?",
+      "slides": [
+        {
+          "id": "slide_001",
+          "type": "text",
+          "title": "Formula Racing: The Core Idea",
+          "yearContext": "General / historical",
+          "sourceUrls": [
+            "https://www.formula1.com/en/latest/article/why-is-it-called-formula-1-and-12-other-questions-about-the-championships.1GHeel6u4jga6hMpX2eFs1",
+            "https://www.fia.com/regulations/category/110"
+          ],
+          "details": "Single-seater means the driver normally occupies one centrally located cockpit rather than sharing a cabin with another competitor. The formula establishes boundaries so competitors can be compared within a common competitive framework. Different formulas can be designed for different purposes: world championship competition, driver development, regional racing, national competition or technology demonstration. A formula is not a statement that every car is identical; some series are tightly controlled while others permit significant engineering freedom."
+        },
+        {
+          "id": "slide_002",
+          "type": "comparison",
+          "title": "Spec Car Versus Open Development",
+          "yearContext": "General / current",
+          "sourceUrls": [
+            "https://www.fia.com/regulation/category/106",
+            "https://www.fiaformula2.com/en/information/the-car-and-engine-f2%26lang%3Den.14LCsEEMG9yyx5DkhcN1J8",
+            "https://www.fiaformulae.com/en/news/762855",
+            "https://www.fia.com/regulations/category/110"
+          ],
+          "details": "A spec-car approach restricts many components to common designs or controlled suppliers, reducing performance divergence and operating cost. A controlled-development category permits selected engineering changes while keeping the main architecture standardized. An open formula can allow constructors to design substantial portions of chassis and aerodynamics, increasing technical diversity and development expense. F2 and F3 are intentionally standardized around common chassis and engine concepts, while F1 allows constructors to design major chassis and aerodynamic solutions within FIA rules. Formula E combines a common FIA-defined car architecture with manufacturer powertrain competition.",
+          "verifiedValues": "spectrum=[\"high_standardization\", \"controlled_development\", \"open_constructor_development\"]; examples={\"high_standardization\": [\"FIA F3\", \"FIA F4 certified championships\"], \"controlled_development\": [\"FIA F2\", \"Formula E\"], \"open_constructor_development\": [\"FIA Formula 1 World Championship\"]}"
+        },
+        {
+          "id": "slide_003",
+          "type": "text",
+          "title": "Why Multiple Formula Categories Exist",
+          "yearContext": "General / current",
+          "sourceUrls": [
+            "https://www.fia.com/news/great-start-fia-formula-4",
+            "https://www.fiaformula3.com/en/latest/article/2019-season-calendar-revealed.5jVm1wHV7HCRaUOV58jjMx",
+            "https://www.fiaformula2.com/en/latest/article/fia-formula-2-unveils-its-new-car-for-the-2027-2029-seasons.1NevEuWTkT9rR358sIsDPu",
+            "https://www.fia.com/events/fia-formula-regional-european-championship/season-2026/fia-formula-regional-european"
+          ],
+          "details": "Entry categories provide relatively accessible environments for learning racecraft, vehicle control and professional procedures. Intermediate categories introduce higher aerodynamic load, more complex systems and greater race-engineering demands. Top-level categories provide a platform for advanced technical development and world-class sporting competition. Different regions can operate their own championships while using FIA standards or certification frameworks. The result is an ecosystem rather than one universal ladder."
+        }
+      ]
+    },
+    {
+      "id": "section_02",
+      "sectionNumber": 2,
+      "title": "ORIGINS AND HISTORY",
+      "slides": [
+        {
+          "id": "slide_004",
+          "type": "timeline",
+          "title": "From Grand Prix Rules to Formula One",
+          "yearContext": "1890s–1950",
+          "sourceUrls": [
+            "https://www.formula1.com/en/latest/article/why-is-it-called-formula-1-and-12-other-questions-about-the-championships.1GHeel6u4jga6hMpX2eFs1"
+          ],
+          "details": "Pre-war Grand Prix racing already used changing engine and vehicle regulations to define competitive classes. In 1946, the Commission Sportive Internationale began rebuilding international motor racing and work on new formula regulations. In 1949 the FIA confirmed that a Formula One World Championship would be inaugurated for 1950. The inaugural World Championship season was held in 1950.",
+          "verifiedValues": "milestones=[{\"year\": 1946, \"event\": \"Post-war work on a new Grand Prix formula\"}, {\"year\": 1949, \"event\": \"FIA confirms 1950 Formula One World Championship\"}, {\"year\": 1950, \"event\": \"First FIA Formula One World Championship season\"}]"
+        },
+        {
+          "id": "slide_005",
+          "type": "history",
+          "title": "Junior Formulae Develop",
+          "yearContext": "1950s–2010s",
+          "sourceUrls": [
+            "https://www.fiaformula3.com/en/latest/article/2019-season-calendar-revealed.5jVm1wHV7HCRaUOV58jjMx",
+            "https://www.fiaformula2.com/en/latest/article/2026-fia-formula-2-season-everything-you-need-to-know-about-calendar-drivers.1FThPa9Dbn1yCx0A1UEXq9",
+            "https://www.fiaformula2.com/en/latest/article/fia-formula-2-unveils-its-new-car-for-the-2027-2029-seasons.1NevEuWTkT9rR358sIsDPu"
+          ],
+          "details": "Formula 3 emerged as a major junior single-seater class and developed many national and continental variants. Formula 2 became an important intermediate category and later passed through several organizational forms, including a modern FIA championship launched in 2017. The GP2 Series became the modern FIA Formula 2 Championship in 2017, consolidating a recognized step immediately below F1. The FIA Formula 3 Championship began in 2019 through the merger of the FIA F3 European Championship and GP3 Series."
+        },
+        {
+          "id": "slide_006",
+          "type": "timeline",
+          "title": "The Modern Ladder",
+          "yearContext": "2014–2026",
+          "sourceUrls": [
+            "https://www.fia.com/news/great-start-fia-formula-4",
+            "https://www.fiaformula3.com/en/latest/article/2019-season-calendar-revealed.5jVm1wHV7HCRaUOV58jjMx",
+            "https://www.fia.com/regulation/category/2036",
+            "https://www.formula1.com/en/latest/article/2026-regulations-explained-all-you-need-to-know-about-f1s-new-aerodynamics.7IAt0auc32UkCEFE5ypkTB.7IAt0auc32UkCEFE5ypkTB",
+            "https://www.fiaformulae.com/en/news/1021450/unleashing-gen4-a-new-era-of-high-performance-sustainable-electric-racing-begins"
+          ],
+          "details": "2014: FIA Formula 4 was introduced as a step between karting and Formula 3. 2017: the modern FIA Formula 2 Championship began as the recognized final FIA single-seater step below F1. 2019: FIA Formula 3 replaced the former FIA F3 European Championship/GP3 split with one global championship. 2023–2026: Formula Regional regulations and championships continued to be standardized and expanded. 2026: new-generation F1 rules, second-generation Formula Regional technical rules, and the scheduled Formula E Gen4 era show that the ecosystem continues to evolve.",
+          "verifiedValues": "milestones=[{\"year\": 2014, \"event\": \"FIA Formula 4 introduced\"}, {\"year\": 2017, \"event\": \"Modern FIA Formula 2 championship era begins\"}, {\"year\": 2019, \"event\": \"FIA Formula 3 championship launches\"}, {\"year\": 2026, \"event\": \"Major F1 regulation reset; Formula Regional 2nd Gen; Formula E Gen4 scheduled for 2026/27\"}]"
+        }
+      ]
+    },
+    {
+      "id": "section_03",
+      "sectionNumber": 3,
+      "title": "FORMULA 1",
+      "slides": [
+        {
+          "id": "slide_007",
+          "type": "category",
+          "title": "F1 in 2026: A New Technical Era",
+          "yearContext": "2026",
+          "sourceUrls": [
+            "https://www.formula1.com/en/latest/article/the-beginners-guide-to-the-2026-regulations.6j0tS0hrHG2T01tpmK6XYz",
+            "https://www.formula1.com/en/latest/article/2026-regulations-explained-all-you-need-to-know-about-f1s-new-aerodynamics.7IAt0auc32UkCEFE5ypkTB.7IAt0auc32UkCEFE5ypkTB",
+            "https://www.formula1.com/en/latest/article/formula-1-reveals-calendar-for-2026-season.YctbMZWqBvrgyddrnauo8"
+          ],
+          "details": "F1 remains governed by FIA sporting and technical regulations. The 2026 rules reduce the car size and minimum weight compared with the previous generation. Active aerodynamic elements are used on both front and rear wings through defined operating modes. The 2026 power unit combines an internal-combustion engine with a substantially more powerful electrical component than the previous formula. Advanced sustainable fuel is part of the 2026 power-unit framework.",
+          "verifiedValues": "2026_minimum_weight_kg=768; wheelbase_max_mm=3400; car_width_mm=1900"
+        },
+        {
+          "id": "slide_008",
+          "type": "regulation",
+          "title": "How the F1 Championship Is Structured",
+          "yearContext": "2026",
+          "sourceUrls": [
+            "https://www.formula1.com/en/latest/article/formula-1-reveals-calendar-for-2026-season.YctbMZWqBvrgyddrnauo8",
+            "https://www.formula1.com/en/latest/article/formula-1-and-fia-announce-2026-sprint-calendar.3PyLPAazrBNe8kQIS3wOfY.3PyLPAazrBNe8kQIS3wOfY",
+            "https://www.formula1.com/en/latest/article/drivers-teams-cars-circuits-and-more-everything-you-need-to-know-about.7iQfL3Rivf1comzdqV5jwc"
+          ],
+          "caveat": "This record describes the published 2026 structure and distinguishes it from the live calendar page, which can reflect later changes.",
+          "details": "The 2026 calendar was planned for 24 Grand Prix weekends, with six Sprint weekends; the live calendar can change for operational or geopolitical reasons. Each constructor fields two full-time cars in the 2026 grid, giving an announced 11 teams and 22 drivers at the start-of-season structure. Drivers score individually while constructor points are accumulated from both team cars. Sprint weekends add a separate Sprint race alongside Grand Prix qualifying and the Grand Prix.",
+          "verifiedValues": "scheduled_grand_prix_weekends_2026=24; scheduled_sprint_weekends_2026=6; announced_teams=11; announced_cars=22"
+        },
+        {
+          "id": "slide_009",
+          "type": "specification",
+          "title": "F1 Technical Philosophy",
+          "yearContext": "2026",
+          "sourceUrls": [
+            "https://www.formula1.com/en/latest/article/2026-regulations-explained-all-you-need-to-know-about-f1s-new-aerodynamics.7IAt0auc32UkCEFE5ypkTB.7IAt0auc32UkCEFE5ypkTB",
+            "https://www.formula1.com/en/latest/article/the-beginners-guide-to-the-2026-regulations.6j0tS0hrHG2T01tpmK6XYz"
+          ],
+          "details": "F1 constructors design the chassis and substantial aerodynamic surfaces within tightly prescribed dimensional and safety rules. The 2026 aerodynamic concept replaces the previous ground-effect philosophy with a flatter floor and larger diffuser arrangement. Front and rear wings use active elements to switch between lower-drag and higher-downforce operating states. The 2026 car is shorter and narrower than its predecessor and uses narrower Pirelli tyres. The power unit retains a turbocharged internal-combustion engine and a high-power electrical system.",
+          "verifiedValues": "active_aero=true; flat_floor_concept=true; advanced_sustainable_fuel=true; tyre_supplier=\"Pirelli\""
+        }
+      ]
+    },
+    {
+      "id": "section_04",
+      "sectionNumber": 4,
+      "title": "FORMULA 2",
+      "slides": [
+        {
+          "id": "slide_010",
+          "type": "category",
+          "title": "FIA Formula 2: The Final FIA Step Below F1",
+          "yearContext": "2026",
+          "sourceUrls": [
+            "https://www.fiaformula2.com/en/latest/article/2026-fia-formula-2-season-everything-you-need-to-know-about-calendar-drivers.1FThPa9Dbn1yCx0A1UEXq9",
+            "https://www.fiaformula2.com/en/latest/article/fia-formula-2-unveils-its-new-car-for-the-2027-2029-seasons.1NevEuWTkT9rR358sIsDPu",
+            "https://www.fia.com/regulation/category/829/1000"
+          ],
+          "details": "The modern FIA F2 championship operates as a support category on Formula 1 weekends. The 2026 season is the tenth season of the current FIA Formula 2 championship era. The championship uses a common Dallara chassis and Mecachrome engine package to keep the competitive emphasis on drivers and teams rather than constructor development. The 2026 generation is the 2024–2026 F2 car family."
+        },
+        {
+          "id": "slide_011",
+          "type": "specification",
+          "title": "2026 F2 Car: Technical Reference",
+          "yearContext": "2024–2026 car generation",
+          "sourceUrls": [
+            "https://www.fiaformula2.com/en/information/the-car-and-engine-f2%26lang%3Den.14LCsEEMG9yyx5DkhcN1J8"
+          ],
+          "details": "Engine: 3.4-litre single-turbocharged Mecachrome V6. Rated engine output: 620 HP at 8,750 rpm. Maximum torque: 570 Nm at 6,000 rpm. Reported maximum speed: 335 km/h in Monza aerodynamic configuration with DRS. Reported weight: 795 kg with driver on board. Overall dimensions: approximately 5,285 mm length, 1,900 mm width, 1,097 mm height and 3,135 mm wheelbase.",
+          "verifiedValues": "engine=\"Mecachrome V6, 3.4 L, single turbo\"; power_hp=620; power_rpm=8750; torque_nm=570; torque_rpm=6000; maximum_speed_kmh=335; weight_kg_driver_onboard=795; tyres=\"Pirelli specific slick and wet\""
+        },
+        {
+          "id": "slide_012",
+          "type": "regulation",
+          "title": "F2 Weekend and Development Role",
+          "yearContext": "2026",
+          "sourceUrls": [
+            "https://www.fiaformula2.com/en/latest/article/fia-formula-2-championship-2026-season-calendar-revealed.28OvYB98ektUm0D8vrUgYS",
+            "https://www.fiaformula2.com/en/latest/article/fia-formula-2-unveils-its-new-car-for-the-2027-2029-seasons.1NevEuWTkT9rR358sIsDPu",
+            "https://www.fiaformula2.com/en/racing/2026"
+          ],
+          "details": "The 2026 championship has 14 rounds and 28 scheduled races across its season structure. The normal weekend contains a Sprint Race and a Feature Race. The standardized car limits outright chassis-development competition and keeps costs under greater control than F1. The 2027–2029 F2 car retains the 2026 Dallara chassis, illustrating the series' emphasis on cost management and continuity. F2 uses a compulsory pit-stop strategy in its Feature Race, unlike FIA F3.",
+          "verifiedValues": "rounds_2026=14; scheduled_races_2026=28; feature_race_compulsory_pit_stop=true; 2027_2029_chassis_strategy=\"retain 2026 Dallara chassis\""
+        }
+      ]
+    },
+    {
+      "id": "section_05",
+      "sectionNumber": 5,
+      "title": "FORMULA 3",
+      "slides": [
+        {
+          "id": "slide_013",
+          "type": "category",
+          "title": "FIA Formula 3: International Junior Championship",
+          "yearContext": "2026",
+          "sourceUrls": [
+            "https://www.fiaformula3.com/en/latest/article/2026-fia-formula-3-season-everything-you-need-to-know-about-calendar-drivers.3MAShT6egzdnblU3uFaLk2",
+            "https://www.fiaformula3.com/en/latest/article/fia-formula-3-championship-2026-season-calendar-revealed.16F8XBnz2PSr8Rn29WCsIs",
+            "https://www.fia.com/regulation/category/106"
+          ],
+          "details": "The championship fields identical Dallara-built cars powered by common Mecachrome engines. F3 races on Formula 1 and Formula 2 support weekends, giving young drivers exposure to major circuits and professional paddock procedures. The current-generation car entered competition in 2025, making 2026 its second season. The 2026 season is scheduled for ten rounds and twenty races."
+        },
+        {
+          "id": "slide_014",
+          "type": "specification",
+          "title": "Current FIA F3 Car",
+          "yearContext": "Current generation: 2025–2026",
+          "sourceUrls": [
+            "https://www.fiaformula3.com/en/information/the-car-and-engine-f3.5tGE8Qr5FdTJJwaUN0YbWq",
+            "https://www.fiaformula3.com/en/information/the-rules-and-regulations-f3.6Iosy860VzDs0INyfKw37E"
+          ],
+          "details": "Engine: bespoke Mecachrome six-cylinder 3.4-litre naturally aspirated engine. Rated power: 380 HP at 8,000 rpm. Published maximum speed: 300 km/h. Published lateral acceleration: up to approximately ±2.6 g. Published maximum braking deceleration: approximately −1.9 g. F3 uses hydraulic DRS in designated zones and standardized Pirelli 16-inch tyres.",
+          "verifiedValues": "engine=\"Mecachrome V6, 3.4 L, naturally aspirated\"; power_hp=380; power_rpm=8000; maximum_speed_kmh=300; lateral_acceleration_g=\"up to ±2.6\"; braking_deceleration_g=\"up to -1.9\"; tyre_wheel_diameter_in=16"
+        },
+        {
+          "id": "slide_015",
+          "type": "regulation",
+          "title": "F3 Sporting Format",
+          "yearContext": "Current format",
+          "sourceUrls": [
+            "https://www.fiaformula3.com/en/information/the-rules-and-regulations-f3.6Iosy860VzDs0INyfKw37E",
+            "https://www.fiaformula3.com/en/latest/article/2026-fia-formula-3-season-everything-you-need-to-know-about-calendar-drivers.3MAShT6egzdnblU3uFaLk2"
+          ],
+          "details": "A standard event uses free practice, qualifying, a Saturday Sprint Race and a Sunday Feature Race. The top 12 qualifying positions are reversed to form the Sprint grid. Feature Race grid is based directly on qualifying classification. Sprint points for the top ten are 10–9–8–7–6–5–4–3–2–1. Feature points for the top ten are 25–18–15–12–10–8–6–4–2–1. Pole is worth two points and one fastest-lap point can be awarded in each race to an eligible top-ten finisher.",
+          "verifiedValues": "sprint_points_top10=[10, 9, 8, 7, 6, 5, 4, 3, 2, 1]; feature_points_top10=[25, 18, 15, 12, 10, 8, 6, 4, 2, 1]; pole_points=2; fastest_lap_points=1; compulsory_pitstop=false"
+        }
+      ]
+    },
+    {
+      "id": "section_06",
+      "sectionNumber": 6,
+      "title": "FORMULA 4",
+      "slides": [
+        {
+          "id": "slide_016",
+          "type": "category",
+          "title": "FIA Formula 4: The Entry-Level Formula",
+          "yearContext": "2026",
+          "sourceUrls": [
+            "https://www.fia.com/news/great-start-fia-formula-4",
+            "https://www.fia.com/system/files/documents/2026_fia_formula_4_technical_regulations_app.j_-_art.274a_-_issue_1.1_-_2025.12.10.pdf"
+          ],
+          "details": "FIA F4 was introduced in 2014 and described by the FIA as a missing step between karting and Formula 3. FIA F4 championships are organized by national sporting authorities and other approved organizers under FIA technical requirements. Only cars homologated as FIA Formula 4 cars are eligible where the regulations specify certified FIA F4 competition. Cars carry a technical passport and an FIA chassis test report for scrutineering purposes."
+        },
+        {
+          "id": "slide_017",
+          "type": "specification",
+          "title": "2026 FIA F4 Technical Philosophy",
+          "yearContext": "2026",
+          "sourceUrls": [
+            "https://www.fia.com/system/files/documents/2026_fia_formula_4_technical_regulations_app.j_-_art.274a_-_issue_1.1_-_2025.12.10.pdf"
+          ],
+          "details": "The complete car is divided into Type 1, Type 2 and Type 3 parts under the homologation framework. Type 1 parts must be supplied by the manufacturer and used as supplied, with manufacturer-controlled repairs. Type 2 parts have restricted modification ranges defined by homologation. Type 3 parts are comparatively unrestricted when used as designed and without adding another function. This structure is intended to prevent uncontrolled technical escalation while permitting normal operational setup and repair.",
+          "verifiedValues": "part_classification=[\"Type 1\", \"Type 2\", \"Type 3\"]; eligible_cars=\"Only cars homologated as FIA Formula 4 cars\""
+        },
+        {
+          "id": "slide_018",
+          "type": "comparison",
+          "title": "Why F4 Championships Are Not All Identical",
+          "yearContext": "2026 and national/regional seasons",
+          "sourceUrls": [
+            "https://www.fia.com/system/files/documents/2026_fia_formula_4_technical_regulations_app.j_-_art.274a_-_issue_1.1_-_2025.12.10.pdf",
+            "https://www.fia.com/regulation/category/108",
+            "https://www.fia.com/regulation/category/2157"
+          ],
+          "caveat": "Do not infer that every national FIA F4 series has the same event format, calendar or commercial structure.",
+          "details": "The FIA technical regulations define the car and safety baseline. A national or regional championship still has its own sporting regulations and event calendar. Local championships may use different tracks, race counts and support-event structures. The exact engine, chassis or tyre supplier should only be stated for a specific championship and season when its homologation or official sporting documents verify it. This database therefore treats FIA F4 as a framework rather than one globally identical championship."
+        }
+      ]
+    },
+    {
+      "id": "section_07",
+      "sectionNumber": 7,
+      "title": "FORMULA REGIONAL",
+      "slides": [
+        {
+          "id": "slide_019",
+          "type": "category",
+          "title": "What Is Formula Regional?",
+          "yearContext": "2026",
+          "sourceUrls": [
+            "https://www.fia.com/regulation/category/2036",
+            "https://www.fia.com/events/fia-formula-regional-european-championship/season-2026/fia-formula-regional-european"
+          ],
+          "details": "The category provides more aerodynamic performance and power than F4 while remaining less technically open and generally less expensive than top-level F1-style constructor racing. The FIA maintains technical regulations and homologation frameworks for Formula Regional cars. Regional championships can be organized by different promoters and operate in different geographical markets. The FIA Formula Regional European Championship is a current example of an FIA-certified regional series."
+        },
+        {
+          "id": "slide_020",
+          "type": "specification",
+          "title": "2026 Formula Regional Europe",
+          "yearContext": "2026",
+          "sourceUrls": [
+            "https://www.fia.com/events/fia-formula-regional-european-championship/season-2026/fia-formula-regional-european",
+            "https://www.fia.com/system/files/documents/2026_fia_formula_regional_2nd_gen_homologation_regulations_-_issue_5.3_-_2025.06.10.pdf"
+          ],
+          "details": "The 2026 FREC calendar contains eight rounds between April and September. Events can use either two qualifying sessions with two races or a three-race format with a reverse-grid race. The FIA's 2026 Formula Regional homologation framework specifies an overall homologation mass window above 650 kg and below 700 kg under its defined calculation conditions. Race scoring includes a 25-point win in the main race, with separate scoring for a reverse-grid race when scheduled.",
+          "verifiedValues": "rounds_2026=8; homologation_mass_window_kg=\"greater than 650 and less than 700 under FIA homologation calculation\"; main_race_win_points=25; reverse_grid_race_win_points=10"
+        },
+        {
+          "id": "slide_021",
+          "type": "comparison",
+          "title": "Formula Regional's Global Role",
+          "yearContext": "2020s–2026",
+          "sourceUrls": [
+            "https://www.fia.com/regulation/category/2036",
+            "https://www.fia.com/system/files/documents/appendix_l_2026_publie_le_26_mars_2026.pdf",
+            "https://www.fia.com/events/fia-formula-regional-european-championship/season-2026/fia-formula-regional-european"
+          ],
+          "details": "The FIA maintains common technical and homologation regulations for certified Formula Regional championships. Regional championships give drivers experience across larger geographical footprints and more powerful cars than F4. The FIA Formula Regional European Championship is one certified regional example rather than a synonym for every Formula Regional series worldwide. Driver licensing and Super Licence points depend on the precise championship listed in the applicable FIA regulations."
+        }
+      ]
+    },
+    {
+      "id": "section_08",
+      "sectionNumber": 8,
+      "title": "FORMULA E",
+      "slides": [
+        {
+          "id": "slide_022",
+          "type": "category",
+          "title": "Formula E: Electric Single-Seater World Championship",
+          "yearContext": "2026",
+          "sourceUrls": [
+            "https://www.fiaformulae.com/en/history",
+            "https://www.fia.com/regulation/category/109"
+          ],
+          "details": "Formula E began competitive racing in Beijing on 13 September 2014. The championship evolved from Gen1 through Gen2, Gen3 and Gen3 Evo before the scheduled 2026/27 Gen4 era. The competition uses common-generation chassis architecture with manufacturer competition centered on powertrain technology. Street-circuit racing and energy strategy are central parts of the championship identity."
+        },
+        {
+          "id": "slide_023",
+          "type": "history",
+          "title": "Gen1 → Gen2 → Gen3 → Gen3 Evo",
+          "yearContext": "2014–2026",
+          "sourceUrls": [
+            "https://www.fiaformulae.com/en/news/explainers/the-history-of-formula-es-race-cars-gen1-2-3-to-gen3-evo-and-gen4",
+            "https://www.fiaformulae.com/en/news/762855",
+            "https://www.fiaformulae.com/en/news/1021450/unleashing-gen4-a-new-era-of-high-performance-sustainable-electric-racing-begins"
+          ],
+          "caveat": "Gen1 and Gen2 peak-power values shown are generation-reference figures from Formula E historical explainers, not current 2026 race settings.",
+          "details": "Gen1 introduced the championship in 2014 and required drivers to change cars mid-race because the original car could not complete a full race at competitive performance on one battery. Gen2 substantially increased usable energy, allowing one car per driver to complete a race and ending the mid-race car swap format. Gen3 increased peak power to 350 kW and regenerative capability to 600 kW, with front and rear powertrain components. Gen3 Evo added all-wheel drive in defined operating phases and improved acceleration while remaining within the Gen3 family. Gen4 is scheduled to begin with the 2026/27 season.",
+          "verifiedValues": "generation_max_power_kw={\"Gen1\": 200, \"Gen2\": 250, \"Gen3\": 350, \"Gen4\": 600}; generation_max_regeneration_kw={\"Gen1\": 150, \"Gen2\": 250, \"Gen3\": 600, \"Gen4\": 700}; generation_powertrain={\"Gen1\": \"rear only\", \"Gen2\": \"rear only\", \"Gen3\": \"front and rear\", \"Gen4\": \"front and rear\"}"
+        },
+        {
+          "id": "slide_024",
+          "type": "specification",
+          "title": "Gen4: The 2026/27 Transition",
+          "yearContext": "2026/27",
+          "sourceUrls": [
+            "https://www.fiaformulae.com/en/news/explainers/formula-e-faqs-all-the-gen4-questions-answered",
+            "https://www.fiaformulae.com/en/news/762855",
+            "https://www.fiaformulae.com/en/news/1074659",
+            "https://www.fiaformulae.com/en/news/races/season-13-calendar-where-will-formula-e-be-racing-in-202627"
+          ],
+          "caveat": "Do not label Gen4 as the 2025/26 race car; the official schedule identifies it with the 2026/27 Season 13 debut.",
+          "details": "Gen4 is scheduled to debut competitively in the 2026/27 Formula E season. Maximum output is stated as 600 kW in qualifying and Attack Mode, with 450 kW quoted for standard race mode. Maximum regeneration is stated at 700 kW. Published dimensions include 5,540 mm length, 1,790 mm width and 3,080 mm wheelbase. Formula E has planned a new sporting format for Season 13 while retaining its Duels-based qualifying concept.",
+          "verifiedValues": "standard_race_power_kw=450; qualifying_attack_mode_power_kw=600; max_regeneration_kw=700; length_mm=5540; width_mm=1790; wheelbase_mm=3080; season=\"2026/27 Season 13\""
+        }
+      ]
+    },
+    {
+      "id": "section_09",
+      "sectionNumber": 9,
+      "title": "OTHER FIA SINGLE-SEATER CATEGORIES",
+      "slides": [
+        {
+          "id": "slide_025",
+          "type": "comparison",
+          "title": "Other Regional and National Formula Programs",
+          "yearContext": "2026",
+          "sourceUrls": [
+            "https://www.fia.com/regulation/category/2036",
+            "https://www.fia.com/events/fia-formula-regional-european-championship/season-2026/fia-formula-regional-european",
+            "https://www.fia.com/regulation/category/108"
+          ],
+          "details": "FIA-certified Formula Regional championships operate under common technical and homologation rules. National FIA F4 championships use the FIA F4 technical framework but retain championship-specific sporting structures. The FIA Formula Regional European Championship is one current certified example with its own 2026 sporting format. Other regional series must be verified against the FIA's current regulations before being described as FIA-certified."
+        },
+        {
+          "id": "slide_026",
+          "type": "pathway",
+          "title": "Non-FIA Series Can Still Matter to the FIA Pathway",
+          "yearContext": "2026 licensing context",
+          "sourceUrls": [
+            "https://www.fia.com/system/files/documents/appendix_l_2026_publie_le_26_mars_2026.pdf"
+          ],
+          "details": "The 2026 Appendix L Super Licence points table includes FIA F2, FIA F3, FIA Formula E, FIA Formula Regional European Championship and selected other championships. The same table includes IndyCar and Japanese Super Formula among recognized competition sources for Super Licence points. A series appearing in the points table does not mean it has the same technical rules, car concept or sporting purpose as F1/F2/F3. Drivers can reach professional single-seater careers through different combinations of regional, national and international competition."
+        },
+        {
+          "id": "slide_027",
+          "type": "text",
+          "title": "Electric and Alternative Single-Seater Routes",
+          "yearContext": "2020s–2026",
+          "sourceUrls": [
+            "https://www.fia.com/regulation/category/109",
+            "https://www.fia.com/system/files/documents/appendix_l_2026_publie_le_26_mars_2026.pdf"
+          ],
+          "details": "Formula E is an FIA World Championship with electric powertrains and a distinct sporting and technical identity. The FIA licensing framework recognizes Formula E results for Super Licence points according to the applicable annual table. A driver may build professional experience in electric, regional or other single-seater championships rather than following only the conventional F4–F3–F2 route. The value of a category for a driver depends on results, licensing, funding, team access and the driver's long-term target."
+        }
+      ]
+    },
+    {
+      "id": "section_10",
+      "sectionNumber": 10,
+      "title": "DRIVER DEVELOPMENT LADDER",
+      "slides": [
+        {
+          "id": "slide_028",
+          "type": "pathway",
+          "title": "The Common Route",
+          "yearContext": "Current pathway concept",
+          "sourceUrls": [
+            "https://www.fia.com/news/great-start-fia-formula-4",
+            "https://www.fia.com/regulation/category/2036",
+            "https://www.fiaformula3.com/en/latest/article/2019-season-calendar-revealed.5jVm1wHV7HCRaUOV58jjMx",
+            "https://www.fiaformula2.com/en/latest/article/fia-formula-2-unveils-its-new-car-for-the-2027-2029-seasons.1NevEuWTkT9rR358sIsDPu",
+            "https://www.fia.com/system/files/documents/appendix_l_2026_publie_le_26_mars_2026.pdf"
+          ],
+          "details": "Karting develops racecraft, starts, overtaking, braking and wheel-to-wheel judgement before full-size cars. FIA F4 introduces single-seater vehicle dynamics and professional race procedures. Formula Regional adds greater power and aerodynamic performance. FIA F3 adds international competition, more complex aerodynamics and high-performance race management. FIA F2 is the final major FIA single-seater preparation step below F1. F1 is the elite world-championship destination for drivers who secure the required results, licence and team opportunity."
+        },
+        {
+          "id": "slide_029",
+          "type": "pathway",
+          "title": "Alternative Paths and Support Systems",
+          "yearContext": "Current",
+          "sourceUrls": [
+            "https://www.fia.com/news/great-start-fia-formula-4",
+            "https://www.fia.com/system/files/documents/appendix_l_2026_publie_le_26_mars_2026.pdf",
+            "https://www.fiaformula2.com/en/latest/article/fia-formula-2-unveils-its-new-car-for-the-2027-2029-seasons.1NevEuWTkT9rR358sIsDPu"
+          ],
+          "details": "National championships can provide race experience before or alongside international categories. Manufacturer junior programs and driver academies can fund testing, coaching, simulator work or race seats. Private funding remains a major determinant of how quickly a driver can progress through expensive single-seater categories. A driver can pause, repeat or skip categories depending on age, results, licensing points, team demand and financial resources. The presence of a pathway category does not guarantee a direct promotion opportunity."
+        },
+        {
+          "id": "slide_030",
+          "type": "regulation",
+          "title": "Why Results Are Not the Only Requirement",
+          "yearContext": "2026",
+          "sourceUrls": [
+            "https://www.fia.com/system/files/documents/appendix_l_2026_publie_le_26_mars_2026.pdf"
+          ],
+          "details": "The FIA Super Licence is issued by the FIA rather than automatically by winning a junior championship. The first full Super Licence application requires completion of at least 80% of each of two full seasons of eligible single-seater championships under the 2026 rules. A driver normally needs a valid FIA International Grade A licence for a full Super Licence. The 2026 Appendix L rules normally require at least 40 Super Licence points or satisfaction of specified alternative criteria. The FIA retains discretion in defined cases, including certain force-majeure or exceptional-ability provisions.",
+          "verifiedValues": "full_super_licence_minimum_age=18; exceptional_age_possible=17; full_licence_typical_points_threshold=40; full_licence_seasons_requirement=\"80% of each of two full eligible single-seater seasons for a first application\""
+        }
+      ]
+    },
+    {
+      "id": "section_11",
+      "sectionNumber": 11,
+      "title": "TECHNICAL COMPARISON",
+      "slides": [
+        {
+          "id": "slide_031",
+          "type": "comparison",
+          "title": "Chassis and Development Comparison",
+          "yearContext": "2026 reference",
+          "sourceUrls": [
+            "https://www.formula1.com/en/latest/article/2026-regulations-explained-all-you-need-to-know-about-f1s-new-aerodynamics.7IAt0auc32UkCEFE5ypkTB.7IAt0auc32UkCEFE5ypkTB",
+            "https://www.fiaformula2.com/en/information/the-car-and-engine-f2%26lang%3Den.14LCsEEMG9yyx5DkhcN1J8",
+            "https://www.fiaformula3.com/en/information/the-car-and-engine-f3.5tGE8Qr5FdTJJwaUN0YbWq",
+            "https://www.fia.com/system/files/documents/2026_fia_formula_4_technical_regulations_app.j_-_art.274a_-_issue_1.1_-_2025.12.10.pdf",
+            "https://www.fia.com/system/files/documents/2026_fia_formula_regional_2nd_gen_homologation_regulations_-_issue_5.3_-_2025.06.10.pdf"
+          ],
+          "details": "F1: constructors design the chassis within FIA technical limits. F2: common Dallara chassis; controlled standardized package. F3: all cars built to the same specification by Dallara with common Mecachrome engines. F4: only homologated FIA F4 cars are eligible in certified competition. Formula Regional: FIA homologation and technical regulations define eligible car generations.",
+          "verifiedValues": "F1=\"constructor-developed chassis\"; F2=\"Dallara common chassis\"; F3=\"Dallara common specification\"; F4=\"FIA-homologated chassis\"; Formula Regional=\"FIA-homologated regional car\""
+        },
+        {
+          "id": "slide_032",
+          "type": "comparison",
+          "title": "Powertrain Comparison",
+          "yearContext": "Season-labeled 2026-era reference",
+          "sourceUrls": [
+            "https://www.formula1.com/en/latest/article/the-beginners-guide-to-the-2026-regulations.6j0tS0hrHG2T01tpmK6XYz",
+            "https://www.fiaformula2.com/en/information/the-car-and-engine-f2%26lang%3Den.14LCsEEMG9yyx5DkhcN1J8",
+            "https://www.fiaformula3.com/en/information/the-car-and-engine-f3.5tGE8Qr5FdTJJwaUN0YbWq",
+            "https://www.fiaformulae.com/en/news/762855",
+            "https://www.fia.com/system/files/documents/2026_fia_formula_4_technical_regulations_app.j_-_art.274a_-_issue_1.1_-_2025.12.10.pdf"
+          ],
+          "caveat": "These figures are season/generation labeled and are not intended as an apples-to-apples lap-time ranking.",
+          "details": "F1 2026: turbocharged hybrid power unit with a much larger electrical contribution than the previous formula. F2 current generation: 3.4 L single-turbo Mecachrome V6, 620 HP rated. F3 current generation: 3.4 L naturally aspirated Mecachrome V6, 380 HP rated. Formula E Gen3/Gen3 Evo: electric powertrain with up to 350 kW maximum generation-era output; Gen4 moves to up to 600 kW in specified modes for 2026/27. F4 and Formula Regional values should be shown per specific homologated car/championship rather than guessed from category names.",
+          "verifiedValues": "F2_2024_2026_power_hp=620; F3_current_power_hp=380; Formula_E_Gen3_max_power_kw=350; Formula_E_Gen4_max_power_kw=600"
+        },
+        {
+          "id": "slide_033",
+          "type": "comparison",
+          "title": "Aerodynamics, Tyres and Weight",
+          "yearContext": "2026 reference",
+          "sourceUrls": [
+            "https://www.formula1.com/en/latest/article/the-beginners-guide-to-the-2026-regulations.6j0tS0hrHG2T01tpmK6XYz",
+            "https://www.fiaformula2.com/en/information/the-car-and-engine-f2%26lang%3Den.14LCsEEMG9yyx5DkhcN1J8",
+            "https://www.fiaformula3.com/en/information/the-car-and-engine-f3.5tGE8Qr5FdTJJwaUN0YbWq",
+            "https://www.fia.com/system/files/documents/2026_fia_formula_regional_2nd_gen_homologation_regulations_-_issue_5.3_-_2025.06.10.pdf",
+            "https://www.fia.com/system/files/documents/2026_fia_formula_4_technical_regulations_app.j_-_art.274a_-_issue_1.1_-_2025.12.10.pdf"
+          ],
+          "details": "F1 2026 minimum weight is 768 kg under the current published guide, with a shorter maximum wheelbase and narrower body. F2 current car is reported at 795 kg with driver onboard and uses 18-inch Pirelli tyres. F3 current car uses 16-inch Pirelli tyres and has aerodynamics optimized to facilitate overtaking. Formula Regional 2026 homologation places the complete-car mass calculation in a defined greater-than-650 kg and less-than-700 kg window under the homologation methodology. F4 and other national categories should not inherit weight or tyre numbers from a different homologated car.",
+          "verifiedValues": "F1_2026_min_weight_kg=768; F2_driver_onboard_weight_kg=795; F2_wheel_diameter_in=18; F3_wheel_diameter_in=16; FREC_2026_homologation_mass_window_kg=\">650 and <700\""
+        }
+      ]
+    },
+    {
+      "id": "section_12",
+      "sectionNumber": 12,
+      "title": "SPORTING FORMAT",
+      "slides": [
+        {
+          "id": "slide_034",
+          "type": "regulation",
+          "title": "Formula 1 Sporting Weekend",
+          "yearContext": "2026",
+          "sourceUrls": [
+            "https://www.formula1.com/en/latest/article/formula-1-and-fia-announce-2026-sprint-calendar.3PyLPAazrBNe8kQIS3wOfY.3PyLPAazrBNe8kQIS3wOfY",
+            "https://www.formula1.com/en/latest/article/the-beginners-guide-to-the-2026-regulations.6j0tS0hrHG2T01tpmK6XYz"
+          ],
+          "details": "Standard weekend: practice sessions, qualifying and Grand Prix race. Sprint weekend: Sprint Qualifying and Sprint Race are added while Grand Prix Qualifying and the Grand Prix remain the main Sunday competition. Six Sprint venues were scheduled for 2026. F1's qualifying structure is divided into three knockout phases for both normal qualifying and Sprint Qualifying."
+        },
+        {
+          "id": "slide_035",
+          "type": "comparison",
+          "title": "F2 and F3: Two-Race Format",
+          "yearContext": "2026",
+          "sourceUrls": [
+            "https://www.fiaformula2.com/en/racing/2026",
+            "https://www.fiaformula3.com/en/information/the-rules-and-regulations-f3.6Iosy860VzDs0INyfKw37E"
+          ],
+          "details": "F2: Sprint Race and Feature Race; the Feature Race uses a compulsory pit stop strategy. F3: Sprint Race and Feature Race; there is no compulsory pit stop. F3 reverses the top twelve from qualifying for the Sprint grid; the Feature grid follows qualifying. Both categories award more points for the Feature Race than the Sprint Race."
+        },
+        {
+          "id": "slide_036",
+          "type": "regulation",
+          "title": "Formula Regional Weekend Variation",
+          "yearContext": "2026 FREC",
+          "sourceUrls": [
+            "https://www.fia.com/events/fia-formula-regional-european-championship/season-2026/fia-formula-regional-european"
+          ],
+          "details": "The 2026 FIA Formula Regional European Championship uses a free-practice session at each event. Some events use two qualifying sessions and two races. Other events use two qualifying sessions and three races, including a reverse-grid race. The reverse-grid race reverses the fastest 12 drivers from the first qualifying classification. The points table differs from the F2/F3 system, underlining that Formula Regional is its own championship structure."
+        }
+      ]
+    },
+    {
+      "id": "section_13",
+      "sectionNumber": 13,
+      "title": "FIA LICENSING",
+      "slides": [
+        {
+          "id": "slide_037",
+          "type": "regulation",
+          "title": "FIA International Driver Licences",
+          "yearContext": "2026",
+          "sourceUrls": [
+            "https://www.fia.com/system/files/documents/appendix_l_2026_publie_le_26_mars_2026.pdf",
+            "https://www.fiaformula3.com/en/information/the-rules-and-regulations-f3.6Iosy860VzDs0INyfKw37E"
+          ],
+          "details": "International licence grades are used to classify eligibility for different categories of racing. Full FIA Super Licence applicants normally need a current International Grade A licence. Formula 3 official rules state that participating drivers must hold a Grade A or Grade B International FIA Licence for the championship. The licence system connects driver eligibility to age, experience, medical fitness and competition level."
+        },
+        {
+          "id": "slide_038",
+          "type": "regulation",
+          "title": "Full Super Licence: 2026 Core Requirements",
+          "yearContext": "2026",
+          "sourceUrls": [
+            "https://www.fia.com/system/files/documents/appendix_l_2026_publie_le_26_mars_2026.pdf"
+          ],
+          "details": "The Super Licence is issued by the FIA. Minimum normal age is 18 at the start of the driver's first F1 competition; the FIA may grant one at 17 in defined exceptional-candidate circumstances. A first applicant must have completed at least 80% of each of two full seasons in eligible single-seater championships reported in Supplement 1. The normal sporting route requires at least 40 Super Licence points across the relevant three-year or qualifying two-year-plus-current-year window. Alternative provisions exist for certain applicants unable to qualify through the primary route.",
+          "verifiedValues": "issued_by=\"FIA\"; normal_minimum_age=18; exceptional_minimum_age_possible=17; minimum_points_primary_route=40; two_full_seasons_80_percent=true"
+        },
+        {
+          "id": "slide_039",
+          "type": "table",
+          "title": "Super Licence Points Are Championship-Specific",
+          "yearContext": "2026",
+          "sourceUrls": [
+            "https://www.fia.com/system/files/documents/appendix_l_2026_publie_le_26_mars_2026.pdf"
+          ],
+          "caveat": "The points table is an eligibility reference, not a statement that points from different championships have equal sporting meaning.",
+          "details": "The 2026 table gives FIA Formula 2 positions 1st–10th: 40, 40, 40, 30, 20, 10, 8, 6, 4, 3 points. The 2026 table gives FIA Formula 3 positions 1st–10th: 30, 25, 20, 15, 12, 9, 7, 5, 3, 2 points. The FIA Formula Regional European Championship positions 1st–10th receive 25, 20, 15, 10, 7, 5, 3, 2, 1, 0 points in the listed 2026 table. Formula E positions 1st–10th receive 30, 25, 20, 10, 8, 6, 4, 3, 2, 1 points in the 2026 table. The same FIA table includes selected non-FIA Formula championships such as IndyCar and Japanese Super Formula.",
+          "verifiedValues": "FIA_F2=[40, 40, 40, 30, 20, 10, 8, 6, 4, 3]; FIA_F3=[30, 25, 20, 15, 12, 9, 7, 5, 3, 2]; FIA_FREC=[25, 20, 15, 10, 7, 5, 3, 2, 1, 0]; FIA_Formula_E=[30, 25, 20, 10, 8, 6, 4, 3, 2, 1]"
+        }
+      ]
+    },
+    {
+      "id": "section_14",
+      "sectionNumber": 14,
+      "title": "CHAMPIONSHIP GOVERNANCE",
+      "slides": [
+        {
+          "id": "slide_040",
+          "type": "text",
+          "title": "The FIA's Role",
+          "yearContext": "Current",
+          "sourceUrls": [
+            "https://www.fia.com/regulations/category/110",
+            "https://www.fia.com/regulation/category/829/1000",
+            "https://www.fia.com/regulation/category/106",
+            "https://www.fia.com/system/files/documents/appendix_l_2026_publie_le_26_mars_2026.pdf"
+          ],
+          "details": "The FIA publishes sporting regulations defining competition procedures and sporting obligations. The FIA publishes technical regulations defining permitted car architecture and performance-related constraints. Appendix L governs international driver licences and Super Licence requirements. Technical homologation and scrutineering verify that cars conform to the applicable rules. Stewards apply the sporting regulations during events and can impose penalties."
+        },
+        {
+          "id": "slide_041",
+          "type": "comparison",
+          "title": "Promoter Versus Regulator",
+          "yearContext": "Current",
+          "sourceUrls": [
+            "https://www.fia.com/news/great-start-fia-formula-4",
+            "https://www.fia.com/regulations/category/110",
+            "https://www.fia.com/regulation/category/109"
+          ],
+          "details": "FIA: international sporting and technical governance for the championships under its authority. Championship promoter: calendar development, commercial operations, event presentation and series management within the regulatory framework. ASN: national sporting authority that can license competitors, organize national events and interact with the FIA. Teams and manufacturers: design, prepare and operate cars while remaining responsible for compliance."
+        },
+        {
+          "id": "slide_042",
+          "type": "regulation",
+          "title": "Scrutineering and Homologation",
+          "yearContext": "Current",
+          "sourceUrls": [
+            "https://www.fia.com/system/files/documents/2026_fia_formula_4_technical_regulations_app.j_-_art.274a_-_issue_1.1_-_2025.12.10.pdf",
+            "https://www.fia.com/system/files/documents/2026_fia_formula_regional_2nd_gen_homologation_regulations_-_issue_5.3_-_2025.06.10.pdf",
+            "https://www.fia.com/regulations/category/110"
+          ],
+          "details": "FIA F4 requires a technical passport and FIA chassis test report to be available for inspection. Formula Regional uses FIA homologation regulations to define eligible car specifications and mass calculations. F1 operates with detailed technical regulations and formal compliance checks throughout a race weekend. Scrutineering is not only a pre-race inspection; compliance can be checked after sessions and races as well."
+        }
+      ]
+    },
+    {
+      "id": "section_15",
+      "sectionNumber": 15,
+      "title": "CAR TECHNOLOGY EVOLUTION",
+      "slides": [
+        {
+          "id": "slide_043",
+          "type": "history",
+          "title": "Safety Evolution",
+          "yearContext": "1930s–2026",
+          "sourceUrls": [
+            "https://www.formula1.com/en/latest/article/the-beginners-guide-to-the-2026-regulations.6j0tS0hrHG2T01tpmK6XYz",
+            "https://www.formula1.com/en/latest/article/2026-regulations-explained-all-you-need-to-know-about-f1s-new-aerodynamics.7IAt0auc32UkCEFE5ypkTB.7IAt0auc32UkCEFE5ypkTB",
+            "https://www.fia.com/system/files/documents/2026_fia_formula_4_technical_regulations_app.j_-_art.274a_-_issue_1.1_-_2025.12.10.pdf"
+          ],
+          "details": "Modern formula cars use survival cells and prescribed crash structures rather than relying mainly on tubular structures of earlier eras. The FIA continuously updates crash-test and safety requirements. F1's 2026 rules add further structural requirements, including stronger roll-hoop testing and a redesigned two-stage nose concept. Safety evolution enables high-performance racing while reducing the consequences of many accident types."
+        },
+        {
+          "id": "slide_044",
+          "type": "text",
+          "title": "From Mechanical Grip to Aerodynamic Control",
+          "yearContext": "1950s–2026",
+          "sourceUrls": [
+            "https://www.formula1.com/en/latest/article/2026-regulations-explained-all-you-need-to-know-about-f1s-new-aerodynamics.7IAt0auc32UkCEFE5ypkTB.7IAt0auc32UkCEFE5ypkTB",
+            "https://www.fiaformula3.com/en/information/the-car-and-engine-f3.5tGE8Qr5FdTJJwaUN0YbWq",
+            "https://www.fiaformulae.com/en/cars-and-technology"
+          ],
+          "details": "Early Grand Prix cars relied heavily on mechanical grip and engine performance. Wings and aerodynamic surfaces progressively transformed the performance envelope of single-seaters. Modern F1 uses complex aerodynamic surfaces and, from 2026, active front and rear wing elements. F3 explicitly designs its current aerodynamics to make following and overtaking easier. Formula E focuses heavily on energy efficiency, regenerative braking and controlled aerodynamic performance."
+        },
+        {
+          "id": "slide_045",
+          "type": "comparison",
+          "title": "Combustion Hybrid and Electric Futures",
+          "yearContext": "2009–2026/27",
+          "sourceUrls": [
+            "https://www.formula1.com/en/latest/article/the-beginners-guide-to-the-2026-regulations.6j0tS0hrHG2T01tpmK6XYz",
+            "https://www.fiaformula2.com/en/information/the-car-and-engine-f2%26lang%3Den.14LCsEEMG9yyx5DkhcN1J8",
+            "https://www.fiaformula3.com/en/information/the-car-and-engine-f3.5tGE8Qr5FdTJJwaUN0YbWq",
+            "https://www.fiaformulae.com/en/news/762855"
+          ],
+          "details": "F1's 2026 power unit combines a turbocharged internal-combustion engine with a much larger electrical role than the pre-2026 configuration. F2 and F3 prioritize standardized high-performance combustion engines for driver development. Formula E uses battery-electric powertrains with major regenerative-braking capability. Gen4 Formula E raises electrical power and regeneration substantially for 2026/27. The different philosophies allow motorsport to explore efficiency, energy recovery, driver preparation and open technical development in different ways."
+        }
+      ]
+    },
+    {
+      "id": "section_16",
+      "sectionNumber": 16,
+      "title": "HISTORICAL TIMELINE",
+      "slides": [
+        {
+          "id": "slide_046",
+          "type": "timeline",
+          "title": "1946–1950: The Modern Formula One Foundation",
+          "yearContext": "1946–1950",
+          "sourceUrls": [
+            "https://www.formula1.com/en/latest/article/why-is-it-called-formula-1-and-12-other-questions-about-the-championships.1GHeel6u4jga6hMpX2eFs1"
+          ],
+          "details": "1946: post-war Commission Sportive Internationale work begins on a new Grand Prix formula. 1949: the FIA confirms a Formula One World Championship for 1950. 1950: the first FIA Formula One World Championship season is held."
+        },
+        {
+          "id": "slide_047",
+          "type": "timeline",
+          "title": "2014–2019: The Ladder Becomes More Structured",
+          "yearContext": "2014–2019",
+          "sourceUrls": [
+            "https://www.fia.com/news/great-start-fia-formula-4",
+            "https://www.fiaformulae.com/en/history",
+            "https://www.fiaformula3.com/en/latest/article/2019-season-calendar-revealed.5jVm1wHV7HCRaUOV58jjMx",
+            "https://www.fiaformula2.com/en/latest/article/fia-formula-2-unveils-its-new-car-for-the-2027-2029-seasons.1NevEuWTkT9rR358sIsDPu"
+          ],
+          "details": "2014: first official FIA-certified Formula 4 championship activity and F4's launch as a junior step. 2014: Formula E begins as the world's first international all-electric single-seater championship. 2017: modern FIA Formula 2 era begins. 2019: FIA Formula 3 launches from the merger of FIA F3 European Championship and GP3."
+        },
+        {
+          "id": "slide_048",
+          "type": "timeline",
+          "title": "2020–2026: Regulation Resets and Electrification",
+          "yearContext": "2020–2026",
+          "sourceUrls": [
+            "https://www.formula1.com/en/latest/article/2026-regulations-explained-all-you-need-to-know-about-f1s-new-aerodynamics.7IAt0auc32UkCEFE5ypkTB.7IAt0auc32UkCEFE5ypkTB",
+            "https://www.fiaformula2.com/en/latest/article/fia-formula-2-unveils-its-new-car-for-the-2027-2029-seasons.1NevEuWTkT9rR358sIsDPu",
+            "https://www.fiaformula3.com/en/latest/article/2026-fia-formula-3-season-everything-you-need-to-know-about-calendar-drivers.3MAShT6egzdnblU3uFaLk2",
+            "https://www.fia.com/regulation/category/2036",
+            "https://www.fiaformulae.com/en/news/1021450/unleashing-gen4-a-new-era-of-high-performance-sustainable-electric-racing-begins"
+          ],
+          "details": "2023: Formula E enters Gen3 with front and rear powertrain elements. 2024: current F2 car generation begins its planned 2024–2026 cycle. 2025: current F3 generation begins competition. 2026: F1 enters a major chassis and power-unit regulation reset. 2026: FIA Formula Regional second-generation technical regulations become the current regional framework. 2026/27: Formula E Gen4 is scheduled to begin competition in Season 13."
+        }
+      ]
+    },
+    {
+      "id": "section_17",
+      "sectionNumber": 17,
+      "title": "FORMULA CATEGORIES AROUND THE WORLD",
+      "slides": [
+        {
+          "id": "slide_049",
+          "type": "text",
+          "title": "Europe",
+          "yearContext": "2026",
+          "sourceUrls": [
+            "https://www.fiaformula2.com/en/racing/2026",
+            "https://www.fiaformula3.com/en/latest/article/fia-formula-3-championship-2026-season-calendar-revealed.16F8XBnz2PSr8Rn29WCsIs",
+            "https://www.fia.com/events/fia-formula-regional-european-championship/season-2026/fia-formula-regional-european",
+            "https://www.fia.com/regulation/category/108"
+          ],
+          "details": "FIA F2 and FIA F3 race extensively on European circuits as part of their international calendars. The FIA Formula Regional European Championship is a dedicated regional championship with eight rounds in 2026. National FIA F4 championships operate across European markets under the FIA F4 technical framework. European racing therefore contains both global championships and regional/national development series."
+        },
+        {
+          "id": "slide_050",
+          "type": "text",
+          "title": "Americas, Asia and Oceania",
+          "yearContext": "2026",
+          "sourceUrls": [
+            "https://www.fiaformula2.com/en/latest/article/fia-formula-2-championship-2026-season-calendar-revealed.28OvYB98ektUm0D8vrUgYS",
+            "https://www.formula1.com/en/latest/article/formula-1-reveals-calendar-for-2026-season.YctbMZWqBvrgyddrnauo8",
+            "https://www.fiaformulae.com/en/news/races/season-13-calendar-where-will-formula-e-be-racing-in-202627"
+          ],
+          "details": "F2's 2026 schedule includes Miami and Montreal, representing North American championship rounds. F1's 2026 calendar spans the Americas, Europe, Asia and the Middle East. Formula E's world championship operates across multiple continents and cities. National and regional series remain important where international calendars are not practical or affordable for every driver."
+        },
+        {
+          "id": "slide_051",
+          "type": "text",
+          "title": "Africa and Emerging Markets",
+          "yearContext": "Current",
+          "sourceUrls": [
+            "https://www.fia.com/regulation/category/108",
+            "https://www.fia.com/regulation/category/2036",
+            "https://www.fia.com/system/files/documents/appendix_l_2026_publie_le_26_mars_2026.pdf"
+          ],
+          "caveat": "A current regional championship list should be refreshed from the FIA and organizer sites before any exhibition update that displays live calendars.",
+          "details": "The FIA ecosystem permits ASNs and promoters to create or certify categories suited to local markets. The absence of a particular current FIA championship from a continent does not mean that local motorsport lacks single-seater activity. For a museum database, regional claims should be tied to a verified championship, organizer or FIA event page rather than broad assumptions. This approach prevents outdated calendars from being presented as current 2026 facts."
+        }
+      ]
+    },
+    {
+      "id": "section_18",
+      "sectionNumber": 18,
+      "title": "CAREER AND PROFESSIONAL ROLES",
+      "slides": [
+        {
+          "id": "slide_052",
+          "type": "text",
+          "title": "Driver and Race Engineering Roles",
+          "yearContext": "Current",
+          "sourceUrls": [
+            "https://www.fiaformula2.com/en/latest/article/fia-formula-2-unveils-its-new-car-for-the-2027-2029-seasons.1NevEuWTkT9rR358sIsDPu",
+            "https://www.fiaformula3.com/en/information/the-car-and-engine-f3.5tGE8Qr5FdTJJwaUN0YbWq",
+            "https://www.formula1.com/en/latest/article/drivers-teams-cars-circuits-and-more-everything-you-need-to-know-about.7iQfL3Rivf1comzdqV5jwc"
+          ],
+          "details": "Driver: vehicle control, feedback, racecraft, qualifying and race management. Race engineer: primary technical communication and setup/performance link between driver and engineering group. Performance engineer: studies vehicle performance, driver inputs, tyre behavior and setup optimization. Strategy engineer: models race scenarios, safety-car effects, pit windows and energy/fuel choices. Data engineer: acquires, validates and interprets telemetry and sensor data."
+        },
+        {
+          "id": "slide_053",
+          "type": "text",
+          "title": "Design, Aerodynamics and Vehicle Technology",
+          "yearContext": "Current",
+          "sourceUrls": [
+            "https://www.formula1.com/en/latest/article/2026-regulations-explained-all-you-need-to-know-about-f1s-new-aerodynamics.7IAt0auc32UkCEFE5ypkTB.7IAt0auc32UkCEFE5ypkTB",
+            "https://www.fiaformula2.com/en/information/the-car-and-engine-f2%26lang%3Den.14LCsEEMG9yyx5DkhcN1J8",
+            "https://www.fiaformulae.com/en/news/762855",
+            "https://www.fia.com/system/files/documents/2026_fia_formula_4_technical_regulations_app.j_-_art.274a_-_issue_1.1_-_2025.12.10.pdf"
+          ],
+          "details": "Aerodynamicist: develops wing, floor, diffuser and bodywork concepts through simulation, wind-tunnel work and track correlation. Vehicle designer: integrates chassis structures, suspension, packaging and system interfaces within technical rules. Composite technician: manufactures and repairs carbon-fibre and other lightweight structures. Mechanic: builds, maintains and services the race car during events. Power-unit engineer: works with engine, electrical systems, energy recovery or battery systems according to the category."
+        },
+        {
+          "id": "slide_054",
+          "type": "text",
+          "title": "Simulation, Sporting and Tyre Specialists",
+          "yearContext": "Current",
+          "sourceUrls": [
+            "https://www.fiaformula3.com/en/information/the-rules-and-regulations-f3.6Iosy860VzDs0INyfKw37E",
+            "https://www.fia.com/regulations/category/110",
+            "https://www.fia.com/regulation/category/109"
+          ],
+          "details": "Simulator driver: reproduces race procedures and supports development in a controlled environment. Tyre engineer: studies degradation, temperature, pressure and compound behavior within the series rules. Sporting engineer or sporting coordinator: manages compliance, timing, procedures and communication with officials. Data and controls engineers: analyze telemetry, vehicle systems and software-controlled functions. Medical, safety and trackside officials also form part of the professional ecosystem even though they are not car-development roles."
+        }
+      ]
+    },
+    {
+      "id": "section_19",
+      "sectionNumber": 19,
+      "title": "CATEGORY GLOSSARY",
+      "slides": [
+        {
+          "id": "slide_055",
+          "type": "glossary",
+          "title": "Core Category Terms",
+          "yearContext": "General",
+          "sourceUrls": [
+            "https://www.fia.com/regulations/category/110",
+            "https://www.fia.com/system/files/documents/2026_fia_formula_4_technical_regulations_app.j_-_art.274a_-_issue_1.1_-_2025.12.10.pdf"
+          ],
+          "details": "Formula: the defined set of technical and sporting rules for a category. Single-seater: a car designed primarily for one driver with an exposed cockpit. Constructor: an organization responsible for designing and/or building a car within the applicable regulations. Spec car: a car whose major components are standardized or controlled for competitors. Homologation: formal approval of a car or component specification for competition. ASN: national sporting authority recognized by the FIA."
+        },
+        {
+          "id": "slide_056",
+          "type": "glossary",
+          "title": "Race and Performance Terms",
+          "yearContext": "General",
+          "sourceUrls": [
+            "https://www.formula1.com/en/latest/article/2026-regulations-explained-all-you-need-to-know-about-f1s-new-aerodynamics.7IAt0auc32UkCEFE5ypkTB.7IAt0auc32UkCEFE5ypkTB",
+            "https://www.fiaformula3.com/en/information/the-rules-and-regulations-f3.6Iosy860VzDs0INyfKw37E",
+            "https://www.fiaformulae.com/en/news/explainers/the-history-of-formula-es-race-cars-gen1-2-3-to-gen3-evo-and-gen4"
+          ],
+          "details": "Pole position: first starting position on the grid, normally awarded to the fastest eligible qualifier. Sprint Race: shorter competitive race used in several championships with a reduced points allocation compared with the main race. Feature Race: principal race of an F2/F3-style weekend and normally the higher-points contest. Reverse grid: a starting-grid order formed by reversing a specified portion of an earlier classification. DRS: drag-reduction system used in F1 and certain support formulas; rules for activation vary by category. Active aerodynamics: aerodynamic surfaces whose position can change during operation under defined control rules. Regeneration: conversion of vehicle kinetic energy into stored electrical energy during deceleration."
+        },
+        {
+          "id": "slide_057",
+          "type": "glossary",
+          "title": "Powertrain and Structure Terms",
+          "yearContext": "General",
+          "sourceUrls": [
+            "https://www.formula1.com/en/latest/article/the-beginners-guide-to-the-2026-regulations.6j0tS0hrHG2T01tpmK6XYz",
+            "https://www.fiaformulae.com/en/news/762855",
+            "https://www.fia.com/system/files/documents/2026_fia_formula_4_technical_regulations_app.j_-_art.274a_-_issue_1.1_-_2025.12.10.pdf"
+          ],
+          "details": "Monocoque/survival cell: central load-bearing driver-protection structure used in modern formula cars. Power unit: the combined propulsion systems of a car; in F1 this includes the combustion engine and electrical systems governed by the technical formula. Hybrid: propulsion system combining combustion and electrical power. Battery energy storage system: rechargeable electrical storage used by electric or hybrid powertrains. Energy management: controlling power deployment and regeneration so available energy is used strategically during a race. Downforce: aerodynamic force pressing the car toward the track and increasing potential cornering grip. Drag: aerodynamic resistance that opposes forward motion."
+        }
+      ]
+    },
+    {
+      "id": "section_20",
+      "sectionNumber": 20,
+      "title": "VERIFIED FACTS",
+      "slides": [
+        {
+          "id": "slide_058",
+          "type": "text",
+          "title": "Five Reasons Formula Cars Are Different",
+          "yearContext": "Current / historical",
+          "sourceUrls": [
+            "https://www.fia.com/news/great-start-fia-formula-4",
+            "https://www.fiaformula2.com/en/latest/article/fia-formula-2-unveils-its-new-car-for-the-2027-2029-seasons.1NevEuWTkT9rR358sIsDPu",
+            "https://www.fiaformula3.com/en/latest/article/2019-season-calendar-revealed.5jVm1wHV7HCRaUOV58jjMx",
+            "https://www.fia.com/system/files/documents/appendix_l_2026_publie_le_26_mars_2026.pdf"
+          ],
+          "details": "Driver development: junior categories reduce complexity enough for learning while increasing speed in stages. Cost control: standardized cars prevent an unlimited engineering arms race in development-focused categories. Technical innovation: top categories permit greater engineering freedom or powertrain experimentation. Geographic access: national and regional series allow drivers to compete closer to home. Licensing: the FIA uses results in selected championships as one part of the qualification framework for elite competition."
+        },
+        {
+          "id": "slide_059",
+          "type": "statistics",
+          "title": "Verified 2026 Reference Facts",
+          "yearContext": "2026",
+          "sourceUrls": [
+            "https://www.formula1.com/en/latest/article/formula-1-reveals-calendar-for-2026-season.YctbMZWqBvrgyddrnauo8",
+            "https://www.fiaformula2.com/en/latest/article/fia-formula-2-championship-2026-season-calendar-revealed.28OvYB98ektUm0D8vrUgYS",
+            "https://www.fiaformula3.com/en/latest/article/fia-formula-3-championship-2026-season-calendar-revealed.16F8XBnz2PSr8Rn29WCsIs",
+            "https://www.fia.com/events/fia-formula-regional-european-championship/season-2026/fia-formula-regional-european",
+            "https://www.fiaformulae.com/en/news/762855"
+          ],
+          "caveat": "These are season-specific reference facts, not timeless category properties.",
+          "details": "F1 2026: published calendar structure contains 24 Grand Prix weekends and six Sprint weekends. F2 2026: 14 rounds and 28 scheduled races in the published championship structure. F3 2026: 10 rounds and 20 scheduled races in the published championship structure. FREC 2026: eight rounds, with weekend formats that can include two or three races. Formula E 2026/27: Gen4 begins in Season 13 with up to 600 kW in qualifying/Attack Mode and 700 kW maximum regeneration.",
+          "verifiedValues": "F1_2026={\"rounds\": 24, \"sprints\": 6}; F2_2026={\"rounds\": 14, \"scheduled_races\": 28}; F3_2026={\"rounds\": 10, \"scheduled_races\": 20}; FREC_2026={\"rounds\": 8}; Formula_E_2026_27={\"season\": 13, \"gen4_max_power_kw\": 600, \"max_regeneration_kw\": 700}"
+        },
+        {
+          "id": "slide_060",
+          "type": "text",
+          "title": "Museum Rule: Always Show the Year",
+          "yearContext": "Permanent data policy",
+          "sourceUrls": [
+            "https://www.fia.com/regulations/category/110",
+            "https://www.fia.com/regulation/category/829/1000",
+            "https://www.fia.com/regulation/category/106",
+            "https://www.fia.com/system/files/documents/2026_fia_formula_4_technical_regulations_app.j_-_art.274a_-_issue_1.1_-_2025.12.10.pdf",
+            "https://www.fia.com/regulation/category/2036",
+            "https://www.fia.com/regulation/category/109"
+          ],
+          "details": "Do not present a historical Gen1 Formula E specification as a 2026 specification. Do not use a 2025 F1 rule when describing the 2026 F1 car. Do not reuse a 2026 F3 specification for a future generation unless the official regulations state continuity. Do not treat a national FIA F4 championship as identical to every other FIA F4 championship without checking the applicable sporting rules. For future seasons, label information as announced, scheduled or forthcoming rather than current.",
+          "verifiedValues": "recommended_record_fields=[\"season\", \"generation\", \"status\", \"sourceUrls\"]; status_values=[\"current\", \"historical\", \"announced\", \"scheduled\", \"superseded\"]"
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "sectionCount": 20,
+    "slideCount": 60,
+    "targetAudience": "museum visitors, students, motorsport enthusiasts and interactive exhibition users",
+    "refreshRecommendation": "Refresh season-sensitive records whenever FIA or championship regulations are amended.",
+    "schemaVersion": "1.0"
+  }
+}

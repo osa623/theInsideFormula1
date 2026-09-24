@@ -1,0 +1,222 @@
+[
+  {
+    "id": "mercedes",
+    "name": "Mercedes-AMG PETRONAS",
+    "shortName": "Mercedes",
+    "color": "#00d2be",
+    "season2026": {
+      "position": 1,
+      "points": 468,
+      "gap": 0,
+      "status": "CHAMPIONSHIP LEADER",
+      "wins": 10,
+      "podiums": 19,
+      "poles": 9
+    },
+    "history": {
+      "championships": 8,
+      "wins": 128,
+      "podiums": 296,
+      "poles": 139,
+      "seasonsCompeted": 17
+    }
+  },
+  {
+    "id": "ferrari",
+    "name": "Scuderia Ferrari HP",
+    "shortName": "Ferrari",
+    "color": "#e8002d",
+    "season2026": {
+      "position": 2,
+      "points": 369,
+      "gap": -99,
+      "status": "TITLE CONTENDER",
+      "wins": 3,
+      "podiums": 14,
+      "poles": 4
+    },
+    "history": {
+      "championships": 16,
+      "wins": 248,
+      "podiums": 825,
+      "poles": 253,
+      "seasonsCompeted": 76
+    }
+  },
+  {
+    "id": "mclaren",
+    "name": "McLaren Formula 1 Team",
+    "shortName": "McLaren",
+    "color": "#ff8000",
+    "season2026": {
+      "position": 3,
+      "points": 303,
+      "gap": -165,
+      "status": "CHASING TOP 2",
+      "wins": 1,
+      "podiums": 10,
+      "poles": 1
+    },
+    "history": {
+      "championships": 9,
+      "wins": 188,
+      "podiums": 522,
+      "poles": 164,
+      "seasonsCompeted": 59
+    }
+  },
+  {
+    "id": "redbull",
+    "name": "Oracle Red Bull Racing",
+    "shortName": "Red Bull",
+    "color": "#3671c6",
+    "season2026": {
+      "position": 4,
+      "points": 166,
+      "gap": -302,
+      "status": "UPPER MIDFIELD",
+      "wins": 0,
+      "podiums": 3,
+      "poles": 0
+    },
+    "history": {
+      "championships": 6,
+      "wins": 120,
+      "podiums": 279,
+      "poles": 103,
+      "seasonsCompeted": 21
+    }
+  },
+  {
+    "id": "williams",
+    "name": "Williams Racing",
+    "shortName": "Williams",
+    "color": "#64c4ff",
+    "season2026": {
+      "position": 5,
+      "points": 60,
+      "gap": -408,
+      "status": "MIDFIELD LEAD",
+      "wins": 0,
+      "podiums": 0,
+      "poles": 0
+    },
+    "history": {
+      "championships": 9,
+      "wins": 114,
+      "podiums": 313,
+      "poles": 128,
+      "seasonsCompeted": 48
+    }
+  },
+  {
+    "id": "astonmartin",
+    "name": "Aston Martin Aramco",
+    "shortName": "Aston Martin",
+    "color": "#229971",
+    "season2026": {
+      "position": 6,
+      "points": 46,
+      "gap": -422,
+      "status": "MIDFIELD BATTLE",
+      "wins": 0,
+      "podiums": 0,
+      "poles": 0
+    },
+    "history": {
+      "championships": 0,
+      "wins": 1,
+      "podiums": 10,
+      "poles": 1,
+      "seasonsCompeted": 8
+    }
+  },
+  {
+    "id": "sauber",
+    "name": "Audi Revolut F1 Team",
+    "shortName": "Sauber / Audi",
+    "color": "#52e252",
+    "season2026": {
+      "position": 7,
+      "points": 29,
+      "gap": -439,
+      "status": "DEVELOPMENT RUN",
+      "wins": 0,
+      "podiums": 0,
+      "poles": 0
+    },
+    "history": {
+      "championships": 0,
+      "wins": 1,
+      "podiums": 27,
+      "poles": 1,
+      "seasonsCompeted": 33
+    }
+  },
+  {
+    "id": "racingbulls",
+    "name": "Visa Cash App RB",
+    "shortName": "Racing Bulls",
+    "color": "#6692ff",
+    "season2026": {
+      "position": 8,
+      "points": 22,
+      "gap": -446,
+      "status": "POINT SCORING",
+      "wins": 0,
+      "podiums": 0,
+      "poles": 0
+    },
+    "history": {
+      "championships": 0,
+      "wins": 2,
+      "podiums": 5,
+      "poles": 1,
+      "seasonsCompeted": 20
+    }
+  },
+  {
+    "id": "haas",
+    "name": "MoneyGram Haas F1 Team",
+    "shortName": "Haas",
+    "color": "#b6babd",
+    "season2026": {
+      "position": 9,
+      "points": 22,
+      "gap": -446,
+      "status": "POINT SCORING",
+      "wins": 0,
+      "podiums": 0,
+      "poles": 0
+    },
+    "history": {
+      "championships": 0,
+      "wins": 0,
+      "podiums": 0,
+      "poles": 1,
+      "seasonsCompeted": 10
+    }
+  },
+  {
+    "id": "alpine",
+    "name": "BWT Alpine F1 Team",
+    "shortName": "Alpine",
+    "color": "#ff87bc",
+    "season2026": {
+      "position": 10,
+      "points": 18,
+      "gap": -450,
+      "status": "RESTRUCTURING",
+      "wins": 0,
+      "podiums": 0,
+      "poles": 0
+    },
+    "history": {
+      "championships": 2,
+      "wins": 21,
+      "podiums": 107,
+      "poles": 20,
+      "seasonsCompeted": 39
+    }
+  }
+]

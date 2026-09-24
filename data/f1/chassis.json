@@ -1,0 +1,806 @@
+{
+  "screen": {"id":"Extra_Screens_Chassis.1","name":"THE INSIDE FORMULA 1 — Chassis Exhibition","databaseFile":"chassis.json","subject":"Formula 1 / single-seater racing chassis, vehicle structure, structural engineering, manufacturing, integration, testing and lifecycle","autoplay":true,"defaultSlideDuration":10000,"slideCount":60,"sectionCount":20,"researchCutoff":"2026-09-13","currentRegulationReference":"FIA 2026 Formula 1 Regulations — Section C [Technical] — Issue 20 — 05 August 2026","contentBoundary":["Chassis and Survival Cell structure only.","Tyre material is excluded except for unavoidable structural-interface references.","Team-specific confidential construction details, proprietary ply books, exact manufacturing recipes and unpublished internal data are not fabricated.","Technical numbers are labelled by season/year and tied to a cited source."]},
+  "researchMetadata": {"sourcePriorityApplied":["FIA official technical regulations and safety publications","FIA crash-test and homologation material","Official Formula 1 technical and historical material","Official team technical publications","Reputable motorsport engineering publications","Academic/engineering references where useful"],"primarySources":["https://www.fia.com/system/files/documents/fia_2026_f1_regulations_-_section_c_technical_-_iss_20_-_2026-08-05.pdf","https://www.fia.com/regulation/fia-formula-1-technical-regulations","https://www.fia.com/news/new-era-competition-fia-showcases-future-focused-formula-1-regulations-2026-and-beyond","https://www.fia.com/news/breaking-barriers-safety","https://api.fia.com/news/legacy-safety-how-fia-responded-tragedy-imola-1994-and-launched-drive-safer-racing","https://www.fia.com/news/f1-why-halo-best-solution","https://www.mercedesamgf1.com/f1-w17-2026-technical-specifications","https://www.mclaren.com/racing/heritage/formula-1/cars/1981-formula-1-mclaren-mp4-1/"],"importantAccuracyNotes":["The official current technical document used for the 2026 chassis database is Section C Issue 20 dated 05 August 2026.","Some FIA news summaries round or describe safety changes differently from exact technical-test clauses. Exact numerical regulatory values in the slides are taken from the regulation text or cross-checked against FIA-hosted regulation issues; the regulation article is the controlling source.","Public manufacturing descriptions are representative workflows. Current F1 team cure cycles, ply schedules, internal tooling strategies, non-public tolerances and production quantities are not treated as known unless officially disclosed.","Historical statements use the named era/season and are not presented as universal construction rules for every team."]},
+  "sections": [
+    {
+      "id": "S01",
+      "title": "WHAT IS A FORMULA RACING CHASSIS?",
+      "overview": "Introduces the chassis as the structural foundation of a single-seater, separating the survival cell from the complete vehicle while showing how stiffness, mass, packaging, aerodynamics and safety are co-designed.",
+      "slides": [
+        {
+          "id": "S01-01",
+          "type": "text",
+          "title": "Chassis: The Structural Foundation",
+          "subtitle": "Definition and scope",
+          "duration": 10000,
+          "autoplay": true,
+          "content": "A racing chassis is the main structural body to which major vehicle systems are attached. In modern Formula 1, the central chassis structure is the carbon-composite Survival Cell, also commonly called the monocoque or tub.\n\nThe chassis is not the complete racing car. Wheels, suspension, power unit, gearbox, bodywork, crash structures and other systems are separate assemblies that interface with it.\n\nFor an exhibition screen, the useful boundary is structural: the database covers the parts that carry loads, contain the driver, accept mounts, or deliberately manage crash energy.",
+          "keyFacts": ["F1 officially describes the chassis as the main body onto which everything else is built or attached.","The 2026 FIA regulations call the central protected structure the Survival Cell and regulate its geometry, materials and homologation."],
+          "sourceUrls": ["https://www.formula1.com/en/latest/article/f1-glossary-a-e.1MFONigMlQSbSQtpP7YCy2","https://www.fia.com/system/files/documents/fia_2026_f1_regulations_-_section_c_technical_-_iss_20_-_2026-08-05.pdf"]
+        },
+        {
+          "id": "S01-02",
+          "type": "technical",
+          "title": "What the Chassis Must Achieve",
+          "subtitle": "Multiple engineering objectives at once",
+          "duration": 10000,
+          "autoplay": true,
+          "content": "A competitive chassis must be stiff enough to maintain predictable suspension and aerodynamic interfaces, light enough to fit the overall vehicle mass target, and strong enough to survive regulated static and dynamic tests.\n\nIts packaging role is equally important: the Survival Cell surrounds the cockpit and defined power-unit energy-store space, while hard points and structural interfaces determine how the rest of the car can be installed.\n\nThe structural solution is therefore a compromise between stiffness, strength, energy absorption, mass, thermal environment, serviceability and aerodynamic packaging.",
+          "keyFacts": ["Stiffness reduces unwanted structural deflection under service loads.","Strength and crashworthiness are different goals: a survival cell is intended to stay intact while sacrificial impact structures deform and absorb energy."],
+          "sourceUrls": ["https://www.fia.com/system/files/documents/fia_2026_f1_regulations_-_section_c_technical_-_iss_20_-_2026-08-05.pdf","https://www.formula1.com/en/latest/article/5-crucial-milestonemoments-in-f1-safety.4rlVLaoq24DjmJKtusZ0tp"]
+        },
+        {
+          "id": "S01-03",
+          "type": "comparison",
+          "title": "Chassis vs Complete Car",
+          "subtitle": "Keep the exhibition focused",
+          "duration": 10000,
+          "autoplay": true,
+          "content": "Chassis-focused content includes: Survival Cell, cockpit structure, front and rear bulkheads, side intrusion protection, roll structures, impact structures, mounting interfaces, seat integration and structural manufacturing.\n\nWhole-car topics such as tyre compounds, race strategy or engine performance are outside this database unless a short engineering relationship is required to explain a structural load path or interface.\n\nThis boundary also prevents the screen from becoming a general Formula 1 encyclopedia.",
+          "keyFacts": ["The 2026 FIA technical regulations place the Survival Cell and Safety Structures in Articles C12 and C13, while other vehicle systems are regulated separately.","Current team publications show the monocoque as one subsystem within a larger complete car specification."],
+          "sourceUrls": ["https://www.fia.com/system/files/documents/fia_2026_f1_regulations_-_section_c_technical_-_iss_20_-_2026-08-05.pdf","https://www.mercedesamgf1.com/f1-w17-2026-technical-specifications"]
+        }
+      ]
+    },
+    {
+      "id": "S02",
+      "title": "MONOCOQUE",
+      "overview": "Explains the monocoque or Survival Cell as a load-bearing shell, including load paths, cockpit packaging, structural rigidity and its interfaces with the power unit and suspension.",
+      "slides": [
+        {
+          "id": "S02-01",
+          "type": "technical",
+          "title": "Monocoque Principle",
+          "subtitle": "Shell carries load rather than a separate frame",
+          "duration": 10000,
+          "autoplay": true,
+          "content": "A monocoque derives structural efficiency from its outer shell and internal reinforcement acting together. Modern F1 survival cells are not thin decorative skins; they are engineered composite structures that carry crash, mounting and operating loads.\n\nCarbon-fibre composite allows fibre directions and sandwich construction to place material where the load paths require it, rather than using one uniform thickness everywhere.\n\nThe term monocoque is retained historically, although a modern Survival Cell is better understood as a highly engineered composite shell with local cores, inserts and internal structures.",
+          "keyFacts": ["Modern F1 chassis are carbon-fibre survival cells rather than conventional tube frames.","Sandwich structures can increase bending stiffness efficiently because material is separated from the neutral axis by a core."],
+          "sourceUrls": ["https://www.formula1.com/en/latest/article/f1-glossary-a-e.1MFONigMlQSbSQtpP7YCy2","https://www.mercedesamgf1.com/f1-w17-2026-technical-specifications"]
+        },
+        {
+          "id": "S02-02",
+          "type": "component",
+          "title": "Structural Load Paths",
+          "subtitle": "How forces travel through the cell",
+          "duration": 10000,
+          "autoplay": true,
+          "content": "Service loads enter the chassis through interfaces such as suspension mountings, power-unit mountings, steering interfaces, seat and safety structures, and aerodynamic/bodywork attachments.\n\nThe engineering task is to provide continuous and predictable paths from each local attachment into the main shell without creating damaging stress concentrations.\n\nCrash load paths deliberately differ from normal running load paths. Front, side and rear impact structures are sacrificial or energy-absorbing structures intended to manage deceleration before loads reach the driver survival space.",
+          "keyFacts": ["2026 FIA calculations and tests explicitly evaluate Survival Cell strength at forward, side, cockpit and roll-structure interfaces.","The FIA requires the engine-separation analysis to keep any significant failure local to engine mounts and avoid significant fuel-cell exposure."],
+          "sourceUrls": ["https://www.fia.com/system/files/documents/fia_2026_f1_regulations_-_section_c_technical_-_iss_20_-_2026-08-05.pdf","https://www.raceteq.com/articles/2024/08/evolution-and-construction-of-chassis"]
+        },
+        {
+          "id": "S02-03",
+          "type": "technical",
+          "title": "Rigidity and Dimensional Control",
+          "subtitle": "Why stiffness is not just about strength",
+          "duration": 10000,
+          "autoplay": true,
+          "content": "A structure may be strong yet too flexible for accurate vehicle control. Chassis rigidity is therefore a design requirement independent of ultimate crash strength.\n\nDeflection under mounting loads changes suspension geometry and the relative position of aerodynamic surfaces. Controlled stiffness improves repeatability and makes simulation-to-track correlation more meaningful.\n\nThe 2026 regulations include load cases with explicit deflection limits, demonstrating that deformation is a regulated engineering quantity, not merely a cosmetic concern.",
+          "keyFacts": ["Example 2026 FIA limits include less than 5mm deflection in the Forward Survival Cell Test and less than 10mm deformation in the cockpit-rim test.","Exact limits are test-specific; they must not be generalized into one universal chassis stiffness number."],
+          "sourceUrls": ["https://www.fia.com/system/files/documents/fia_2026_f1_regulations_-_section_c_technical_-_iss_20_-_2026-08-05.pdf"]
+        }
+      ]
+    },
+    {
+      "id": "S03",
+      "title": "CHASSIS MATERIALS",
+      "overview": "Introduces the material families permitted or documented for modern racing chassis work, emphasizing selection by function rather than assuming one universal material.",
+      "slides": [
+        {
+          "id": "S03-01",
+          "type": "material",
+          "title": "Carbon-Fibre Composites",
+          "subtitle": "The principal modern chassis material",
+          "duration": 10000,
+          "autoplay": true,
+          "content": "Carbon-fibre-reinforced polymer is the dominant structural technology for modern F1 survival cells and many attached structures because fibre properties can be exploited directionally.\n\nThe matrix transfers load between fibres, protects the reinforcement and forms the finished laminate after cure. Fibre architecture and resin system therefore matter together.\n\nMercedes-AMG Petronas publicly identifies its 2026 W17 monocoque as a moulded carbon-fibre and honeycomb composite structure; this is a team-specific public specification, not a claim about every component on every car.",
+          "keyFacts": ["2026 Mercedes W17: monocoque listed as moulded carbon fibre and honeycomb composite.","FIA 2026 C15.2.3 permits several polymer matrix families and multiple reinforcement families."],
+          "sourceUrls": ["https://www.mercedesamgf1.com/f1-w17-2026-technical-specifications","https://www.fia.com/system/files/documents/fia_2026_f1_regulations_-_section_c_technical_-_iss_20_-_2026-08-05.pdf"]
+        },
+        {
+          "id": "S03-02",
+          "type": "material",
+          "title": "Metallic Materials and Inserts",
+          "subtitle": "Use where function requires metal",
+          "duration": 10000,
+          "autoplay": true,
+          "content": "Metallic materials remain relevant around interfaces, bearings, fasteners, brackets and other local functions where high bearing strength, threads, thermal behavior or compact load transfer can favor metal.\n\nThe 2026 FIA materials article lists permitted iron alloys, aluminium alloys, magnesium alloys, nickel/cobalt superalloys, titanium alloys, copper alloys and tungsten alloys, with component-specific restrictions.\n\nThe FIA also separately defines materials allowed for additive manufacture. A material being permitted in the regulations does not mean that a particular team uses it in a particular chassis location.",
+          "keyFacts": ["2026 C15.2.1 enumerates metallic material families for components outside the power-unit perimeter.","C15.3 adds component-specific restrictions; material choice is therefore governed by both the general list and the component rule."],
+          "sourceUrls": ["https://www.fia.com/system/files/documents/fia_2026_f1_regulations_-_section_c_technical_-_iss_20_-_2026-08-05.pdf"]
+        },
+        {
+          "id": "S03-03",
+          "type": "material",
+          "title": "Core Materials and Hybrid Construction",
+          "subtitle": "Sandwich architecture",
+          "duration": 10000,
+          "autoplay": true,
+          "content": "The FIA 2026 material list permits aluminium honeycomb, meta-aramid honeycomb, para-aramid honeycomb, polymer foams, polymer syntactic foams and balsa as core families for polymer composite construction.\n\nA sandwich laminate can place thin high-performance skins around a lightweight core. The core stabilizes the skins against buckling and increases section stiffness without requiring a solid block of carbon.\n\nCore selection is application-dependent. A crash structure, a cockpit panel and an aerodynamic bodywork panel may require different combinations of skins, core and local reinforcement.",
+          "keyFacts": ["FIA C15.2.3(c) lists six core-material families.","FIA C15.4 explicitly permits solid inserts and local reinforcing structures in regulated composite laminates, subject to the relevant rules."],
+          "sourceUrls": ["https://www.fia.com/system/files/documents/fia_2026_f1_regulations_-_section_c_technical_-_iss_20_-_2026-08-05.pdf"]
+        }
+      ]
+    },
+    {
+      "id": "S04",
+      "title": "CARBON-FIBRE ENGINEERING",
+      "overview": "Covers fibre orientation, laminate architecture, sandwich design, resin systems, curing and common composite failure mechanisms without implying confidential team recipes.",
+      "slides": [
+        {
+          "id": "S04-01",
+          "type": "technical",
+          "title": "Fibre Orientation and Load Direction",
+          "subtitle": "A laminate is designed, not simply stacked",
+          "duration": 10000,
+          "autoplay": true,
+          "content": "Unidirectional fibres are most efficient when major loads are predictable along a direction; woven fabrics provide more balanced in-plane reinforcement. Real structures combine orientations to meet multi-axis loading requirements.\n\nThe layup sequence controls stiffness, strength, damage tolerance and local behavior. A designer can place more plies near highly loaded interfaces and use lighter architecture in lower-stress areas.\n\nThe exact ply book, sequence and proprietary fibre/resin combinations of current F1 teams are generally confidential and should not be invented.",
+          "keyFacts": ["Public motorsport manufacturing sources describe ply-by-ply layup and orientation as central to monocoque design.","FIA 2026 C15.5 specifies homologated laminates for selected safety-critical areas."],
+          "sourceUrls": ["https://www.raceteq.com/articles/2024/08/evolution-and-construction-of-chassis","https://f1i.com/magazine/magazine-technical/290512-tech-f1i-birth-formula-1-car-production.html/2"]
+        },
+        {
+          "id": "S04-02",
+          "type": "process",
+          "title": "Resin, Vacuum and Cure",
+          "subtitle": "Turning pre-preg into a structural laminate",
+          "duration": 10000,
+          "autoplay": true,
+          "content": "A common documented motorsport workflow uses pre-preg: reinforcement supplied with a controlled resin content. Cut plies are positioned in tooling, compacted, sealed in a vacuum bag and cured in an autoclave or other qualified process.\n\nVacuum removes trapped air and consolidates the stack. Heat initiates resin flow and cure; pressure helps consolidate the laminate and core interfaces.\n\nExact cure temperature, pressure, dwell times and debulk schedule are process-specific. Public descriptions should be treated as representative industrial practice, not a secret team recipe.",
+          "keyFacts": ["F1i documents cut-and-laminate workflows, vacuum bagging and autoclave curing in F1 composite production.","Toray Advanced Composites explains that prepreg curing depends on controlled heat, time and pressure."],
+          "sourceUrls": ["https://f1i.com/magazine/magazine-technical/290512-tech-f1i-birth-formula-1-car-production.html/2","https://f1i.com/magazine/magazine-technical/290512-tech-f1i-birth-formula-1-car-production.html/3"]
+        },
+        {
+          "id": "S04-03",
+          "type": "safety",
+          "title": "Composite Failure Modes",
+          "subtitle": "What can go wrong inside a laminate",
+          "duration": 10000,
+          "autoplay": true,
+          "content": "Matrix cracking can appear before complete structural failure. Delamination is separation between laminate layers; local impact damage can leave little visible evidence while reducing residual strength.\n\nFibre fracture is a more severe failure mechanism in the primary load-bearing reinforcement. Core crushing or local insert failure can also compromise a sandwich structure even when the external skin looks mostly intact.\n\nFor high-value structures, inspection and non-destructive testing are therefore essential after significant loads or impacts.",
+          "keyFacts": ["Public F1 repair reporting describes ultrasound and other non-destructive checks for carbon chassis damage.","The FIA homologation framework requires safety structures to meet specified tests rather than relying only on visual appearance."],
+          "sourceUrls": ["https://www.raceteq.com/articles/2024/06/what-happens-to-a-damaged-f1-chassis-after-crash","https://www.fia.com/system/files/documents/fia_2026_f1_regulations_-_section_c_technical_-_iss_20_-_2026-08-05.pdf"]
+        }
+      ]
+    },
+    {
+      "id": "S05",
+      "title": "CHASSIS COMPONENTS",
+      "overview": "Breaks the central structural system into its major functional pieces and interfaces, keeping component descriptions tied to chassis engineering.",
+      "slides": [
+        {
+          "id": "S05-01",
+          "type": "component",
+          "title": "Survival Cell and Bulkheads",
+          "subtitle": "The protected central architecture",
+          "duration": 10000,
+          "autoplay": true,
+          "content": "The Survival Cell is the primary protected shell around the driver and defined energy-storage packaging. Its geometry is tightly constrained by FIA reference volumes and homologation rules.\n\nBulkheads divide structural regions and provide controlled interfaces. The front portion receives the Front Impact Structure; rear interfaces connect the Survival Cell to the power unit and transmission structure while maintaining crash compatibility.\n\nExact private bulkhead construction details are team-specific; public regulations define the required volumes, loads and interfaces rather than a complete manufacturing drawing.",
+          "keyFacts": ["2026 C12.2 defines Survival Cell geometry and cockpit opening constraints.","The 2026 rules require three FIA identification transponders to be permanent parts of each Survival Cell."],
+          "sourceUrls": ["https://www.fia.com/system/files/documents/fia_2026_f1_regulations_-_section_c_technical_-_iss_20_-_2026-08-05.pdf"]
+        },
+        {
+          "id": "S05-02",
+          "type": "component",
+          "title": "Cockpit, Seat and Driver Interfaces",
+          "subtitle": "Structure shaped around the driver",
+          "duration": 10000,
+          "autoplay": true,
+          "content": "The cockpit is both a human-interface volume and a structural region. The surrounding cell must provide clearance, restraint anchorage and head protection while preserving emergency access.\n\nThe 2026 rules require the driver to enter and exit without opening a door, and specify a measured steering-wheel removal/egress sequence. The test is part of the structural safety environment rather than a performance option.\n\nA team-specific public example is the Mercedes W17 specification, which lists a removable anatomically formed carbon-composite seat and six-point harness.",
+          "keyFacts": ["2026 FIA C12.5.1: remove steering wheel and exit within 7 seconds, then replace it within a 12-second total sequence.","Mercedes lists a removable carbon-composite driver seat in its 2026 W17 public specification."],
+          "sourceUrls": ["https://www.fia.com/system/files/documents/fia_2026_f1_regulations_-_section_c_technical_-_iss_20_-_2026-08-05.pdf","https://www.mercedesamgf1.com/f1-w17-2026-technical-specifications"]
+        },
+        {
+          "id": "S05-03",
+          "type": "component",
+          "title": "Interfaces: Suspension, Steering and Power Unit",
+          "subtitle": "Hard points matter",
+          "duration": 10000,
+          "autoplay": true,
+          "content": "Suspension loads enter through defined attachment points. Steering-column and cockpit interfaces must also transfer loads without creating unsafe local failure modes.\n\nPower-unit mounts are structural interfaces rather than merely fasteners. FIA 2026 calculations explicitly address a scenario where an engine separates from the Survival Cell and require significant damage to remain local to the engine mounts.\n\nThe chassis therefore functions as an interface platform: it must maintain geometry under operation and controlled behavior under abnormal loads.",
+          "keyFacts": ["2026 FIA C13.4.9 requires calculation of engine-separation behavior.","FIA technical regulations separately specify suspension, steering and transmission connection rules that interact with the Survival Cell."],
+          "sourceUrls": ["https://www.fia.com/system/files/documents/fia_2026_f1_regulations_-_section_c_technical_-_iss_20_-_2026-08-05.pdf"]
+        }
+      ]
+    },
+    {
+      "id": "S06",
+      "title": "AERODYNAMIC INTEGRATION",
+      "overview": "Explains only the structural relationship between chassis architecture and aerodynamic bodywork, especially packaging, interfaces and 2026 ground-effect changes.",
+      "slides": [
+        {
+          "id": "S06-01",
+          "type": "technical",
+          "title": "Chassis and Floor Interface",
+          "subtitle": "Structural support for the lower car",
+          "duration": 10000,
+          "autoplay": true,
+          "content": "The chassis provides the geometric and structural reference around which the floor and lower bodywork are packaged. The floor itself is an aerodynamic component, so its legal geometry and flexibility are regulated separately from the Survival Cell.\n\nThe structural challenge is to keep mounting interfaces accurate while protecting the chassis from local loads, vibration and thermal exposure from nearby systems.\n\nIn 2026 the aerodynamic rules move to a partially flat floor and a lower-powered diffuser, reducing dependence on extreme ground-effect sensitivity; the chassis still has to package these elements within the permitted volumes.",
+          "keyFacts": ["FIA 2026 rules separate Survival Cell provisions in C12 from aerodynamic bodywork in C3.","Formula1 explains the 2026 partially flat floor and lower diffuser as a major aerodynamic change."],
+          "sourceUrls": ["https://www.fia.com/system/files/documents/fia_2026_f1_regulations_-_section_c_technical_-_iss_20_-_2026-08-05.pdf","https://www.formula1.com/en/latest/article/explained-2026-aerodynamic-regulations-fia-x-mode-z-mode-.26c1CtOzCmN3GfLMywrgb2"]
+        },
+        {
+          "id": "S06-02",
+          "type": "technical",
+          "title": "Sidepods, Cooling and Structural Packaging",
+          "subtitle": "Airflow has structural consequences",
+          "duration": 10000,
+          "autoplay": true,
+          "content": "Sidepods and cooling systems sit around a protected central structure. Their openings, radiators, ducts and internal hardware must fit without compromising regulated Survival Cell geometry or side-impact protection.\n\nCooling layouts also introduce thermal gradients and local loads around interfaces. Composite design must account for the temperatures expected near power-unit and heat-exchanger packaging.\n\nExact team cooling architecture is highly design-specific; the exhibition should therefore explain the constraints rather than present speculative internal layouts.",
+          "keyFacts": ["2026 C12.2 and C12.3 establish where Survival Cell material and openings may exist.","Mercedes publicly identifies carbon composite sidepods and engine cover on the 2026 W17, while the internal cooling layout remains team-specific."],
+          "sourceUrls": ["https://www.fia.com/system/files/documents/fia_2026_f1_regulations_-_section_c_technical_-_iss_20_-_2026-08-05.pdf","https://www.mercedesamgf1.com/f1-w17-2026-technical-specifications"]
+        },
+        {
+          "id": "S06-03",
+          "type": "technical",
+          "title": "Engine Cover and Bodywork Interfaces",
+          "subtitle": "Structural boundary, not a generic aero lesson",
+          "duration": 10000,
+          "autoplay": true,
+          "content": "Engine-cover and upper-body panels attach around the structural core, but their aerodynamic shapes can constrain access, cooling, visibility of components and service operations.\n\nThe chassis must maintain accurate locating points so removable bodywork can be repeatedly installed without disturbing structural geometry.\n\nFor 2026, the car also introduces revised bodywork rules around active aerodynamic modes. The chassis database only needs the structural implication: more controlled bodywork geometry means disciplined packaging around fixed structural interfaces.",
+          "keyFacts": ["Mercedes lists carbon-fibre-composite engine cover and sidepods on the 2026 W17.","2026 aerodynamic regulations define the bodywork environment in which chassis interfaces operate."],
+          "sourceUrls": ["https://www.mercedesamgf1.com/f1-w17-2026-technical-specifications","https://www.formula1.com/en/latest/article/explained-2026-aerodynamic-regulations-fia-x-mode-z-mode-.26c1CtOzCmN3GfLMywrgb2"]
+        }
+      ]
+    },
+    {
+      "id": "S07",
+      "title": "DRIVER SAFETY CELL",
+      "overview": "Focuses on the driver survival space, head protection, Halo, seat, headrest and emergency extraction.",
+      "slides": [
+        {
+          "id": "S07-01",
+          "type": "safety",
+          "title": "Survival Cell as the Driver Envelope",
+          "subtitle": "Keep the survival space intact",
+          "duration": 10000,
+          "autoplay": true,
+          "content": "The Survival Cell is intended to preserve a protected volume around the driver during a serious accident. Its design combines material performance, geometry and regulated impact structures.\n\nThe surrounding shell controls intrusion from frontal and lateral directions while roll structures help protect against inversion. Safety equipment then works inside and around this envelope.\n\nThe result is a layered safety system: sacrificial structures absorb energy, the Survival Cell maintains the protected volume, and the driver restraint/protection equipment manages the remaining loads.",
+          "keyFacts": ["FIA 2026 C12.3 explicitly addresses intrusion protection for the driver and fuel bladder.","C13 defines a sequence of Survival Cell, roll-structure and impact-structure homologation tests."],
+          "sourceUrls": ["https://www.fia.com/system/files/documents/fia_2026_f1_regulations_-_section_c_technical_-_iss_20_-_2026-08-05.pdf","https://www.fia.com/news/breaking-barriers-safety"]
+        },
+        {
+          "id": "S07-02",
+          "type": "safety",
+          "title": "Halo Integration",
+          "subtitle": "Frontal cockpit protection",
+          "duration": 10000,
+          "autoplay": true,
+          "content": "The Halo is a frontal cockpit protection structure mounted to the central vehicle structure. FIA research selected it after evaluating multiple concepts and conducting track and extrication testing.\n\nIts engineering role is not to absorb every crash load alone; it redirects or withstands intrusion hazards while the Survival Cell and other structures maintain the driver space.\n\nHalo became mandatory in Formula 1 from 2018. The device is now part of the wider survival-cell design and emergency access considerations.",
+          "keyFacts": ["The FIA confirmed Halo for 2018 after extensive research and testing.","Formula 1 describes the Halo as a key F1 safety milestone introduced in 2018."],
+          "sourceUrls": ["https://www.fia.com/news/f1-why-halo-best-solution","https://www.fia.com/news/f1-strategy-group-meeting-fia-confirms-halo-system-use-2018-fia-formula-one-world-championship"]
+        },
+        {
+          "id": "S07-03",
+          "type": "safety",
+          "title": "Seat, Headrest and Extraction",
+          "subtitle": "The interior is part of structural safety",
+          "duration": 10000,
+          "autoplay": true,
+          "content": "The seat, headrest, cockpit padding and restraint system have to work with the Survival Cell rather than against it. Their mounting and release arrangements affect both driver protection and emergency extraction.\n\nThe 2026 FIA rules specify a dedicated headrest load test and cockpit entry/exit timing. These requirements make post-impact access a design constraint, not an afterthought.\n\nHANS and harness systems protect the driver by controlling head and torso motion; the chassis provides the attachment environment in which those systems work.",
+          "keyFacts": ["2026 C13.9 uses a load proportional to headrest mass and requires the rear mountings to remain engaged.","2026 C12.5.1 specifies the timed driver egress procedure."],
+          "sourceUrls": ["https://www.fia.com/system/files/documents/fia_2026_f1_regulations_-_section_c_technical_-_iss_20_-_2026-08-05.pdf","https://www.formula1.com/en/latest/article/5-crucial-milestonemoments-in-f1-safety.4rlVLaoq24DjmJKtusZ0tp"]
+        }
+      ]
+    },
+    {
+      "id": "S08",
+      "title": "IMPACT STRUCTURES",
+      "overview": "Explains front, side and rear impact structures as energy-management devices that interface with but are distinct from the Survival Cell.",
+      "slides": [
+        {
+          "id": "S08-01",
+          "type": "component",
+          "title": "Front Impact Structure",
+          "subtitle": "Sacrificial front load path",
+          "duration": 10000,
+          "autoplay": true,
+          "content": "The 2026 FIA rules require a Front Impact Structure (FIS) in front of the Survival Cell. It is not an integral part of the Survival Cell, but is solidly attached and arranged symmetrically.\n\nIts geometry is designed to crush and manage energy while preventing the impact structure itself from creating unacceptable intrusion into the protected driver cell.\n\nFor 2026 the FIS rules use a two-stage concept intended to reduce the risk that a first impact leaves the car without adequate frontal protection for a secondary impact.",
+          "keyFacts": ["2026 FIS: minimum four attachments of equal nominal strength are specified in C13.6.1.","FIA states that the 2026 front-impact change addresses secondary-impact risk."],
+          "sourceUrls": ["https://www.fia.com/system/files/documents/fia_2026_f1_regulations_-_section_c_technical_-_iss_20_-_2026-08-05.pdf","https://www.fia.com/news/new-era-competition-fia-showcases-future-focused-formula-1-regulations-2026-and-beyond"]
+        },
+        {
+          "id": "S08-02",
+          "type": "component",
+          "title": "Side Impact Structures",
+          "subtitle": "Lateral energy absorption and intrusion control",
+          "duration": 10000,
+          "autoplay": true,
+          "content": "Two impact-absorbing structures are fitted on each side of the Survival Cell under the 2026 rules. Their purpose is to protect the driver in a lateral impact and to transfer loads into the Survival Cell through controlled mountings.\n\nThe structures are enclosed by bodywork and arranged in defined longitudinal and vertical regions. Their geometry and mounting are regulated to preserve the intended crash behavior.\n\nThe FIA 2026 safety announcement describes the side-intrusion update as improved protection around the cockpit and more than doubled protection at the side of the fuel-cell area, while maintaining the weight objective stated by the FIA.",
+          "keyFacts": ["2026 C13.5 requires two side impact structures on each side of the Survival Cell.","FIA 2026 summary: side intrusion protection was increased without adding weight to the safety package."],
+          "sourceUrls": ["https://www.fia.com/system/files/documents/fia_2026_f1_regulations_-_section_c_technical_-_iss_20_-_2026-08-05.pdf","https://www.fia.com/news/f1s-new-era-everything-you-need-know-about-how-fia-making-formula-1-more-competitive-more"]
+        },
+        {
+          "id": "S08-03",
+          "type": "component",
+          "title": "Rear Impact Structure",
+          "subtitle": "Controlled deformation behind the gearbox",
+          "duration": 10000,
+          "autoplay": true,
+          "content": "A rear impact-absorbing structure is fitted behind the gearbox. The gearbox and rear impact structure are tested together because the attachment path is part of the crash load chain.\n\nThe 2026 dynamic test uses an 875kg moving object at a minimum 11m/s and limits the peak deceleration of the test structure to 25g, with a defined deceleration envelope for the initial travel.\n\nThese values are regulatory test conditions, not a claim about the forces in every real accident.",
+          "keyFacts": ["2026 FIA C13.7.3: 875kg impactor mass, velocity not less than 11m/s, maximum deceleration 25g.","Static rear-impact attachment checks include separate 40kN lateral and vertical load cases."],
+          "sourceUrls": ["https://www.fia.com/system/files/documents/fia_2026_f1_regulations_-_section_c_technical_-_iss_20_-_2026-08-05.pdf"]
+        }
+      ]
+    },
+    {
+      "id": "S09",
+      "title": "MANUFACTURING",
+      "overview": "Documents the publicly described composite-production workflow while separating generic industry practice from confidential team methods.",
+      "slides": [
+        {
+          "id": "S09-01",
+          "type": "process",
+          "title": "From CAD to Tooling",
+          "subtitle": "Digital definition becomes physical geometry",
+          "duration": 10000,
+          "autoplay": true,
+          "content": "The manufacturing chain starts with CAD and structural requirements. A master pattern or tooling definition is produced with the geometry required for the finished component.\n\nF1 composite sources describe machined patterns and moulds produced from CAD-derived geometry, often using multi-axis machining. Tooling accuracy matters because errors can propagate into every part produced from the mould.\n\nTeams can hold proprietary tolerances, tooling materials and manufacturing sequences, so public educational content should stop at the documented general workflow.",
+          "keyFacts": ["F1i and motorsport production sources describe CAD-to-pattern-to-mould workflows for F1 composite parts.","Toray documents rapid composite tooling methods and controlled curing of tooling prepreg."],
+          "sourceUrls": ["https://f1i.com/magazine/magazine-technical/290512-tech-f1i-birth-formula-1-car-production.html/2","https://www.motorsport.com/f1/news/how-is-an-f1-car-made/7626323/"]
+        },
+        {
+          "id": "S09-02",
+          "type": "process",
+          "title": "Layup, Vacuum and Autoclave",
+          "subtitle": "Building the laminate",
+          "duration": 10000,
+          "autoplay": true,
+          "content": "Prepreg plies are cut to shape and placed according to the laminate definition. The orientation, overlap and local reinforcement follow the structural design.\n\nThe laid-up assembly is vacuum-bagged to compact the stack and remove trapped air. It is then cured using a controlled thermal and pressure cycle appropriate to the material system.\n\nF1 production sources describe autoclave curing as normal composite practice, but the exact cycle used by a team is proprietary unless officially disclosed.",
+          "keyFacts": ["F1i describes ply placement, vacuum bagging and autoclave curing; it also notes multiple autoclaves in F1 factories.","FIA 2026 safety laminates must use the same manufacturing process and cure cycle as the Survival Cell in the prescribed homologation context."],
+          "sourceUrls": ["https://f1i.com/magazine/magazine-technical/290512-tech-f1i-birth-formula-1-car-production.html/3","https://www.fia.com/system/files/documents/fia_2026_f1_regulations_-_section_c_technical_-_iss_20_-_2026-08-05.pdf"]
+        },
+        {
+          "id": "S09-03",
+          "type": "process",
+          "title": "Machining, Bonding and Assembly",
+          "subtitle": "Precision after cure",
+          "duration": 10000,
+          "autoplay": true,
+          "content": "After cure and demoulding, composite parts are trimmed and machined. Mounting holes, datum features and access openings can be cut using computer-controlled equipment.\n\nSeparate composite sections and internal bulkheads are joined using controlled adhesive-bonding procedures and dedicated jigs. Local inserts can distribute fastener loads through a sandwich structure.\n\nPublic F1 manufacturing accounts describe five-axis machining for openings and careful adhesive bonding of multi-part assemblies.",
+          "keyFacts": ["F1i documents five-axis machining of cured monocoque openings and careful structural bonding.","Raceteq describes bonding upper and lower monocoque components and installing bulkheads before final machining and inspection."],
+          "sourceUrls": ["https://f1i.com/magazine/magazine-technical/290512-tech-f1i-birth-formula-1-car-production.html/3","https://www.raceteq.com/articles/2024/08/evolution-and-construction-of-chassis"]
+        }
+      ]
+    },
+    {
+      "id": "S10",
+      "title": "DESIGN AND ENGINEERING PROCESS",
+      "overview": "Explains the iterative engineering loop from requirements through simulation, design reviews, manufacture and validation.",
+      "slides": [
+        {
+          "id": "S10-01",
+          "type": "process",
+          "title": "Requirements Before Geometry",
+          "subtitle": "Start with loads, rules and interfaces",
+          "duration": 10000,
+          "autoplay": true,
+          "content": "A chassis programme begins with requirements: FIA survival-cell geometry, crash-test obligations, mounting interfaces, cockpit dimensions, packaging boundaries, environmental exposure, manufacturing capability and target structural performance.\n\nRequirements become measurable load cases and acceptance criteria. Regulatory requirements are treated as hard constraints; performance targets are optimized inside those constraints.\n\nThis stage prevents a common engineering mistake: designing a beautiful shell first and attempting to fit safety and manufacturing constraints later.",
+          "keyFacts": ["2026 FIA C12 and C13 define many structural requirements as explicit tests, calculations and geometric constraints.","The FIA can request CAD models and calculations when required to check compliance."],
+          "sourceUrls": ["https://www.fia.com/system/files/documents/fia_2026_f1_regulations_-_section_c_technical_-_iss_20_-_2026-08-05.pdf"]
+        },
+        {
+          "id": "S10-02",
+          "type": "technical",
+          "title": "Simulation and Correlation",
+          "subtitle": "FEA supports, but does not replace, testing",
+          "duration": 10000,
+          "autoplay": true,
+          "content": "Finite-element analysis can evaluate stresses, strains, buckling, deflection, impact behavior and interface loads before expensive physical testing.\n\nComposite analysis requires material models that capture directional behavior and failure criteria; simplified isotropic assumptions are not sufficient for every laminate problem.\n\nThe FIA framework itself uses calculation-to-test correlation in defined safety cases, showing that simulation is part of the homologation evidence rather than a substitute for it.",
+          "keyFacts": ["2026 C13.4.7 requires comparison of physical test data with calculated cockpit-side behavior for the higher lateral load case.","The regulations also permit the FIA to request models and material properties used in calculations."],
+          "sourceUrls": ["https://www.fia.com/system/files/documents/fia_2026_f1_regulations_-_section_c_technical_-_iss_20_-_2026-08-05.pdf"]
+        },
+        {
+          "id": "S10-03",
+          "type": "process",
+          "title": "Iteration, Review and Release",
+          "subtitle": "Engineering is a loop",
+          "duration": 10000,
+          "autoplay": true,
+          "content": "A structural design normally cycles through requirements, CAD, simulation, design review, tooling, manufacture, test, measurement and revision.\n\nDesign changes can trigger manufacturing rework or new homologation obligations. The 2026 FIA rules state that significant modifications to tested structures can require another test.\n\nThe final release therefore needs configuration control: the approved design, material definition, manufacturing process and inspection state must correspond to the physical part used on the car.",
+          "keyFacts": ["2026 C13 testing provisions require further testing when significant modifications are introduced.","FIA compliance can include physical inspection, CAD comparison and requested calculation evidence."],
+          "sourceUrls": ["https://www.fia.com/system/files/documents/fia_2026_f1_regulations_-_section_c_technical_-_iss_20_-_2026-08-05.pdf"]
+        }
+      ]
+    },
+    {
+      "id": "S11",
+      "title": "TESTING",
+      "overview": "Explains structural tests, stiffness checks, component testing, fatigue considerations and inspection as a validation hierarchy.",
+      "slides": [
+        {
+          "id": "S11-01",
+          "type": "testing",
+          "title": "Static Structural Testing",
+          "subtitle": "Slow loads reveal stiffness and failure margins",
+          "duration": 10000,
+          "autoplay": true,
+          "content": "Static tests apply controlled loads to specific points or structures and measure deformation, failure and recovery. They are useful for mountings, cockpit regions, roll structures and impact-structure attachments.\n\nA successful static test does not prove dynamic crash performance, but it verifies that the structure can survive defined loads without unacceptable failure or deformation.\n\nThe FIA specifies the load pad geometry, direction, application time and acceptance criteria for many regulated tests.",
+          "keyFacts": ["2026 C13.4 includes fuel-tank side, wheel-contact, floor, cockpit-floor, cockpit-rim and cockpit-side tests.","2026 C13.3 includes principal and secondary roll-structure static tests."],
+          "sourceUrls": ["https://www.fia.com/system/files/documents/fia_2026_f1_regulations_-_section_c_technical_-_iss_20_-_2026-08-05.pdf"]
+        },
+        {
+          "id": "S11-02",
+          "type": "testing",
+          "title": "Dynamic and Component Testing",
+          "subtitle": "Replicate important failure physics",
+          "duration": 10000,
+          "autoplay": true,
+          "content": "Dynamic testing introduces velocity and inertia so that energy absorption and deceleration histories can be measured. Impact structures are tested dynamically because crush behavior is fundamentally rate- and energy-dependent.\n\nComponents such as the steering column and headrest also receive dedicated impact or load tests, reflecting the fact that safety is a chain of interacting structures.\n\nTeams also conduct private validation beyond the FIA minimum where performance, durability or correlation demands it. Public sources generally do not expose complete team test matrices.",
+          "keyFacts": ["2026 FIA C13.6 defines two FIS dynamic tests; C13.7 defines a rear-impact dynamic test.","2026 C13.8 defines a steering-column impact test and C13.9 a headrest load test."],
+          "sourceUrls": ["https://www.fia.com/system/files/documents/fia_2026_f1_regulations_-_section_c_technical_-_iss_20_-_2026-08-05.pdf"]
+        },
+        {
+          "id": "S11-03",
+          "type": "testing",
+          "title": "Inspection and Validation",
+          "subtitle": "Measure the manufactured part",
+          "duration": 10000,
+          "autoplay": true,
+          "content": "Inspection confirms that manufactured geometry, interfaces, surface condition and structural integrity match the released definition.\n\nNon-destructive testing can identify hidden defects without destroying the part. Public F1 repair reporting describes visual inspection, liquid crack detection and ultrasound as tools used to assess carbon structures after impacts.\n\nFor regulated Survival Cells, homologation is a formal validation gate; for race-used components, ongoing inspection is part of lifecycle management.",
+          "keyFacts": ["Raceteq documents trackside NDT and factory structural assessment after chassis crashes.","Formula1 reports that monocoques are heavily inspected after races for structural integrity."],
+          "sourceUrls": ["https://www.raceteq.com/articles/2024/06/what-happens-to-a-damaged-f1-chassis-after-crash","https://www.formula1.com/en/latest/article/5-crucial-milestonemoments-in-f1-safety.4rlVLaoq24DjmJKtusZ0tp"]
+        }
+      ]
+    },
+    {
+      "id": "S12",
+      "title": "FIA CRASH TESTING",
+      "overview": "Provides the regulation-specific homologation sequence and selected exact 2026 public values, always labelled by season and regulation issue.",
+      "slides": [
+        {
+          "id": "S12-01",
+          "type": "safety",
+          "title": "2026 Survival Cell Frontal Impact Test",
+          "subtitle": "A chassis is tested as a crash structure, not just a shell",
+          "duration": 10000,
+          "autoplay": true,
+          "content": "The 2026 FIA survival-cell dynamic test is performed on a Survival Cell that has also been through the required roll-structure and load-test sequence, with the precise permitted order defined by Article C13.\n\nA publicly documented acceptance pair is the measured Survival Cell acceleration requirement from T=30ms and the maximum Survival Cell displacement from T=Zero.\n\n2026 values: peak Survival Cell acceleration from T=30ms must be at least 52g; maximum Survival Cell displacement from T=Zero is 425mm.",
+          "keyFacts": ["Season: 2026. Regulation: FIA Section C Issue 20, C13.2. Peak Survival Cell acceleration from T=30ms: at least 52g.","Season: 2026. Regulation: FIA Section C Issue 20, C13.2. Maximum Survival Cell displacement from T=Zero: 425mm."],
+          "sourceUrls": ["https://www.fia.com/system/files/documents/fia_2026_f1_regulations_-_section_c_technical_-_iss_20_-_2026-08-05.pdf"]
+        },
+        {
+          "id": "S12-02",
+          "type": "safety",
+          "title": "2026 Roll Structure Tests",
+          "subtitle": "Primary rollover load case",
+          "duration": 10000,
+          "autoplay": true,
+          "content": "The principal roll structure must pass a staged static test at 75% of the full load and then at full load, with both tests performed on the same structure.\n\nThe 2026 Issue 20 document specifies a 129kN test stage and a 172kN full-load stage, with three possible load-vector cases selected for testing.\n\nThe structure must limit deformation and localize failure according to the prescribed acceptance criteria. The FIA also requires prior calculation evidence for additional load cases.",
+          "keyFacts": ["Season: 2026, Issue 20, C13.3.1. Staged loads: 129kN at 75% and 172kN at full load.","Season: 2026, Issue 20, C13.3.1. Maximum deformation along the loading axis: less than 25mm in the specified test."],
+          "sourceUrls": ["https://www.fia.com/system/files/documents/fia_2026_f1_regulations_-_section_c_technical_-_iss_20_-_2026-08-05.pdf"]
+        },
+        {
+          "id": "S12-03",
+          "type": "testing",
+          "title": "2026 Survival Cell Load-Test Examples",
+          "subtitle": "Several localized tests build the safety case",
+          "duration": 10000,
+          "autoplay": true,
+          "content": "The 2026 homologation programme includes separate tests for fuel-tank side, wheel-contact side, floor, cockpit floor, cockpit rim, cockpit side, nose push-off and forward Survival Cell behavior.\n\nPublicly documented examples include a 110kN transverse fuel-tank-side test, a 100kN wheel-contact-side test, a 75kN upward cockpit-floor test and a 50kN cockpit-rim test.\n\nThe tests are deliberately local because different parts of the Survival Cell face different intrusion and mounting load paths.",
+          "keyFacts": ["Season: 2026. Fuel-tank-side test: 110kN; permanent deformation less than 3mm after one minute.","Season: 2026. Wheel-contact-side test: 100kN and total deflection not more than 15mm; cockpit-floor test: 75kN."],
+          "sourceUrls": ["https://www.fia.com/system/files/documents/fia_2026_f1_regulations_-_section_c_technical_-_iss_20_-_2026-08-05.pdf"]
+        }
+      ]
+    },
+    {
+      "id": "S13",
+      "title": "DAMAGE AND REPAIR",
+      "overview": "Covers post-crash triage, non-destructive inspection, repair decision-making and the distinction between repairable and replaced structures.",
+      "slides": [
+        {
+          "id": "S13-01",
+          "type": "safety",
+          "title": "Crash Damage Triage",
+          "subtitle": "What engineers look for first",
+          "duration": 10000,
+          "autoplay": true,
+          "content": "A crashed chassis is first stripped and inspected to reveal hidden interfaces and loading paths. Teams can combine visible evidence with acceleration data, telemetry and component overload information.\n\nA major concern is whether the Survival Cell or its inserts have been structurally compromised. Cracked composite, distorted hard points or penetrated panels can change the decision from repair to replacement.\n\nTrackside teams must often make a rapid decision because a second chassis may be needed for the next session or race.",
+          "keyFacts": ["Williams described post-crash triage as a combination of visual inspection, telemetry and detailed structural assessment.","Raceteq reports that a crack in carbon or inability to attach suspension can trigger use of a spare chassis."],
+          "sourceUrls": ["https://www.raceteq.com/articles/2024/06/what-happens-to-a-damaged-f1-chassis-after-crash"]
+        },
+        {
+          "id": "S13-02",
+          "type": "testing",
+          "title": "Non-Destructive Testing",
+          "subtitle": "Finding hidden carbon damage",
+          "duration": 10000,
+          "autoplay": true,
+          "content": "Ultrasound can detect discontinuities below the visible surface by monitoring how acoustic energy travels through the structure. Liquid penetrant-style visual methods can reveal crack paths on appropriate surfaces.\n\nNDT supports a decision; it does not automatically declare a chassis safe. Structural engineers compare the inspection result with known loads, material limits and the geometry of the damage.\n\nThe exact equipment settings and acceptance thresholds used by a team are usually proprietary unless published.",
+          "keyFacts": ["Public Williams repair reporting describes ultrasound and coloured-liquid crack detection as trackside tools.","The general principle is to supplement visual inspection with methods sensitive to subsurface damage."],
+          "sourceUrls": ["https://www.raceteq.com/articles/2024/06/what-happens-to-a-damaged-f1-chassis-after-crash"]
+        },
+        {
+          "id": "S13-03",
+          "type": "process",
+          "title": "Repair, Replacement and Re-Homologation",
+          "subtitle": "Not every damaged part should be saved",
+          "duration": 10000,
+          "autoplay": true,
+          "content": "Composite repairs can involve removing damaged material, restoring inserts or skins, bonding replacement laminate and returning the part to accurate geometry using jigs.\n\nA repair that adds material or adhesive can change stiffness and mass. The engineering objective is not simply to make the part look whole; it must return to an acceptable structural state.\n\nA homologated Survival Cell is a safety-critical component. Any repair or structural modification must therefore be evaluated against the governing rules and the team’s internal release process; confidential repair limits should not be invented.",
+          "keyFacts": ["Raceteq documents a Williams chassis repair that restored damaged inserts and used factory structural engineering support.","Formula1 reports routine post-race scrutiny of monocoque integrity and replacement of compromised carbon layers."],
+          "sourceUrls": ["https://www.raceteq.com/articles/2024/06/what-happens-to-a-damaged-f1-chassis-after-crash","https://www.formula1.com/en/latest/article/5-crucial-milestonemoments-in-f1-safety.4rlVLaoq24DjmJKtusZ0tp"]
+        }
+      ]
+    },
+    {
+      "id": "S14",
+      "title": "CHASSIS EVOLUTION THROUGH HISTORY",
+      "overview": "Provides an era-based history from metal frames to monocoques, composite adoption and modern safety-cell regulation.",
+      "slides": [
+        {
+          "id": "S14-01",
+          "type": "timeline",
+          "title": "Early Structural Era",
+          "subtitle": "Tubular and sheet-metal foundations",
+          "duration": 10000,
+          "autoplay": true,
+          "content": "Early Grand Prix racing used space frames, tubular structures and sheet-metal stressed members. The key philosophy was a network of relatively discrete members carrying loads rather than a continuous composite shell.\n\nThe monocoque idea changed the balance by making the outer skin a principal load-carrying structure. This reduced the need for a separate internal frame in many applications.\n\nThe exhibition should present this as a structural evolution, not a claim that every early Formula 1 car used one identical architecture.",
+          "keyFacts": ["Historic construction methods varied by team and era; public technical literature supports a broad frame-to-monocoque transition.","The modern term Survival Cell represents a much more regulated concept than early racing monocoques."],
+          "sourceUrls": ["https://www.formula1.com/en/latest/article/5-crucial-milestonemoments-in-f1-safety.4rlVLaoq24DjmJKtusZ0tp","https://www.mclaren.com/racing/heritage/game-changers-innovations-that-changed-f1/"]
+        },
+        {
+          "id": "S14-02",
+          "type": "timeline",
+          "title": "1960s to 1980s: Monocoque to Carbon Composite",
+          "subtitle": "Material transformation",
+          "duration": 10000,
+          "autoplay": true,
+          "content": "The Lotus 25 is widely associated with the stressed-skin monocoque era of the early 1960s, replacing the conventional space-frame approach with a sheet-metal shell as a major structural element.\n\nIn 1981 the McLaren MP4/1 became the first Formula 1 car built with a full carbon-fibre-composite chassis. McLaren worked with Hercules Aerospace because F1 composite manufacturing capability was then still limited.\n\nThe MP4/1 demonstrated the stiffness and strength potential of carbon composite in a dramatic real-world crash, accelerating adoption across the grid.",
+          "keyFacts": ["McLaren officially dates the MP4/1 debut to 5 March 1981 and describes it as the first carbon-composite Formula 1 design.","Formula1 also identifies the MP4/1 as the first carbon-fibre F1 chassis."],
+          "sourceUrls": ["https://www.mclaren.com/racing/heritage/formula-1/cars/1981-formula-1-mclaren-mp4-1/","https://www.formula1.com/en/latest/article/the-10-greatest-innovations-f1-has-given-the-world.1fY8HvHkICzpj6s353iw82"]
+        },
+        {
+          "id": "S14-03",
+          "type": "timeline",
+          "title": "1994 to Halo Era",
+          "subtitle": "Safety regulation became more systematic",
+          "duration": 10000,
+          "autoplay": true,
+          "content": "Following the 1994 Imola tragedy, the FIA accelerated a broad safety programme. Cockpit geometry, side protection, roll structures and crash-test procedures were progressively strengthened.\n\nThe FIA states that crash testing evolved from a simple frontal test in 1985 to complete-chassis and static load testing later in the 1990s, with roll-hoop and side/rear structure tests added thereafter.\n\nHalo entered Formula 1 in 2018 after years of research and testing. The 2026 rules continue this evolutionary approach with tougher intrusion protection and revised impact structures.",
+          "keyFacts": ["FIA historical account: 1985 first simple frontal crash test; around 1998 complete-chassis testing and static load tests; later roll-hoop, side and rear tests.","Halo was introduced to F1 in 2018 following FIA evaluation and track testing."],
+          "sourceUrls": ["https://www.fia.com/news/breaking-barriers-safety","https://api.fia.com/news/legacy-safety-how-fia-responded-tragedy-imola-1994-and-launched-drive-safer-racing"]
+        }
+      ]
+    },
+    {
+      "id": "S15",
+      "title": "MODERN 2026 CHASSIS CONCEPT",
+      "overview": "Uses the latest publicly available 2026 FIA rules and a current team technical specification to describe the modern structural concept without speculating about confidential designs.",
+      "slides": [
+        {
+          "id": "S15-01",
+          "type": "specification",
+          "title": "2026 Survival Cell Architecture",
+          "subtitle": "Current regulatory concept",
+          "duration": 10000,
+          "autoplay": true,
+          "content": "The 2026 FIA rules define a continuous Survival Cell volume with tightly controlled cockpit access, intrusion zones and power-unit/energy-store packaging. The cell must be homologated under Article C13.\n\nThe 2026 materials article defines permitted composite and metallic families and prescribed/homologated laminates for selected safety-critical areas.\n\nThis is a regulatory architecture rather than a single visual body shape: teams are allowed design freedom inside the prescribed volumes and test requirements.",
+          "keyFacts": ["Season: 2026, FIA Section C Issue 20. Survival Cell requirements: Article C12.","Season: 2026, FIA Section C Issue 20. Materials and prescribed laminates: Article C15."],
+          "sourceUrls": ["https://www.fia.com/system/files/documents/fia_2026_f1_regulations_-_section_c_technical_-_iss_20_-_2026-08-05.pdf"]
+        },
+        {
+          "id": "S15-02",
+          "type": "comparison",
+          "title": "2026 Safety Changes Relevant to Chassis",
+          "subtitle": "What changed structurally",
+          "duration": 10000,
+          "autoplay": true,
+          "content": "For 2026 the FIA revised the Front Impact Structure so that it uses a two-stage impact approach intended to improve protection in secondary impacts.\n\nSide intrusion protection is increased around the cockpit and fuel-cell region. The FIA also increased roll-structure safety requirements and introduced a higher-load roll-hoop test framework.\n\nThe 2026 rules therefore change not only aerodynamic shape and power-unit architecture, but also the structural envelope around the driver.",
+          "keyFacts": ["FIA 2026 summary: revised two-stage front impact structure.","FIA 2026 summary: improved side intrusion protection; FIA public summary cites roll-hoop load changes. The exact regulated load cases must be read from Issue 20 rather than inferred from summaries."],
+          "sourceUrls": ["https://www.fia.com/news/new-era-competition-fia-showcases-future-focused-formula-1-regulations-2026-and-beyond","https://www.fia.com/news/f1s-new-era-everything-you-need-know-about-how-fia-making-formula-1-more-competitive-more"]
+        },
+        {
+          "id": "S15-03",
+          "type": "specification",
+          "title": "Public Team Example: Mercedes W17",
+          "subtitle": "A concrete 2026 chassis description",
+          "duration": 10000,
+          "autoplay": true,
+          "content": "Mercedes-AMG Petronas publicly lists its 2026 W17 monocoque as a moulded carbon-fibre and honeycomb composite structure.\n\nIts public chassis specification also lists an impact-resistant survival-cell construction, prescribed side-impact structures, an integrated rear impact structure, front and rear roll structures and a titanium Halo protection structure.\n\nThese statements are a published Mercedes specification. They should not be treated as a universal disclosure of every team’s construction details or internal process.",
+          "keyFacts": ["Season: 2026. Mercedes W17 public technical specification explicitly names moulded carbon fibre and honeycomb for the monocoque.","Season: 2026. Mercedes W17 public specification lists the survival cell and principal safety structures."],
+          "sourceUrls": ["https://www.mercedesamgf1.com/f1-w17-2026-technical-specifications"]
+        }
+      ]
+    },
+    {
+      "id": "S16",
+      "title": "TEAM CHASSIS DEVELOPMENT",
+      "overview": "Explains the functions involved in a team chassis programme without inventing confidential reporting lines, headcounts or production quantities.",
+      "slides": [
+        {
+          "id": "S16-01",
+          "type": "process",
+          "title": "Typical Chassis Engineering Functions",
+          "subtitle": "Cross-disciplinary work",
+          "duration": 10000,
+          "autoplay": true,
+          "content": "A modern team chassis programme typically involves structural design, composite engineering, analysis, tooling, manufacturing engineering, quality/inspection, assembly and race-support functions.\n\nThe work is interdependent: analysis defines load cases, designers translate them into geometry, composite engineers convert geometry into laminates, manufacturing engineers make the process repeatable, and quality teams verify the result.\n\nThis is a functional description, not a claim about any single team’s organizational chart or job titles.",
+          "keyFacts": ["Public F1 manufacturing sources describe design, composites, structural engineering and assembly activities as part of the production chain.","Raceteq documents the interaction of factory car assembly, composite and structural engineering during crash repairs."],
+          "sourceUrls": ["https://www.raceteq.com/articles/2024/06/what-happens-to-a-damaged-f1-chassis-after-crash","https://f1i.com/magazine/magazine-technical/290512-tech-f1i-birth-formula-1-car-production.html/3"]
+        },
+        {
+          "id": "S16-02",
+          "type": "process",
+          "title": "Spare Chassis and Race Support",
+          "subtitle": "Readiness is structural reliability",
+          "duration": 10000,
+          "autoplay": true,
+          "content": "Teams maintain spare structural capability because damage can occur faster than a new chassis can be manufactured. A spare chassis is especially important when a primary cell has cracked or when major mounting interfaces are no longer usable.\n\nRace support also includes rapid inspection, NDT, part exchange, repair assessment and logistics back to the factory when deeper structural work is required.\n\nPublic reporting confirms that chassis-repair decisions can involve factory structural engineers even while the car remains at the circuit.",
+          "keyFacts": ["Raceteq reports spare-chassis use when carbon is cracked or suspension cannot be correctly mounted.","The same source describes factory logistics and structural-engineering assessment between race events."],
+          "sourceUrls": ["https://www.raceteq.com/articles/2024/06/what-happens-to-a-damaged-f1-chassis-after-crash"]
+        },
+        {
+          "id": "S16-03",
+          "type": "testing",
+          "title": "Homologation and Configuration Control",
+          "subtitle": "Safety-critical release discipline",
+          "duration": 10000,
+          "autoplay": true,
+          "content": "A homologated Survival Cell is a controlled configuration. The FIA defines which tests must be performed on the reference cell and which subsequent cells must meet repeatability requirements.\n\nThe 2026 rules state that significant modifications to tested structures can require another test. This makes change control part of structural engineering rather than an administrative afterthought.\n\nTeam-specific approval workflows, document-control software and production quantities are generally confidential and should not be fabricated.",
+          "keyFacts": ["2026 C13.1 and C13.4 define reference-cell and repeat-cell testing logic.","2026 rules also require consistent production condition for relevant Survival Cell tests and allow further testing after significant modification."],
+          "sourceUrls": ["https://www.fia.com/system/files/documents/fia_2026_f1_regulations_-_section_c_technical_-_iss_20_-_2026-08-05.pdf"]
+        }
+      ]
+    },
+    {
+      "id": "S17",
+      "title": "CHASSIS TESTING AND DATA",
+      "overview": "Explains how strain, load, vibration, temperature and structural data support validation and simulation correlation.",
+      "slides": [
+        {
+          "id": "S17-01",
+          "type": "statistics",
+          "title": "Strain and Load Measurement",
+          "subtitle": "Turn deformation into data",
+          "duration": 10000,
+          "autoplay": true,
+          "content": "Strain gauges and load sensors can convert structural response into measurable signals. In a development environment, engineers use these measurements to compare physical behavior with finite-element predictions.\n\nThe useful question is not only “did it fail?” but “how much did it deform, where did the load travel, and did the measured response match the model?”\n\nExact sensor layouts, channels and calibration methods used by an F1 team are not generally public and should not be invented.",
+          "keyFacts": ["The FIA homologation framework requires calibrated measurement equipment for regulated structural tests.","F1 testing and repair reporting show the role of acceleration and overload data in post-incident assessment."],
+          "sourceUrls": ["https://www.fia.com/system/files/documents/fia_2026_f1_regulations_-_section_c_technical_-_iss_20_-_2026-08-05.pdf","https://www.raceteq.com/articles/2024/06/what-happens-to-a-damaged-f1-chassis-after-crash"]
+        },
+        {
+          "id": "S17-02",
+          "type": "technical",
+          "title": "Vibration, Temperature and Environment",
+          "subtitle": "Loads beyond the crash test",
+          "duration": 10000,
+          "autoplay": true,
+          "content": "A chassis experiences repeated vibration, engine and gearbox excitation, aerodynamic loading, thermal gradients and local temperature exposure during its operating life.\n\nComposite performance can depend on temperature and moisture history, while bonded joints and inserts can have their own environmental limits.\n\nTeams therefore use durability and environmental validation in addition to FIA crash homologation. Public sources do not disclose complete current-team environmental test schedules.",
+          "keyFacts": ["Composite engineering references identify temperature, resin chemistry and joint design as key design considerations.","2026 FIA material rules distinguish matrix systems and permitted material families, showing that resin selection is controlled engineering data."],
+          "sourceUrls": ["https://www.fia.com/system/files/documents/fia_2026_f1_regulations_-_section_c_technical_-_iss_20_-_2026-08-05.pdf","https://www.toraytac.com/newsroom/news-item/2020/9/21/Tooling-for-Speed%3A-How-Formula-1-produces-carbon-fiber-parts-so-quickly"]
+        },
+        {
+          "id": "S17-03",
+          "type": "technical",
+          "title": "Simulation-to-Test Correlation",
+          "subtitle": "Closing the model-to-reality gap",
+          "duration": 10000,
+          "autoplay": true,
+          "content": "Correlation compares measured physical response with the predicted response from the analysis model. Differences can reveal incorrect material assumptions, boundary conditions, joint stiffness or manufacturing variation.\n\nThe 2026 cockpit-side requirement explicitly asks for calculation methodology to be authenticated against physical-test data in a defined load range before the higher calculated load case is accepted.\n\nThis is a strong example of how modern structural engineering combines experiment and computation instead of treating them as separate activities.",
+          "keyFacts": ["Season: 2026. FIA C13.4.7 requires physical-test comparison for the cockpit-side calculation methodology.","The FIA can inspect models and material properties used for required calculations."],
+          "sourceUrls": ["https://www.fia.com/system/files/documents/fia_2026_f1_regulations_-_section_c_technical_-_iss_20_-_2026-08-05.pdf"]
+        }
+      ]
+    },
+    {
+      "id": "S18",
+      "title": "LIFECYCLE",
+      "overview": "Traces a chassis from concept and tooling through homologation, race use, repair and retirement or archival display.",
+      "slides": [
+        {
+          "id": "S18-01",
+          "type": "timeline",
+          "title": "Concept to Prototype",
+          "subtitle": "Before the first race",
+          "duration": 10000,
+          "autoplay": true,
+          "content": "The lifecycle begins with regulatory research, vehicle requirements, packaging studies and structural concept generation.\n\nDetailed CAD, laminate definition and tooling follow. Prototype or reference structures are manufactured for measurement and homologation testing while production-capable processes are developed in parallel.\n\nThe key lifecycle gate is not “first build complete” but “structurally verified and approved for use”.",
+          "keyFacts": ["2026 FIA rules make homologation a formal requirement for the Survival Cell.","Public F1 manufacturing accounts describe CAD, tooling, layup, cure, machining and inspection as connected production stages."],
+          "sourceUrls": ["https://www.fia.com/system/files/documents/fia_2026_f1_regulations_-_section_c_technical_-_iss_20_-_2026-08-05.pdf","https://www.raceteq.com/articles/2024/08/evolution-and-construction-of-chassis"]
+        },
+        {
+          "id": "S18-02",
+          "type": "timeline",
+          "title": "Race Service Life",
+          "subtitle": "Development continues after launch",
+          "duration": 10000,
+          "autoplay": true,
+          "content": "Once raced, a chassis continues to accumulate information: fitment history, inspection results, damage events, repair records and setup-related interface checks.\n\nDevelopment work can produce new versions or revisions of components around the same structural cell, subject to the rules and the team’s controlled design process.\n\nAfter incidents, the decision may be inspect, repair, replace or retire. Structural history matters because a previously damaged part may not have the same life margin as an unused part.",
+          "keyFacts": ["Formula1 reports regular inspection of the monocoque after races.","Raceteq documents repair and reuse decisions following crash loads."],
+          "sourceUrls": ["https://www.formula1.com/en/latest/article/5-crucial-milestonemoments-in-f1-safety.4rlVLaoq24DjmJKtusZ0tp","https://www.raceteq.com/articles/2024/06/what-happens-to-a-damaged-f1-chassis-after-crash"]
+        },
+        {
+          "id": "S18-03",
+          "type": "timeline",
+          "title": "Retirement, Recycling and Display",
+          "subtitle": "The chassis can become an engineering artefact",
+          "duration": 10000,
+          "autoplay": true,
+          "content": "A retired chassis can serve as an engineering reference, museum exhibit, driver-history object or materials case study. A structurally compromised or outdated part should not be represented as race-ready merely because it is displayed.\n\nComposite recycling is an active engineering area. McLaren publicly demonstrated a recycled-carbon-fibre trial and described the material as a route toward lower lifecycle emissions for suitable applications.\n\nEnd-of-life disposition is component-specific: reusable parts, repairable parts and unrecoverable materials follow different routes.",
+          "keyFacts": ["McLaren’s recycled-carbon-fibre trial reported use of recycled carbon in selected F1 applications.","Raceteq describes repair, reuse and recycling decisions after crash damage."],
+          "sourceUrls": ["https://www.formula1.com/en/latest/article/mclaren-announce-first-of-its-kind-recycled-carbon-fibre-trial-for-united.1AO5ukenWnG1OlZQlFMbk9","https://www.raceteq.com/articles/2024/06/what-happens-to-a-damaged-f1-chassis-after-crash"]
+        }
+      ]
+    },
+    {
+      "id": "S19",
+      "title": "CHASSIS COMPARISONS",
+      "overview": "Factual comparisons across structural eras, safety philosophies, material technology and regulation.",
+      "slides": [
+        {
+          "id": "S19-01",
+          "type": "comparison",
+          "title": "Material Evolution",
+          "subtitle": "Frame to shell to advanced composite",
+          "duration": 10000,
+          "autoplay": true,
+          "content": "Early racing structures relied heavily on tubes and sheet metal. Stressed-skin monocoques increased the structural role of the shell. Carbon composites then enabled high stiffness and strength with low structural mass.\n\nThe major innovation is not simply “carbon is lighter”; it is the ability to engineer directional stiffness, sandwich sections, controlled crush structures and highly integrated interfaces.\n\nNo single material or layup is correct for every modern component. The FIA permits multiple matrix, reinforcement and core families, while teams optimize for function and regulation.",
+          "keyFacts": ["1981: McLaren MP4/1 marked the first full carbon-composite F1 chassis.","2026 FIA C15.2.3 permits multiple polymer matrices, reinforcement fibres and core materials."],
+          "sourceUrls": ["https://www.mclaren.com/racing/heritage/formula-1/cars/1981-formula-1-mclaren-mp4-1/","https://www.fia.com/system/files/documents/fia_2026_f1_regulations_-_section_c_technical_-_iss_20_-_2026-08-05.pdf"]
+        },
+        {
+          "id": "S19-02",
+          "type": "comparison",
+          "title": "Safety Evolution",
+          "subtitle": "Increasingly regulated driver protection",
+          "duration": 10000,
+          "autoplay": true,
+          "content": "1985 introduced a basic frontal crash test according to FIA historical reporting; by the late 1990s complete-chassis and static load testing had become part of the programme.\n\n1996 brought greater cockpit and head protection measures; 1998 added roll-hoop testing and improved extrication measures in the FIA safety timeline.\n\n2018 brought Halo cockpit protection. 2026 continues the same pattern by increasing side intrusion protection and revising impact structures.",
+          "keyFacts": ["1985: first simple F1 frontal crash test. Around 1998: complete-chassis and static load testing according to FIA history.","1996: higher cockpit sides and other protection changes; 1998: roll-hoop tests and 10-second extrication requirement according to FIA historical summary."],
+          "sourceUrls": ["https://www.fia.com/news/breaking-barriers-safety","https://api.fia.com/news/legacy-safety-how-fia-responded-tragedy-imola-1994-and-launched-drive-safer-racing"]
+        },
+        {
+          "id": "S19-03",
+          "type": "comparison",
+          "title": "Regulation vs Engineering Freedom",
+          "subtitle": "A constrained design space still leaves room for innovation",
+          "duration": 10000,
+          "autoplay": true,
+          "content": "FIA rules specify volumes, loads, materials and homologation requirements, but do not prescribe every internal shape, ply architecture or team manufacturing method.\n\nEngineering competition therefore moves toward optimization inside a regulated envelope: better load paths, improved damage tolerance, lower manufacturing risk, better repeatability and more efficient integration.\n\nThis is why two teams can satisfy the same safety rules while producing visibly different chassis architectures and internal designs.",
+          "keyFacts": ["2026 C12–C15 show the regulatory envelope; the rules do not publish a complete team construction drawing.","F1 and team technical sources demonstrate distinct development histories and publicly disclosed specifications without exposing complete proprietary designs."],
+          "sourceUrls": ["https://www.fia.com/system/files/documents/fia_2026_f1_regulations_-_section_c_technical_-_iss_20_-_2026-08-05.pdf","https://www.mclaren.com/racing/heritage/formula-1/cars/1981-formula-1-mclaren-mp4-1/"]
+        }
+      ]
+    },
+    {
+      "id": "S20",
+      "title": "CHASSIS GLOSSARY",
+      "overview": "A substantial glossary for visitors who want to decode structural-engineering terminology while reading the exhibition screens.",
+      "slides": [
+        {
+          "id": "S20-01",
+          "type": "glossary",
+          "title": "Glossary A–H",
+          "subtitle": "Core terms",
+          "duration": 10000,
+          "autoplay": true,
+          "content": "Autoclave — a pressurized thermal curing vessel used for composite manufacture.\n\nBulkhead — a structural partition or load-transfer region in a vehicle structure.\n\nCarbon-fibre composite — a polymer-matrix composite reinforced by carbon fibres.\n\nCockpit — the protected driver-occupant volume within the Survival Cell.\n\nCore — lightweight material between composite skins in a sandwich structure.\n\nDelamination — separation between laminate layers.\n\nFIA — Fédération Internationale de l’Automobile, the governing body responsible for Formula 1 regulations and safety standards.\n\nHoneycomb — a cellular core architecture used to increase sandwich-panel stiffness efficiently.",
+          "keyFacts": ["Terms are defined for exhibition use; regulation-specific meanings take precedence where an FIA article gives a formal definition."],
+          "sourceUrls": ["https://www.formula1.com/en/latest/article/f1-glossary-a-e.1MFONigMlQSbSQtpP7YCy2","https://www.fia.com/system/files/documents/fia_2026_f1_regulations_-_section_c_technical_-_iss_20_-_2026-08-05.pdf"]
+        },
+        {
+          "id": "S20-02",
+          "type": "glossary",
+          "title": "Glossary I–R",
+          "subtitle": "Structures, materials and testing",
+          "duration": 10000,
+          "autoplay": true,
+          "content": "Insert — local reinforcement or hardware region used to spread a load through a laminate or sandwich structure.\n\nLaminate — a controlled stack of composite plies.\n\nMonocoque — shell-based structural architecture; in F1 it is commonly used for the Survival Cell.\n\nNDT — non-destructive testing; inspection methods that do not require destructive sectioning.\n\nPre-preg — reinforcement supplied pre-impregnated with resin.\n\nResin — polymer matrix that binds reinforcement in a composite.\n\nRoll structure — protective structure designed to help prevent injury when the car becomes inverted.\n\nSurvival Cell — the regulated central protected structural volume around the driver and specified vehicle systems.",
+          "keyFacts": ["FIA 2026 uses “Survival Cell” as the formal regulatory term.","Public F1 manufacturing sources use “pre-preg”, laminate, insert, autoclave and NDT as standard composite vocabulary."],
+          "sourceUrls": ["https://www.fia.com/system/files/documents/fia_2026_f1_regulations_-_section_c_technical_-_iss_20_-_2026-08-05.pdf","https://f1i.com/magazine/magazine-technical/290512-tech-f1i-birth-formula-1-car-production.html/3"]
+        },
+        {
+          "id": "S20-03",
+          "type": "glossary",
+          "title": "Glossary S–Z",
+          "subtitle": "Crash and manufacturing vocabulary",
+          "duration": 10000,
+          "autoplay": true,
+          "content": "Sandwich construction — composite skins separated by a lightweight core.\n\nSide Impact Structure — regulated lateral impact-absorbing structures attached to each side of the Survival Cell.\n\nTorsional stiffness — resistance to twisting deformation under torque.\n\nTooling — moulds, patterns and fixtures used to manufacture or assemble a component accurately.\n\nVacuum bagging — sealing a layup and extracting air to compact the laminate during processing.\n\nHomologation — formal approval process demonstrating compliance with specified technical or safety requirements.\n\nYield / failure mode — material or structural response marking a transition into unacceptable permanent damage or loss of load capacity; the exact definition depends on the test.\n\nZ-pinning — a permitted composite reinforcement technique listed by the FIA for applicable structures.",
+          "keyFacts": ["The 2026 FIA materials article explicitly permits Z-pinning in composite components.","Homologation and test terminology should be interpreted in the exact context of the cited FIA article."],
+          "sourceUrls": ["https://www.fia.com/system/files/documents/fia_2026_f1_regulations_-_section_c_technical_-_iss_20_-_2026-08-05.pdf","https://www.raceteq.com/articles/2024/08/evolution-and-construction-of-chassis"]
+        }
+      ]
+    }
+  ]
+}

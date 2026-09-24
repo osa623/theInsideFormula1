@@ -1,0 +1,170 @@
+/* Motorsport Screen Display System Stylesheet */
+
+@keyframes f1Pulse {
+  0%, 100% { opacity: 0.92; transform: scale(1); }
+  50% { opacity: 0.45; transform: scale(0.995); }
+}
+
+@keyframes f1Scanline {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(1000%); }
+}
+
+@keyframes f1LineDraw {
+  from { stroke-dashoffset: 1000; }
+  to { stroke-dashoffset: 0; }
+}
+
+.f1-screen-root {
+  background-color: #0b0d10;
+  background-image: 
+    radial-gradient(circle at 50% 0%, rgba(0, 210, 190, 0.04) 0%, transparent 60%),
+    linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 100% 100%, 24px 24px, 24px 24px;
+  color: #ffffff;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  position: relative;
+  overflow: hidden;
+  user-select: none;
+  border: 1px solid #1f242c;
+  box-shadow: inset 0 0 60px rgba(0, 0, 0, 0.85);
+}
+
+.f1-carbon-bg {
+  background: 
+    linear-gradient(27deg, #111418 5px, transparent 5px) 0 5px,
+    linear-gradient(207deg, #111418 5px, transparent 5px) 10px 0px,
+    linear-gradient(27deg, #181d22 5px, transparent 5px) 0px 10px,
+    linear-gradient(207deg, #181d22 5px, transparent 5px) 10px 5px,
+    linear-gradient(90deg, #0e1114 10px, #13171b 10px);
+  background-size: 20px 20px;
+}
+
+.f1-border-corner {
+  position: relative;
+}
+.f1-border-corner::before,
+.f1-border-corner::after {
+  content: '';
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-color: #00d2be;
+  pointer-events: none;
+}
+.f1-border-corner::before {
+  top: 0;
+  left: 0;
+  border-top: 2px solid;
+  border-left: 2px solid;
+}
+.f1-border-corner::after {
+  bottom: 0;
+  right: 0;
+  border-bottom: 2px solid;
+  border-right: 2px solid;
+}
+
+.f1-red-accent {
+  color: #e10600;
+}
+.f1-teal-accent {
+  color: #00d2be;
+}
+.f1-gold-accent {
+  color: #ffb800;
+}
+
+.f1-telemetry-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-left: 3px solid #e10600;
+  background: rgba(225, 6, 0, 0.08);
+}
+
+.f1-header-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #1f252d;
+  background: rgba(14, 17, 22, 0.85);
+  backdrop-filter: blur(8px);
+}
+
+.f1-data-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.f1-data-table th {
+  text-align: left;
+  font-size: 11px;
+  color: #7e8895;
+  letter-spacing: 0.12em;
+  padding: 6px 12px;
+  border-bottom: 1px solid #1d232c;
+  font-weight: 600;
+}
+.f1-data-table td {
+  padding: 8px 12px;
+  font-size: 13px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+.f1-data-table tr:hover {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.f1-button {
+  background: #181d24;
+  border: 1px solid #2b3340;
+  color: #ffffff;
+  padding: 8px 16px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  position: relative;
+  overflow: hidden;
+}
+.f1-button:hover {
+  background: #e10600;
+  border-color: #ff2a22;
+  box-shadow: 0 0 16px rgba(225, 6, 0, 0.4);
+}
+.f1-button:active {
+  transform: scale(0.98);
+}
+
+.f1-radio-option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  background: rgba(18, 22, 28, 0.8);
+  border: 1px solid #232a35;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+.f1-radio-option:hover {
+  border-color: #00d2be;
+  background: rgba(0, 210, 190, 0.06);
+}
+.f1-radio-option.selected {
+  border-color: #00d2be;
+  background: rgba(0, 210, 190, 0.12);
+}
+.f1-radio-option.correct {
+  border-color: #00d2be;
+  background: rgba(0, 210, 190, 0.22);
+}
+.f1-radio-option.incorrect {
+  border-color: #e10600;
+  background: rgba(225, 6, 0, 0.22);
+}

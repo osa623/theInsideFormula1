@@ -1,0 +1,57 @@
+{
+  "year": 2026,
+  "currentRound": 14,
+  "totalRounds": 24,
+  "latestRace": {
+    "round": 14,
+    "name": "Italian Grand Prix",
+    "circuit": "Autodromo Nazionale Monza",
+    "country": "ITA",
+    "winner": "Kimi Antonelli",
+    "winnerTeam": "Mercedes",
+    "polePosition": "Kimi Antonelli",
+    "fastestLap": "George Russell",
+    "podium": ["Kimi Antonelli", "George Russell", "Charles Leclerc"]
+  },
+  "graphProgression": {
+    "rounds": ["BHR", "SAU", "AUS", "JPN", "CHN", "MIA", "EMI", "MON", "CAN", "ESP", "AUT", "GBR", "HUN", "ITA"],
+    "drivers": [
+      {
+        "id": "antonelli",
+        "name": "K. Antonelli",
+        "color": "#00d2be",
+        "points": [18, 43, 68, 86, 111, 136, 154, 179, 194, 204, 219, 237, 242, 267]
+      },
+      {
+        "id": "russell",
+        "name": "G. Russell",
+        "color": "#7ae5d8",
+        "points": [25, 40, 55, 70, 85, 100, 115, 130, 145, 160, 175, 183, 183, 201]
+      },
+      {
+        "id": "hamilton",
+        "name": "L. Hamilton",
+        "color": "#e8002d",
+        "points": [15, 30, 48, 60, 72, 87, 102, 117, 135, 147, 162, 174, 186, 191]
+      },
+      {
+        "id": "leclerc",
+        "name": "C. Leclerc",
+        "color": "#ff5c6b",
+        "points": [12, 24, 39, 54, 69, 81, 96, 111, 126, 138, 150, 162, 163, 178]
+      },
+      {
+        "id": "norris",
+        "name": "L. Norris",
+        "color": "#ff8000",
+        "points": [10, 22, 34, 46, 58, 70, 82, 94, 106, 118, 130, 142, 154, 164]
+      },
+      {
+        "id": "verstappen",
+        "name": "M. Verstappen",
+        "color": "#3671c6",
+        "points": [8, 18, 28, 38, 48, 58, 68, 78, 88, 98, 98, 108, 118, 118]
+      }
+    ]
+  }
+}

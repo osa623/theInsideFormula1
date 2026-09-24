@@ -1,0 +1,132 @@
+[
+  {
+    "id": 1,
+    "category": "AERODYNAMICS",
+    "question": "What aerodynamic phenomenon produces downforce without increasing frontal drag using floor venturi tunnels?",
+    "options": [
+      "Bernoulli Ground Effect",
+      "Magnus Vortex Effect",
+      "Boundary Layer Stalling",
+      "Passive Slipstream Drafting"
+    ],
+    "correctIndex": 0,
+    "explanation": "Ground effect channels underfloor airflow through venturi tunnels to generate low pressure and suction downforce."
+  },
+  {
+    "id": 2,
+    "category": "POWERTRAIN",
+    "question": "In the modern hybrid Formula 1 power unit, which component recovers thermal energy directly from exhaust gases?",
+    "options": [
+      "MGU-K (Kinetic Motor)",
+      "MGU-H (Heat Motor)",
+      "Turbocharger Wastegate",
+      "High-Pressure Fuel Rail"
+    ],
+    "correctIndex": 1,
+    "explanation": "The MGU-H connects to the turbocharger shaft and converts thermal energy from exhaust gas expansion into electrical energy."
+  },
+  {
+    "id": 3,
+    "category": "REGULATIONS",
+    "question": "What does a stationary Yellow Flag accompanied by a SC board indicate to drivers on track?",
+    "options": [
+      "Full course Virtual Safety Car deployed",
+      "Physical Safety Car deployed; prepare to form queue with strictly no overtaking",
+      "Track is slippery with fluid; hazard ahead",
+      "Race is suspended and red flagged"
+    ],
+    "correctIndex": 1,
+    "explanation": "Yellow flag with SC board signals that the physical Safety Car is on circuit; drivers must slow to delta and cannot overtake."
+  },
+  {
+    "id": 4,
+    "category": "TELEMETRY",
+    "question": "What does a high positive slip angle on the rear axle typically signify in cornering telemetry?",
+    "options": [
+      "Severe Mechanical Understeer",
+      "Dynamic Oversteer and rear axle rotation",
+      "Brake lockup on the inside wheel",
+      "Aerodynamic porpoising on straights"
+    ],
+    "correctIndex": 1,
+    "explanation": "When rear slip angle exceeds front slip angle, the car's yaw rate accelerates into an oversteer condition."
+  },
+  {
+    "id": 5,
+    "category": "CHAMPIONSHIP",
+    "question": "Which driver holds the all-time record for the most Formula 1 Grand Prix race victories and pole positions?",
+    "options": [
+      "Michael Schumacher",
+      "Ayrton Senna",
+      "Lewis Hamilton",
+      "Max Verstappen"
+    ],
+    "correctIndex": 2,
+    "explanation": "Lewis Hamilton holds the all-time records with 105 race wins and 104 pole positions."
+  },
+  {
+    "id": 6,
+    "category": "TIRE ENGINEERING",
+    "question": "What causes tire 'graining' during high lateral load cornering on a cold circuit surface?",
+    "options": [
+      "Deep tire blisters forming from carcass overheating",
+      "Small rubber strips tearing off tread surface and sticking back on cold rubber",
+      "Complete delamination of tire belt under braking",
+      "Flat spots caused by steering oscillation"
+    ],
+    "correctIndex": 1,
+    "explanation": "Graining occurs when tread rubber tears laterally under shear stresses when tire surface temperatures are below optimal bulk operating window."
+  },
+  {
+    "id": 7,
+    "category": "RACE STRATEGY",
+    "question": "What is the primary objective of an 'undercut' pit strategy during a Formula 1 Grand Prix?",
+    "options": [
+      "Pitting after the rival to maintain track position on fresher rubber late in the stint",
+      "Pitting before the rival to use maximum grip on fresh cold/out-lap tires to pass while they stay out on degraded rubber",
+      "Intentionally slowing down to back rival into traffic",
+      "Switching to dry slick tires during intermediate rain"
+    ],
+    "correctIndex": 1,
+    "explanation": "The undercut leverages the superior pace of fresh tires on an out-lap to jump ahead when the competitor makes their pitstop."
+  },
+  {
+    "id": 8,
+    "category": "CHASSIS ENGINEERING",
+    "question": "What primary structural material forms the survival cell / monocoque of every modern Formula 1 chassis?",
+    "options": [
+      "Carbon Fiber Composite with Aluminum Honeycomb core",
+      "Tubular Chromoly Steel Spaceframe",
+      "Extruded Magnesium Alloy",
+      "Solid Titanium Cast Monocoque"
+    ],
+    "correctIndex": 0,
+    "explanation": "Modern F1 monocoques are manufactured from high-modulus carbon fiber composite sandwiching an aluminum or Nomex honeycomb core."
+  },
+  {
+    "id": 9,
+    "category": "BRAKING SYSTEMS",
+    "question": "What temperature range is typical for carbon-carbon brake discs under heavy deceleration at Monza or Bahrain?",
+    "options": [
+      "100°C to 250°C",
+      "400°C to 1,000°C",
+      "1,400°C to 2,000°C",
+      "2,500°C to 3,200°C"
+    ],
+    "correctIndex": 1,
+    "explanation": "F1 carbon brake discs operate optimally between 400°C and 800°C, with peak deceleration temperatures reaching up to 1,000°C."
+  },
+  {
+    "id": 10,
+    "category": "HISTORIC CIRCUITS",
+    "question": "Which historic circuit is widely revered as the 'Temple of Speed' due to its long straights and historic chicanes?",
+    "options": [
+      "Circuit de Spa-Francorchamps",
+      "Silverstone Circuit",
+      "Autodromo Nazionale Monza",
+      "Suzuka International Racing Course"
+    ],
+    "correctIndex": 2,
+    "explanation": "Monza, built in 1922 in the royal park near Milan, Italy, is famously known as the 'Temple of Speed'."
+  }
+]
