@@ -160,7 +160,7 @@ If you want to extend the app, a strong next step would be one of the following:
 
 ## License
 
-This project does not currently include a license file. If the project is intended for public sharing or commercial use, add a LICENSE file before distribution.
+This project does not currently include a license file.
 
 ## Notes
 
