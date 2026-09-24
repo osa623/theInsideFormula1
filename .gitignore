@@ -14,11 +14,3 @@ __v0_jsx-dev-runtime.ts
 node_modules
 .next/
 .DS_Store
-# Large binary assets and 3D models
-public/models/
-*.glb
-*.gltf
-*.blend
-*.blend1
-*.hdr
-*.exr
