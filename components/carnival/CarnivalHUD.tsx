@@ -127,7 +127,7 @@ export default function CarnivalHUD({
        <img
               src={formula1Logo.src}
               alt ="Formula One logo"
-              className="h-[8vh] w-full object-cover"
+              className="h-[2vh] w-full object-cover"
             />
         <div className="text-speed">FORMULA 1 CARNIVAL</div>
         <div className="mt-1 text-white/55">{isReady ? 'W A S D + MOUSE' : 'LOADING ENVIRONMENT'}</div>
