@@ -10,6 +10,9 @@ import {
 } from './types'
 import GraphicsQualitySelector from '@/components/graphics/GraphicsQualitySelector'
 
+//image import 
+import formula1Logo from '../../public/images/Short_Banner_Imges/formula_logo_1.png';
+
 interface CarnivalHUDProps {
   isLocked: boolean
   isReady: boolean
@@ -104,18 +107,15 @@ export default function CarnivalHUD({
   } else if (nearbyChampionSection) {
     promptText = `Press E to view Champion ${nearbyChampionSection.year}`
     promptLabel = 'Formula 1 Hall of Champions'
-  } else if (isGateEntrance) {
-    promptText = 'Press E to toggle gate'
-    promptLabel = nearbyEntrance?.label || 'Gate Access'
   } else if (nearbyEntrance?.id === 'exhibitionHall02') {
     promptText = 'Press E to enter'
-    promptLabel = 'New Exhibition Hall 02'
+    promptLabel = 'Formula 1 Exhibition Hall'
   } else if (nearbyEntrance) {
     promptText = 'Press E to enter'
     promptLabel = nearbyEntrance.label
   } else if (nearbyAbout) {
-    promptText = 'Press E to view About & Creator Info'
-    promptLabel = 'Creator Portfolio & Contact'
+    promptText = 'Press E to view Credits & Creator Info'
+    promptLabel = 'Creator Portfolio & Credits'
   } else if (nearbyExplainZone) {
     promptText = 'Press E to inspect'
     promptLabel = nearbyExplainZone.label
@@ -124,6 +124,11 @@ export default function CarnivalHUD({
   return (
     <>
       <div className="pointer-events-none absolute left-5 top-5 z-30 border border-white/15 bg-black/55 px-4 py-3 font-mono text-[10px] uppercase tracking-[0.25em] text-white/75 backdrop-blur-xl md:left-8 md:top-8">
+       <img
+              src={formula1Logo.src}
+              alt ="Formula One logo"
+              className="h-[8vh] w-full object-cover"
+            />
         <div className="text-speed">FORMULA 1 CARNIVAL</div>
         <div className="mt-1 text-white/55">{isReady ? 'W A S D + MOUSE' : 'LOADING ENVIRONMENT'}</div>
       </div>
@@ -143,7 +148,7 @@ export default function CarnivalHUD({
             Click to enter
           </span>
           <span className="mt-2 block text-lg font-black uppercase tracking-[0.18em] text-white">
-            First Person Mode
+            Observe the Carnival
           </span>
         </button>
       )}
