@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, useCallback, useEffect } from 'react'
+import React, { useState, useCallback, useEffect, useRef } from 'react'
 import { Canvas } from '@react-three/fiber'
 import { Suspense } from 'react'
 import * as THREE from 'three'
@@ -21,6 +21,24 @@ import {
 import { useGraphicsQuality } from '@/lib/graphics/useGraphicsQuality'
 import { GraphicsConfig, GraphicsQuality } from '@/lib/graphics/GraphicsManager'
 import { useThree } from '@react-three/fiber'
+
+function createHallImpulseResponse(context: AudioContext): AudioBuffer {
+  const length = Math.max(1, Math.floor(context.sampleRate * 2.4))
+  const impulse = context.createBuffer(2, length, context.sampleRate)
+
+  for (let channel = 0; channel < 2; channel += 1) {
+    const data = impulse.getChannelData(channel)
+
+    for (let i = 0; i < length; i += 1) {
+      const envelope = Math.pow(1 - i / length, 2.2)
+      const noise = (Math.random() * 2 - 1) * envelope
+      const echo = i > 0 ? data[i - 1] * 0.18 : 0
+      data[i] = (noise + echo) * (channel === 0 ? 1.0 : 0.78)
+    }
+  }
+
+  return impulse
+}
 
 function GraphicsApplier({ config, quality }: { config: GraphicsConfig; quality: GraphicsQuality }) {
   const { gl, scene, camera } = useThree()
@@ -67,6 +85,104 @@ function GraphicsApplier({ config, quality }: { config: GraphicsConfig; quality:
 
 export default function ExhibitionScene() {
   const { config, quality } = useGraphicsQuality()
+  const hallAudioRef = useRef<HTMLAudioElement | null>(null)
+  const hallAudioContextRef = useRef<AudioContext | null>(null)
+
+  const ensureHallAudioChain = useCallback(() => {
+    const audio = hallAudioRef.current
+    if (!audio) return
+
+    if (!hallAudioContextRef.current) {
+      const AudioCtor = window.AudioContext || (window as typeof window & { webkitAudioContext?: typeof AudioContext }).webkitAudioContext
+      if (!AudioCtor) return
+
+      const context = new AudioCtor()
+      const source = context.createMediaElementSource(audio)
+
+      const warmth = context.createBiquadFilter()
+      warmth.type = 'lowshelf'
+      warmth.frequency.value = 160
+      warmth.gain.value = 5
+
+      const lowpass = context.createBiquadFilter()
+      lowpass.type = 'lowpass'
+      lowpass.frequency.value = 2200
+      lowpass.Q.value = 0.8
+
+      const room = context.createConvolver()
+      room.buffer = createHallImpulseResponse(context)
+
+      const roomGain = context.createGain()
+      roomGain.gain.value = 0.9
+
+      const dryGain = context.createGain()
+      dryGain.gain.value = 0.6
+
+      const masterGain = context.createGain()
+      masterGain.gain.value = 0.78
+
+      const compressor = context.createDynamicsCompressor()
+      compressor.threshold.value = -18
+      compressor.knee.value = 16
+      compressor.ratio.value = 3
+      compressor.attack.value = 0.02
+      compressor.release.value = 0.25
+
+      source.connect(warmth)
+      warmth.connect(lowpass)
+      lowpass.connect(dryGain)
+      lowpass.connect(room)
+      dryGain.connect(masterGain)
+      room.connect(roomGain)
+      roomGain.connect(masterGain)
+      masterGain.connect(compressor)
+      compressor.connect(context.destination)
+
+      hallAudioContextRef.current = context
+    }
+
+    if (hallAudioContextRef.current.state === 'suspended') {
+      void hallAudioContextRef.current.resume()
+    }
+  }, [])
+
+  const startHallMusic = useCallback(async () => {
+    const audio = hallAudioRef.current
+    if (!audio) return
+
+    audio.muted = false
+    audio.volume = 0.32
+    audio.loop = true
+
+    ensureHallAudioChain()
+
+    try {
+      await audio.play()
+    } catch {
+      // Some browsers still block autoplay until a user interaction occurs.
+    }
+  }, [ensureHallAudioChain])
+
+  useEffect(() => {
+    const audio = new Audio('/music/formulaSong.mp3')
+    audio.preload = 'auto'
+    audio.autoplay = true
+    audio.loop = true
+    audio.volume = 0.32
+    audio.muted = false
+    hallAudioRef.current = audio
+
+    void startHallMusic()
+
+    return () => {
+      hallAudioContextRef.current?.close()
+      hallAudioContextRef.current = null
+      audio.pause()
+      audio.src = ''
+      audio.remove()
+      hallAudioRef.current = null
+    }
+  }, [startHallMusic])
 
   // Scene state
   const [triggers, setTriggers] = useState<ExhibitionTriggerPoint[]>([])
@@ -173,7 +289,13 @@ export default function ExhibitionScene() {
   }, [isInspecting, isModalOpen, nearbyTrigger, overlayOpen, handleInteract, handleCloseInspection])
 
   return (
-    <div className="relative h-screen w-full overflow-hidden bg-[#080a0f] select-none" onClick={requestLock}>
+    <div
+      className="relative h-screen w-full overflow-hidden bg-[#080a0f] select-none"
+      onClick={() => {
+        requestLock()
+        void startHallMusic()
+      }}
+    >
       {/* Player HUD Overlays & E Prompts */}
       <PlayerHUD
         isLocked={isLocked}
