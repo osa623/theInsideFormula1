@@ -149,15 +149,6 @@ The project combines:
 
 This makes it feel less like a standard marketing site and more like a digital Formula 1 exhibition or branded experience portal.
 
-## Contributing
-
-If you want to extend the app, a strong next step would be one of the following:
-
-- add richer in-scene interactions in the carnival experience
-- expand the simulation hall with more content stations and triggers
-- enrich the F1 data layer with more season-driven content
-- optimize asset loading and scene performance
-
 ## License
 
 This project does not currently include a license file.
