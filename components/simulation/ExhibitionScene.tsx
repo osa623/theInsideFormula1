@@ -436,7 +436,11 @@ export default function ExhibitionScene() {
         <GraphicsApplier config={config} quality={quality} />
         <Suspense fallback={null}>
           <Environment />
-          <ExhibitionHall onExhibitionDataLoaded={handleExhibitionDataLoaded} />
+          <ExhibitionHall
+            onExhibitionDataLoaded={handleExhibitionDataLoaded}
+            isObservationMode={isObservationMode}
+            currentCar={currentCar}
+          />
         </Suspense>
 
         {/* FPS Player Movement Physics */}
