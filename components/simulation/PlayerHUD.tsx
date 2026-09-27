@@ -35,6 +35,9 @@ export default function PlayerHUD({
   } else if (nearbyTrigger?.isMap) {
     promptText = 'Press [E] to view Circuit Directory Map'
     promptTitle = 'EXHIBITION DIRECTORY'
+  } else if (nearbyTrigger?.isAITerminal) {
+    promptText = 'Press [E] to initialize F1 Exhibition AI Terminal'
+    promptTitle = 'AI EXHIBITION RESEARCH TERMINAL'
   } else if (nearbyTrigger?.qrData) {
     promptText = `Press [E] to inspect ${nearbyTrigger.qrData.year} QR Document`
     promptTitle = nearbyTrigger.qrData.title

@@ -11,6 +11,9 @@ import PlayerController from './PlayerController'
 import CameraController from './CameraController'
 import PlayerHUD from './PlayerHUD'
 import QRDocumentModal from './QRDocumentModal'
+import AITerminalModal from './AITerminalModal'
+import { ttsService } from '@/lib/ai/ttsService'
+import { EXHIBITION_CARS_KNOWLEDGE } from '@/lib/ai/f1KnowledgeBase'
 
 import { usePointerLock } from './hooks/usePointerLock'
 import {
@@ -198,9 +201,13 @@ export default function ExhibitionScene() {
   const [activeBoard, setActiveBoard] = useState<ExhibitionBoard | null>(null)
   const [activeQRData, setActiveQRData] = useState<ExhibitionQRData | null>(null)
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [isAITerminalOpen, setIsAITerminalOpen] = useState(false)
+  const [isObservationMode, setIsObservationMode] = useState(false)
+  const [currentCar, setCurrentCar] = useState<string | null>(null)
+  const observedCarsRef = useRef<Set<string>>(new Set())
 
   const isInspecting = Boolean(activeBoard)
-  const overlayOpen = isModalOpen || isInspecting
+  const overlayOpen = isModalOpen || isInspecting || isAITerminalOpen
 
   const { isLocked, requestLock, exitLock, yawRef, pitchRef } = usePointerLock()
 
@@ -221,11 +228,33 @@ export default function ExhibitionScene() {
     []
   )
 
-  // Close inspection and modal
+  // Track nearby trigger changes, update current car context, and trigger Observation Mode TTS
+  const handleNearbyTriggerChange = useCallback(
+    (trig: ExhibitionTriggerPoint | null) => {
+      setNearbyTrigger(trig)
+      if (trig?.carKey) {
+        setCurrentCar(trig.carKey)
+
+        // Observation Mode Voice Tour
+        if (isObservationMode && !observedCarsRef.current.has(trig.carKey)) {
+          observedCarsRef.current.add(trig.carKey)
+          const car = EXHIBITION_CARS_KNOWLEDGE[trig.carKey]
+          if (car) {
+            ttsService.speak(car.audioGuide)
+          }
+        }
+      }
+    },
+    [isObservationMode]
+  )
+
+  // Close inspection and modals
   const handleCloseInspection = useCallback(() => {
     setIsModalOpen(false)
+    setIsAITerminalOpen(false)
     setActiveQRData(null)
     setActiveBoard(null)
+    ttsService.stop()
     window.setTimeout(requestLock, 120)
   }, [requestLock])
 
@@ -250,7 +279,20 @@ export default function ExhibitionScene() {
       return
     }
 
-    // 3. Trigger.000 to Trigger.005: Camera zoom to Naming_Board.00X + QR Document Modal
+    // 3. AI Terminal Trigger: Zoom camera to AI_Screen_Set + Open AITerminalModal
+    if (nearbyTrigger.isAITerminal) {
+      const board = boards.get(nearbyTrigger.targetBoardName) || null
+      exitLock()
+      if (board) {
+        setActiveBoard(board)
+      }
+      window.setTimeout(() => {
+        setIsAITerminalOpen(true)
+      }, 400)
+      return
+    }
+
+    // 4. Trigger.000 to Trigger.005: Camera zoom to Naming_Board.00X + QR Document Modal
     if (nearbyTrigger.qrData) {
       const board = boards.get(nearbyTrigger.targetBoardName) || null
       exitLock()
@@ -272,13 +314,13 @@ export default function ExhibitionScene() {
       const key = e.key.toLowerCase()
 
       if (key === 'e') {
-        if (isInspecting || isModalOpen) {
+        if (isInspecting || isModalOpen || isAITerminalOpen) {
           handleCloseInspection()
         } else if (nearbyTrigger && !overlayOpen) {
           handleInteract()
         }
       } else if (key === 'escape') {
-        if (isInspecting || isModalOpen) {
+        if (isInspecting || isModalOpen || isAITerminalOpen) {
           handleCloseInspection()
         }
       }
@@ -286,7 +328,7 @@ export default function ExhibitionScene() {
 
     window.addEventListener('keydown', handleKeyDown)
     return () => window.removeEventListener('keydown', handleKeyDown)
-  }, [isInspecting, isModalOpen, nearbyTrigger, overlayOpen, handleInteract, handleCloseInspection])
+  }, [isInspecting, isModalOpen, isAITerminalOpen, nearbyTrigger, overlayOpen, handleInteract, handleCloseInspection])
 
   return (
     <div
@@ -310,6 +352,18 @@ export default function ExhibitionScene() {
       <QRDocumentModal
         data={activeQRData}
         isOpen={isModalOpen}
+        onClose={handleCloseInspection}
+      />
+
+      {/* AI Exhibition Terminal Modal */}
+      <AITerminalModal
+        isOpen={isAITerminalOpen}
+        currentCar={currentCar}
+        isObservationMode={isObservationMode}
+        onToggleObservationMode={(active) => {
+          setIsObservationMode(active)
+          if (!active) ttsService.stop()
+        }}
         onClose={handleCloseInspection}
       />
 
@@ -350,7 +404,7 @@ export default function ExhibitionScene() {
           spawnPosition={spawnPosition}
           triggers={triggers}
           obstacleBoxes={obstacleBoxes}
-          onNearbyTriggerChange={setNearbyTrigger}
+          onNearbyTriggerChange={handleNearbyTriggerChange}
         />
 
         {/* Camera Zoom to Naming Boards */}

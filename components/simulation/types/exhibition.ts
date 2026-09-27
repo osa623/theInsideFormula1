@@ -124,6 +124,8 @@ export interface ExhibitionTriggerPoint {
   qrData?: ExhibitionQRData
   isMap?: boolean
   isExit?: boolean
+  isAITerminal?: boolean
+  carKey?: string
 }
 
 export interface ExhibitionBoard {

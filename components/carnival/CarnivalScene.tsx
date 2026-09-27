@@ -30,6 +30,11 @@ import { ScreenTimelineController } from './screens/ScreenTimelineController'
 import { useCarnivalPointerLock } from './useCarnivalPointerLock'
 import { useGraphicsQuality } from '@/lib/graphics/useGraphicsQuality'
 import { GraphicsConfig, GraphicsQuality } from '@/lib/graphics/GraphicsManager'
+import SmartGuidePhoneUI from './smartguide/SmartGuidePhoneUI'
+import CarnivalPhone3D from './smartguide/CarnivalPhone3D'
+import { ttsService } from '@/lib/ai/ttsService'
+import { CARNIVAL_ZONES_KNOWLEDGE } from '@/lib/ai/f1KnowledgeBase'
+import { SmartGuideZone } from '@/lib/ai/types'
 
 function CarnivalLighting({ config }: { config: GraphicsConfig }) {
   const lightRef = useRef<THREE.DirectionalLight>(null)
@@ -239,6 +244,59 @@ export default function CarnivalScene() {
   const [isExamOpen, setIsExamOpen] = useState(false)
   const [, setIsExamPassed] = useState(false)
 
+  // ── Smart Guide Phone State ──
+  const [isPhoneOpen, setIsPhoneOpen] = useState(false)
+  const [activeSmartZone, setActiveSmartZone] = useState<SmartGuideZone | null>(null)
+
+  // Map existing trigger context to Smart Guide zones
+  const INFO_SCREEN_TO_ZONE: Record<string, string> = {
+    tyreTech: 'tyres',
+    chassisTech: 'chassis',
+    trackTech: 'tracks',
+    formulaTech: 'formula',
+  }
+
+  // Auto-resolve active zone from nearby triggers
+  useEffect(() => {
+    if (nearbyInfoScreen) {
+      const zoneKey = INFO_SCREEN_TO_ZONE[nearbyInfoScreen.id]
+      if (zoneKey && CARNIVAL_ZONES_KNOWLEDGE[zoneKey]) {
+        const zone = CARNIVAL_ZONES_KNOWLEDGE[zoneKey]
+        setActiveSmartZone(zone)
+        if (!isPhoneOpen) setIsPhoneOpen(true)
+        return
+      }
+    }
+    if (nearbyEntrance?.id === 'exhibitionHall02') {
+      setActiveSmartZone(CARNIVAL_ZONES_KNOWLEDGE['exhibitionEntrance'] || null)
+      if (!isPhoneOpen) setIsPhoneOpen(true)
+      return
+    }
+    if (nearbyChampionSection) {
+      setActiveSmartZone(CARNIVAL_ZONES_KNOWLEDGE['championship'] || null)
+      if (!isPhoneOpen) setIsPhoneOpen(true)
+      return
+    }
+    if (nearbyExam || nearbyMonitor) {
+      setActiveSmartZone(CARNIVAL_ZONES_KNOWLEDGE['exam'] || null)
+      if (!isPhoneOpen) setIsPhoneOpen(true)
+      return
+    }
+    if (nearbyFormulaCarEntrance) {
+      setActiveSmartZone(CARNIVAL_ZONES_KNOWLEDGE['gaming'] || null)
+      if (!isPhoneOpen) setIsPhoneOpen(true)
+      return
+    }
+    // Outside any zone — lower phone
+    if (!nearbyInfoScreen && !nearbyEntrance && !nearbyChampionSection && !nearbyExam && !nearbyMonitor && !nearbyFormulaCarEntrance) {
+      if (isPhoneOpen && !overlayOpen) {
+        setIsPhoneOpen(false)
+        ttsService.stop()
+      }
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [nearbyInfoScreen, nearbyEntrance, nearbyChampionSection, nearbyExam, nearbyMonitor, nearbyFormulaCarEntrance])
+
   const handleNearbyInfoScreenChange = useCallback((screen: InformationScreenTrigger | null) => {
     setNearbyInfoScreen(screen)
     if (screen) {
@@ -259,7 +317,8 @@ export default function CarnivalScene() {
     hasCinematicActive ||
     isAboutOpen ||
     isMapOpen ||
-    isMiniGameOpen
+    isMiniGameOpen ||
+    isPhoneOpen
 
   const activeCinematicTarget = useMemo(() => {
     if (activeGameStation) {
@@ -579,6 +638,19 @@ export default function CarnivalScene() {
         if (previewEntrance) closePreview()
         if (activeExplainZone) closeExplainZone()
         if (isExamOpen) closeExam()
+        // Close Smart Guide phone on ESC
+        if (isPhoneOpen) {
+          setIsPhoneOpen(false)
+          ttsService.stop()
+        }
+      }
+
+      // P key — toggle Smart Guide phone manually
+      if (key === 'p' && !overlayOpen) {
+        setIsPhoneOpen((prev) => {
+          if (prev) ttsService.stop()
+          return !prev
+        })
       }
     }
 
@@ -622,6 +694,7 @@ export default function CarnivalScene() {
     openPreview,
     overlayOpen,
     previewEntrance,
+    isPhoneOpen,
   ])
 
   const { config, quality } = useGraphicsQuality()
@@ -678,6 +751,9 @@ export default function CarnivalScene() {
           onNearbyMapChange={setNearbyMap}
           onNearbyGameStationChange={setNearbyGameStation}
         />
+
+        {/* Smart Guide Phone 3D (first-person held device) */}
+        <CarnivalPhone3D isOpen={isPhoneOpen} activeZone={activeSmartZone} />
       </Canvas>
 
       <CarnivalHUD
@@ -706,6 +782,16 @@ export default function CarnivalScene() {
         isOpen={isMiniGameOpen}
         stationId={activeGameStation?.stationId ?? 'GAME_STATION_7'}
         onExit={handleExitMiniGame}
+      />
+
+      {/* Smart Guide Phone HTML Overlay */}
+      <SmartGuidePhoneUI
+        isOpen={isPhoneOpen}
+        activeZone={activeSmartZone}
+        onClose={() => {
+          setIsPhoneOpen(false)
+          ttsService.stop()
+        }}
       />
     </div>
   )
