@@ -1,132 +1,392 @@
 [
   {
     "id": 1,
-    "category": "AERODYNAMICS",
-    "question": "What aerodynamic phenomenon produces downforce without increasing frontal drag using floor venturi tunnels?",
+    "category": "CONTROLS",
+    "question": "According to the Driving Academy cockpit module, which control is specifically described as managing both direction and the racing line?",
     "options": [
-      "Bernoulli Ground Effect",
-      "Magnus Vortex Effect",
-      "Boundary Layer Stalling",
-      "Passive Slipstream Drafting"
+      "Steering",
+      "Throttle",
+      "Brake",
+      "Gears"
     ],
     "correctIndex": 0,
-    "explanation": "Ground effect channels underfloor airflow through venturi tunnels to generate low pressure and suction downforce."
+    "explanation": "The KNOW THE CAR module describes steering as the control used to control direction and the racing line."
   },
   {
     "id": 2,
-    "category": "POWERTRAIN",
-    "question": "In the modern hybrid Formula 1 power unit, which component recovers thermal energy directly from exhaust gases?",
+    "category": "CONTROLS",
+    "question": "Which control is identified in the cockpit training module as being responsible for acceleration and power?",
     "options": [
-      "MGU-K (Kinetic Motor)",
-      "MGU-H (Heat Motor)",
-      "Turbocharger Wastegate",
-      "High-Pressure Fuel Rail"
+      "Brake",
+      "Throttle",
+      "Steering",
+      "Energy"
     ],
     "correctIndex": 1,
-    "explanation": "The MGU-H connects to the turbocharger shaft and converts thermal energy from exhaust gas expansion into electrical energy."
+    "explanation": "The module explicitly states that throttle controls acceleration and power."
   },
   {
     "id": 3,
-    "category": "REGULATIONS",
-    "question": "What does a stationary Yellow Flag accompanied by a SC board indicate to drivers on track?",
+    "category": "CONTROLS",
+    "question": "Which cockpit function is described as controlling deceleration and entry speed?",
     "options": [
-      "Full course Virtual Safety Car deployed",
-      "Physical Safety Car deployed; prepare to form queue with strictly no overtaking",
-      "Track is slippery with fluid; hazard ahead",
-      "Race is suspended and red flagged"
+      "Energy",
+      "Gears",
+      "Brake",
+      "Throttle"
     ],
-    "correctIndex": 1,
-    "explanation": "Yellow flag with SC board signals that the physical Safety Car is on circuit; drivers must slow to delta and cannot overtake."
+    "correctIndex": 2,
+    "explanation": "The BRAKE callout states that braking controls deceleration and entry speed."
   },
   {
     "id": 4,
-    "category": "TELEMETRY",
-    "question": "What does a high positive slip angle on the rear axle typically signify in cornering telemetry?",
+    "category": "CONTROLS",
+    "question": "Why does the academy module associate gear selection with both acceleration and corners?",
     "options": [
-      "Severe Mechanical Understeer",
-      "Dynamic Oversteer and rear axle rotation",
-      "Brake lockup on the inside wheel",
-      "Aerodynamic porpoising on straights"
+      "Because gears are used to control steering angle",
+      "Because the appropriate gear must be selected for acceleration and cornering situations",
+      "Because gears determine the braking marker",
+      "Because gears directly control the racing line"
     ],
     "correctIndex": 1,
-    "explanation": "When rear slip angle exceeds front slip angle, the car's yaw rate accelerates into an oversteer condition."
+    "explanation": "The module states that gears are selected appropriately for acceleration and corners."
   },
   {
     "id": 5,
-    "category": "CHAMPIONSHIP",
-    "question": "Which driver holds the all-time record for the most Formula 1 Grand Prix race victories and pole positions?",
+    "category": "VEHICLE SYSTEMS",
+    "question": "Which cockpit system is described as a generic aerodynamic drag-reduction system?",
     "options": [
-      "Michael Schumacher",
-      "Ayrton Senna",
-      "Lewis Hamilton",
-      "Max Verstappen"
+      "Energy",
+      "DRS",
+      "Throttle",
+      "Brake"
     ],
-    "correctIndex": 2,
-    "explanation": "Lewis Hamilton holds the all-time records with 105 race wins and 104 pole positions."
+    "correctIndex": 1,
+    "explanation": "The DRS callout describes it as a generic aerodynamic drag-reduction system."
   },
   {
     "id": 6,
-    "category": "TIRE ENGINEERING",
-    "question": "What causes tire 'graining' during high lateral load cornering on a cold circuit surface?",
+    "category": "ENERGY MANAGEMENT",
+    "question": "What is the stated purpose of the energy function shown in the KNOW THE CAR module?",
     "options": [
-      "Deep tire blisters forming from carcass overheating",
-      "Small rubber strips tearing off tread surface and sticking back on cold rubber",
-      "Complete delamination of tire belt under braking",
-      "Flat spots caused by steering oscillation"
+      "Manage available electrical energy",
+      "Control mechanical braking pressure",
+      "Adjust steering angle",
+      "Set the braking marker"
     ],
-    "correctIndex": 1,
-    "explanation": "Graining occurs when tread rubber tears laterally under shear stresses when tire surface temperatures are below optimal bulk operating window."
+    "correctIndex": 0,
+    "explanation": "The ENERGY callout specifically states: manage available electrical energy."
   },
   {
     "id": 7,
-    "category": "RACE STRATEGY",
-    "question": "What is the primary objective of an 'undercut' pit strategy during a Formula 1 Grand Prix?",
+    "category": "ACCELERATION",
+    "question": "In the BUILD SPEED module, what progression represents the illustrated throttle application from initial input to full application?",
     "options": [
-      "Pitting after the rival to maintain track position on fresher rubber late in the stint",
-      "Pitting before the rival to use maximum grip on fresh cold/out-lap tires to pass while they stay out on degraded rubber",
-      "Intentionally slowing down to back rival into traffic",
-      "Switching to dry slick tires during intermediate rain"
+      "20% → 40% → 70% → 100%",
+      "100% → 70% → 40% → 20%",
+      "20% → 50% → 80% → 100%",
+      "40% → 60% → 80% → 100%"
     ],
-    "correctIndex": 1,
-    "explanation": "The undercut leverages the superior pace of fresh tires on an out-lap to jump ahead when the competitor makes their pitstop."
+    "correctIndex": 0,
+    "explanation": "The throttle telemetry graphic shows 20%, 40%, 70%, and 100% as the increasing sequence."
   },
   {
     "id": 8,
-    "category": "CHASSIS ENGINEERING",
-    "question": "What primary structural material forms the survival cell / monocoque of every modern Formula 1 chassis?",
+    "category": "ACCELERATION",
+    "question": "Which principle from BUILD SPEED specifically warns the driver against excessive wheelspin?",
     "options": [
-      "Carbon Fiber Composite with Aluminum Honeycomb core",
-      "Tubular Chromoly Steel Spaceframe",
-      "Extruded Magnesium Alloy",
-      "Solid Titanium Cast Monocoque"
+      "Power Delivery",
+      "Upshift",
+      "Maximum Traction",
+      "Smooth Throttle"
     ],
-    "correctIndex": 0,
-    "explanation": "Modern F1 monocoques are manufactured from high-modulus carbon fiber composite sandwiching an aluminum or Nomex honeycomb core."
+    "correctIndex": 2,
+    "explanation": "The MAXIMUM TRACTION lesson says to avoid excessive wheelspin."
   },
   {
     "id": 9,
-    "category": "BRAKING SYSTEMS",
-    "question": "What temperature range is typical for carbon-carbon brake discs under heavy deceleration at Monza or Bahrain?",
+    "category": "ACCELERATION",
+    "question": "Which lesson emphasizes applying power progressively rather than abruptly?",
     "options": [
-      "100°C to 250°C",
-      "400°C to 1,000°C",
-      "1,400°C to 2,000°C",
-      "2,500°C to 3,200°C"
+      "Smooth Throttle",
+      "Upshift",
+      "Power Delivery",
+      "Maximum Traction"
     ],
-    "correctIndex": 1,
-    "explanation": "F1 carbon brake discs operate optimally between 400°C and 800°C, with peak deceleration temperatures reaching up to 1,000°C."
+    "correctIndex": 0,
+    "explanation": "SMOOTH THROTTLE is defined as applying power progressively."
   },
   {
     "id": 10,
-    "category": "HISTORIC CIRCUITS",
-    "question": "Which historic circuit is widely revered as the 'Temple of Speed' due to its long straights and historic chicanes?",
+    "category": "ACCELERATION",
+    "question": "Which gear sequence is displayed in the BUILD SPEED telemetry panel?",
     "options": [
-      "Circuit de Spa-Francorchamps",
-      "Silverstone Circuit",
-      "Autodromo Nazionale Monza",
-      "Suzuka International Racing Course"
+      "1 → 2 → 3 → 4 → 5 → 6 → 7 → 8",
+      "2 → 3 → 4 → 5 → 6 → 7 → 8",
+      "2 → 4 → 5 → 6 → 7 → 8",
+      "3 → 4 → 5 → 6 → 7 → 8"
+    ],
+    "correctIndex": 1,
+    "explanation": "The displayed gear progression begins at 2 and increases through 8."
+  },
+  {
+    "id": 11,
+    "category": "BRAKING",
+    "question": "Which sequence correctly represents the braking and corner-entry progression shown in the MASTER THE BRAKES module?",
+    "options": [
+      "Full Throttle → Braking Point → Heavy Braking → Downshift → Trail Braking → Turn-In",
+      "Full Throttle → Turn-In → Braking Point → Apex → Downshift → Exit",
+      "Braking Point → Full Throttle → Downshift → Trail Braking → Turn-In → Apex",
+      "Full Throttle → Heavy Braking → Apex → Downshift → Turn-In → Exit"
+    ],
+    "correctIndex": 0,
+    "explanation": "The braking sequence is explicitly presented as Full Throttle, Braking Point, Heavy Braking, Downshift, Trail Braking, then Turn-In."
+  },
+  {
+    "id": 12,
+    "category": "BRAKING",
+    "question": "Which braking reference-point sequence is shown from the earliest marker toward the turn-in point?",
+    "options": [
+      "50 m → 100 m → 150 m → Turn-In",
+      "150 m → 100 m → 50 m → Turn-In",
+      "100 m → 150 m → 50 m → Turn-In",
+      "150 m → 50 m → 100 m → Turn-In"
+    ],
+    "correctIndex": 1,
+    "explanation": "The braking-zone diagram progresses through 150 m, 100 m, 50 m, and then Turn-In."
+  },
+  {
+    "id": 13,
+    "category": "BRAKING",
+    "question": "The MASTER THE BRAKES telemetry shows brake pressure reducing through which sequence?",
+    "options": [
+      "100% → 80% → 50% → 20% → 0%",
+      "100% → 70% → 40% → 10% → 0%",
+      "80% → 60% → 40% → 20% → 0%",
+      "100% → 90% → 60% → 30% → 10%"
+    ],
+    "correctIndex": 0,
+    "explanation": "The brake-pressure visualization explicitly displays 100%, 80%, 50%, 20%, and 0%."
+  },
+  {
+    "id": 14,
+    "category": "BRAKING",
+    "question": "According to the braking-speed illustration, what speed is associated with the 50 m reference marker?",
+    "options": [
+      "320 km/h",
+      "250 km/h",
+      "180 km/h",
+      "120 km/h"
     ],
     "correctIndex": 2,
-    "explanation": "Monza, built in 1922 in the royal park near Milan, Italy, is famously known as the 'Temple of Speed'."
+    "explanation": "The diagram associates the 50 m reference point with 180 km/h."
+  },
+  {
+    "id": 15,
+    "category": "BRAKING",
+    "question": "Which statement best describes trail braking according to the academy banner?",
+    "options": [
+      "Increase brake pressure as steering increases",
+      "Progressively release brake pressure as steering input increases",
+      "Release the brake completely before beginning any steering",
+      "Maintain maximum brake pressure until corner exit"
+    ],
+    "correctIndex": 1,
+    "explanation": "TRAIL BRAKING is defined as progressively releasing brake pressure as steering input increases."
+  },
+  {
+    "id": 16,
+    "category": "SPEED MANAGEMENT",
+    "question": "The MAINTAIN SPEED module presents the corner as a progression through which four stages?",
+    "options": [
+      "Approach → Entry → Apex → Exit",
+      "Brake → Shift → Apex → Full Throttle",
+      "Entry → Brake → Apex → Exit",
+      "Approach → Brake → Turn-In → Straight"
+    ],
+    "correctIndex": 0,
+    "explanation": "The main speed graph labels its four track phases as Approach, Entry, Apex, and Exit."
+  },
+  {
+    "id": 17,
+    "category": "SPEED MANAGEMENT",
+    "question": "Which speed sequence is displayed in the MAIN SPEED graph from approach to exit?",
+    "options": [
+      "320 → 200 → 140 → 130 → 150 → 220 → 300 km/h",
+      "300 → 220 → 150 → 130 → 140 → 200 → 320 km/h",
+      "320 → 250 → 180 → 120 → 150 → 250 → 320 km/h",
+      "300 → 200 → 140 → 100 → 140 → 200 → 300 km/h"
+    ],
+    "correctIndex": 0,
+    "explanation": "The illustrated speed curve shows 320, 200, 140, 130, 150, 220, and 300 km/h."
+  },
+  {
+    "id": 18,
+    "category": "SPEED MANAGEMENT",
+    "question": "Which speed state is described as providing the best balance and maximum time according to the speed-state panel?",
+    "options": [
+      "Too Fast",
+      "Optimal",
+      "Too Slow",
+      "Maximum"
+    ],
+    "correctIndex": 1,
+    "explanation": "The OPTIMAL state is described as having the best balance and maximum time."
+  },
+  {
+    "id": 19,
+    "category": "SPEED MANAGEMENT",
+    "question": "What consequence is associated with the TOO FAST state in the speed-state diagram?",
+    "options": [
+      "Maximum balance and efficiency",
+      "Best corner exit",
+      "High risk and low stability",
+      "Lower speed but maximum efficiency"
+    ],
+    "correctIndex": 2,
+    "explanation": "The TOO FAST state is described as high risk and low stability."
+  },
+  {
+    "id": 20,
+    "category": "SPEED MANAGEMENT",
+    "question": "What problem is associated with driving TOO SLOW according to the academy graphic?",
+    "options": [
+      "High aerodynamic load",
+      "Losing time and low efficiency",
+      "Excessive wheelspin",
+      "Brake lockup"
+    ],
+    "correctIndex": 1,
+    "explanation": "The TOO SLOW state is explicitly described as losing time and having low efficiency."
+  },
+  {
+    "id": 21,
+    "category": "TELEMETRY",
+    "question": "In the MAINTAIN SPEED telemetry panel, what combination of gear, throttle, and brake is displayed?",
+    "options": [
+      "Gear 5, 72% throttle, 18% brake",
+      "Gear 6, 70% throttle, 20% brake",
+      "Gear 5, 80% throttle, 10% brake",
+      "Gear 4, 72% throttle, 18% brake"
+    ],
+    "correctIndex": 0,
+    "explanation": "The telemetry panel shows Gear 5, Throttle 72%, and Brake 18%."
+  },
+  {
+    "id": 22,
+    "category": "TELEMETRY",
+    "question": "Which pair of measurements in the MAINTAIN SPEED telemetry panel is shown at 1.35G?",
+    "options": [
+      "Brake pressure and RPM",
+      "Lateral G and G-force",
+      "Steering angle and RPM",
+      "Throttle and lateral G"
+    ],
+    "correctIndex": 1,
+    "explanation": "Both the LATERAL G and G-FORCE displays show 1.35G."
+  },
+  {
+    "id": 23,
+    "category": "RACING LINE",
+    "question": "Which line position sequence defines the standard cornering path shown in MASTER THE CORNER?",
+    "options": [
+      "Inside → Outside → Inside",
+      "Outside → Inside → Outside",
+      "Outside → Outside → Inside",
+      "Inside → Inside → Outside"
+    ],
+    "correctIndex": 1,
+    "explanation": "The main racing-line diagram clearly shows Outside at entry, Inside at the apex, and Outside at exit."
+  },
+  {
+    "id": 24,
+    "category": "RACING LINE",
+    "question": "Which sequence best represents the corner-driving process shown in the MASTER THE CORNER module?",
+    "options": [
+      "Brake → Turn → Apex → Unwind → Accelerate",
+      "Accelerate → Brake → Exit → Apex → Turn",
+      "Turn → Brake → Apex → Accelerate → Unwind",
+      "Brake → Apex → Turn → Accelerate → Unwind"
+    ],
+    "correctIndex": 0,
+    "explanation": "The DRIVING SEQUENCE strip shows Brake, Turn, Apex, Unwind, then Accelerate."
+  },
+  {
+    "id": 25,
+    "category": "RACING LINE",
+    "question": "Which apex type is described as providing better entry conditions for maximum corner speed?",
+    "options": [
+      "Early Apex",
+      "Geometric Apex",
+      "Late Apex",
+      "Optimal Apex"
+    ],
+    "correctIndex": 2,
+    "explanation": "The LATE APEX diagram states that it provides a better entry for maximum corner speed."
+  },
+  {
+    "id": 26,
+    "category": "RACING LINE",
+    "question": "Which apex type is described as providing a balanced approach and exit?",
+    "options": [
+      "Early Apex",
+      "Geometric Apex",
+      "Late Apex",
+      "Trail Apex"
+    ],
+    "correctIndex": 1,
+    "explanation": "The GEOMETRIC APEX is described as providing a balanced approach and exit."
+  },
+  {
+    "id": 27,
+    "category": "RACING LINE",
+    "question": "Which apex type is shown as being beneficial for the exit of a tight following corner?",
+    "options": [
+      "Early Apex",
+      "Geometric Apex",
+      "Late Apex",
+      "Constant Apex"
+    ],
+    "correctIndex": 0,
+    "explanation": "The EARLY APEX description states that it can provide a better exit for a tight next corner."
+  },
+  {
+    "id": 28,
+    "category": "COMPLETE LAP",
+    "question": "Which sequence correctly connects the six stages of the complete-lap flow before returning to full acceleration?",
+    "options": [
+      "Full Acceleration → Brake → Corner Entry → Apex → Maintain Speed → Corner Exit → Full Acceleration",
+      "Brake → Full Acceleration → Apex → Corner Entry → Maintain Speed → Exit",
+      "Full Acceleration → Apex → Brake → Corner Entry → Exit → Maintain Speed",
+      "Corner Entry → Full Acceleration → Brake → Apex → Maintain Speed → Exit"
+    ],
+    "correctIndex": 0,
+    "explanation": "The COMPLETE LAP FLOW shows Full Acceleration, Brake, Corner Entry, Apex, Maintain Speed, Corner Exit, then Full Acceleration again."
+  },
+  {
+    "id": 29,
+    "category": "COMPLETE LAP",
+    "question": "The final driving formula presented in the complete-lap module is which sequence?",
+    "options": [
+      "Accelerate → Brake → Turn → Apex → Repeat",
+      "Brake → Turn → Apex → Accelerate → Repeat",
+      "Brake → Apex → Turn → Accelerate → Repeat",
+      "Turn → Brake → Apex → Unwind → Repeat"
+    ],
+    "correctIndex": 1,
+    "explanation": "The FINAL DRIVING FORMULA is explicitly shown as Brake → Turn → Apex → Accelerate → Repeat."
+  },
+  {
+    "id": 30,
+    "category": "DRIVING EXAM",
+    "question": "Which combination of information is shown in the NEXT LEVEL DRIVING EXAM panel as part of the simulator challenge?",
+    "options": [
+      "Target time, sector information, and best lap",
+      "Fuel level, tire temperature, and weather",
+      "Championship points, grid position, and pit-stop count",
+      "Engine temperature, battery percentage, and tire pressure"
+    ],
+    "correctIndex": 0,
+    "explanation": "The DRIVING EXAM panel visibly includes a target time, S1/S2/S3 sector information, and a best-lap time."
   }
 ]
