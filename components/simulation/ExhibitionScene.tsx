@@ -13,7 +13,6 @@ import PlayerHUD from './PlayerHUD'
 import QRDocumentModal from './QRDocumentModal'
 import AITerminalModal from './AITerminalModal'
 import { ttsService } from '@/lib/ai/ttsService'
-import { EXHIBITION_CARS_KNOWLEDGE } from '@/lib/ai/f1KnowledgeBase'
 
 import { usePointerLock } from './hooks/usePointerLock'
 import {
@@ -24,6 +23,16 @@ import {
 import { useGraphicsQuality } from '@/lib/graphics/useGraphicsQuality'
 import { GraphicsConfig, GraphicsQuality } from '@/lib/graphics/GraphicsManager'
 import { useThree } from '@react-three/fiber'
+
+// Prerecorded narration audio files for Exhibition Hall cars
+const EXHIBITION_CAR_NARRATION_AUDIO: Record<string, string> = {
+  'senna-mp4-6': '/music/narrationSounds/senna.mp3',
+  '2017': '/music/narrationSounds/2017.mp3',
+  '2018': '/music/narrationSounds/2018.mp3',
+  '2019': '/music/narrationSounds/2019.mp3',
+  '2020': '/music/narrationSounds/2020.mp3',
+  '2021': '/music/narrationSounds/2021.mp3',
+}
 
 function createHallImpulseResponse(context: AudioContext): AudioBuffer {
   const length = Math.max(1, Math.floor(context.sampleRate * 2.4))
@@ -91,6 +100,86 @@ export default function ExhibitionScene() {
   const hallAudioRef = useRef<HTMLAudioElement | null>(null)
   const hallAudioContextRef = useRef<AudioContext | null>(null)
   const duckGainRef = useRef<GainNode | null>(null)
+  const carNarrationAudioRef = useRef<HTMLAudioElement | null>(null)
+
+  const setMusicDucking = useCallback((isDucking: boolean) => {
+    const ctx = hallAudioContextRef.current
+    const duckGain = duckGainRef.current
+    if (ctx && duckGain) {
+      const now = ctx.currentTime
+      duckGain.gain.cancelScheduledValues(now)
+      duckGain.gain.setValueAtTime(duckGain.gain.value, now)
+      if (isDucking) {
+        duckGain.gain.linearRampToValueAtTime(0.12, now + 0.35)
+      } else {
+        duckGain.gain.linearRampToValueAtTime(1.0, now + 0.6)
+      }
+    } else if (hallAudioRef.current) {
+      hallAudioRef.current.volume = isDucking ? 0.06 : 0.32
+    }
+  }, [])
+
+  const stopCarNarration = useCallback(() => {
+    if (carNarrationAudioRef.current) {
+      const audio = carNarrationAudioRef.current
+      carNarrationAudioRef.current = null
+      audio.onended = null
+      audio.onerror = null
+      audio.pause()
+      audio.currentTime = 0
+      setMusicDucking(false)
+    }
+  }, [setMusicDucking])
+
+  const playCarNarration = useCallback(
+    (carKey: string) => {
+      const audioSrc = EXHIBITION_CAR_NARRATION_AUDIO[carKey]
+      if (!audioSrc) {
+        console.warn(`[ExhibitionScene] No prerecorded narration audio mapped for car: ${carKey}`)
+        return
+      }
+
+      // Safely stop previous narration if still playing and reset
+      stopCarNarration()
+
+      try {
+        const audio = new Audio(audioSrc)
+        audio.preload = 'auto'
+        audio.volume = 1.0
+        carNarrationAudioRef.current = audio
+
+        const handleEnded = () => {
+          if (carNarrationAudioRef.current === audio) {
+            carNarrationAudioRef.current = null
+          }
+          setMusicDucking(false)
+        }
+
+        const handleError = (e: any) => {
+          console.warn(`[ExhibitionScene] Error playing car narration audio (${audioSrc}):`, e)
+          if (carNarrationAudioRef.current === audio) {
+            carNarrationAudioRef.current = null
+          }
+          setMusicDucking(false)
+        }
+
+        audio.onended = handleEnded
+        audio.onerror = handleError
+
+        // Duck background music while car narration plays
+        setMusicDucking(true)
+
+        audio.play().catch((err) => {
+          console.warn(`[ExhibitionScene] Autoplay error for car narration (${audioSrc}):`, err)
+          handleError(err)
+        })
+      } catch (err) {
+        console.warn(`[ExhibitionScene] Could not initialize narration audio for ${carKey}:`, err)
+        setMusicDucking(false)
+      }
+    },
+    [setMusicDucking, stopCarNarration]
+  )
 
   const ensureHallAudioChain = useCallback(() => {
     const audio = hallAudioRef.current
@@ -183,26 +272,14 @@ export default function ExhibitionScene() {
 
     void startHallMusic()
 
-    // Subscribe to TTS ducking events for smooth background music attenuation
+    // Subscribe to TTS ducking events for smooth background music attenuation (e.g. AI Terminal)
     const unsubscribeDucking = ttsService.onDucking((isDucking) => {
-      const ctx = hallAudioContextRef.current
-      const duckGain = duckGainRef.current
-      if (ctx && duckGain) {
-        const now = ctx.currentTime
-        duckGain.gain.cancelScheduledValues(now)
-        duckGain.gain.setValueAtTime(duckGain.gain.value, now)
-        if (isDucking) {
-          duckGain.gain.linearRampToValueAtTime(0.12, now + 0.35)
-        } else {
-          duckGain.gain.linearRampToValueAtTime(1.0, now + 0.6)
-        }
-      } else if (hallAudioRef.current) {
-        hallAudioRef.current.volume = isDucking ? 0.06 : 0.32
-      }
+      setMusicDucking(isDucking)
     })
 
     return () => {
       unsubscribeDucking()
+      stopCarNarration()
       hallAudioContextRef.current?.close()
       hallAudioContextRef.current = null
       duckGainRef.current = null
@@ -211,7 +288,7 @@ export default function ExhibitionScene() {
       audio.remove()
       hallAudioRef.current = null
     }
-  }, [startHallMusic])
+  }, [startHallMusic, setMusicDucking, stopCarNarration])
 
   // Scene state
   const [triggers, setTriggers] = useState<ExhibitionTriggerPoint[]>([])
@@ -263,21 +340,17 @@ export default function ExhibitionScene() {
       if (nextCarKey) {
         setCurrentCar(nextCarKey)
 
-        // Observation Mode Voice Tour: play whenever entering a car exhibit trigger
+        // Observation Mode Voice Tour: play prerecorded narration whenever entering a car exhibit trigger
         if (isObservationMode && nextCarKey !== lastObservedCarRef.current) {
           lastObservedCarRef.current = nextCarKey
-          const car = EXHIBITION_CARS_KNOWLEDGE[nextCarKey]
-          if (car) {
-            ttsService.stop()
-            ttsService.speak(car.audioGuide)
-          }
+          playCarNarration(nextCarKey)
         }
       } else {
-        // Player stepped away from car trigger: reset so speech can trigger again upon re-entry
+        // Player stepped away from car trigger: reset so narration can trigger again upon re-entry
         lastObservedCarRef.current = null
       }
     },
-    [isObservationMode]
+    [isObservationMode, playCarNarration]
   )
 
   // Close inspection and modals
@@ -287,8 +360,9 @@ export default function ExhibitionScene() {
     setActiveQRData(null)
     setActiveBoard(null)
     ttsService.stop()
+    stopCarNarration()
     window.setTimeout(requestLock, 120)
-  }, [requestLock])
+  }, [requestLock, stopCarNarration])
 
   // Start interaction when pressing E on trigger
   const handleInteract = useCallback(() => {
@@ -396,16 +470,13 @@ export default function ExhibitionScene() {
           setIsObservationMode(active)
           if (!active) {
             ttsService.stop()
+            stopCarNarration()
             lastObservedCarRef.current = null
           } else {
-            // When turning observation mode ON, immediately play speech for the current nearby car if standing near one
+            // When turning observation mode ON, immediately play prerecorded narration for the current nearby car if standing near one
             if (nearbyTrigger?.carKey) {
               lastObservedCarRef.current = nearbyTrigger.carKey
-              const car = EXHIBITION_CARS_KNOWLEDGE[nearbyTrigger.carKey]
-              if (car) {
-                ttsService.stop()
-                ttsService.speak(car.audioGuide)
-              }
+              playCarNarration(nearbyTrigger.carKey)
             }
           }
         }}
