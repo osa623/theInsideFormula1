@@ -1,6 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { F1DomainGuard } from '@/lib/ai/f1DomainGuard'
-import { getLocalF1KnowledgeResponse, EXHIBITION_CARS_KNOWLEDGE, CARNIVAL_ZONES_KNOWLEDGE } from '@/lib/ai/f1KnowledgeBase'
+import {
+  getLocalF1KnowledgeResponse,
+  EXHIBITION_CARS_KNOWLEDGE,
+  CARNIVAL_ZONES_KNOWLEDGE,
+  classifyQueryIntent,
+  resolveLocationQuery,
+} from '@/lib/ai/f1KnowledgeBase'
 import { AIChatRequest, AIChatResponse } from '@/lib/ai/types'
 
 export async function POST(req: NextRequest) {
@@ -22,6 +28,19 @@ export async function POST(req: NextRequest) {
         reply: validation.rejectionReply || "I'm here to help with Formula 1 and information related to this exhibition. Please ask me an F1-related question.",
         isF1Related: false,
         source: 'domain_guard',
+      } as AIChatResponse)
+    }
+
+    // ── Priority 1: Location & Orientation Queries (Direct Application Context) ──
+    // Answers questions like "Where am I?", "What section is this?" with 100% ground truth
+    const intent = classifyQueryIntent(prompt)
+    if (intent === 'LOCATION_QUERY') {
+      const locationAnswer = resolveLocationQuery(context)
+      return NextResponse.json({
+        reply: locationAnswer,
+        isF1Related: true,
+        source: 'knowledge_base',
+        contextUsed: context,
       } as AIChatResponse)
     }
 

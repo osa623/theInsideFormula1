@@ -9,9 +9,10 @@ import { SmartGuideZone } from '@/lib/ai/types'
 interface CarnivalPhone3DProps {
   isOpen: boolean
   activeZone?: SmartGuideZone | null
+  currentLocation?: string
 }
 
-export default function CarnivalPhone3D({ isOpen, activeZone }: CarnivalPhone3DProps) {
+export default function CarnivalPhone3D({ isOpen, activeZone, currentLocation }: CarnivalPhone3DProps) {
   const { camera } = useThree()
   const { scene } = useGLTF('/models/phone.glb')
 
@@ -70,12 +71,12 @@ export default function CarnivalPhone3D({ isOpen, activeZone }: CarnivalPhone3DP
 
       ctx.fillStyle = '#ffffff'
       ctx.font = '900 30px Arial Black, sans-serif'
-      const title = (activeZone?.title || 'F1 Carnival Grounds').toUpperCase()
+      const title = (currentLocation || activeZone?.title || 'F1 Carnival Grounds').toUpperCase()
       ctx.fillText(title.slice(0, 22), 56, 295)
 
       ctx.fillStyle = 'rgba(255, 255, 255, 0.8)'
       ctx.font = '500 22px Arial, sans-serif'
-      const desc = activeZone?.description || 'Explore interactive booths, racing simulations, and championship archives.'
+      const desc = activeZone?.description || `Explore ${currentLocation || 'Carnival Grounds'}, interactive booths, racing simulations, and championship archives.`
       const words = desc.split(' ')
       let line = ''
       let y = 345
@@ -105,7 +106,7 @@ export default function CarnivalPhone3D({ isOpen, activeZone }: CarnivalPhone3DP
       ctx.font = '600 18px monospace'
       ctx.fillText('AI MODEL: GEMINI 1.5 PRO', 56, 700)
       ctx.fillText('TTS ENGINE: VOCAL GUIDANCE READY', 56, 730)
-      ctx.fillText('GPS: ZONE LOCATED', 56, 760)
+      ctx.fillText(`GPS: ${(currentLocation || 'ZONE LOCATED').toUpperCase()}`, 56, 760)
 
       if (canvasTextureRef.current) {
         canvasTextureRef.current.needsUpdate = true
@@ -146,7 +147,7 @@ export default function CarnivalPhone3D({ isOpen, activeZone }: CarnivalPhone3DP
       window.clearInterval(timer)
       tex.dispose()
     }
-  }, [clonedScene, activeZone, isOpen])
+  }, [clonedScene, activeZone, isOpen, currentLocation])
 
   // Attach group to camera
   useEffect(() => {

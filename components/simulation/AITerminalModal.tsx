@@ -7,6 +7,10 @@ import { ttsService } from '@/lib/ai/ttsService'
 import { EXHIBITION_CARS_KNOWLEDGE } from '@/lib/ai/f1KnowledgeBase'
 import { AIMessage } from '@/lib/ai/types'
 
+
+// image for the logo 
+import formula1Logo from '../../public/images/Short_Banner_Imges/formula_logo_1.png';
+
 interface AITerminalModalProps {
   isOpen: boolean
   currentCar?: string | null
@@ -211,21 +215,23 @@ export default function AITerminalModal({
           {/* Header */}
           <div className="flex flex-wrap items-center justify-between gap-3 px-6 py-4 border-b border-white/10 bg-black/60">
             <div className="flex items-center gap-3">
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#e10600] text-white font-black text-sm shadow-[0_0_12px_#e10600]">
-                F1
-              </div>
+                     <img
+              src={formula1Logo.src}
+              alt ="Formula One logo"
+              className="h-auto w-[4vw] object-cover"
+            />
               <div>
                 <div className="flex items-center gap-2">
                   <h2 className="font-mono text-sm font-black tracking-wider text-white">
-                    AI EXHIBITION TERMINAL
+                    AI TERMINAL: EXHIBITION
                   </h2>
                   <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
                   <span className="font-mono text-[9px] font-bold text-emerald-400 uppercase tracking-widest">
                     ONLINE
                   </span>
                 </div>
-                <p className="font-mono text-[10px] text-white/50 tracking-wider">
-                  TECHNICAL DOSSIER & HISTORIC VEHICLE RESEARCH
+                <p className="font-mono text-[12px] text-white/50 tracking-wider">
+                  Ask questions about the displayed cars, regulations, and F1 history.
                 </p>
               </div>
             </div>

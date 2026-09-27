@@ -326,14 +326,217 @@ export const CARNIVAL_ZONES_KNOWLEDGE: Record<string, SmartGuideZone> = {
     ],
     accentColor: '#00d4ff',
   },
+  secondMainArea: {
+    id: 'secondMainArea',
+    triggerName: 'Racing_Path',
+    title: 'Second Main Area // Concourse',
+    subtitle: 'Championship Showcase, Knowledge Exam & Gaming Area',
+    eyebrow: 'CARNIVAL // SECOND MAIN AREA',
+    description:
+      'The expansive Second Main Section of the F1 Carnival. Houses the 2000–2025 Championship Section, the F1 Driving Academy Knowledge Exam kiosk with study boards, and the Interactive Racing Simulator stations.',
+    audioNarration:
+      'You are in the Second Main Area of the Carnival. Explore the World Champions Archive along the left promenade, test your driving skills at the gaming stations on the right, or proceed forward to take the F1 Academy Exam.',
+    bullets: [
+      'Access to 2000-2025 Championship Section',
+      'F1 Driving Academy Knowledge Exam kiosk & 6 study boards',
+      'Interactive 2D Racing Simulator stations',
+    ],
+    suggestedQuestions: [
+      'What exhibits are located in the Second Main Area?',
+      'Where is the F1 Champions section?',
+      'Where can I take the F1 quiz?',
+    ],
+    accentColor: '#e10600',
+  },
+  educational: {
+    id: 'educational',
+    triggerName: 'Path_Area',
+    title: 'Formula 1 Educational Zone',
+    subtitle: 'Tyres, Chassis, Circuits & Formula Racing Ecosystem',
+    eyebrow: 'CARNIVAL // EDUCATIONAL ZONE',
+    description:
+      'The technical heart of the Carnival. Features four dedicated interactive technology stations (Tyres, Chassis, Circuits, Formula Ecosystem), historic race displays, and technical circuit maps.',
+    audioNarration:
+      'Welcome to the Educational Zone. Walk up to any of the four technology stations to inspect tyre compounds, chassis engineering, circuit topography, and the FIA Formula ladder.',
+    bullets: [
+      'Four dedicated technical stations (Symbols 001 - 004)',
+      'Display F1 cars and aero packages',
+      'Circuit layout and telemetry interactive map',
+    ],
+    suggestedQuestions: [
+      'What are the four educational stations here?',
+      'Tell me about F1 aerodynamics and downforce',
+      'How do hybrid F1 engines work?',
+    ],
+    accentColor: '#00d2be',
+  },
+  carPark: {
+    id: 'carPark',
+    triggerName: 'Car_Park_Path',
+    title: 'Visitor Concourse & Car Park',
+    subtitle: 'Carnival Arrival Area & Walking Promenade',
+    eyebrow: 'CARNIVAL // CAR PARK',
+    description:
+      'The visitor car park and entry grounds. Follow the marked pedestrian concourse forward to enter the Educational Zone or the main Carnival thoroughfare.',
+    audioNarration:
+      'You are in the Car Park area. Follow the main path forward to enter the Formula One Educational Zone and the main Carnival attractions.',
+    bullets: [
+      'Visitor parking and vehicle displays',
+      'Promenade leading to Educational Zone and Second Main Area',
+    ],
+    suggestedQuestions: [
+      'Where does the main path lead?',
+      'How do I get to the Exhibition Hall?',
+    ],
+    accentColor: '#8892b0',
+  },
+  mainPath: {
+    id: 'mainPath',
+    triggerName: 'Path',
+    title: 'Main Carnival Promenade',
+    subtitle: 'Central Thoroughfare of the Formula 1 Carnival',
+    eyebrow: 'CARNIVAL // CENTRAL PATH',
+    description:
+      'The central walking promenade connecting the Exhibition Hall entrance, the Educational Zone, the Car Park, and the Second Main Area.',
+    audioNarration:
+      'You are walking along the Main Carnival Path, the central artery of the motorsport experience. It connects all major exhibition zones.',
+    bullets: [
+      'Direct navigation to Exhibition Hall, Educational Zone, and Second Main Area',
+    ],
+    suggestedQuestions: [
+      'Where does this path lead?',
+      'Where is the Exhibition Hall entrance?',
+    ],
+    accentColor: '#ffffff',
+  },
+}
+
+// Add alias for formula-franchise
+CARNIVAL_ZONES_KNOWLEDGE['formula-franchise'] = CARNIVAL_ZONES_KNOWLEDGE['formula']
+
+/**
+ * Lightweight intent classification to guarantee location and contextual questions are answered accurately.
+ */
+export type QueryIntent =
+  | 'LOCATION_QUERY'
+  | 'CAR_QUERY'
+  | 'SECTION_QUERY'
+  | 'F1_GENERAL_QUERY'
+
+export function classifyQueryIntent(prompt: string): QueryIntent {
+  const p = prompt.toLowerCase()
+  if (
+    /\b(where\s+am\s+i|where\s+i\s+am|what\s+section|which\s+section|what\s+area|which\s+area|what\s+is\s+this\s+(place|area|zone|section)|what\s+am\s+i\s+looking\s+at|where\s+are\s+we|current\s+location|what\s+zone|what\s+is\s+here|where\s+is\s+this)\b/i.test(
+      p
+    )
+  ) {
+    return 'LOCATION_QUERY'
+  }
+  if (/\b(this\s+car|the\s+car|engine|power|driver|spec|weight|who\s+drove)\b/i.test(p)) {
+    return 'CAR_QUERY'
+  }
+  if (/\b(section|zone|exhibit|carnival|stands|track)\b/i.test(p)) {
+    return 'SECTION_QUERY'
+  }
+  return 'F1_GENERAL_QUERY'
+}
+
+/**
+ * Resolves location queries using real structured application state.
+ * Has priority over generative guessing.
+ */
+export function resolveLocationQuery(context?: {
+  location?: string | null
+  currentLocation?: string | null
+  section?: string | null
+  currentSection?: string | null
+  activeTrigger?: string | null
+  currentCar?: string | null
+}): string {
+  // 1. If at an Exhibition car
+  if (context?.currentCar) {
+    const carKey = context.currentCar.toLowerCase()
+    const match =
+      carKey.includes('senna') || carKey.includes('1991') || carKey.includes('mp4')
+        ? EXHIBITION_CARS_KNOWLEDGE['senna-mp4-6']
+        : EXHIBITION_CARS_KNOWLEDGE[context.currentCar] ||
+          Object.values(EXHIBITION_CARS_KNOWLEDGE).find((c) => c.year === context.currentCar)
+
+    if (match) {
+      return `You are currently in the Formula 1 Exhibition Hall, standing directly in front of the ${match.year} ${match.name}. It is powered by a ${match.engine} delivering ${match.power} and was piloted by ${match.drivers}.`
+    }
+  }
+
+  // 2. Authoritative live location from application state
+  const loc = (context?.currentLocation || context?.location || '').toLowerCase()
+  const sec = (context?.currentSection || context?.section || '').toLowerCase()
+  const trig = (context?.activeTrigger || '').toLowerCase()
+
+  // Specific Educational sub-sections
+  if (sec === 'tyres' || trig === 'symmbol.004') {
+    return 'You are currently in the Formula 1 Tyres section of the Educational Zone. Here you can explore Pirelli tyre compound chemistry, thermal operating windows, contact patch mechanics, and pit stop tyre strategy.'
+  }
+  if (sec === 'chassis' || trig === 'symmbol.003') {
+    return 'You are currently in the Formula 1 Chassis section of the Educational Zone. This exhibit covers aerospace-grade carbon fiber monocoque safety cells, titanium Halo impact resistance, and FIA crash load dissipation.'
+  }
+  if (sec === 'tracks' || trig === 'symmbol.002') {
+    return 'You are currently in the Circuit Technology section of the Educational Zone, studying racing asphalt topography, kerb profiles, DRS zone placement, and high-downforce vs low-drag aerodynamic setups.'
+  }
+  if (sec === 'formula' || sec === 'formula-franchise' || trig === 'symmbol.001') {
+    return 'You are currently in the Formula Racing Ecosystem section of the Educational Zone, detailing the single-seater progression ladder from Karting to F4, F3, F2, and Formula 1, along with the FIA Superlicense point system and financial cost cap rules.'
+  }
+
+  // Major areas
+  if (loc.includes('championship') || trig.includes('racing_champion_section_path')) {
+    return 'You are currently in the Championship Section, commemorating Formula 1 World Drivers and Constructors Champions from 2000 through 2025 across the V10, V8, and Turbo-Hybrid eras.'
+  }
+
+  if (loc.includes('exam') || trig.includes('walking_path_racing_exam')) {
+    return 'You are currently in the Exam Section. Review the six technical examination boards covering aerodynamic downforce, flags, powertrain hybridization, and sporting regulations before taking the 40-question F1 driving academy quiz.'
+  }
+
+  if (loc.includes('gaming') || trig.includes('real_racing_entering_path')) {
+    return 'You are currently in the Gaming Area, where you can test your driving reflexes and lap time consistency in the interactive 2D Grand Prix racing simulator stations.'
+  }
+
+  if (loc.includes('second main area') || trig.includes('racing_path')) {
+    return 'You are currently in the Second Main Area of the Formula 1 Carnival. This major section houses the Championship Section (2000–2025 exhibits), the Knowledge Exam kiosk with study boards, and the Interactive Racing Simulator stations.'
+  }
+
+  if (loc.includes('educational') || trig.includes('path_area')) {
+    return 'You are currently in the Educational Zone of the Formula 1 Carnival. Here you can explore four dedicated technical stations (Tyres, Chassis, Circuits, and Formula Ecosystem), view display cars, and inspect circuit telemetry.'
+  }
+
+  if (loc.includes('car park') || trig.includes('car_park_path')) {
+    return 'You are currently in the Car Park area of the Formula 1 Carnival. From here, follow the path forward to enter the Educational Zone or the main Carnival concourse.'
+  }
+
+  if (loc.includes('exhibition hall entrance') || trig.includes('holohraphic_main_01')) {
+    return 'You are standing at the entrance to the Formula 1 Exhibition Hall. Step forward and press [E] to enter the heritage hall and view historic championship-winning Formula 1 cars.'
+  }
+
+  if (loc.includes('main carnival path') || trig.includes('path')) {
+    return 'You are on the Main Carnival Path. This central artery connects the Exhibition Hall entrance, the Educational Zone, the Car Park, and the Second Main Area.'
+  }
+
+  if (loc.includes('exhibition')) {
+    return 'You are currently inside the Formula 1 Heritage Exhibition Hall, exploring historic championship-winning Formula 1 cars and technical showcases.'
+  }
+
+  return 'You are currently in the Formula 1 Carnival, an interactive 3D motorsport theme park featuring educational engineering zones, historical exhibitions, and interactive driving simulators.'
 }
 
 /**
  * Intelligent local fallback responder when Gemini API key is not yet set or network fails.
  * Guarantees zero crashes and immediate, accurate F1 answers.
  */
-export function getLocalF1KnowledgeResponse(prompt: string, context?: { currentCar?: string | null; section?: string | null }): string {
+export function getLocalF1KnowledgeResponse(prompt: string, context?: { currentCar?: string | null; section?: string | null; location?: string | null }): string {
   const p = prompt.toLowerCase()
+
+  // 0. Location queries have absolute priority
+  if (classifyQueryIntent(prompt) === 'LOCATION_QUERY') {
+    return resolveLocationQuery(context)
+  }
 
   // 1. Current car context responses
   if (context?.currentCar) {

@@ -9,21 +9,27 @@ import { ttsService } from '@/lib/ai/ttsService'
 interface SmartGuidePhoneUIProps {
   isOpen: boolean
   activeZone: SmartGuideZone | null
+  currentLocation?: string
+  currentSection?: string | null
+  activeTrigger?: string | null
   onClose: () => void
 }
 
 export default function SmartGuidePhoneUI({
   isOpen,
   activeZone,
+  currentLocation = 'Main Carnival Path',
+  currentSection = null,
+  activeTrigger = null,
   onClose,
 }: SmartGuidePhoneUIProps) {
-  const [activeTab, setActiveTab] = useState<'guide' | 'chat'>('guide')
+  const [activeTab, setActiveTab] = useState<'home' | 'chat' | 'guide'>('home')
   const [messages, setMessages] = useState<AIMessage[]>([
     {
       id: 'init-msg',
       role: 'assistant',
       content:
-        'Hi! I am your Carnival Smart Guide. How can I assist you in this zone?',
+        'Smart Guide pit-wall telemetry linked. Ask any question about your current area, racing regulations, or Formula 1 engineering.',
       timestamp: Date.now(),
       source: 'knowledge_base',
     },
@@ -37,24 +43,126 @@ export default function SmartGuidePhoneUI({
   const inputRef = useRef<HTMLInputElement>(null)
   const recognitionRef = useRef<any>(null)
 
-  // Scroll chat
+  // Auto-scroll chat
   useEffect(() => {
     if (activeTab === 'chat' && chatEndRef.current) {
       chatEndRef.current.scrollTop = chatEndRef.current.scrollHeight
     }
   }, [messages, isLoading, activeTab])
 
-  // Reset tab on open
+  // Stop audio when closing
   useEffect(() => {
-    if (isOpen) {
-      setActiveTab('guide')
-    } else {
+    if (!isOpen) {
       ttsService.stop()
       setIsSpeaking(false)
     }
   }, [isOpen])
 
-  // TTS Narration for Zone
+  // Contextual Quick Actions generated dynamically from CURRENT LIVE LOCATION
+  const getContextualQuickActions = useCallback(() => {
+    const loc = (currentLocation || '').toLowerCase()
+    const sec = (currentSection || '').toLowerCase()
+
+    if (loc.includes('championship')) {
+      return [
+        'Where am I right now?',
+        'F1 Champions (2000–2025)',
+        'Tell me about this section',
+        'Which drivers won 7 World Championships?',
+      ]
+    }
+    if (loc.includes('exam')) {
+      return [
+        'Where am I right now?',
+        'What should I do here?',
+        'Explain the 6 technical study boards',
+        'F1 Certification Quiz details',
+      ]
+    }
+    if (loc.includes('gaming')) {
+      return [
+        'Where am I right now?',
+        'How does the 2D racing game work?',
+        'What is trail braking in Formula 1?',
+        'How can I get the fastest hot lap?',
+      ]
+    }
+    if (loc.includes('second main area')) {
+      return [
+        'Where am I right now?',
+        'What exhibits are in the Second Main Area?',
+        'Where is the F1 Champions section?',
+        'Where is the F1 exam kiosk?',
+      ]
+    }
+    if (loc.includes('educational')) {
+      if (sec === 'tyres') {
+        return [
+          'Where am I right now?',
+          'Why are soft tyres faster than hard tyres?',
+          'What is tyre graining and blistering?',
+          'How does undercut strategy work?',
+        ]
+      }
+      if (sec === 'chassis') {
+        return [
+          'Where am I right now?',
+          'What is an F1 monocoque made of?',
+          'How does the Halo protect F1 drivers?',
+          'What crash tests does the FIA mandate?',
+        ]
+      }
+      if (sec === 'tracks') {
+        return [
+          'Where am I right now?',
+          'Why is Monza called the Temple of Speed?',
+          'How does circuit altitude affect downforce?',
+          'What is track evolution?',
+        ]
+      }
+      if (sec === 'formula' || sec === 'formula-franchise') {
+        return [
+          'Where am I right now?',
+          'How does a driver earn an FIA Superlicense?',
+          'What is the difference between F2 and F1?',
+          'What are the new 2026 engine regulations?',
+        ]
+      }
+      return [
+        'Where am I right now?',
+        'Explore Tyres',
+        'Explore Chassis',
+        'Explore Tracks',
+        'Formula Franchise',
+      ]
+    }
+    if (loc.includes('car park')) {
+      return [
+        'Where am I right now?',
+        'Where does the main path lead?',
+        'How do I enter the Exhibition Hall?',
+        'Tell me about the Educational Zone',
+      ]
+    }
+    if (loc.includes('exhibition hall entrance')) {
+      return [
+        'Where am I right now?',
+        'What cars are inside the Exhibition Hall?',
+        'What is the AI Exhibition Terminal?',
+        'Press [E] to enter Exhibition Hall',
+      ]
+    }
+
+    // Default Main Path
+    return [
+      'Where am I right now?',
+      'Where does this path lead?',
+      'Tell me about the Educational Zone',
+      'Where is the Exhibition Hall?',
+    ]
+  }, [currentLocation, currentSection])
+
+  // Zone TTS Narration
   const handleToggleZoneNarration = useCallback(() => {
     if (!activeZone) return
     if (isSpeaking) {
@@ -65,11 +173,12 @@ export default function SmartGuidePhoneUI({
       ttsService.speak(activeZone.audioNarration, {
         onStart: () => setIsSpeaking(true),
         onEnd: () => setIsSpeaking(false),
+        onError: () => setIsSpeaking(false),
       })
     }
   }, [activeZone, isSpeaking])
 
-  // Send AI Question
+  // Send Question with strictly current live location context
   const handleSendQuestion = useCallback(
     async (textToSend?: string) => {
       const q = (textToSend ?? input).trim()
@@ -95,8 +204,11 @@ export default function SmartGuidePhoneUI({
           q,
           {
             mode: 'carnival',
-            location: 'F1 Carnival',
-            section: activeZone?.id ?? 'general',
+            location: currentLocation,
+            currentLocation: currentLocation,
+            currentSection: currentSection,
+            section: currentSection || activeZone?.id || null,
+            activeTrigger: activeTrigger,
           },
           history
         )
@@ -110,13 +222,13 @@ export default function SmartGuidePhoneUI({
         }
 
         setMessages((prev) => [...prev, assistantMsg])
-      } catch (err) {
+      } catch {
         setMessages((prev) => [
           ...prev,
           {
             id: `err-${Date.now()}`,
             role: 'assistant',
-            content: 'The Smart Guide service is momentarily busy. Please try asking again.',
+            content: 'Telemetry link interruption. Please re-send your query.',
             timestamp: Date.now(),
             source: 'knowledge_base',
           },
@@ -125,7 +237,7 @@ export default function SmartGuidePhoneUI({
         setIsLoading(false)
       }
     },
-    [input, isLoading, messages, activeZone]
+    [input, isLoading, messages, currentLocation, currentSection, activeTrigger, activeZone]
   )
 
   // Voice recognition
@@ -135,7 +247,7 @@ export default function SmartGuidePhoneUI({
       (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition
 
     if (!SpeechRecognition) {
-      alert('Speech recognition is not supported in this browser. Please type your query.')
+      alert('Speech recognition is unavailable in this browser. Please use the keyboard.')
       return
     }
 
@@ -169,49 +281,46 @@ export default function SmartGuidePhoneUI({
     }
   }, [isListening, handleSendQuestion])
 
-  // Key isolation
-  const handleKeyIsolation = (e: React.KeyboardEvent) => {
-    e.stopPropagation()
-  }
-
   if (!isOpen) return null
+
+  const quickActions = getContextualQuickActions()
 
   return (
     <AnimatePresence>
       <motion.div
-        initial={{ opacity: 0, y: 120, scale: 0.9 }}
+        initial={{ opacity: 0, y: 140, scale: 0.92 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
-        exit={{ opacity: 0, y: 120, scale: 0.9 }}
-        transition={{ duration: 0.28, ease: 'easeOut' }}
-        onKeyDown={handleKeyIsolation}
-        onKeyUp={handleKeyIsolation}
-        onKeyPress={handleKeyIsolation}
-        className="fixed bottom-6 right-6 z-40 w-[380px] max-w-[calc(100vw-32px)] h-[640px] max-h-[85vh] rounded-[38px] p-3.5 bg-gradient-to-b from-[#242c38] to-[#0c1017] shadow-[0_20px_60px_rgba(0,0,0,0.8),0_0_30px_rgba(225,6,0,0.25)] border border-white/20 select-none flex flex-col"
+        exit={{ opacity: 0, y: 140, scale: 0.92 }}
+        transition={{ duration: 0.26, ease: [0.16, 1, 0.3, 1] }}
+        className="fixed bottom-6 right-6 z-40 w-[400px] max-w-[calc(100vw-24px)] h-[640px] max-h-[85vh] rounded-[38px] p-3 bg-[#07090e]/95 backdrop-blur-2xl shadow-[0_24px_70px_rgba(0,0,0,0.88),0_0_0_1px_rgba(255,255,255,0.12)] select-none flex flex-col pointer-events-auto"
       >
-        {/* Inner Phone Screen */}
-        <div className="relative flex-1 rounded-[28px] bg-[#080c14] border border-white/10 flex flex-col overflow-hidden text-white">
-          {/* Top Notch & Status Bar */}
-          <div className="flex items-center justify-between px-5 pt-3 pb-2 text-[11px] font-mono text-white/70 border-b border-white/5">
-            <span>19:45</span>
-            {/* Dynamic Island / Notch */}
-            <div className="h-4 w-20 rounded-full bg-black/90 flex items-center justify-center">
-              <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
-            </div>
+        {/* Device Screen Frame */}
+        <div className="relative flex-1 rounded-[28px] bg-[#05070b] border border-white/10 flex flex-col overflow-hidden text-white">
+          {/* Status Bar */}
+          <div className="flex items-center justify-between px-5 pt-3 pb-2 text-[10px] font-mono text-white/40 border-b border-white/5">
             <div className="flex items-center gap-1.5">
-              <span>5G</span>
-              <span>🔋 98%</span>
+              <span className="h-1.5 w-1.5 rounded-full bg-[#00f076] animate-pulse" />
+              <span className="font-semibold text-white/70">TELEMETRY LINKED</span>
             </div>
+            {/* Key Hint */}
+            <span className="text-[9px] tracking-wider text-white/50 bg-white/5 px-2 py-0.5 rounded border border-white/10">
+              [P] TOGGLE GUIDE
+            </span>
           </div>
 
           {/* App Header */}
           <div className="flex items-center justify-between px-4 py-2.5 bg-black/40 border-b border-white/10">
-            <div className="flex items-center gap-2">
-              <span className="flex h-6 w-6 items-center justify-center rounded bg-[#e10600] text-[10px] font-black">
+            <div className="flex items-center gap-2.5">
+              <div className="flex h-6 w-6 items-center justify-center rounded-md bg-[#e10600] text-[10px] font-black text-white shadow-[0_0_12px_rgba(225,6,0,0.4)]">
                 F1
-              </span>
+              </div>
               <div>
-                <div className="font-mono text-xs font-black text-white">CARNIVAL GUIDE</div>
-                <div className="text-[9px] font-mono text-emerald-400">AI SYSTEM READY</div>
+                <div className="font-sans text-xs font-black tracking-wider text-white">
+                  SMART GUIDE
+                </div>
+                <div className="text-[9px] font-mono tracking-widest text-[#00d2be]">
+                  THE INSIDE FORMULA 1
+                </div>
               </div>
             </div>
 
@@ -219,144 +328,149 @@ export default function SmartGuidePhoneUI({
             <button
               type="button"
               onClick={onClose}
-              className="flex h-7 w-7 items-center justify-center rounded-full bg-white/10 text-white/70 hover:bg-[#e10600] hover:text-white transition-colors"
-              title="Lower Phone [P / ESC]"
+              className="flex h-7 w-7 items-center justify-center rounded-full bg-white/5 text-white/60 hover:bg-[#e10600] hover:text-white transition-colors border border-white/10"
+              title="Lower Guide [P]"
             >
               ✕
             </button>
           </div>
 
-          {/* Content Area */}
-          <div className="flex-1 overflow-y-auto p-4 text-xs">
-            {activeTab === 'guide' ? (
-              <div className="space-y-4">
-                {/* Zone Card */}
-                <div
-                  className="rounded-xl p-3.5 border bg-white/5 space-y-2"
-                  style={{ borderColor: activeZone?.accentColor || '#e10600' }}
-                >
-                  <div
-                    className="font-mono text-[9px] font-black uppercase tracking-wider"
-                    style={{ color: activeZone?.accentColor || '#e10600' }}
-                  >
-                    {activeZone?.eyebrow || 'CARNIVAL ZONE'}
+          {/* Content Body */}
+          <div className="flex-1 overflow-y-auto p-3.5 text-xs space-y-3">
+            {activeTab === 'home' && (
+              <div className="space-y-3">
+                {/* ── LIVE LOCATION CARD (Always Current Ground Truth) ── */}
+                <div className="rounded-2xl p-4 border border-white/15 bg-gradient-to-br from-white/[0.08] via-white/[0.03] to-transparent space-y-2">
+                  <div className="flex items-center justify-between">
+                    <span className="font-mono text-[9px] font-black uppercase tracking-widest text-[#00d2be]">
+                      CURRENT LIVE LOCATION
+                    </span>
+                    <span className="flex items-center gap-1 text-[9px] font-mono text-[#00f076]">
+                      <span className="h-1.5 w-1.5 rounded-full bg-[#00f076] animate-ping" />
+                      LIVE
+                    </span>
                   </div>
-                  <h3 className="font-sans text-base font-black text-white leading-tight">
-                    {activeZone?.title || 'Formula 1 Carnival Grounds'}
+
+                  <h3 className="font-sans text-xl font-black text-white tracking-tight leading-snug">
+                    {currentLocation}
                   </h3>
-                  <p className="font-sans text-[11px] text-white/60 leading-relaxed">
-                    {activeZone?.subtitle || 'Interactive racing, technical zones, and championship exhibition.'}
-                  </p>
+
+                  <div className="flex items-center gap-2 pt-1 font-mono text-[10px] text-white/60">
+                    <span className="px-2 py-0.5 rounded-md bg-white/10 border border-white/10 text-white/80">
+                      {currentSection ? currentSection.toUpperCase() : 'CONCOURSE'}
+                    </span>
+                    {activeTrigger && (
+                      <span className="text-[9px] text-white/40">
+                        TRIG: {activeTrigger}
+                      </span>
+                    )}
+                  </div>
                 </div>
 
-                {/* Audio Guide Narration Button */}
-                <button
-                  type="button"
-                  onClick={handleToggleZoneNarration}
-                  className={`w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl font-mono text-xs font-bold uppercase tracking-wider transition-colors shadow-lg ${
-                    isSpeaking
-                      ? 'bg-red-600 text-white animate-pulse'
-                      : 'bg-white/10 hover:bg-[#e10600] text-white border border-white/15'
-                  }`}
-                >
-                  <span>{isSpeaking ? '⏹ STOP VOCAL GUIDE' : '🔊 LISTEN VOCAL GUIDE'}</span>
-                </button>
-
-                {/* Key Bullet Highlights */}
-                {activeZone?.bullets && activeZone.bullets.length > 0 && (
-                  <div className="space-y-2 pt-1">
-                    <div className="font-mono text-[10px] text-white/50 uppercase tracking-wider">
-                      TECHNICAL DOSSIER HIGHLIGHTS
-                    </div>
-                    <ul className="space-y-1.5">
-                      {activeZone.bullets.map((b, idx) => (
-                        <li key={idx} className="flex items-start gap-2 text-[11px] text-white/80">
-                          <span className="text-[#e10600] font-bold mt-0.5">•</span>
-                          <span>{b}</span>
-                        </li>
-                      ))}
-                    </ul>
+                {/* ── CONTEXTUAL QUICK ACTIONS ── */}
+                <div className="space-y-1.5">
+                  <div className="text-[10px] font-mono font-bold tracking-wider text-white/40 uppercase px-1">
+                    Contextual Actions
                   </div>
-                )}
-
-                {/* Action Prompt */}
-                {activeZone?.actionPrompt && (
-                  <div className="rounded-lg p-2.5 bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 font-mono text-[10px] font-bold text-center">
-                    {activeZone.actionPrompt}
-                  </div>
-                )}
-
-                {/* Ask AI shortcut */}
-                <button
-                  type="button"
-                  onClick={() => setActiveTab('chat')}
-                  className="w-full py-2.5 rounded-xl bg-gradient-to-r from-[#e10600] to-[#b80000] text-white font-mono text-xs font-bold uppercase tracking-wider hover:brightness-110 transition-all"
-                >
-                  💬 ASK AI ABOUT THIS ZONE
-                </button>
-              </div>
-            ) : (
-              /* AI Chat Tab */
-              <div className="flex flex-col h-full space-y-3">
-                <div ref={chatEndRef} className="flex-1 overflow-y-auto space-y-2.5 pr-1">
-                  {messages.map((m) => (
-                    <div
-                      key={m.id}
-                      className={`flex flex-col ${m.role === 'user' ? 'items-end' : 'items-start'}`}
-                    >
-                      <div
-                        className={`max-w-[88%] rounded-2xl p-3 text-[11px] leading-relaxed ${
-                          m.role === 'user'
-                            ? 'bg-[#e10600] text-white font-medium rounded-tr-none'
-                            : 'bg-white/10 border border-white/10 text-white/95 rounded-tl-none'
-                        }`}
+                  <div className="space-y-1.5">
+                    {quickActions.map((action, idx) => (
+                      <button
+                        key={idx}
+                        type="button"
+                        onClick={() => {
+                          setActiveTab('chat')
+                          void handleSendQuestion(action)
+                        }}
+                        className="w-full text-left p-2.5 rounded-xl bg-white/[0.04] hover:bg-white/[0.09] border border-white/5 text-[11px] text-white/85 font-sans transition-all flex items-center justify-between group"
                       >
-                        <p className="whitespace-pre-line">{m.content}</p>
+                        <span>{action}</span>
+                        <span className="text-white/30 group-hover:text-[#e10600] font-mono text-xs transition-colors">
+                          →
+                        </span>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* ── DOSSIER SHORTCUT (If in a rich zone) ── */}
+                {activeZone && (
+                  <button
+                    type="button"
+                    onClick={() => setActiveTab('guide')}
+                    className="w-full p-3 rounded-xl bg-[#e10600]/15 hover:bg-[#e10600]/25 border border-[#e10600]/40 text-white font-mono text-[11px] font-bold flex items-center justify-center gap-2 transition-colors"
+                  >
+                    <span>🧭</span>
+                    <span>VIEW {activeZone.title.toUpperCase()} DOSSIER</span>
+                  </button>
+                )}
+              </div>
+            )}
+
+            {activeTab === 'chat' && (
+              /* ── AUTOMOTIVE TELEMETRY CHAT UI ── */
+              <div className="flex flex-col h-full space-y-3">
+                {/* Live Context Banner */}
+                <div className="p-2 rounded-xl bg-white/[0.03] border border-white/5 text-[9px] font-mono text-white/50 flex items-center justify-between">
+                  <span>SYS // LIVE LOCATION: {currentLocation.toUpperCase()}</span>
+                  <span className="text-[#00f076]">SYNCED</span>
+                </div>
+
+                {/* Messages stream */}
+                <div
+                  ref={chatEndRef}
+                  className="flex-1 overflow-y-auto space-y-3 pr-1 min-h-[220px]"
+                >
+                  {messages.map((msg) => {
+                    const isUser = msg.role === 'user'
+                    return (
+                      <div
+                        key={msg.id}
+                        className={`flex flex-col ${isUser ? 'items-end' : 'items-start'} space-y-1`}
+                      >
+                        <div className="font-mono text-[9px] tracking-wider text-white/40 px-1">
+                          {isUser ? 'USER // PILOT' : 'AI // PIT WALL'}
+                        </div>
+                        <div
+                          className={`max-w-[88%] p-3 rounded-2xl text-[11px] leading-relaxed font-sans ${
+                            isUser
+                              ? 'bg-[#161f2e] text-white border border-white/10 rounded-br-sm'
+                              : 'bg-white/[0.05] text-white/90 border border-white/10 rounded-bl-sm'
+                          }`}
+                        >
+                          {msg.content}
+                        </div>
                       </div>
-                    </div>
-                  ))}
+                    )
+                  })}
 
                   {isLoading && (
-                    <div className="flex items-center gap-1.5 p-2.5 rounded-xl bg-white/10 text-[10px] text-white/60 w-fit">
-                      <span className="h-1.5 w-1.5 rounded-full bg-[#e10600] animate-bounce" />
-                      <span className="h-1.5 w-1.5 rounded-full bg-[#e10600] animate-bounce [animation-delay:0.2s]" />
-                      <span className="h-1.5 w-1.5 rounded-full bg-[#e10600] animate-bounce [animation-delay:0.4s]" />
-                      <span className="font-mono ml-1">AI Thinking...</span>
+                    <div className="flex flex-col items-start space-y-1">
+                      <div className="font-mono text-[9px] tracking-wider text-white/40">
+                        AI // PROCESSING
+                      </div>
+                      <div className="p-3 rounded-2xl bg-white/[0.04] border border-white/10 text-white/60 text-[11px] flex items-center gap-2 font-mono">
+                        <span className="h-1.5 w-1.5 rounded-full bg-[#00d2be] animate-ping" />
+                        Analyzing telemetry & application context...
+                      </div>
                     </div>
                   )}
                 </div>
 
-                {/* Suggestions */}
-                {activeZone?.suggestedQuestions && (
-                  <div className="flex gap-1.5 overflow-x-auto pb-1 no-scrollbar">
-                    {activeZone.suggestedQuestions.slice(0, 3).map((s, idx) => (
-                      <button
-                        key={idx}
-                        type="button"
-                        onClick={() => handleSendQuestion(s)}
-                        className="whitespace-nowrap px-2.5 py-1 rounded-full bg-white/5 hover:bg-white/15 border border-white/10 text-[10px] text-white/70"
-                      >
-                        {s}
-                      </button>
-                    ))}
-                  </div>
-                )}
-
-                {/* Chat Input */}
+                {/* Input Box: Keyboard events strictly isolated to input element */}
                 <form
                   onSubmit={(e) => {
                     e.preventDefault()
                     void handleSendQuestion()
                   }}
-                  className="flex items-center gap-1.5 pt-1 border-t border-white/10"
+                  className="flex items-center gap-2 pt-2 border-t border-white/10"
                 >
                   <button
                     type="button"
                     onClick={toggleVoiceInput}
-                    className={`h-9 w-9 flex items-center justify-center rounded-lg border text-xs ${
+                    className={`h-9 w-9 flex items-center justify-center rounded-xl border text-xs transition-colors ${
                       isListening
                         ? 'border-red-500 bg-red-600 text-white animate-pulse'
-                        : 'border-white/10 bg-white/5 text-white/70'
+                        : 'border-white/10 bg-white/5 text-white/70 hover:bg-white/10'
                     }`}
                     title="Voice input"
                   >
@@ -368,18 +482,66 @@ export default function SmartGuidePhoneUI({
                     type="text"
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
-                    placeholder="Ask an F1 question..."
-                    className="flex-1 h-9 px-3 rounded-lg border border-white/15 bg-white/5 text-white font-mono text-[11px] focus:outline-none focus:border-[#e10600]"
+                    onKeyDown={(e) => e.stopPropagation()}
+                    onKeyUp={(e) => e.stopPropagation()}
+                    placeholder="Ask an F1 or location question..."
+                    className="flex-1 h-9 px-3 rounded-xl border border-white/10 bg-white/5 text-white font-mono text-[11px] focus:outline-none focus:border-[#00d2be] transition-colors"
                   />
 
                   <button
                     type="submit"
                     disabled={!input.trim() || isLoading}
-                    className="h-9 px-3 rounded-lg bg-[#e10600] text-white font-mono text-[10px] font-bold uppercase hover:bg-[#c20500] disabled:opacity-40"
+                    className="h-9 px-3.5 rounded-xl bg-[#e10600] text-white font-mono text-[10px] font-black uppercase hover:bg-[#c20500] disabled:opacity-30 transition-colors"
                   >
                     SEND
                   </button>
                 </form>
+              </div>
+            )}
+
+            {activeTab === 'guide' && activeZone && (
+              /* ── ZONE DOSSIER ── */
+              <div className="space-y-3">
+                <div
+                  className="rounded-2xl p-4 border bg-gradient-to-b from-white/[0.06] to-transparent space-y-2.5"
+                  style={{ borderColor: `${activeZone.accentColor}55` }}
+                >
+                  <div
+                    className="font-mono text-[9px] font-black uppercase tracking-widest"
+                    style={{ color: activeZone.accentColor }}
+                  >
+                    {activeZone.eyebrow}
+                  </div>
+                  <h3 className="font-sans text-lg font-black text-white tracking-tight leading-snug">
+                    {activeZone.title}
+                  </h3>
+                  <p className="font-sans text-[11px] text-white/65 leading-relaxed">
+                    {activeZone.subtitle}
+                  </p>
+
+                  <button
+                    type="button"
+                    onClick={handleToggleZoneNarration}
+                    className="w-full flex items-center justify-center gap-2 py-2 px-3 rounded-xl bg-white/10 hover:bg-white/15 text-white font-mono text-[10px] font-bold uppercase transition-colors border border-white/10"
+                  >
+                    <span>{isSpeaking ? '⏹' : '🔊'}</span>
+                    <span>{isSpeaking ? 'STOP AUDIO GUIDE' : 'LISTEN TO NARRATOR'}</span>
+                  </button>
+                </div>
+
+                <div className="rounded-2xl p-3.5 bg-black/30 border border-white/5 space-y-2">
+                  <div className="text-[10px] font-mono font-bold tracking-wider text-white/50 uppercase">
+                    Engineering Focus
+                  </div>
+                  <ul className="space-y-2 text-[11px] text-white/75 font-sans">
+                    {activeZone.bullets.map((b, idx) => (
+                      <li key={idx} className="flex items-start gap-2">
+                        <span className="text-[#e10600] font-mono text-xs">▸</span>
+                        <span>{b}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
             )}
           </div>
@@ -388,39 +550,52 @@ export default function SmartGuidePhoneUI({
           <div className="flex items-center justify-around py-2 border-t border-white/10 bg-black/60 font-mono text-[10px]">
             <button
               type="button"
-              onClick={() => setActiveTab('guide')}
-              className={`flex flex-col items-center gap-0.5 ${
-                activeTab === 'guide' ? 'text-[#e10600] font-black' : 'text-white/50 hover:text-white'
+              onClick={() => setActiveTab('home')}
+              className={`flex flex-col items-center gap-0.5 transition-colors ${
+                activeTab === 'home' ? 'text-[#e10600] font-black' : 'text-white/40 hover:text-white'
               }`}
             >
-              <span>🧭</span>
-              <span>GUIDE</span>
+              <span>🏠</span>
+              <span>HOME</span>
             </button>
 
             <button
               type="button"
               onClick={() => setActiveTab('chat')}
-              className={`flex flex-col items-center gap-0.5 ${
-                activeTab === 'chat' ? 'text-[#e10600] font-black' : 'text-white/50 hover:text-white'
+              className={`flex flex-col items-center gap-0.5 transition-colors ${
+                activeTab === 'chat' ? 'text-[#e10600] font-black' : 'text-white/40 hover:text-white'
               }`}
             >
               <span>💬</span>
               <span>ASK AI</span>
             </button>
 
+            {activeZone && (
+              <button
+                type="button"
+                onClick={() => setActiveTab('guide')}
+                className={`flex flex-col items-center gap-0.5 transition-colors ${
+                  activeTab === 'guide' ? 'text-[#e10600] font-black' : 'text-white/40 hover:text-white'
+                }`}
+              >
+                <span>🧭</span>
+                <span>DOSSIER</span>
+              </button>
+            )}
+
             <button
               type="button"
               onClick={onClose}
-              className="flex flex-col items-center gap-0.5 text-white/50 hover:text-white"
+              className="flex flex-col items-center gap-0.5 text-white/40 hover:text-white transition-colors"
             >
               <span>▼</span>
               <span>LOWER</span>
             </button>
           </div>
 
-          {/* Bottom Home Indicator Bar */}
+          {/* Home Indicator */}
           <div className="flex justify-center pb-1.5 pt-0.5 bg-black/60">
-            <div className="h-1 w-28 rounded-full bg-white/30" />
+            <div className="h-1 w-24 rounded-full bg-white/20" />
           </div>
         </div>
       </motion.div>

@@ -3,6 +3,9 @@ export type AIMode = 'exhibition' | 'carnival' | 'observation'
 export interface AIContext {
   mode: AIMode
   location: string
+  currentLocation?: string
+  currentSection?: string | null
+  activeTrigger?: string | null
   currentCar?: string | null
   section?: string | null
   triggerId?: string | null

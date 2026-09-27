@@ -48,11 +48,20 @@ export class F1DomainGuard {
       }
     }
 
-    // 2. If the user is in context (e.g. at an Exhibition car or Carnival section),
+    // 2. Location & orientation queries are always valid contextual questions
+    const isLocationQuery =
+      /\b(where\s+am\s+i|where\s+i\s+am|what\s+section|which\s+section|what\s+area|which\s+area|what\s+is\s+this\s+(place|area|zone|section)|what\s+am\s+i\s+looking\s+at|where\s+are\s+we|current\s+location|what\s+zone)\b/i.test(
+        cleanPrompt
+      )
+    if (isLocationQuery) {
+      return { isAllowed: true }
+    }
+
+    // 3. If the user is in context (e.g. at an Exhibition car or Carnival section),
     // allow contextual / deictic references such as "this car", "it", "who drove", "specs", "engine"
     if (context && (context.currentCar || context.section || context.location)) {
       const isContextualQuery =
-        /\b(this|it|car|here|specs?|engine|power|weight|driver|chassis|team|explain|tell\s*me|who|what|why|how|learn\s*more|more\s*info)\b/i.test(
+        /\b(this|it|car|here|specs?|engine|power|weight|driver|chassis|team|explain|tell\s*me|who|what|why|how|learn\s*more|more\s*info|feature|purpose)\b/i.test(
           cleanPrompt
         )
       if (isContextualQuery) {

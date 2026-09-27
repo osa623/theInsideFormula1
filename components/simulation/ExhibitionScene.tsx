@@ -90,6 +90,7 @@ export default function ExhibitionScene() {
   const { config, quality } = useGraphicsQuality()
   const hallAudioRef = useRef<HTMLAudioElement | null>(null)
   const hallAudioContextRef = useRef<AudioContext | null>(null)
+  const duckGainRef = useRef<GainNode | null>(null)
 
   const ensureHallAudioChain = useCallback(() => {
     const audio = hallAudioRef.current
@@ -131,6 +132,10 @@ export default function ExhibitionScene() {
       compressor.attack.value = 0.02
       compressor.release.value = 0.25
 
+      const duckGain = context.createGain()
+      duckGain.gain.value = 1.0
+      duckGainRef.current = duckGain
+
       source.connect(warmth)
       warmth.connect(lowpass)
       lowpass.connect(dryGain)
@@ -139,7 +144,8 @@ export default function ExhibitionScene() {
       room.connect(roomGain)
       roomGain.connect(masterGain)
       masterGain.connect(compressor)
-      compressor.connect(context.destination)
+      compressor.connect(duckGain)
+      duckGain.connect(context.destination)
 
       hallAudioContextRef.current = context
     }
@@ -177,9 +183,29 @@ export default function ExhibitionScene() {
 
     void startHallMusic()
 
+    // Subscribe to TTS ducking events for smooth background music attenuation
+    const unsubscribeDucking = ttsService.onDucking((isDucking) => {
+      const ctx = hallAudioContextRef.current
+      const duckGain = duckGainRef.current
+      if (ctx && duckGain) {
+        const now = ctx.currentTime
+        duckGain.gain.cancelScheduledValues(now)
+        duckGain.gain.setValueAtTime(duckGain.gain.value, now)
+        if (isDucking) {
+          duckGain.gain.linearRampToValueAtTime(0.12, now + 0.35)
+        } else {
+          duckGain.gain.linearRampToValueAtTime(1.0, now + 0.6)
+        }
+      } else if (hallAudioRef.current) {
+        hallAudioRef.current.volume = isDucking ? 0.06 : 0.32
+      }
+    })
+
     return () => {
+      unsubscribeDucking()
       hallAudioContextRef.current?.close()
       hallAudioContextRef.current = null
+      duckGainRef.current = null
       audio.pause()
       audio.src = ''
       audio.remove()
@@ -204,7 +230,7 @@ export default function ExhibitionScene() {
   const [isAITerminalOpen, setIsAITerminalOpen] = useState(false)
   const [isObservationMode, setIsObservationMode] = useState(false)
   const [currentCar, setCurrentCar] = useState<string | null>(null)
-  const observedCarsRef = useRef<Set<string>>(new Set())
+  const lastObservedCarRef = useRef<string | null>(null)
 
   const isInspecting = Boolean(activeBoard)
   const overlayOpen = isModalOpen || isInspecting || isAITerminalOpen
@@ -232,17 +258,23 @@ export default function ExhibitionScene() {
   const handleNearbyTriggerChange = useCallback(
     (trig: ExhibitionTriggerPoint | null) => {
       setNearbyTrigger(trig)
-      if (trig?.carKey) {
-        setCurrentCar(trig.carKey)
+      const nextCarKey = trig?.carKey ?? null
 
-        // Observation Mode Voice Tour
-        if (isObservationMode && !observedCarsRef.current.has(trig.carKey)) {
-          observedCarsRef.current.add(trig.carKey)
-          const car = EXHIBITION_CARS_KNOWLEDGE[trig.carKey]
+      if (nextCarKey) {
+        setCurrentCar(nextCarKey)
+
+        // Observation Mode Voice Tour: play whenever entering a car exhibit trigger
+        if (isObservationMode && nextCarKey !== lastObservedCarRef.current) {
+          lastObservedCarRef.current = nextCarKey
+          const car = EXHIBITION_CARS_KNOWLEDGE[nextCarKey]
           if (car) {
+            ttsService.stop()
             ttsService.speak(car.audioGuide)
           }
         }
+      } else {
+        // Player stepped away from car trigger: reset so speech can trigger again upon re-entry
+        lastObservedCarRef.current = null
       }
     },
     [isObservationMode]
@@ -362,7 +394,20 @@ export default function ExhibitionScene() {
         isObservationMode={isObservationMode}
         onToggleObservationMode={(active) => {
           setIsObservationMode(active)
-          if (!active) ttsService.stop()
+          if (!active) {
+            ttsService.stop()
+            lastObservedCarRef.current = null
+          } else {
+            // When turning observation mode ON, immediately play speech for the current nearby car if standing near one
+            if (nearbyTrigger?.carKey) {
+              lastObservedCarRef.current = nearbyTrigger.carKey
+              const car = EXHIBITION_CARS_KNOWLEDGE[nearbyTrigger.carKey]
+              if (car) {
+                ttsService.stop()
+                ttsService.speak(car.audioGuide)
+              }
+            }
+          }
         }}
         onClose={handleCloseInspection}
       />

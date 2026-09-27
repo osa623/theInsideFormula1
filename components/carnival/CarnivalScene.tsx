@@ -32,9 +32,11 @@ import { useGraphicsQuality } from '@/lib/graphics/useGraphicsQuality'
 import { GraphicsConfig, GraphicsQuality } from '@/lib/graphics/GraphicsManager'
 import SmartGuidePhoneUI from './smartguide/SmartGuidePhoneUI'
 import CarnivalPhone3D from './smartguide/CarnivalPhone3D'
+import CarnivalMobileControls from './CarnivalMobileControls'
 import { ttsService } from '@/lib/ai/ttsService'
 import { CARNIVAL_ZONES_KNOWLEDGE } from '@/lib/ai/f1KnowledgeBase'
 import { SmartGuideZone } from '@/lib/ai/types'
+import { CarnivalLocationState } from '@/lib/ai/carnivalLocations'
 
 function CarnivalLighting({ config }: { config: GraphicsConfig }) {
   const lightRef = useRef<THREE.DirectionalLight>(null)
@@ -244,58 +246,67 @@ export default function CarnivalScene() {
   const [isExamOpen, setIsExamOpen] = useState(false)
   const [, setIsExamPassed] = useState(false)
 
-  // ── Smart Guide Phone State ──
+  // ── Smart Guide Phone & Authoritative Live Location State ──
   const [isPhoneOpen, setIsPhoneOpen] = useState(false)
   const [activeSmartZone, setActiveSmartZone] = useState<SmartGuideZone | null>(null)
+  const [liveLocation, setLiveLocation] = useState<CarnivalLocationState>({
+    location: 'Main Carnival Path',
+    section: null,
+    trigger: 'Path',
+  })
 
-  // Map existing trigger context to Smart Guide zones
-  const INFO_SCREEN_TO_ZONE: Record<string, string> = {
-    tyreTech: 'tyres',
-    chassisTech: 'chassis',
-    trackTech: 'tracks',
-    formulaTech: 'formula',
+  // Sync activeSmartZone when live location changes (clears stale memory when entering new zones)
+  useEffect(() => {
+    if (liveLocation.section && CARNIVAL_ZONES_KNOWLEDGE[liveLocation.section]) {
+      setActiveSmartZone(CARNIVAL_ZONES_KNOWLEDGE[liveLocation.section])
+    } else if (liveLocation.location === 'Second Main Area' && CARNIVAL_ZONES_KNOWLEDGE['secondMainArea']) {
+      setActiveSmartZone(CARNIVAL_ZONES_KNOWLEDGE['secondMainArea'])
+    } else if (liveLocation.location === 'Educational Zone' && CARNIVAL_ZONES_KNOWLEDGE['educational']) {
+      setActiveSmartZone(CARNIVAL_ZONES_KNOWLEDGE['educational'])
+    } else if (liveLocation.location === 'Car Park' && CARNIVAL_ZONES_KNOWLEDGE['carPark']) {
+      setActiveSmartZone(CARNIVAL_ZONES_KNOWLEDGE['carPark'])
+    } else if (CARNIVAL_ZONES_KNOWLEDGE['mainPath']) {
+      setActiveSmartZone(CARNIVAL_ZONES_KNOWLEDGE['mainPath'])
+    }
+  }, [liveLocation])
+
+  // Strict Whitelist for Smart Guide automatic activation (Symmbol.001 - Symmbol.004)
+  const SMART_GUIDE_TRIGGERS: Record<string, { section: string; title: string }> = {
+    tyreTech: { section: 'tyres', title: 'F1 Tyres' },
+    chassisTech: { section: 'chassis', title: 'F1 Chassis' },
+    trackTech: { section: 'tracks', title: 'F1 Tracks' },
+    formulaTech: { section: 'formula', title: 'Formula Franchise' },
   }
 
-  // Auto-resolve active zone from nearby triggers
+  const lastTriggerEnteredRef = useRef<string | null>(null)
+
+  // Auto-resolve active zone strictly on approved educational triggers, once per entry
   useEffect(() => {
     if (nearbyInfoScreen) {
-      const zoneKey = INFO_SCREEN_TO_ZONE[nearbyInfoScreen.id]
-      if (zoneKey && CARNIVAL_ZONES_KNOWLEDGE[zoneKey]) {
-        const zone = CARNIVAL_ZONES_KNOWLEDGE[zoneKey]
-        setActiveSmartZone(zone)
-        if (!isPhoneOpen) setIsPhoneOpen(true)
+      const match = SMART_GUIDE_TRIGGERS[nearbyInfoScreen.id]
+      if (match) {
+        const zone = CARNIVAL_ZONES_KNOWLEDGE[match.section]
+        if (zone) {
+          setActiveSmartZone(zone)
+          // Open phone once per entry
+          if (lastTriggerEnteredRef.current !== nearbyInfoScreen.id) {
+            lastTriggerEnteredRef.current = nearbyInfoScreen.id
+            setIsPhoneOpen(true)
+          }
+        }
         return
       }
     }
-    if (nearbyEntrance?.id === 'exhibitionHall02') {
-      setActiveSmartZone(CARNIVAL_ZONES_KNOWLEDGE['exhibitionEntrance'] || null)
-      if (!isPhoneOpen) setIsPhoneOpen(true)
-      return
-    }
-    if (nearbyChampionSection) {
-      setActiveSmartZone(CARNIVAL_ZONES_KNOWLEDGE['championship'] || null)
-      if (!isPhoneOpen) setIsPhoneOpen(true)
-      return
-    }
-    if (nearbyExam || nearbyMonitor) {
-      setActiveSmartZone(CARNIVAL_ZONES_KNOWLEDGE['exam'] || null)
-      if (!isPhoneOpen) setIsPhoneOpen(true)
-      return
-    }
-    if (nearbyFormulaCarEntrance) {
-      setActiveSmartZone(CARNIVAL_ZONES_KNOWLEDGE['gaming'] || null)
-      if (!isPhoneOpen) setIsPhoneOpen(true)
-      return
-    }
-    // Outside any zone — lower phone
-    if (!nearbyInfoScreen && !nearbyEntrance && !nearbyChampionSection && !nearbyExam && !nearbyMonitor && !nearbyFormulaCarEntrance) {
-      if (isPhoneOpen && !overlayOpen) {
+
+    // When leaving the whitelisted trigger area, reset entry tracking and lower phone
+    if (!nearbyInfoScreen) {
+      if (lastTriggerEnteredRef.current !== null) {
+        lastTriggerEnteredRef.current = null
         setIsPhoneOpen(false)
         ttsService.stop()
       }
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [nearbyInfoScreen, nearbyEntrance, nearbyChampionSection, nearbyExam, nearbyMonitor, nearbyFormulaCarEntrance])
+  }, [nearbyInfoScreen])
 
   const handleNearbyInfoScreenChange = useCallback((screen: InformationScreenTrigger | null) => {
     setNearbyInfoScreen(screen)
@@ -310,6 +321,7 @@ export default function CarnivalScene() {
   }, [])
 
   const hasCinematicActive = !!activeChampionSection || !!activeExamBoard || !!activeInfoScreen || !!activeGameStation
+  // Note: isPhoneOpen is intentionally excluded from overlayOpen so the player remains free to move with WASD/Arrows
   const overlayOpen =
     !!previewEntrance ||
     !!activeExplainZone ||
@@ -317,8 +329,7 @@ export default function CarnivalScene() {
     hasCinematicActive ||
     isAboutOpen ||
     isMapOpen ||
-    isMiniGameOpen ||
-    isPhoneOpen
+    isMiniGameOpen
 
   const activeCinematicTarget = useMemo(() => {
     if (activeGameStation) {
@@ -739,6 +750,7 @@ export default function CarnivalScene() {
           teleportTarget={teleportTarget}
           yawRef={yawRef}
           pitchRef={pitchRef}
+          onLocationChange={setLiveLocation}
           onNearbyEntranceChange={setNearbyEntrance}
           onNearbyExplainZoneChange={setNearbyExplainZone}
           onNearbyExamChange={setNearbyExam}
@@ -753,12 +765,13 @@ export default function CarnivalScene() {
         />
 
         {/* Smart Guide Phone 3D (first-person held device) */}
-        <CarnivalPhone3D isOpen={isPhoneOpen} activeZone={activeSmartZone} />
+        <CarnivalPhone3D isOpen={isPhoneOpen} activeZone={activeSmartZone} currentLocation={liveLocation.location} />
       </Canvas>
 
       <CarnivalHUD
         isLocked={isLocked}
         isReady={!!metadata}
+        currentLocation={liveLocation.location}
         nearbyEntrance={nearbyEntrance}
         nearbyExplainZone={nearbyExplainZone}
         nearbyExam={nearbyExam || nearbyMonitor}
@@ -784,10 +797,41 @@ export default function CarnivalScene() {
         onExit={handleExitMiniGame}
       />
 
+      {/* Mobile Touch Controls Layer (Active only on touch devices) */}
+      <CarnivalMobileControls
+        yawRef={yawRef}
+        pitchRef={pitchRef}
+        onInteract={() => {
+          window.dispatchEvent(new KeyboardEvent('keydown', { key: 'e', code: 'KeyE' }))
+        }}
+        onTogglePhone={() => {
+          setIsPhoneOpen((prev) => {
+            if (prev) ttsService.stop()
+            return !prev
+          })
+        }}
+        isPhoneOpen={isPhoneOpen}
+        hasNearbyInteraction={Boolean(
+          nearbyEntrance ||
+          nearbyExplainZone ||
+          nearbyExam ||
+          nearbyMonitor ||
+          nearbyChampionSection ||
+          nearbyExamBoard ||
+          nearbyAbout ||
+          nearbyInfoScreen ||
+          nearbyMap ||
+          nearbyGameStation
+        )}
+      />
+
       {/* Smart Guide Phone HTML Overlay */}
       <SmartGuidePhoneUI
         isOpen={isPhoneOpen}
         activeZone={activeSmartZone}
+        currentLocation={liveLocation.location}
+        currentSection={liveLocation.section}
+        activeTrigger={liveLocation.trigger}
         onClose={() => {
           setIsPhoneOpen(false)
           ttsService.stop()
