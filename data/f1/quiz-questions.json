@@ -388,5 +388,135 @@
     ],
     "correctIndex": 0,
     "explanation": "The DRIVING EXAM panel visibly includes a target time, S1/S2/S3 sector information, and a best-lap time."
+  },
+  {
+    "id": 31,
+    "category": "CHAMPIONSHIP",
+    "question": "Which driver won the Formula 1 World Drivers' Championship in five consecutive seasons from 2000 through 2004?",
+    "options": [
+      "Mika Hakkinen",
+      "Michael Schumacher",
+      "Fernando Alonso",
+      "Sebastian Vettel"
+    ],
+    "correctIndex": 1,
+    "explanation": "Michael Schumacher won the Drivers' Championship in 2000, 2001, 2002, 2003 and 2004, creating a five-title consecutive championship run."
+  },
+  {
+    "id": 32,
+    "category": "CHAMPIONSHIP",
+    "question": "Which championship victory ended Ferrari's 21-year wait for a Drivers' World Championship?",
+    "options": [
+      "Michael Schumacher's 1995 championship",
+      "Michael Schumacher's 2000 championship",
+      "Fernando Alonso's 2005 championship",
+      "Kimi Raikkonen's 2007 championship"
+    ],
+    "correctIndex": 1,
+    "explanation": "Michael Schumacher's 2000 championship ended Ferrari's 21-year Drivers' Championship drought."
+  },
+  {
+    "id": 33,
+    "category": "CHAMPIONSHIP",
+    "question": "Which driver won back-to-back Formula 1 World Championships in 2005 and 2006?",
+    "options": [
+      "Kimi Raikkonen",
+      "Fernando Alonso",
+      "Jenson Button",
+      "Lewis Hamilton"
+    ],
+    "correctIndex": 1,
+    "explanation": "Fernando Alonso won consecutive Drivers' Championships in 2005 and 2006."
+  },
+  {
+    "id": 34,
+    "category": "CHAMPIONSHIP",
+    "question": "Which driver won four consecutive Formula 1 World Championships from 2010 through 2013?",
+    "options": [
+      "Sebastian Vettel",
+      "Nico Rosberg",
+      "Lewis Hamilton",
+      "Fernando Alonso"
+    ],
+    "correctIndex": 0,
+    "explanation": "Sebastian Vettel won the Drivers' Championship four years in succession from 2010 through 2013."
+  },
+  {
+    "id": 35,
+    "category": "CHAMPIONSHIP",
+    "question": "Which driver became a four-time consecutive Formula 1 World Champion by winning the titles from 2021 through 2024?",
+    "options": [
+      "Lewis Hamilton",
+      "Max Verstappen",
+      "Sebastian Vettel",
+      "Fernando Alonso"
+    ],
+    "correctIndex": 1,
+    "explanation": "Max Verstappen won four consecutive Drivers' Championships in 2021, 2022, 2023 and 2024."
+  },
+  {
+    "id": 36,
+    "category": "CHAMPIONSHIP",
+    "question": "Which driver became the 2025 Formula 1 World Drivers' Champion and secured a first career championship?",
+    "options": [
+      "Oscar Piastri",
+      "Max Verstappen",
+      "Lando Norris",
+      "Charles Leclerc"
+    ],
+    "correctIndex": 2,
+    "explanation": "Lando Norris won his first Formula 1 World Drivers' Championship at the 2025 season finale in Abu Dhabi."
+  },
+  {
+    "id": 37,
+    "category": "CHAMPIONSHIP",
+    "question": "Which two drivers are tied for the all-time record of seven Formula 1 World Drivers' Championships?",
+    "options": [
+      "Lewis Hamilton and Michael Schumacher",
+      "Michael Schumacher and Sebastian Vettel",
+      "Lewis Hamilton and Max Verstappen",
+      "Juan Manuel Fangio and Alain Prost"
+    ],
+    "correctIndex": 0,
+    "explanation": "Lewis Hamilton and Michael Schumacher have each won seven World Drivers' Championships."
+  },
+  {
+    "id": 38,
+    "category": "CHAMPIONSHIP",
+    "question": "What made Michael Schumacher's 2000–2004 championship sequence historically distinctive?",
+    "options": [
+      "It consisted of five consecutive Drivers' Championships",
+      "It was the first championship streak to last three seasons",
+      "All five titles were won with different teams",
+      "It was completed without a single race victory"
+    ],
+    "correctIndex": 0,
+    "explanation": "Schumacher's championships from 2000 through 2004 formed five consecutive Drivers' titles, a record-setting sequence."
+  },
+  {
+    "id": 39,
+    "category": "CHAMPIONSHIP",
+    "question": "According to Formula 1's historical championship records, how many different drivers had been crowned World Drivers' Champion by the end of the 2025 season?",
+    "options": [
+      "30",
+      "32",
+      "35",
+      "40"
+    ],
+    "correctIndex": 2,
+    "explanation": "Lando Norris became the 35th different World Drivers' Champion when he won the 2025 title."
+  },
+  {
+    "id": 40,
+    "category": "CHAMPIONSHIP",
+    "question": "Which driver joined the four-time World Champion group after securing the 2024 Drivers' Championship?",
+    "options": [
+      "Max Verstappen",
+      "Lewis Hamilton",
+      "Sebastian Vettel",
+      "Fernando Alonso"
+    ],
+    "correctIndex": 0,
+    "explanation": "Max Verstappen secured his fourth consecutive World Championship in 2024, joining the group of four-time champions."
   }
 ]
