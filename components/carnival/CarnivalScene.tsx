@@ -14,6 +14,7 @@ import ScreenManager from './screens/ScreenManager'
 import AboutSectionModal from './AboutSectionModal'
 import CarnivalMapModal from './CarnivalMapModal'
 import F1MiniGameModal from './minigame/F1MiniGameModal'
+import WelcomeScreen from './WelcomeScreen'
 import { MiniGameStationId } from './minigame/types'
 import {
   CarnivalEntrance,
@@ -246,6 +247,9 @@ export default function CarnivalScene() {
   const [isExamOpen, setIsExamOpen] = useState(false)
   const [, setIsExamPassed] = useState(false)
 
+  // ── Welcome Screen & Introductory State ──
+  const [showWelcome, setShowWelcome] = useState(true)
+
   // ── Smart Guide Phone & Authoritative Live Location State ──
   const [isPhoneOpen, setIsPhoneOpen] = useState(false)
   const [activeSmartZone, setActiveSmartZone] = useState<SmartGuideZone | null>(null)
@@ -323,6 +327,7 @@ export default function CarnivalScene() {
   const hasCinematicActive = !!activeChampionSection || !!activeExamBoard || !!activeInfoScreen || !!activeGameStation
   // Note: isPhoneOpen is intentionally excluded from overlayOpen so the player remains free to move with WASD/Arrows
   const overlayOpen =
+    showWelcome ||
     !!previewEntrance ||
     !!activeExplainZone ||
     isExamOpen ||
@@ -835,6 +840,15 @@ export default function CarnivalScene() {
         onClose={() => {
           setIsPhoneOpen(false)
           ttsService.stop()
+        }}
+      />
+
+      {/* Welcome Experience Screen (5 GTA V-style cinematic scenarios) */}
+      <WelcomeScreen
+        isOpen={showWelcome}
+        onEnter={() => {
+          setShowWelcome(false)
+          requestLock()
         }}
       />
     </div>

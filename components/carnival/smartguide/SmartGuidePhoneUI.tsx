@@ -6,6 +6,8 @@ import { SmartGuideZone, AIMessage } from '@/lib/ai/types'
 import { f1AIService } from '@/lib/ai/f1AIService'
 import { ttsService } from '@/lib/ai/ttsService'
 
+import formula1Logo from '../../../public/images/Short_Banner_Imges/formula_logo_1.png';
+
 interface SmartGuidePhoneUIProps {
   isOpen: boolean
   activeZone: SmartGuideZone | null
@@ -311,9 +313,11 @@ export default function SmartGuidePhoneUI({
           {/* App Header */}
           <div className="flex items-center justify-between px-4 py-2.5 bg-black/40 border-b border-white/10">
             <div className="flex items-center gap-2.5">
-              <div className="flex h-6 w-6 items-center justify-center rounded-md bg-[#e10600] text-[10px] font-black text-white shadow-[0_0_12px_rgba(225,6,0,0.4)]">
-                F1
-              </div>
+             <img
+              src={formula1Logo.src}
+              alt ="Formula One logo"
+              className="h-auto w-[4vw] object-cover"
+            />
               <div>
                 <div className="font-sans text-xs font-black tracking-wider text-white">
                   SMART GUIDE

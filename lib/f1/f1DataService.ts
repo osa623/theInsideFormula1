@@ -678,9 +678,8 @@ class F1DataService {
   }
 
   // Quiz
-  public getQuizQuestions(count = 10): QuizQuestion[] {
-    const shuffled = [...this.quizQuestions].sort(() => Math.random() - 0.5)
-    return shuffled.slice(0, count)
+  public getQuizQuestions(count = 40): QuizQuestion[] {
+    return [...this.quizQuestions].slice(0, count)
   }
 }
 
