@@ -1,4 +1,4 @@
-import { F1DomainGuard } from './f1DomainGuard'
+import { F1DomainGuard, F1_DOMAIN_REJECTION_MESSAGE } from './f1DomainGuard'
 import { AIChatRequest, AIChatResponse, AIContext } from './types'
 
 export class F1AIService {
@@ -32,7 +32,7 @@ export class F1AIService {
     const validation = F1DomainGuard.validate(cleanPrompt, context)
     if (!validation.isAllowed) {
       return {
-        reply: validation.rejectionReply || "I'm here to help with Formula 1 and information related to this exhibition. Please ask me an F1-related question.",
+        reply: validation.rejectionReply || F1_DOMAIN_REJECTION_MESSAGE,
         isF1Related: false,
         source: 'domain_guard',
       }

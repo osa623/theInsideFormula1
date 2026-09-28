@@ -414,6 +414,8 @@ export const CARNIVAL_ZONES_KNOWLEDGE: Record<string, SmartGuideZone> = {
 // Add alias for formula-franchise
 CARNIVAL_ZONES_KNOWLEDGE['formula-franchise'] = CARNIVAL_ZONES_KNOWLEDGE['formula']
 
+import { F1DomainGuard } from './f1DomainGuard'
+
 /**
  * Lightweight intent classification to guarantee location and contextual questions are answered accurately.
  */
@@ -423,20 +425,14 @@ export type QueryIntent =
   | 'SECTION_QUERY'
   | 'F1_GENERAL_QUERY'
 
-export function classifyQueryIntent(prompt: string): QueryIntent {
-  const p = prompt.toLowerCase()
-  if (
-    /\b(where\s+am\s+i|where\s+i\s+am|what\s+section|which\s+section|what\s+area|which\s+area|what\s+is\s+this\s+(place|area|zone|section)|what\s+am\s+i\s+looking\s+at|where\s+are\s+we|current\s+location|what\s+zone|what\s+is\s+here|where\s+is\s+this)\b/i.test(
-      p
-    )
-  ) {
+export function classifyQueryIntent(prompt: string, context?: any): QueryIntent {
+  const category = F1DomainGuard.classify(prompt, context)
+  if (category === 'LOCATION') {
     return 'LOCATION_QUERY'
   }
-  if (/\b(this\s+car|the\s+car|engine|power|driver|spec|weight|who\s+drove)\b/i.test(p)) {
-    return 'CAR_QUERY'
-  }
-  if (/\b(section|zone|exhibit|carnival|stands|track)\b/i.test(p)) {
-    return 'SECTION_QUERY'
+  if (context?.currentCar) {
+    const isCarQuery = /\b(this|it|car|specs?|engine|power|weight|driver|who\s+drove|innovations?)\b/i.test(prompt)
+    if (isCarQuery) return 'CAR_QUERY'
   }
   return 'F1_GENERAL_QUERY'
 }
@@ -445,15 +441,43 @@ export function classifyQueryIntent(prompt: string): QueryIntent {
  * Resolves location queries using real structured application state.
  * Has priority over generative guessing.
  */
-export function resolveLocationQuery(context?: {
-  location?: string | null
-  currentLocation?: string | null
-  section?: string | null
-  currentSection?: string | null
-  activeTrigger?: string | null
-  currentCar?: string | null
-}): string {
-  // 1. If at an Exhibition car
+export function resolveLocationQuery(
+  context?: {
+    location?: string | null
+    currentLocation?: string | null
+    section?: string | null
+    currentSection?: string | null
+    activeTrigger?: string | null
+    currentCar?: string | null
+  },
+  prompt?: string
+): string {
+  const p = (prompt || '').toLowerCase()
+
+  // 1. Wayfinding & Directions to specific zones inside the experience
+  if (/\b(championship\s+section|champions\s+section|hall\s+of\s+champions)\b/i.test(p)) {
+    return 'The Championship Section is located in the Second Main Area. Walk through the main pathway archway into the Second Main Area to explore displays commemorating Formula 1 World Champions from 2000 through 2025.'
+  }
+  if (/\b(educational\s+zone|education\s+zone)\b/i.test(p)) {
+    return 'The Formula 1 Educational Zone is located directly along the main thoroughfare. It features interactive technical stations covering Tyres, Chassis Engineering, Circuit Topography, and the FIA Formula ladder.'
+  }
+  if (/\b(exhibition\s+hall|exhibition|museum)\b/i.test(p)) {
+    return 'The Formula 1 Exhibition Hall is located near the start of the Carnival. Head towards the large glass building with the "Formula 1 Exhibition" signage and press [E] at the entrance to step inside.'
+  }
+  if (/\b(quiz|exam|kiosk)\b/i.test(p)) {
+    return 'The F1 Academy Certification Quiz kiosk is located in the Second Main Area inside the exam room. Look for the six technical study boards and computer telemetry terminals to take the 40-question exam.'
+  }
+  if (/\b(gaming\s+area|gaming|simulator|racing\s+game)\b/i.test(p)) {
+    return 'The Gaming Area is located in the Second Main Area, where you can test your driving reflexes and lap time consistency in the interactive 2D Grand Prix racing simulator stations.'
+  }
+  if (/\b(car\s+park|parking)\b/i.test(p)) {
+    return 'The Visitor Car Park is located at the arrival area of the Carnival, leading directly onto the Main Carnival Path.'
+  }
+  if (/\bwhere\s+does\s+(this|the)\s+path\s+lead\b/i.test(p)) {
+    return 'The Main Carnival Path is the central artery of the experience. It connects the Exhibition Hall entrance, the Educational Zone, the Car Park, and leads forward into the Second Main Area.'
+  }
+
+  // 2. If at an Exhibition car
   if (context?.currentCar) {
     const carKey = context.currentCar.toLowerCase()
     const match =
@@ -467,26 +491,25 @@ export function resolveLocationQuery(context?: {
     }
   }
 
-  // 2. Authoritative live location from application state
+  // 3. Current Live Location: Prioritize currentLocation over stale historical sub-sections!
   const loc = (context?.currentLocation || context?.location || '').toLowerCase()
-  const sec = (context?.currentSection || context?.section || '').toLowerCase()
+  const sec = (context?.currentSection || '').toLowerCase()
   const trig = (context?.activeTrigger || '').toLowerCase()
 
-  // Specific Educational sub-sections
-  if (sec === 'tyres' || trig === 'symmbol.004') {
-    return 'You are currently in the Formula 1 Tyres section of the Educational Zone. Here you can explore Pirelli tyre compound chemistry, thermal operating windows, contact patch mechanics, and pit stop tyre strategy.'
-  }
-  if (sec === 'chassis' || trig === 'symmbol.003') {
-    return 'You are currently in the Formula 1 Chassis section of the Educational Zone. This exhibit covers aerospace-grade carbon fiber monocoque safety cells, titanium Halo impact resistance, and FIA crash load dissipation.'
-  }
-  if (sec === 'tracks' || trig === 'symmbol.002') {
-    return 'You are currently in the Circuit Technology section of the Educational Zone, studying racing asphalt topography, kerb profiles, DRS zone placement, and high-downforce vs low-drag aerodynamic setups.'
-  }
-  if (sec === 'formula' || sec === 'formula-franchise' || trig === 'symmbol.001') {
-    return 'You are currently in the Formula Racing Ecosystem section of the Educational Zone, detailing the single-seater progression ladder from Karting to F4, F3, F2, and Formula 1, along with the FIA Superlicense point system and financial cost cap rules.'
+  // Second Main Area (including Championship, Exam, Gaming)
+  if (loc.includes('second main area') || trig.includes('racing_path')) {
+    if (loc.includes('championship') || trig.includes('racing_champion_section_path')) {
+      return 'You are currently in the Championship Section of the Second Main Area, commemorating Formula 1 World Drivers and Constructors Champions from 2000 through 2025 across the V10, V8, and Turbo-Hybrid eras.'
+    }
+    if (loc.includes('exam') || trig.includes('walking_path_racing_exam')) {
+      return 'You are currently in the Exam Section of the Second Main Area. Review the six technical examination boards before taking the 40-question F1 driving academy quiz.'
+    }
+    if (loc.includes('gaming') || trig.includes('real_racing_entering_path')) {
+      return 'You are currently in the Gaming Area of the Second Main Area, where you can test your driving reflexes and lap time consistency in the interactive 2D Grand Prix racing simulator stations.'
+    }
+    return 'You are currently in the Second Main Area of the Formula 1 Carnival. This major section houses the Championship Section (2000–2025 exhibits), the Knowledge Exam kiosk with study boards, and the Interactive Racing Simulator stations.'
   }
 
-  // Major areas
   if (loc.includes('championship') || trig.includes('racing_champion_section_path')) {
     return 'You are currently in the Championship Section, commemorating Formula 1 World Drivers and Constructors Champions from 2000 through 2025 across the V10, V8, and Turbo-Hybrid eras.'
   }
@@ -499,11 +522,20 @@ export function resolveLocationQuery(context?: {
     return 'You are currently in the Gaming Area, where you can test your driving reflexes and lap time consistency in the interactive 2D Grand Prix racing simulator stations.'
   }
 
-  if (loc.includes('second main area') || trig.includes('racing_path')) {
-    return 'You are currently in the Second Main Area of the Formula 1 Carnival. This major section houses the Championship Section (2000–2025 exhibits), the Knowledge Exam kiosk with study boards, and the Interactive Racing Simulator stations.'
-  }
-
+  // Educational Zone & sub-sections
   if (loc.includes('educational') || trig.includes('path_area')) {
+    if (sec === 'tyres' || trig === 'symmbol.004') {
+      return 'You are currently in the Formula 1 Tyres section of the Educational Zone. Here you can explore Pirelli tyre compound chemistry, thermal operating windows, contact patch mechanics, and pit stop tyre strategy.'
+    }
+    if (sec === 'chassis' || trig === 'symmbol.003') {
+      return 'You are currently in the Formula 1 Chassis section of the Educational Zone. This exhibit covers aerospace-grade carbon fiber monocoque safety cells, titanium Halo impact resistance, and FIA crash load dissipation.'
+    }
+    if (sec === 'tracks' || trig === 'symmbol.002') {
+      return 'You are currently in the Circuit Technology section of the Educational Zone, studying racing asphalt topography, kerb profiles, DRS zone placement, and high-downforce vs low-drag aerodynamic setups.'
+    }
+    if (sec === 'formula' || sec === 'formula-franchise' || trig === 'symmbol.001') {
+      return 'You are currently in the Formula Racing Ecosystem section of the Educational Zone, detailing the single-seater progression ladder from Karting to F4, F3, F2, and Formula 1, along with the FIA Superlicense point system and financial cost cap rules.'
+    }
     return 'You are currently in the Educational Zone of the Formula 1 Carnival. Here you can explore four dedicated technical stations (Tyres, Chassis, Circuits, and Formula Ecosystem), view display cars, and inspect circuit telemetry.'
   }
 
@@ -515,40 +547,41 @@ export function resolveLocationQuery(context?: {
     return 'You are standing at the entrance to the Formula 1 Exhibition Hall. Step forward and press [E] to enter the heritage hall and view historic championship-winning Formula 1 cars.'
   }
 
-  if (loc.includes('main carnival path') || trig.includes('path')) {
-    return 'You are on the Main Carnival Path. This central artery connects the Exhibition Hall entrance, the Educational Zone, the Car Park, and the Second Main Area.'
-  }
-
   if (loc.includes('exhibition')) {
     return 'You are currently inside the Formula 1 Heritage Exhibition Hall, exploring historic championship-winning Formula 1 cars and technical showcases.'
   }
 
-  return 'You are currently in the Formula 1 Carnival, an interactive 3D motorsport theme park featuring educational engineering zones, historical exhibitions, and interactive driving simulators.'
+  return 'You are on the Main Carnival Path. This central artery connects the Exhibition Hall entrance, the Educational Zone, the Car Park, and the Second Main Area.'
 }
 
 /**
- * Intelligent local fallback responder when Gemini API key is not yet set or network fails.
- * Guarantees zero crashes and immediate, accurate F1 answers.
+ * Comprehensive F1 Knowledge Responder.
+ * Provides factual, concise, fan-friendly motorsport information.
+ * Context is used only when relevant; location context NEVER overrides question intent!
  */
-export function getLocalF1KnowledgeResponse(prompt: string, context?: { currentCar?: string | null; section?: string | null; location?: string | null }): string {
+export function getLocalF1KnowledgeResponse(
+  prompt: string,
+  context?: { currentCar?: string | null; section?: string | null; location?: string | null; currentLocation?: string | null }
+): string {
   const p = prompt.toLowerCase()
 
   // 0. Location queries have absolute priority
-  if (classifyQueryIntent(prompt) === 'LOCATION_QUERY') {
-    return resolveLocationQuery(context)
+  if (F1DomainGuard.classify(prompt) === 'LOCATION') {
+    return resolveLocationQuery(context, prompt)
   }
 
-  // 1. Current car context responses
+  // 1. Current car context responses (when user asks about the car in front of them)
   if (context?.currentCar) {
     const carKey = context.currentCar.toLowerCase()
     const match =
       carKey.includes('senna') || carKey.includes('1991') || carKey.includes('mp4')
         ? EXHIBITION_CARS_KNOWLEDGE['senna-mp4-6']
-        : EXHIBITION_CARS_KNOWLEDGE[context.currentCar] || Object.values(EXHIBITION_CARS_KNOWLEDGE).find(c => c.year === context.currentCar)
+        : EXHIBITION_CARS_KNOWLEDGE[context.currentCar] ||
+          Object.values(EXHIBITION_CARS_KNOWLEDGE).find((c) => c.year === context.currentCar)
 
     if (match) {
       if (p.includes('engine') || p.includes('power') || p.includes('motor')) {
-        return `The ${match.year} ${match.name} was powered by: ${match.engine}, delivering ${match.power}. Weight: ${match.weight}.`
+        return `The ${match.year} ${match.name} was powered by a ${match.engine}, delivering ${match.power}. Weight: ${match.weight}.`
       }
       if (p.includes('who') || p.includes('driver')) {
         return `The ${match.year} car was piloted by ${match.drivers}. Result: ${match.championshipResult}.`
@@ -560,36 +593,156 @@ export function getLocalF1KnowledgeResponse(prompt: string, context?: { currentC
     }
   }
 
-  // 2. Specific F1 FAQ matchers
-  if (p.includes('2019') && (p.includes('champion') || p.includes('who won'))) {
-    return 'Lewis Hamilton won the 2019 Formula 1 World Drivers Championship driving for Mercedes-AMG Petronas, securing 413 points and 11 Grand Prix victories. Mercedes also won the 2019 Constructors Championship.'
+  // ── 2. F1 Drivers ──
+  if (p.includes('schumacher')) {
+    if (p.includes('how many') || p.includes('count') || p.includes('titles')) {
+      return 'Michael Schumacher won seven Formula 1 World Drivers Championships: two with Benetton in 1994 and 1995, and five consecutive championships with Scuderia Ferrari from 2000 through 2004.'
+    }
+    return 'Michael Schumacher is a legendary seven-time Formula 1 World Drivers Champion (1994, 1995 with Benetton; 2000–2004 with Ferrari). With 91 Grand Prix victories, he transformed driver fitness, racecraft, and telemetry analysis, creating Ferrari’s golden era.'
   }
 
-  if (p.includes('soft') && (p.includes('tyre') || p.includes('faster') || p.includes('tire'))) {
-    return 'Soft tyres are faster because their rubber compound is engineered with high viscoelasticity, allowing the tyre to conform intimately into the microscopic crevices of the track asphalt. This creates immense adhesion and mechanical grip, enabling higher cornering speeds and shorter braking distances, though at the cost of rapid thermal degradation.'
+  if (p.includes('hamilton')) {
+    return 'Lewis Hamilton is a seven-time Formula 1 World Drivers Champion (2008 with McLaren; 2014, 2015, 2017, 2018, 2019, 2020 with Mercedes). He holds the all-time records for most pole positions (104) and Grand Prix victories (105).'
   }
 
-  if (p.includes('undercut') || p.includes('overcut')) {
-    return 'The Undercut occurs when a chasing car pits a lap earlier for fresh tyres, utilizing the superior initial grip of new rubber to set an ultra-fast out-lap and pass the leading car when it subsequently pits. The Overcut is the reverse: staying out longer while the rival gets stuck in traffic or struggles on cold tyres, pushing hard in clean air before pitting.'
+  if (p.includes('senna')) {
+    return 'Ayrton Senna was a legendary Brazilian driver and three-time Formula 1 World Champion (1988, 1990, 1991 with McLaren-Honda). Renowned for his transcendent qualifying speed and wet-weather mastery, Senna remains one of motorsport’s greatest icons.'
   }
 
-  if (p.includes('drs') || p.includes('drag reduction')) {
-    return 'DRS (Drag Reduction System) is a driver-controlled mechanism introduced in 2011 to promote overtaking. When within 1 second of the car ahead in a designated DRS zone, an actuator opens a flap in the rear wing, reducing aerodynamic drag by ~20-25% and boosting top speed by 10-22 km/h.'
+  if (p.includes('verstappen')) {
+    return 'Max Verstappen is a four-time Formula 1 World Drivers Champion (2021, 2022, 2023, 2024 with Red Bull Racing). Known for his relentless precision and overtaking aggression, he holds the all-time record for most wins in a single season (19 in 2023).'
+  }
+
+  if (p.includes('vettel')) {
+    return 'Sebastian Vettel is a four-time consecutive Formula 1 World Champion (2010–2013 with Red Bull Racing), winning 53 Grands Prix and becoming the youngest World Champion in F1 history in 2010 at age 23.'
+  }
+
+  if (p.includes('alonso')) {
+    return 'Fernando Alonso is a two-time Formula 1 World Champion (2005, 2006 with Renault), renowned for ending Michael Schumacher’s title run, his relentless race execution, and competing in over 400 Grands Prix across more than two decades.'
+  }
+
+  if (p.includes('norris')) {
+    return 'Lando Norris won his first Formula 1 World Drivers Championship in the 2025 season driving for McLaren, capturing the title after a thrilling battle with Max Verstappen at the season finale in Abu Dhabi.'
+  }
+
+  // ── 3. Championships ──
+  if (p.includes('2026') && (p.includes('champion') || p.includes('who won') || p.includes('season'))) {
+    return 'The 2026 Formula 1 World Championship is the current active racing season, featuring revolutionary new power unit regulations with increased electrical output and active aerodynamics. The championship fight is underway across the global calendar.'
+  }
+
+  if (p.includes('2025') && (p.includes('champion') || p.includes('who won'))) {
+    return 'Lando Norris won the 2025 Formula 1 World Drivers Championship with McLaren, clinching his first career world title at the Abu Dhabi Grand Prix.'
+  }
+
+  if (p.includes('2024') && (p.includes('champion') || p.includes('who won'))) {
+    return 'Max Verstappen won the 2024 World Drivers Championship with Red Bull Racing (his fourth consecutive title), while McLaren won the 2024 World Constructors Championship.'
+  }
+
+  if (p.includes('2021') && (p.includes('champion') || p.includes('who won'))) {
+    return 'Max Verstappen won the 2021 Formula 1 World Drivers Championship for Red Bull Racing after a historic, season-long duel with Lewis Hamilton decided on the final lap at Abu Dhabi. Mercedes won the 2021 Constructors Championship.'
+  }
+
+  if (p.includes('current') && (p.includes('champion') || p.includes('who is the champion'))) {
+    return 'Max Verstappen secured four consecutive World Championships from 2021 through 2024 with Red Bull, and Lando Norris claimed his maiden World Drivers Championship in 2025 with McLaren. The 2026 title is actively being contested.'
   }
 
   if (p.includes('constructor') && p.includes('championship')) {
-    return "The Formula 1 World Constructors' Championship is awarded to the team that scores the highest cumulative points across both of their cars over the season. It determines the official team title and forms the basis for commercial prize money distribution."
+    return "The Formula 1 World Constructors' Championship is awarded to the team scoring the most combined points from both drivers over the season. McLaren won the 2024 title, Red Bull won in 2022 and 2023, and Mercedes took eight consecutive titles from 2014 through 2021."
   }
 
-  // 3. Current section context response
-  if (context?.section && CARNIVAL_ZONES_KNOWLEDGE[context.section]) {
-    const zone = CARNIVAL_ZONES_KNOWLEDGE[context.section]
-    return `${zone.description}\n\nKey Information:\n${zone.bullets.map(b => `• ${b}`).join('\n')}`
+  if (p.includes('how does the championship work') || (p.includes('points') && p.includes('how'))) {
+    return 'The Formula 1 World Championship awards two parallel titles: the Drivers Championship and the Constructors Championship. Drivers score points based on finishing positions in each Grand Prix: 25 for 1st, 18 for 2nd, 15 for 3rd, down to 1 point for 10th, plus Sprint race points. The driver and team with the most points at season end are crowned World Champions.'
   }
 
-  // 4. Default high-quality F1 overview
+  // ── 4. Specific Cars & Power Units ──
+  if (p.includes('w11') || (p.includes('mercedes') && p.includes('2020'))) {
+    if (p.includes('engine') || p.includes('power unit') || p.includes('motor')) {
+      return 'The Mercedes-AMG F1 W11 was powered by the Mercedes-AMG M11 EQ Performance 1.6-litre turbocharged 90° V6 hybrid power unit. Combined with the MGU-K and MGU-H energy recovery systems, it produced over 1,025 brake horsepower at over 50% thermal efficiency.'
+    }
+    return 'The Mercedes-AMG F1 W11 EQ Performance is widely regarded as the fastest Formula 1 car ever engineered. Dominating the 2020 season, it claimed 13 wins and 15 pole positions from 17 races, featuring the innovative Dual-Axis Steering (DAS) system and setting track lap records that still stand today.'
+  }
+
+  if (p.includes('mp4') || p.includes('mp4/6')) {
+    return 'The McLaren MP4/6 is one of motorsport’s most celebrated cars. Powered by Honda’s RA121E 3.5L naturally aspirated V12 producing 780 BHP, Ayrton Senna drove it to the 1991 World Championship. It remains historically significant as the last V12 engine and last manual H-pattern gearbox car to win a Formula 1 title.'
+  }
+
+  if (p.includes('power unit') || (p.includes('hybrid') && p.includes('engine'))) {
+    return 'A modern Formula 1 power unit combines a 1.6-litre turbocharged V6 internal combustion engine with two electric motor-generators: the MGU-K (recovering kinetic energy under braking) and MGU-H (harvesting energy from turbo exhaust heat). It deploys over 1,000 combined horsepower at industry-leading thermal efficiency.'
+  }
+
+  // ── 5. Technical F1 Concepts ──
+  if (p.includes('drs') || p.includes('drag reduction')) {
+    return 'DRS (Drag Reduction System) is a driver-operated flap in the rear wing introduced in 2011 to promote overtaking. When within 1 second of the car ahead in an official DRS zone, opening the flap reduces aerodynamic drag by 20–25% and boosts straight-line speed by 10–22 km/h.'
+  }
+
+  if (p.includes('downforce')) {
+    return 'Downforce is vertical aerodynamic force created by the front wing, shaped underfloor venturi tunnels (ground effect), and rear wing. By pushing the car into the track without adding mass, downforce dramatically increases tyre cornering grip, allowing F1 cars to corner at lateral forces exceeding 5G.'
+  }
+
+  if (p.includes('chassis') || p.includes('monocoque')) {
+    return 'A Formula 1 chassis is built around a survival cell called a monocoque, fabricated from lightweight, high-tensile carbon fiber and aluminum honeycomb composite. It houses the driver cockpit and fuel cell, engineered alongside the Grade 5 titanium Halo to withstand extreme crash impact loads.'
+  }
+
+  if (p.includes('halo')) {
+    return 'The Halo is a Grade 5 titanium safety structure introduced in 2018 to protect the driver’s head. Mounted above the cockpit, it weighs just 9 kg yet can withstand 12 tonnes of impact force—equivalent to the weight of two London double-decker buses.'
+  }
+
+  if (p.includes('tyre') || p.includes('tire')) {
+    if (p.includes('soft') && (p.includes('faster') || p.includes('hard'))) {
+      return 'Soft tyres are faster because their rubber compound features high viscoelasticity, allowing the rubber to deform and conform intimately into microscopic track crevices. This generates maximum adhesion and cornering speed, but degrades faster through thermal wear than medium or hard compounds.'
+    }
+    if (p.includes('graining') || p.includes('blistering')) {
+      return 'Tyre graining occurs when a cold tyre slides across asphalt, tearing small rubber particles that ball up on the tread surface and reduce grip. Blistering occurs when extreme internal heat vaporizes trapped moisture, blowing craters through the rubber surface.'
+    }
+    return 'Formula 1 tyres, supplied exclusively by Pirelli, are bespoke 18-inch radial slicks. Pirelli provides five dry slick compounds (C1 hardest to C5 softest), choosing three for each Grand Prix weekend, plus green-grooved Intermediates and blue-grooved Full Wets for rain.'
+  }
+
+  if (p.includes('trail braking')) {
+    return 'Trail braking is an advanced driving technique where the driver carries braking pressure into the corner entry while turning in, progressively releasing the pedal as steering angle increases. This keeps weight on the front axle, preventing understeer and maximizing corner-entry speed.'
+  }
+
+  // ── 6. Circuits ──
+  if (p.includes('fastest') && (p.includes('circuit') || p.includes('track'))) {
+    return 'Autodromo Nazionale Monza in Italy is the fastest circuit in Formula 1, known as the "Temple of Speed". Formula 1 cars reach top speeds exceeding 350 km/h with average lap speeds routinely surpassing 260 km/h.'
+  }
+
+  if (p.includes('monza')) {
+    return 'Monza (Autodromo Nazionale Monza) is Formula 1’s historic Italian cathedral of speed, hosting the Italian Grand Prix since 1950. With long full-throttle straights, tight chicanes, and iconic corners like the Curva Parabolica, teams run special ultra-low-drag aerodynamic wings.'
+  }
+
+  if (p.includes('silverstone')) {
+    return 'Silverstone hosted the inaugural Formula 1 World Championship Grand Prix on May 13, 1950. Built on a former World War II airfield in England, its legendary high-speed corner complexes—including Maggotts, Becketts, and Chapel—demand supreme aerodynamic downforce and driver commitment.'
+  }
+
+  // ── 7. General F1 Knowledge ──
+  if (p.includes('what is formula 1') || p.includes('what is f1') || p.includes('what is formula one')) {
+    return 'Formula 1 is the highest class of international single-seater open-wheel auto racing sanctioned by the FIA. Teams engineer proprietary racing machines under stringent aerodynamic and hybrid powertrain regulations, competing worldwide across Grands Prix for the Drivers and Constructors World Championships.'
+  }
+
+  if (p.includes('difference between f1 and f2') || (p.includes('f1') && p.includes('f2'))) {
+    return 'Formula 1 is a premier constructor championship where teams design and build their own bespoke 1,000+ HP hybrid cars. Formula 2 is a spec feeder series where all drivers compete in identical Dallara chassis and Mecachrome engines, highlighting raw driver skill to earn the FIA Superlicense needed to enter F1.'
+  }
+
+  if (p.includes('how many teams') || p.includes('number of teams')) {
+    return 'The Formula 1 grid consists of 10 constructor teams fielding two cars each, totaling 20 drivers. Prominent constructors include Ferrari, Mercedes-AMG, Red Bull Racing, McLaren, Aston Martin, Alpine, Williams, Sauber (Audi), Haas, and Racing Bulls.'
+  }
+
+  if (p.includes('qualifying') || p.includes('q1') || p.includes('q2') || p.includes('q3')) {
+    return 'Formula 1 qualifying uses a knockout format: Q1 (18 minutes, bottom 5 cars eliminated to fill positions 16–20), Q2 (15 minutes, next 5 eliminated to fill positions 11–15), and Q3 (12 minutes, top 10 shootout to establish Pole Position for the Grand Prix).'
+  }
+
+  if (p.includes('pit stop')) {
+    return 'An F1 pit stop is an astonishing feat of teamwork where around 20 mechanics change all four tyres in roughly 2.0 to 2.5 seconds. Teams use front and rear quick-release jacks, pneumatic wheel guns operating at 10,000 RPM, and synchronized crew members to service the car.'
+  }
+
+  if (p.includes('undercut') || p.includes('overcut')) {
+    return 'The Undercut occurs when a trailing car pits a lap earlier for fresh tyres, utilizing fresh grip on their out-lap to overtake the leader when they pit later. The Overcut is staying out longer in clean air, banking on rivals getting caught in traffic or struggling on cold tyres.'
+  }
+
+  // ── 8. Default High-Quality F1 Response ──
+  // Note: Context location is NEVER returned here! F1 questions are answered with F1 knowledge.
   return (
-    'Formula 1 is the pinnacle of international motorsport and automotive engineering. ' +
-    'Governed by the FIA, teams design bespoke single-seater prototypes utilizing 1.6L turbocharged hybrid power units delivering over 1,000 horsepower, advanced carbon-composite monocoques, and precision aerodynamics.'
+    'Formula 1 is the pinnacle of motorsport and engineering innovation. ' +
+    'Teams compete with single-seater prototypes powered by 1.6-litre turbocharged hybrid power units delivering over 1,000 horsepower, advanced carbon monocoques, and precision aerodynamic ground effect tunnels.'
   )
 }

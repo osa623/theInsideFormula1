@@ -18,7 +18,7 @@ export interface AIMessage {
   content: string
   timestamp: number
   audioText?: string
-  source?: 'gemini' | 'knowledge_base' | 'domain_guard'
+  source?: 'gemini' | 'openai' | 'knowledge_base' | 'domain_guard'
 }
 
 export interface AIChatRequest {
@@ -30,7 +30,7 @@ export interface AIChatRequest {
 export interface AIChatResponse {
   reply: string
   isF1Related: boolean
-  source: 'gemini' | 'knowledge_base' | 'domain_guard'
+  source: 'gemini' | 'openai' | 'knowledge_base' | 'domain_guard'
   contextUsed?: {
     location?: string
     currentCar?: string | null

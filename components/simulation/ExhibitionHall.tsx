@@ -407,75 +407,7 @@ export default function ExhibitionHall({
                 ctx.strokeStyle = 'rgba(0, 229, 255, 0.2)'
                 ctx.strokeRect(52, 180, 920, 520)
 
-                // ── Animation A: Circular Proximity Radar Scanner (Left side) ──
-                const rcx = 240
-                const rcy = 430
-                const maxR = 120
-
-                // Radar concentric rings
-                for (let r = 40; r <= maxR; r += 40) {
-                  ctx.strokeStyle = 'rgba(0, 229, 255, 0.22)'
-                  ctx.lineWidth = 1.2
-                  ctx.beginPath(); ctx.arc(rcx, rcy, r, 0, Math.PI * 2); ctx.stroke()
-                }
-                // Radar crosshair axes
-                ctx.strokeStyle = 'rgba(0, 229, 255, 0.18)'
-                ctx.beginPath(); ctx.moveTo(rcx - maxR - 10, rcy); ctx.lineTo(rcx + maxR + 10, rcy); ctx.stroke()
-                ctx.beginPath(); ctx.moveTo(rcx, rcy - maxR - 10); ctx.lineTo(rcx, rcy + maxR + 10); ctx.stroke()
-
-                // Sweeping radar beam
-                const sweep = tick * 2.2
-                ctx.save()
-                ctx.beginPath()
-                ctx.moveTo(rcx, rcy)
-                ctx.arc(rcx, rcy, maxR, sweep - 0.45, sweep)
-                ctx.closePath()
-                const sweepGrad = ctx.createRadialGradient(rcx, rcy, 0, rcx, rcy, maxR)
-                sweepGrad.addColorStop(0, 'rgba(0, 229, 255, 0)')
-                sweepGrad.addColorStop(1, 'rgba(0, 229, 255, 0.35)')
-                ctx.fillStyle = sweepGrad
-                ctx.fill()
-                ctx.restore()
-
-                ctx.strokeStyle = '#00e5ff'
-                ctx.lineWidth = 2.5
-                ctx.beginPath()
-                ctx.moveTo(rcx, rcy)
-                ctx.lineTo(rcx + Math.cos(sweep) * maxR, rcy + Math.sin(sweep) * maxR)
-                ctx.stroke()
-
-                // 6 Car Exhibit Blips on Radar
-                const blips = [
-                  { angle: 0.3, r: 85, color: '#38bdf8', label: 'MP4/6' },
-                  { angle: 1.2, r: 95, color: '#34d399', label: '2017' },
-                  { angle: 2.1, r: 75, color: '#fbbf24', label: '2018' },
-                  { angle: 3.3, r: 90, color: '#f472b6', label: '2019' },
-                  { angle: 4.2, r: 80, color: '#a855f7', label: '2020' },
-                  { angle: 5.4, r: 100, color: '#38bdf8', label: '2021' },
-                ]
-                blips.forEach((b) => {
-                  const bx = rcx + Math.cos(b.angle) * b.r
-                  const by = rcy + Math.sin(b.angle) * b.r
-                  const isCurrent = currentCarRef.current && currentCarRef.current.includes(b.label.toLowerCase())
-
-                  // Ping pulse if active
-                  if (isCurrent) {
-                    const ping = (tick * 40) % 25
-                    ctx.strokeStyle = b.color
-                    ctx.lineWidth = 1.5
-                    ctx.beginPath(); ctx.arc(bx, by, ping, 0, Math.PI * 2); ctx.stroke()
-                  }
-
-                  ctx.fillStyle = b.color
-                  ctx.beginPath(); ctx.arc(bx, by, 5, 0, Math.PI * 2); ctx.fill()
-                  ctx.font = '700 11px monospace'
-                  ctx.fillStyle = 'rgba(255, 255, 255, 0.85)'
-                  ctx.fillText(b.label, bx + 8, by + 4)
-                })
-
-                ctx.font = '800 12px monospace'
-                ctx.fillStyle = '#00e5ff'
-                ctx.fillText('PROXIMITY RADAR // 360° ACOUSTIC SENSING', 90, 580)
+              
 
                 // ── Animation B: Colorful Audio Equalizer Spectrum (Right side) ──
                 ctx.font = '800 13px monospace'
@@ -552,7 +484,7 @@ export default function ExhibitionHall({
                 ctx.fillStyle = '#ffffff'
                 ctx.font = '900 26px Arial Black, sans-serif'
                 ctx.textAlign = 'center'
-                ctx.fillText('OBSERVATION MODE ON • WALK TO CARS TO HEAR AUDIO', 512, 788)
+                ctx.fillText('WALK TO CARS TO HEAR EXPLANATION', 512, 788)
                 ctx.font = '700 15px monospace'
                 ctx.fillStyle = 'rgba(224, 247, 255, 0.9)'
                 ctx.fillText('WALK FREELY OR PRESS [E] TO OPEN FULL AI TERMINAL', 512, 818)
