@@ -11,6 +11,8 @@ import PlayerController from './PlayerController'
 import CameraController from './CameraController'
 import PlayerHUD from './PlayerHUD'
 import QRDocumentModal from './QRDocumentModal'
+import AITerminalModal from './AITerminalModal'
+import { ttsService } from '@/lib/ai/ttsService'
 
 import { usePointerLock } from './hooks/usePointerLock'
 import {
@@ -21,6 +23,16 @@ import {
 import { useGraphicsQuality } from '@/lib/graphics/useGraphicsQuality'
 import { GraphicsConfig, GraphicsQuality } from '@/lib/graphics/GraphicsManager'
 import { useThree } from '@react-three/fiber'
+
+// Prerecorded narration audio files for Exhibition Hall cars
+const EXHIBITION_CAR_NARRATION_AUDIO: Record<string, string> = {
+  'senna-mp4-6': '/music/narrationSounds/senna.mp3',
+  '2017': '/music/narrationSounds/2017.mp3',
+  '2018': '/music/narrationSounds/2018.mp3',
+  '2019': '/music/narrationSounds/2019.mp3',
+  '2020': '/music/narrationSounds/2020.mp3',
+  '2021': '/music/narrationSounds/2021.mp3',
+}
 
 function createHallImpulseResponse(context: AudioContext): AudioBuffer {
   const length = Math.max(1, Math.floor(context.sampleRate * 2.4))
@@ -87,6 +99,87 @@ export default function ExhibitionScene() {
   const { config, quality } = useGraphicsQuality()
   const hallAudioRef = useRef<HTMLAudioElement | null>(null)
   const hallAudioContextRef = useRef<AudioContext | null>(null)
+  const duckGainRef = useRef<GainNode | null>(null)
+  const carNarrationAudioRef = useRef<HTMLAudioElement | null>(null)
+
+  const setMusicDucking = useCallback((isDucking: boolean) => {
+    const ctx = hallAudioContextRef.current
+    const duckGain = duckGainRef.current
+    if (ctx && duckGain) {
+      const now = ctx.currentTime
+      duckGain.gain.cancelScheduledValues(now)
+      duckGain.gain.setValueAtTime(duckGain.gain.value, now)
+      if (isDucking) {
+        duckGain.gain.linearRampToValueAtTime(0.12, now + 0.35)
+      } else {
+        duckGain.gain.linearRampToValueAtTime(1.0, now + 0.6)
+      }
+    } else if (hallAudioRef.current) {
+      hallAudioRef.current.volume = isDucking ? 0.06 : 0.32
+    }
+  }, [])
+
+  const stopCarNarration = useCallback(() => {
+    if (carNarrationAudioRef.current) {
+      const audio = carNarrationAudioRef.current
+      carNarrationAudioRef.current = null
+      audio.onended = null
+      audio.onerror = null
+      audio.pause()
+      audio.currentTime = 0
+      setMusicDucking(false)
+    }
+  }, [setMusicDucking])
+
+  const playCarNarration = useCallback(
+    (carKey: string) => {
+      const audioSrc = EXHIBITION_CAR_NARRATION_AUDIO[carKey]
+      if (!audioSrc) {
+        console.warn(`[ExhibitionScene] No prerecorded narration audio mapped for car: ${carKey}`)
+        return
+      }
+
+      // Safely stop previous narration if still playing and reset
+      stopCarNarration()
+
+      try {
+        const audio = new Audio(audioSrc)
+        audio.preload = 'auto'
+        audio.volume = 1.0
+        carNarrationAudioRef.current = audio
+
+        const handleEnded = () => {
+          if (carNarrationAudioRef.current === audio) {
+            carNarrationAudioRef.current = null
+          }
+          setMusicDucking(false)
+        }
+
+        const handleError = (e: any) => {
+          console.warn(`[ExhibitionScene] Error playing car narration audio (${audioSrc}):`, e)
+          if (carNarrationAudioRef.current === audio) {
+            carNarrationAudioRef.current = null
+          }
+          setMusicDucking(false)
+        }
+
+        audio.onended = handleEnded
+        audio.onerror = handleError
+
+        // Duck background music while car narration plays
+        setMusicDucking(true)
+
+        audio.play().catch((err) => {
+          console.warn(`[ExhibitionScene] Autoplay error for car narration (${audioSrc}):`, err)
+          handleError(err)
+        })
+      } catch (err) {
+        console.warn(`[ExhibitionScene] Could not initialize narration audio for ${carKey}:`, err)
+        setMusicDucking(false)
+      }
+    },
+    [setMusicDucking, stopCarNarration]
+  )
 
   const ensureHallAudioChain = useCallback(() => {
     const audio = hallAudioRef.current
@@ -128,6 +221,10 @@ export default function ExhibitionScene() {
       compressor.attack.value = 0.02
       compressor.release.value = 0.25
 
+      const duckGain = context.createGain()
+      duckGain.gain.value = 1.0
+      duckGainRef.current = duckGain
+
       source.connect(warmth)
       warmth.connect(lowpass)
       lowpass.connect(dryGain)
@@ -136,7 +233,8 @@ export default function ExhibitionScene() {
       room.connect(roomGain)
       roomGain.connect(masterGain)
       masterGain.connect(compressor)
-      compressor.connect(context.destination)
+      compressor.connect(duckGain)
+      duckGain.connect(context.destination)
 
       hallAudioContextRef.current = context
     }
@@ -174,15 +272,23 @@ export default function ExhibitionScene() {
 
     void startHallMusic()
 
+    // Subscribe to TTS ducking events for smooth background music attenuation (e.g. AI Terminal)
+    const unsubscribeDucking = ttsService.onDucking((isDucking) => {
+      setMusicDucking(isDucking)
+    })
+
     return () => {
+      unsubscribeDucking()
+      stopCarNarration()
       hallAudioContextRef.current?.close()
       hallAudioContextRef.current = null
+      duckGainRef.current = null
       audio.pause()
       audio.src = ''
       audio.remove()
       hallAudioRef.current = null
     }
-  }, [startHallMusic])
+  }, [startHallMusic, setMusicDucking, stopCarNarration])
 
   // Scene state
   const [triggers, setTriggers] = useState<ExhibitionTriggerPoint[]>([])
@@ -198,9 +304,13 @@ export default function ExhibitionScene() {
   const [activeBoard, setActiveBoard] = useState<ExhibitionBoard | null>(null)
   const [activeQRData, setActiveQRData] = useState<ExhibitionQRData | null>(null)
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [isAITerminalOpen, setIsAITerminalOpen] = useState(false)
+  const [isObservationMode, setIsObservationMode] = useState(false)
+  const [currentCar, setCurrentCar] = useState<string | null>(null)
+  const lastObservedCarRef = useRef<string | null>(null)
 
   const isInspecting = Boolean(activeBoard)
-  const overlayOpen = isModalOpen || isInspecting
+  const overlayOpen = isModalOpen || isInspecting || isAITerminalOpen
 
   const { isLocked, requestLock, exitLock, yawRef, pitchRef } = usePointerLock()
 
@@ -221,13 +331,38 @@ export default function ExhibitionScene() {
     []
   )
 
-  // Close inspection and modal
+  // Track nearby trigger changes, update current car context, and trigger Observation Mode TTS
+  const handleNearbyTriggerChange = useCallback(
+    (trig: ExhibitionTriggerPoint | null) => {
+      setNearbyTrigger(trig)
+      const nextCarKey = trig?.carKey ?? null
+
+      if (nextCarKey) {
+        setCurrentCar(nextCarKey)
+
+        // Observation Mode Voice Tour: play prerecorded narration whenever entering a car exhibit trigger
+        if (isObservationMode && nextCarKey !== lastObservedCarRef.current) {
+          lastObservedCarRef.current = nextCarKey
+          playCarNarration(nextCarKey)
+        }
+      } else {
+        // Player stepped away from car trigger: reset so narration can trigger again upon re-entry
+        lastObservedCarRef.current = null
+      }
+    },
+    [isObservationMode, playCarNarration]
+  )
+
+  // Close inspection and modals
   const handleCloseInspection = useCallback(() => {
     setIsModalOpen(false)
+    setIsAITerminalOpen(false)
     setActiveQRData(null)
     setActiveBoard(null)
+    ttsService.stop()
+    stopCarNarration()
     window.setTimeout(requestLock, 120)
-  }, [requestLock])
+  }, [requestLock, stopCarNarration])
 
   // Start interaction when pressing E on trigger
   const handleInteract = useCallback(() => {
@@ -250,7 +385,20 @@ export default function ExhibitionScene() {
       return
     }
 
-    // 3. Trigger.000 to Trigger.005: Camera zoom to Naming_Board.00X + QR Document Modal
+    // 3. AI Terminal Trigger: Zoom camera to AI_Screen_Set + Open AITerminalModal
+    if (nearbyTrigger.isAITerminal) {
+      const board = boards.get(nearbyTrigger.targetBoardName) || null
+      exitLock()
+      if (board) {
+        setActiveBoard(board)
+      }
+      window.setTimeout(() => {
+        setIsAITerminalOpen(true)
+      }, 400)
+      return
+    }
+
+    // 4. Trigger.000 to Trigger.005: Camera zoom to Naming_Board.00X + QR Document Modal
     if (nearbyTrigger.qrData) {
       const board = boards.get(nearbyTrigger.targetBoardName) || null
       exitLock()
@@ -272,13 +420,13 @@ export default function ExhibitionScene() {
       const key = e.key.toLowerCase()
 
       if (key === 'e') {
-        if (isInspecting || isModalOpen) {
+        if (isInspecting || isModalOpen || isAITerminalOpen) {
           handleCloseInspection()
         } else if (nearbyTrigger && !overlayOpen) {
           handleInteract()
         }
       } else if (key === 'escape') {
-        if (isInspecting || isModalOpen) {
+        if (isInspecting || isModalOpen || isAITerminalOpen) {
           handleCloseInspection()
         }
       }
@@ -286,7 +434,7 @@ export default function ExhibitionScene() {
 
     window.addEventListener('keydown', handleKeyDown)
     return () => window.removeEventListener('keydown', handleKeyDown)
-  }, [isInspecting, isModalOpen, nearbyTrigger, overlayOpen, handleInteract, handleCloseInspection])
+  }, [isInspecting, isModalOpen, isAITerminalOpen, nearbyTrigger, overlayOpen, handleInteract, handleCloseInspection])
 
   return (
     <div
@@ -310,6 +458,28 @@ export default function ExhibitionScene() {
       <QRDocumentModal
         data={activeQRData}
         isOpen={isModalOpen}
+        onClose={handleCloseInspection}
+      />
+
+      {/* AI Exhibition Terminal Modal */}
+      <AITerminalModal
+        isOpen={isAITerminalOpen}
+        currentCar={currentCar}
+        isObservationMode={isObservationMode}
+        onToggleObservationMode={(active) => {
+          setIsObservationMode(active)
+          if (!active) {
+            ttsService.stop()
+            stopCarNarration()
+            lastObservedCarRef.current = null
+          } else {
+            // When turning observation mode ON, immediately play prerecorded narration for the current nearby car if standing near one
+            if (nearbyTrigger?.carKey) {
+              lastObservedCarRef.current = nearbyTrigger.carKey
+              playCarNarration(nearbyTrigger.carKey)
+            }
+          }
+        }}
         onClose={handleCloseInspection}
       />
 
@@ -337,7 +507,11 @@ export default function ExhibitionScene() {
         <GraphicsApplier config={config} quality={quality} />
         <Suspense fallback={null}>
           <Environment />
-          <ExhibitionHall onExhibitionDataLoaded={handleExhibitionDataLoaded} />
+          <ExhibitionHall
+            onExhibitionDataLoaded={handleExhibitionDataLoaded}
+            isObservationMode={isObservationMode}
+            currentCar={currentCar}
+          />
         </Suspense>
 
         {/* FPS Player Movement Physics */}
@@ -350,7 +524,7 @@ export default function ExhibitionScene() {
           spawnPosition={spawnPosition}
           triggers={triggers}
           obstacleBoxes={obstacleBoxes}
-          onNearbyTriggerChange={setNearbyTrigger}
+          onNearbyTriggerChange={handleNearbyTriggerChange}
         />
 
         {/* Camera Zoom to Naming Boards */}

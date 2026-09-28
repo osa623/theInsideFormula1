@@ -14,6 +14,7 @@ import {
   GameStationTrigger,
 } from './types'
 import { useCarnivalInput } from './useCarnivalInput'
+import { getLiveCarnivalLocation, CarnivalLocationState } from '@/lib/ai/carnivalLocations'
 
 interface CarnivalPlayerProps {
   metadata: CarnivalMetadata | null
@@ -35,6 +36,7 @@ interface CarnivalPlayerProps {
   onNearbyInfoScreenChange?: (trigger: InformationScreenTrigger | null) => void
   onNearbyMapChange?: (mapTrigger: MapTrigger | null) => void
   onNearbyGameStationChange?: (station: GameStationTrigger | null) => void
+  onLocationChange?: (locationState: import('@/lib/ai/carnivalLocations').CarnivalLocationState) => void
 }
 
 const EYE_HEIGHT = 3.0
@@ -219,12 +221,15 @@ export default function CarnivalPlayer({
   onNearbyInfoScreenChange,
   onNearbyMapChange,
   onNearbyGameStationChange,
+  onLocationChange,
   teleportTarget,
 }: CarnivalPlayerProps) {
   const { camera } = useThree()
   const inputRef = useCarnivalInput(disabled || isExamMode)
   const playerPosition = useRef(new THREE.Vector3(0, EYE_HEIGHT, 0))
   const velocity = useRef(new THREE.Vector3())
+  const lastLocation = useRef<string | null>(null)
+  const lastSection = useRef<string | null>(null)
   const lastEntranceId = useRef<string | null>(null)
   const lastExplainZoneId = useRef<string | null>(null)
   const lastInfoScreenId = useRef<string | null>(null)
@@ -341,6 +346,15 @@ export default function CarnivalPlayer({
     checkTimer.current += dt
     if (checkTimer.current > 0.12) {
       checkTimer.current = 0
+
+      // ── Live Authoritative Location Tracking ──
+      const liveLoc = getLiveCarnivalLocation(playerPosition.current)
+      if (liveLoc.location !== lastLocation.current || liveLoc.section !== lastSection.current) {
+        lastLocation.current = liveLoc.location
+        lastSection.current = liveLoc.section
+        onLocationChange?.(liveLoc)
+      }
+
       let nearestEntrance: CarnivalEntrance | null = null
       let nearestEntranceDistance = Infinity
 

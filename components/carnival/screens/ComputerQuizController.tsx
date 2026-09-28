@@ -36,7 +36,7 @@ export default function ComputerQuizController({
 
   // Initialize or reset quiz
   const restartQuiz = useCallback(() => {
-    const q = f1DataService.getQuizQuestions(10)
+    const q = f1DataService.getQuizQuestions(40)
     setQuestions(q)
     setCurrentIndex(0)
     setSelectedAnswer(null)
@@ -58,6 +58,8 @@ export default function ComputerQuizController({
     setSelectedAnswer(idx)
   }
 
+  const passThreshold = Math.ceil((questions.length || 40) * 0.8)
+
   const handleSubmitOrNext = () => {
     if (selectedAnswer === null) return
 
@@ -74,14 +76,14 @@ export default function ComputerQuizController({
       } else {
         setIsCompleted(true)
         const finalScore = score + (selectedAnswer === currentQuestion?.correctIndex ? 0 : 0)
-        if (finalScore >= 8) {
+        if (finalScore >= passThreshold) {
           onPassExam?.()
         }
       }
     }
   }
 
-  const passed = score >= 8
+  const passed = score >= passThreshold
 
   return (
     <group
@@ -159,7 +161,7 @@ export default function ComputerQuizController({
               </div>
 
               <div className="text-4xl font-black tracking-tight text-white">
-                SCORE: {score} / 10
+                SCORE: {score} / {questions.length}
               </div>
 
               <p className="text-xs text-[#8a99a8] max-w-md">
@@ -184,7 +186,7 @@ export default function ComputerQuizController({
               <div>
                 <div className="flex items-center justify-between text-[11px] text-[#758292] pb-2">
                   <span className="text-[#00d2be] font-bold tracking-widest">
-                    QUESTION {String(currentIndex + 1).padStart(2, '0')} / 10
+                    QUESTION {String(currentIndex + 1).padStart(2, '0')} / {questions.length}
                   </span>
                   <span className="border border-[#262c36] px-2 py-0.5 text-[#9aa7b5]">
                     {currentQuestion?.category}

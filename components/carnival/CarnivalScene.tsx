@@ -14,6 +14,7 @@ import ScreenManager from './screens/ScreenManager'
 import AboutSectionModal from './AboutSectionModal'
 import CarnivalMapModal from './CarnivalMapModal'
 import F1MiniGameModal from './minigame/F1MiniGameModal'
+import WelcomeScreen from './WelcomeScreen'
 import { MiniGameStationId } from './minigame/types'
 import {
   CarnivalEntrance,
@@ -30,6 +31,13 @@ import { ScreenTimelineController } from './screens/ScreenTimelineController'
 import { useCarnivalPointerLock } from './useCarnivalPointerLock'
 import { useGraphicsQuality } from '@/lib/graphics/useGraphicsQuality'
 import { GraphicsConfig, GraphicsQuality } from '@/lib/graphics/GraphicsManager'
+import SmartGuidePhoneUI from './smartguide/SmartGuidePhoneUI'
+import CarnivalPhone3D from './smartguide/CarnivalPhone3D'
+import CarnivalMobileControls from './CarnivalMobileControls'
+import { ttsService } from '@/lib/ai/ttsService'
+import { CARNIVAL_ZONES_KNOWLEDGE } from '@/lib/ai/f1KnowledgeBase'
+import { SmartGuideZone } from '@/lib/ai/types'
+import { CarnivalLocationState } from '@/lib/ai/carnivalLocations'
 
 function CarnivalLighting({ config }: { config: GraphicsConfig }) {
   const lightRef = useRef<THREE.DirectionalLight>(null)
@@ -239,6 +247,71 @@ export default function CarnivalScene() {
   const [isExamOpen, setIsExamOpen] = useState(false)
   const [, setIsExamPassed] = useState(false)
 
+  // ── Welcome Screen & Introductory State ──
+  const [showWelcome, setShowWelcome] = useState(true)
+
+  // ── Smart Guide Phone & Authoritative Live Location State ──
+  const [isPhoneOpen, setIsPhoneOpen] = useState(false)
+  const [activeSmartZone, setActiveSmartZone] = useState<SmartGuideZone | null>(null)
+  const [liveLocation, setLiveLocation] = useState<CarnivalLocationState>({
+    location: 'Main Carnival Path',
+    section: null,
+    trigger: 'Path',
+  })
+
+  // Sync activeSmartZone when live location changes (clears stale memory when entering new zones)
+  useEffect(() => {
+    if (liveLocation.section && CARNIVAL_ZONES_KNOWLEDGE[liveLocation.section]) {
+      setActiveSmartZone(CARNIVAL_ZONES_KNOWLEDGE[liveLocation.section])
+    } else if (liveLocation.location === 'Second Main Area' && CARNIVAL_ZONES_KNOWLEDGE['secondMainArea']) {
+      setActiveSmartZone(CARNIVAL_ZONES_KNOWLEDGE['secondMainArea'])
+    } else if (liveLocation.location === 'Educational Zone' && CARNIVAL_ZONES_KNOWLEDGE['educational']) {
+      setActiveSmartZone(CARNIVAL_ZONES_KNOWLEDGE['educational'])
+    } else if (liveLocation.location === 'Car Park' && CARNIVAL_ZONES_KNOWLEDGE['carPark']) {
+      setActiveSmartZone(CARNIVAL_ZONES_KNOWLEDGE['carPark'])
+    } else if (CARNIVAL_ZONES_KNOWLEDGE['mainPath']) {
+      setActiveSmartZone(CARNIVAL_ZONES_KNOWLEDGE['mainPath'])
+    }
+  }, [liveLocation])
+
+  // Strict Whitelist for Smart Guide automatic activation (Symmbol.001 - Symmbol.004)
+  const SMART_GUIDE_TRIGGERS: Record<string, { section: string; title: string }> = {
+    tyreTech: { section: 'tyres', title: 'F1 Tyres' },
+    chassisTech: { section: 'chassis', title: 'F1 Chassis' },
+    trackTech: { section: 'tracks', title: 'F1 Tracks' },
+    formulaTech: { section: 'formula', title: 'Formula Franchise' },
+  }
+
+  const lastTriggerEnteredRef = useRef<string | null>(null)
+
+  // Auto-resolve active zone strictly on approved educational triggers, once per entry
+  useEffect(() => {
+    if (nearbyInfoScreen) {
+      const match = SMART_GUIDE_TRIGGERS[nearbyInfoScreen.id]
+      if (match) {
+        const zone = CARNIVAL_ZONES_KNOWLEDGE[match.section]
+        if (zone) {
+          setActiveSmartZone(zone)
+          // Open phone once per entry
+          if (lastTriggerEnteredRef.current !== nearbyInfoScreen.id) {
+            lastTriggerEnteredRef.current = nearbyInfoScreen.id
+            setIsPhoneOpen(true)
+          }
+        }
+        return
+      }
+    }
+
+    // When leaving the whitelisted trigger area, reset entry tracking and lower phone
+    if (!nearbyInfoScreen) {
+      if (lastTriggerEnteredRef.current !== null) {
+        lastTriggerEnteredRef.current = null
+        setIsPhoneOpen(false)
+        ttsService.stop()
+      }
+    }
+  }, [nearbyInfoScreen])
+
   const handleNearbyInfoScreenChange = useCallback((screen: InformationScreenTrigger | null) => {
     setNearbyInfoScreen(screen)
     if (screen) {
@@ -252,7 +325,9 @@ export default function CarnivalScene() {
   }, [])
 
   const hasCinematicActive = !!activeChampionSection || !!activeExamBoard || !!activeInfoScreen || !!activeGameStation
+  // Note: isPhoneOpen is intentionally excluded from overlayOpen so the player remains free to move with WASD/Arrows
   const overlayOpen =
+    showWelcome ||
     !!previewEntrance ||
     !!activeExplainZone ||
     isExamOpen ||
@@ -579,6 +654,19 @@ export default function CarnivalScene() {
         if (previewEntrance) closePreview()
         if (activeExplainZone) closeExplainZone()
         if (isExamOpen) closeExam()
+        // Close Smart Guide phone on ESC
+        if (isPhoneOpen) {
+          setIsPhoneOpen(false)
+          ttsService.stop()
+        }
+      }
+
+      // P key — toggle Smart Guide phone manually
+      if (key === 'p' && !overlayOpen) {
+        setIsPhoneOpen((prev) => {
+          if (prev) ttsService.stop()
+          return !prev
+        })
       }
     }
 
@@ -622,6 +710,7 @@ export default function CarnivalScene() {
     openPreview,
     overlayOpen,
     previewEntrance,
+    isPhoneOpen,
   ])
 
   const { config, quality } = useGraphicsQuality()
@@ -666,6 +755,7 @@ export default function CarnivalScene() {
           teleportTarget={teleportTarget}
           yawRef={yawRef}
           pitchRef={pitchRef}
+          onLocationChange={setLiveLocation}
           onNearbyEntranceChange={setNearbyEntrance}
           onNearbyExplainZoneChange={setNearbyExplainZone}
           onNearbyExamChange={setNearbyExam}
@@ -678,11 +768,15 @@ export default function CarnivalScene() {
           onNearbyMapChange={setNearbyMap}
           onNearbyGameStationChange={setNearbyGameStation}
         />
+
+        {/* Smart Guide Phone 3D (first-person held device) */}
+        <CarnivalPhone3D isOpen={isPhoneOpen} activeZone={activeSmartZone} currentLocation={liveLocation.location} />
       </Canvas>
 
       <CarnivalHUD
         isLocked={isLocked}
         isReady={!!metadata}
+        currentLocation={liveLocation.location}
         nearbyEntrance={nearbyEntrance}
         nearbyExplainZone={nearbyExplainZone}
         nearbyExam={nearbyExam || nearbyMonitor}
@@ -706,6 +800,56 @@ export default function CarnivalScene() {
         isOpen={isMiniGameOpen}
         stationId={activeGameStation?.stationId ?? 'GAME_STATION_7'}
         onExit={handleExitMiniGame}
+      />
+
+      {/* Mobile Touch Controls Layer (Active only on touch devices) */}
+      <CarnivalMobileControls
+        yawRef={yawRef}
+        pitchRef={pitchRef}
+        onInteract={() => {
+          window.dispatchEvent(new KeyboardEvent('keydown', { key: 'e', code: 'KeyE' }))
+        }}
+        onTogglePhone={() => {
+          setIsPhoneOpen((prev) => {
+            if (prev) ttsService.stop()
+            return !prev
+          })
+        }}
+        isPhoneOpen={isPhoneOpen}
+        hasNearbyInteraction={Boolean(
+          nearbyEntrance ||
+          nearbyExplainZone ||
+          nearbyExam ||
+          nearbyMonitor ||
+          nearbyChampionSection ||
+          nearbyExamBoard ||
+          nearbyAbout ||
+          nearbyInfoScreen ||
+          nearbyMap ||
+          nearbyGameStation
+        )}
+      />
+
+      {/* Smart Guide Phone HTML Overlay */}
+      <SmartGuidePhoneUI
+        isOpen={isPhoneOpen}
+        activeZone={activeSmartZone}
+        currentLocation={liveLocation.location}
+        currentSection={liveLocation.section}
+        activeTrigger={liveLocation.trigger}
+        onClose={() => {
+          setIsPhoneOpen(false)
+          ttsService.stop()
+        }}
+      />
+
+      {/* Welcome Experience Screen (5 GTA V-style cinematic scenarios) */}
+      <WelcomeScreen
+        isOpen={showWelcome}
+        onEnter={() => {
+          setShowWelcome(false)
+          requestLock()
+        }}
       />
     </div>
   )

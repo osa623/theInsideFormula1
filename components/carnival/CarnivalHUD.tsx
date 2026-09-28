@@ -29,6 +29,7 @@ interface CarnivalHUDProps {
   activeCinematicView?: { title: string; subtitle?: string; screenId?: string } | null
   previewOpen: boolean
   onRequestLock: () => void
+  currentLocation?: string
 }
 
 export default function CarnivalHUD({
@@ -47,6 +48,7 @@ export default function CarnivalHUD({
   activeCinematicView,
   previewOpen,
   onRequestLock,
+  currentLocation,
 }: CarnivalHUDProps) {
   const isGateEntrance =
     nearbyEntrance?.id === 'openarea' ||
@@ -127,7 +129,7 @@ export default function CarnivalHUD({
        <img
               src={formula1Logo.src}
               alt ="Formula One logo"
-              className="h-[2vh] w-full object-cover"
+              className="h-auto w-[4vw] object-cover"
             />
         <div className="text-speed">FORMULA 1 CARNIVAL</div>
         <div className="mt-1 text-white/55">{isReady ? 'W A S D + MOUSE' : 'LOADING ENVIRONMENT'}</div>
@@ -137,6 +139,18 @@ export default function CarnivalHUD({
       <div className="pointer-events-auto absolute right-5 top-5 z-30 md:right-8 md:top-8">
         <GraphicsQualitySelector />
       </div>
+
+      {/* Player POV Smart Guide Activation & Real-Time Location Indicator */}
+      {!previewOpen && isLocked && !showInspectionActive && (
+        <div className="pointer-events-none absolute top-5 left-5 z-30 flex items-center gap-2.5 rounded-full border border-white/15 bg-black/75 px-4 py-2 text-xs font-mono backdrop-blur-xl shadow-2xl">
+          <span className="flex h-2 w-2 rounded-full bg-[#00d2be] animate-pulse" />
+          <span className="font-black text-[#e10600] tracking-wider">[P] SMART GUIDE</span>
+          <span className="text-white/20">•</span>
+          <span className="text-white/80 font-bold uppercase tracking-wider text-[11px]">
+            {currentLocation || 'MAIN CARNIVAL PATH'}
+          </span>
+        </div>
+      )}
 
       {!isLocked && !previewOpen && !showInspectionActive && (
         <button

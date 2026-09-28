@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect, useMemo } from 'react'
+import React, { useEffect, useMemo, useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
 import * as THREE from 'three'
 import {
@@ -20,6 +20,8 @@ interface ExhibitionHallProps {
     obstacleBoxes: THREE.Box3[]
     floorY: number
   }) => void
+  isObservationMode?: boolean
+  currentCar?: string | null
 }
 
 // Guaranteed exact world coordinates from New_Exhibition_Hall_02.glb
@@ -32,6 +34,7 @@ const TRIGGER_DEFAULTS: Record<string, [number, number, number]> = {
   'Trigger.005': [-0.15, -2.90, -9.15],
   'Map_trigger': [-6.98, -2.90, -2.91],
   'Entrance_Spawn': [-5.12, -2.93, 6.23],
+  'AI_Bot_Trigger': [-6.35, -2.90, 1.08],
 }
 
 const BOARD_DEFAULTS: Record<string, [number, number, number]> = {
@@ -42,14 +45,27 @@ const BOARD_DEFAULTS: Record<string, [number, number, number]> = {
   'Naming_Board.004': [4.97, -2.28, -8.55],
   'Naming_Board.005': [-0.06, -2.28, -9.97],
   'Naming_Board.006': [-7.79, -2.28, -3.35],
+  'AI_Screen_Set': [-8.18, -0.28, 1.39],
 }
 
 export default function ExhibitionHall({
   onPlaceholdersFound,
   onPlayerHeightFound,
   onExhibitionDataLoaded,
+  isObservationMode = false,
+  currentCar = null,
 }: ExhibitionHallProps) {
   const { scene } = useGLTF('/models/New_Exhibition_Hall_02.glb')
+
+  const isObservationModeRef = useRef(isObservationMode)
+  useEffect(() => {
+    isObservationModeRef.current = isObservationMode
+  }, [isObservationMode])
+
+  const currentCarRef = useRef(currentCar)
+  useEffect(() => {
+    currentCarRef.current = currentCar
+  }, [currentCar])
 
   const parsedData = useMemo(() => {
     let floorY = -2.93
@@ -85,11 +101,24 @@ export default function ExhibitionHall({
         triggerMap.set('Entrance_Spawn', spawnPos.clone())
       }
 
-      // Triggers: Trigger.000 to Trigger.005 and Map_trigger
-      if (name.startsWith('Trigger.') || name === 'Map_trigger') {
+      // Triggers: Trigger.000 to Trigger.005, Map_trigger, AI_Bot_Trigger
+      if (name.startsWith('Trigger.') || name === 'Map_trigger' || name === 'AI_Bot_Trigger') {
         const pos = new THREE.Vector3()
         child.getWorldPosition(pos)
         triggerMap.set(name, pos)
+      }
+
+      // AI_Screen_Set (Keep original orientation; add solid collision obstacle)
+      if (name === 'AI_Screen_Set') {
+        const pos = new THREE.Vector3()
+        child.getWorldPosition(pos)
+        boardPositions.set(name, pos)
+
+        // Solid collider for the AI Screen setup (prevent walking through)
+        const box = new THREE.Box3().setFromObject(child)
+        if (!box.isEmpty()) {
+          obstacleBoxes.push(box)
+        }
       }
 
       // Naming_Board.000 to Naming_Board.006
@@ -210,10 +239,20 @@ export default function ExhibitionHall({
       })
     })
 
+    // AI Terminal Board
+    const aiBoardPos = boardPositions.get('AI_Screen_Set') || new THREE.Vector3(...BOARD_DEFAULTS['AI_Screen_Set'])
+    boards.set('AI_Screen_Set', {
+      name: 'AI_Screen_Set',
+      position: aiBoardPos,
+      cameraPosition: new THREE.Vector3(-6.7, -1.25, 1.15),
+      lookAtPosition: new THREE.Vector3(-8.18, -0.5, 1.39),
+    })
+
     // Construct structured exhibition trigger points
     const triggers: ExhibitionTriggerPoint[] = []
+    const CAR_KEYS = ['senna-mp4-6', '2017', '2018', '2019', '2020', '2021']
 
-    // 1. QR Triggers: Trigger.000 to Trigger.005
+    // 1. QR Triggers: Trigger.000 to Trigger.005 with carKey mappings
     for (let i = 0; i <= 5; i++) {
       const triggerName = `Trigger.00${i}`
       const boardName = `Naming_Board.00${i}`
@@ -225,6 +264,7 @@ export default function ExhibitionHall({
         position: pos,
         targetBoardName: boardName,
         qrData: EXHIBITION_QR_ITEMS[triggerName],
+        carKey: CAR_KEYS[i],
       })
     }
 
@@ -238,7 +278,17 @@ export default function ExhibitionHall({
       isMap: true,
     })
 
-    // 3. Exit Trigger: Entrance_Spawn -> return to Carnival
+    // 3. AI Terminal Trigger: AI_Bot_Trigger -> AI_Screen_Set
+    const aiPos = triggerMap.get('AI_Bot_Trigger') || new THREE.Vector3(...TRIGGER_DEFAULTS['AI_Bot_Trigger'])
+    triggers.push({
+      id: 'trig-ai-terminal',
+      name: 'AI_Bot_Trigger',
+      position: aiPos,
+      targetBoardName: 'AI_Screen_Set',
+      isAITerminal: true,
+    })
+
+    // 4. Exit Trigger: Entrance_Spawn -> return to Carnival
     triggers.push({
       id: 'trig-exit',
       name: 'Entrance_Spawn',
@@ -258,14 +308,357 @@ export default function ExhibitionHall({
     }
   }, [scene])
 
-  // Material tuning for exhibition interior
+  // Material tuning for exhibition interior & dynamic AI_Screen texture
   useEffect(() => {
+    let aiCanvasTexture: THREE.CanvasTexture | null = null
+    let animId: number | null = null
+
     scene.traverse((child) => {
       if (child instanceof THREE.Mesh) {
         child.castShadow = false
         child.receiveShadow = false
 
         const nameLower = child.name.toLowerCase()
+
+        // AI Screen OLED Dynamic Texture (1024x1024 matching screen aspect ratio)
+        if (child.name === 'AI_Screen' || nameLower === 'ai_screen') {
+          const canvas = document.createElement('canvas')
+          canvas.width = 1024
+          canvas.height = 1024
+          const ctx = canvas.getContext('2d')
+
+          if (ctx) {
+            let tick = 0
+            const drawScreen = () => {
+              tick += 0.05
+              const isObs = isObservationModeRef.current
+
+              if (isObs) {
+                // ════════════════════════════════════════════════════════════════
+                // ── OBSERVATION MODE: VIBRANT LIGHT BLUE / CYAN HIGH-TECH THEME
+                // ════════════════════════════════════════════════════════════════
+
+                // 1. Background gradient (deep space/ocean cyan-blue)
+                const bgGrad = ctx.createLinearGradient(0, 0, 1024, 1024)
+                bgGrad.addColorStop(0, '#020b18')
+                bgGrad.addColorStop(0.5, '#04162e')
+                bgGrad.addColorStop(1, '#02213d')
+                ctx.fillStyle = bgGrad
+                ctx.fillRect(0, 0, 1024, 1024)
+
+                // High-tech cyber grid
+                ctx.strokeStyle = 'rgba(0, 229, 255, 0.045)'
+                ctx.lineWidth = 1
+                for (let x = 0; x < 1024; x += 24) {
+                  ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, 1024); ctx.stroke()
+                }
+                for (let y = 0; y < 1024; y += 24) {
+                  ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(1024, y); ctx.stroke()
+                }
+
+                // 2. Light Blue Outer Precision Border & Corner Brackets
+                ctx.strokeStyle = '#00e5ff'
+                ctx.lineWidth = 4
+                ctx.strokeRect(28, 28, 968, 968)
+
+                ctx.strokeStyle = 'rgba(0, 229, 255, 0.28)'
+                ctx.lineWidth = 1.5
+                ctx.strokeRect(36, 36, 952, 952)
+
+                // Corner brackets in bright cyan
+                ctx.strokeStyle = '#38bdf8'
+                ctx.lineWidth = 3.5
+                const cSize = 26
+                ctx.beginPath(); ctx.moveTo(28, 28 + cSize); ctx.lineTo(28, 28); ctx.lineTo(28 + cSize, 28); ctx.stroke()
+                ctx.beginPath(); ctx.moveTo(996 - cSize, 28); ctx.lineTo(996, 28); ctx.lineTo(996, 28 + cSize); ctx.stroke()
+                ctx.beginPath(); ctx.moveTo(28, 996 - cSize); ctx.lineTo(28, 996); ctx.lineTo(28 + cSize, 996); ctx.stroke()
+                ctx.beginPath(); ctx.moveTo(996 - cSize, 996); ctx.lineTo(996, 996); ctx.lineTo(996, 996 - cSize); ctx.stroke()
+
+                // 3. Header Bar (Light Blue Theme)
+                ctx.fillStyle = 'rgba(0, 229, 255, 0.14)'
+                ctx.fillRect(52, 52, 920, 96)
+                ctx.strokeStyle = '#00e5ff'
+                ctx.lineWidth = 2
+                ctx.strokeRect(52, 52, 920, 96)
+
+                ctx.fillStyle = '#00e5ff'
+                ctx.fillRect(52, 52, 14, 96)
+
+                ctx.fillStyle = '#ffffff'
+                ctx.font = '900 30px Arial Black, sans-serif'
+                ctx.fillText('EXHIBITION // OBSERVATION TOUR ACTIVE', 84, 98)
+
+                ctx.fillStyle = 'rgba(0, 229, 255, 0.85)'
+                ctx.font = '700 13px monospace'
+                ctx.fillText('ACOUSTIC RADAR SENSING // AUTOMATIC AUDIO TOUR // 6 CARS', 86, 128)
+
+                // Pulsing light blue status indicator
+                const pulseR = 8 + Math.sin(tick * 3) * 3
+                ctx.fillStyle = 'rgba(0, 229, 255, 0.35)'
+                ctx.beginPath(); ctx.arc(920, 88, pulseR + 5, 0, Math.PI * 2); ctx.fill()
+                ctx.fillStyle = '#00e5ff'
+                ctx.beginPath(); ctx.arc(920, 88, 8, 0, Math.PI * 2); ctx.fill()
+                ctx.font = '800 13px monospace'
+                ctx.fillText('OBSERVING', 816, 93)
+
+                // 4. Middle Area (Radar + Audio Spectrum Visualizer)
+                ctx.fillStyle = 'rgba(0, 229, 255, 0.035)'
+                ctx.fillRect(52, 180, 920, 520)
+                ctx.strokeStyle = 'rgba(0, 229, 255, 0.2)'
+                ctx.strokeRect(52, 180, 920, 520)
+
+              
+
+                // ── Animation B: Colorful Audio Equalizer Spectrum (Right side) ──
+                ctx.font = '800 13px monospace'
+                ctx.fillStyle = '#38bdf8'
+                ctx.fillText('AUDIO GUIDE FREQUENCY SPECTRUM (DUAL-CHANNEL)', 430, 235)
+
+                const numBars = 19
+                const barStart = 430
+                const barWidth = 22
+                const barSpacing = 27
+                const baseH = 480
+
+                for (let i = 0; i < numBars; i++) {
+                  const h =
+                    40 +
+                    Math.abs(Math.sin(tick * 3.2 + i * 0.42)) * 140 +
+                    Math.abs(Math.cos(tick * 2.1 - i * 0.35)) * 60
+                  const bx = barStart + i * barSpacing
+                  const by = baseH - h
+
+                  // Multi-color gradient: light cyan -> violet -> hot pink
+                  const barGrad = ctx.createLinearGradient(0, baseH, 0, by)
+                  barGrad.addColorStop(0, '#00e5ff')
+                  barGrad.addColorStop(0.55, '#a855f7')
+                  barGrad.addColorStop(1, '#ec4899')
+
+                  ctx.fillStyle = barGrad
+                  ctx.fillRect(bx, by, barWidth, h)
+
+                  // Peak dot
+                  ctx.fillStyle = '#ffffff'
+                  ctx.fillRect(bx, by - 5, barWidth, 3)
+                }
+
+                // ── Animation C: Flowing Multi-color Sine Waves (Bottom of middle box) ──
+                // Cyan Wave
+                ctx.strokeStyle = 'rgba(0, 229, 255, 0.85)'
+                ctx.lineWidth = 3
+                ctx.beginPath()
+                for (let x = 60; x <= 964; x += 4) {
+                  const y = 640 + Math.sin(x * 0.016 + tick * 1.5) * 32 + Math.cos(x * 0.038 - tick) * 14
+                  if (x === 60) ctx.moveTo(x, y)
+                  else ctx.lineTo(x, y)
+                }
+                ctx.stroke()
+
+                // Violet Wave
+                ctx.strokeStyle = 'rgba(192, 132, 252, 0.75)'
+                ctx.lineWidth = 2
+                ctx.beginPath()
+                for (let x = 60; x <= 964; x += 4) {
+                  const y = 640 + Math.cos(x * 0.02 - tick * 1.2) * 26 + Math.sin(x * 0.045 + tick * 1.8) * 10
+                  if (x === 60) ctx.moveTo(x, y)
+                  else ctx.lineTo(x, y)
+                }
+                ctx.stroke()
+
+                // Top telemetry status chips inside middle box
+                ctx.font = '700 13px monospace'
+                ctx.fillStyle = '#00e5ff'
+                ctx.fillText('VOICE ENGINE: SPEECH SYNTHESIS READY', 80, 215)
+                ctx.fillStyle = '#34d399'
+                ctx.fillText('WALK TRIGGER: PROXIMITY AUTOPLAY ACTIVE', 80, 240)
+                ctx.fillStyle = '#fbbf24'
+                ctx.fillText(`TARGET: ${(currentCarRef.current || 'ALL EXHIBITS').toUpperCase()}`, 80, 265)
+
+                // 5. Interactive Prompt Banner (Light Blue Observation Theme)
+                ctx.fillStyle = 'rgba(0, 180, 216, 0.32)'
+                ctx.fillRect(160, 740, 704, 96)
+                ctx.strokeStyle = '#00e5ff'
+                ctx.lineWidth = 2.5
+                ctx.strokeRect(160, 740, 704, 96)
+
+                ctx.fillStyle = '#ffffff'
+                ctx.font = '900 26px Arial Black, sans-serif'
+                ctx.textAlign = 'center'
+                ctx.fillText('WALK TO CARS TO HEAR EXPLANATION', 512, 788)
+                ctx.font = '700 15px monospace'
+                ctx.fillStyle = 'rgba(224, 247, 255, 0.9)'
+                ctx.fillText('WALK FREELY OR PRESS [E] TO OPEN FULL AI TERMINAL', 512, 818)
+                ctx.textAlign = 'left'
+
+                // 6. Footer Readout
+                ctx.font = '600 14px monospace'
+                ctx.fillStyle = 'rgba(0, 229, 255, 0.75)'
+                ctx.fillText('OBSERVATION TOUR RUNNING // HIGH-FIDELITY SPEECH REPLAY ENABLED // 6 EXHIBITS', 52, 920)
+                ctx.fillStyle = 'rgba(0, 229, 255, 0.5)'
+                ctx.fillText('FIA TECHNICAL ARCHIVE // REAL-TIME AI GUIDANCE', 52, 946)
+              } else {
+                // ════════════════════════════════════════════════════════════════
+                // ── NORMAL MODE: CLASSIC F1 RED RACING TERMINAL DESIGN
+                // ════════════════════════════════════════════════════════════════
+
+                // Background
+                const grad = ctx.createLinearGradient(0, 0, 1024, 1024)
+                grad.addColorStop(0, '#04070d')
+                grad.addColorStop(0.5, '#070b14')
+                grad.addColorStop(1, '#0e0408')
+                ctx.fillStyle = grad
+                ctx.fillRect(0, 0, 1024, 1024)
+
+                // Carbon weave pattern
+                ctx.strokeStyle = 'rgba(255, 255, 255, 0.025)'
+                ctx.lineWidth = 1
+                for (let x = 0; x < 1024; x += 20) {
+                  ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, 1024); ctx.stroke()
+                }
+                for (let y = 0; y < 1024; y += 20) {
+                  ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(1024, y); ctx.stroke()
+                }
+
+                // Outer precision border (Classic Red)
+                ctx.strokeStyle = '#e10600'
+                ctx.lineWidth = 4
+                ctx.strokeRect(28, 28, 968, 968)
+
+                // Thin secondary inner border
+                ctx.strokeStyle = 'rgba(255, 255, 255, 0.15)'
+                ctx.lineWidth = 1
+                ctx.strokeRect(36, 36, 952, 952)
+
+                // Corner brackets
+                ctx.strokeStyle = '#ffffff'
+                ctx.lineWidth = 3
+                const cSize = 24
+                ctx.beginPath(); ctx.moveTo(28, 28 + cSize); ctx.lineTo(28, 28); ctx.lineTo(28 + cSize, 28); ctx.stroke()
+                ctx.beginPath(); ctx.moveTo(996 - cSize, 28); ctx.lineTo(996, 28); ctx.lineTo(996, 28 + cSize); ctx.stroke()
+                ctx.beginPath(); ctx.moveTo(28, 996 - cSize); ctx.lineTo(28, 996); ctx.lineTo(28 + cSize, 996); ctx.stroke()
+                ctx.beginPath(); ctx.moveTo(996 - cSize, 996); ctx.lineTo(996, 996); ctx.lineTo(996, 996 - cSize); ctx.stroke()
+
+                // Header Bar (Classic Red)
+                ctx.fillStyle = 'rgba(225, 6, 0, 0.15)'
+                ctx.fillRect(52, 52, 920, 96)
+                ctx.strokeStyle = '#e10600'
+                ctx.lineWidth = 2
+                ctx.strokeRect(52, 52, 920, 96)
+
+                ctx.fillStyle = '#e10600'
+                ctx.fillRect(52, 52, 14, 96)
+
+                ctx.fillStyle = '#ffffff'
+                ctx.font = '900 32px Arial Black, sans-serif'
+                ctx.fillText('FORMULA 1 EXHIBITION TERMINAL', 84, 100)
+
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.5)'
+                ctx.font = '700 13px monospace'
+                ctx.fillText('RESEARCH // NEURAL ARCHIVE // GEMINI 1.5 PRO', 86, 128)
+
+                // Status pill
+                ctx.fillStyle = '#00f076'
+                ctx.beginPath(); ctx.arc(920, 88, 8, 0, Math.PI * 2); ctx.fill()
+                ctx.font = '800 14px monospace'
+                ctx.fillText('ONLINE', 840, 94)
+
+                // Middle telemetry grid
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.03)'
+                ctx.fillRect(52, 180, 920, 520)
+                ctx.strokeStyle = 'rgba(255, 255, 255, 0.08)'
+                ctx.strokeRect(52, 180, 920, 520)
+
+                // Telemetry Grid Lines
+                ctx.strokeStyle = 'rgba(255, 255, 255, 0.05)'
+                ctx.lineWidth = 1
+                for (let gy = 240; gy < 700; gy += 60) {
+                  ctx.beginPath(); ctx.moveTo(52, gy); ctx.lineTo(972, gy); ctx.stroke()
+                }
+
+                // Multi-layer Telemetry Waves
+                // Wave 1: Primary Cyan
+                ctx.strokeStyle = 'rgba(0, 210, 190, 0.85)'
+                ctx.lineWidth = 3
+                ctx.beginPath()
+                for (let x = 60; x <= 964; x += 4) {
+                  const y = 440 + Math.sin(x * 0.015 + tick) * 55 + Math.cos(x * 0.04 - tick * 1.4) * 22
+                  if (x === 60) ctx.moveTo(x, y)
+                  else ctx.lineTo(x, y)
+                }
+                ctx.stroke()
+
+                // Wave 2: Secondary Red
+                ctx.strokeStyle = 'rgba(225, 6, 0, 0.65)'
+                ctx.lineWidth = 2
+                ctx.beginPath()
+                for (let x = 60; x <= 964; x += 4) {
+                  const y = 440 + Math.cos(x * 0.018 - tick * 0.8) * 40 + Math.sin(x * 0.05 + tick * 1.8) * 16
+                  if (x === 60) ctx.moveTo(x, y)
+                  else ctx.lineTo(x, y)
+                }
+                ctx.stroke()
+
+                // Telemetry readouts in center
+                ctx.font = '700 14px monospace'
+                ctx.fillStyle = '#00d2be'
+                ctx.fillText('CHASSIS DYNAMICS: STABLE', 80, 220)
+                ctx.fillText('AERO LOAD: 14.8 kN @ 280 KM/H', 80, 250)
+                ctx.fillStyle = '#ffb800'
+                ctx.fillText('THERMAL WINDOW: 102°C OPTIMAL', 620, 220)
+                ctx.fillText('TELEMETRY BAND: 5.8 GHz ULTRA-WIDE', 620, 250)
+
+                // Interactive prompt banner (Classic Red)
+                ctx.fillStyle = 'rgba(225, 6, 0, 0.9)'
+                ctx.fillRect(160, 740, 704, 96)
+                ctx.strokeStyle = '#ffffff'
+                ctx.lineWidth = 2.5
+                ctx.strokeRect(160, 740, 704, 96)
+
+                ctx.fillStyle = '#ffffff'
+                ctx.font = '900 28px Arial Black, sans-serif'
+                ctx.textAlign = 'center'
+                ctx.fillText('PRESS [E] TO ACTIVATE AI ASSISTANT', 512, 800)
+                ctx.textAlign = 'left'
+
+                // Footer readout
+                ctx.font = '600 14px monospace'
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.45)'
+                ctx.fillText('CORE: AI-ASSISTANT // SENSORS: CALIBRATED // OBSERVATION MODE: AVAILABLE', 52, 920)
+                ctx.fillText('F1 TECHNICAL ARCHIVE // FORMULA 1 EXPERIENCE', 52, 946)
+              }
+
+              if (aiCanvasTexture) {
+                aiCanvasTexture.needsUpdate = true
+              }
+            }
+
+            aiCanvasTexture = new THREE.CanvasTexture(canvas)
+            aiCanvasTexture.colorSpace = THREE.SRGBColorSpace
+
+            // ── ORIENTATION FIX: Correct mesh UVs so screen is upright and text reads left-to-right ──
+            aiCanvasTexture.matrixAutoUpdate = false
+            aiCanvasTexture.matrix.set(
+               0, -1, 1,
+              -1,  0, 1,
+               0,  0, 1
+            )
+
+            const screenMat = new THREE.MeshStandardMaterial({
+              map: aiCanvasTexture,
+              emissive: new THREE.Color(0xffffff),
+              emissiveMap: aiCanvasTexture,
+              emissiveIntensity: 0.95,
+              roughness: 0.2,
+              metalness: 0.8,
+              side: THREE.DoubleSide,
+            })
+            child.material = screenMat
+
+            const intervalId = window.setInterval(drawScreen, 80)
+            return () => window.clearInterval(intervalId)
+          }
+        }
+
         if (child.material) {
           const materials = Array.isArray(child.material) ? child.material : [child.material]
           materials.forEach((mat) => {
@@ -287,6 +680,11 @@ export default function ExhibitionHall({
         }
       }
     })
+
+    return () => {
+      if (animId) cancelAnimationFrame(animId)
+      aiCanvasTexture?.dispose()
+    }
   }, [scene])
 
   useEffect(() => {

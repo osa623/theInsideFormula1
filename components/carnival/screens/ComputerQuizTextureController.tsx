@@ -97,7 +97,9 @@ function renderQuizCanvas(
   const width = ctx.canvas.width
   const height = ctx.canvas.height
   const currentQuestion = state.questions[state.currentIndex] || null
-  const passed = state.score >= 8
+  const totalQuestions = state.questions.length || 40
+  const passThreshold = Math.ceil(totalQuestions * 0.8)
+  const passed = state.score >= passThreshold
 
   ctx.clearRect(0, 0, width, height)
   const gradient = ctx.createLinearGradient(0, 0, width, height)
@@ -147,7 +149,7 @@ function renderQuizCanvas(
     ctx.fillText(passed ? 'CERTIFICATION SUCCESSFUL' : 'CERTIFICATION FAILED', 214, 140)
     ctx.fillStyle = '#ffffff'
     ctx.font = '900 34px Arial'
-    ctx.fillText(`SCORE: ${state.score} / 10`, 214, 204)
+    ctx.fillText(`SCORE: ${state.score} / ${totalQuestions}`, 214, 204)
     drawWrapped(
       ctx,
       passed
@@ -168,7 +170,7 @@ function renderQuizCanvas(
 
   ctx.fillStyle = '#00d2be'
   ctx.font = '800 13px Arial'
-  ctx.fillText(`QUESTION ${String(state.currentIndex + 1).padStart(2, '0')} / 10`, 38, 106)
+  ctx.fillText(`QUESTION ${String(state.currentIndex + 1).padStart(2, '0')} / ${totalQuestions}`, 38, 106)
   ctx.fillStyle = '#9aa7b5'
   ctx.textAlign = 'right'
   ctx.fillText((currentQuestion?.category ?? 'F1 TECHNICAL').toUpperCase(), width - 38, 106)
@@ -236,7 +238,7 @@ export default function ComputerQuizTextureController({
   const [isCompleted, setIsCompleted] = useState(false)
 
   const restartQuiz = useCallback(() => {
-    const q = f1DataService.getQuizQuestions(10)
+    const q = f1DataService.getQuizQuestions(40)
     setQuestions(q)
     setCurrentIndex(0)
     setSelectedAnswer(null)
@@ -272,10 +274,11 @@ export default function ComputerQuizTextureController({
   }, [currentIndex, currentQuestion?.correctIndex, isAnswerSubmitted, questions.length, selectedAnswer])
 
   useEffect(() => {
-    if (!isCompleted || passedRef.current || score < 8) return
+    const passThreshold = Math.ceil((questions.length || 40) * 0.8)
+    if (!isCompleted || passedRef.current || score < passThreshold) return
     passedRef.current = true
     onPassExam?.()
-  }, [isCompleted, onPassExam, score])
+  }, [isCompleted, onPassExam, questions.length, score])
 
   useEffect(() => {
     const object = scene.getObjectByName(anchor.objectName) ?? scene.getObjectByName(config.objectName) ?? null
