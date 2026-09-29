@@ -104,6 +104,7 @@ export default function AITerminalModal({
           content: response.reply,
           timestamp: Date.now(),
           source: response.source,
+          sources: response.sources,
         }
 
         setMessages((prev) => [...prev, assistantMsg])
@@ -294,10 +295,32 @@ export default function AITerminalModal({
                 >
                   <p className="whitespace-pre-line">{msg.content}</p>
 
+                  {/* Verified Web Search Attribution Sources */}
+                  {msg.sources && msg.sources.length > 0 && (
+                    <div className="mt-3 pt-2 border-t border-white/10 flex flex-wrap items-center gap-1.5">
+                      <span className="font-mono text-[9px] uppercase tracking-wider text-emerald-400 font-semibold mr-1">
+                        VERIFIED SOURCES:
+                      </span>
+                      {msg.sources.map((s, idx) => (
+                        <a
+                          key={idx}
+                          href={s.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-white/10 hover:bg-[#e10600] border border-white/15 hover:border-[#e10600] font-mono text-[9px] text-white/90 hover:text-white transition-colors"
+                          title={s.title}
+                        >
+                          <span>🌐 {s.domain}</span>
+                          <span className="text-[8px] opacity-70">↗</span>
+                        </a>
+                      ))}
+                    </div>
+                  )}
+
                   {/* Message meta & TTS button for assistant */}
                   {msg.role === 'assistant' && (
                     <div className="mt-3 pt-2 border-t border-white/10 flex items-center justify-between gap-4 text-[10px] font-mono text-white/60">
-                      <span>SOURCE: {msg.source === 'gemini' ? 'GEMINI 1.5 PRO' : 'FIA 2026 ARCHIVE'}</span>
+                      <span>SOURCE: {msg.source === 'gemini' ? 'Inside F1 AI Model' : msg.source === 'openai' ? 'OPENAI GPT' : 'FIA 2026 ARCHIVE'}</span>
                       <button
                         type="button"
                         onClick={() => handleToggleAudio(msg.content)}

@@ -104,7 +104,7 @@ export default function CarnivalPhone3D({ isOpen, activeZone, currentLocation }:
       // Lower Telemetry readout
       ctx.fillStyle = 'rgba(0, 210, 190, 0.7)'
       ctx.font = '600 18px monospace'
-      ctx.fillText('AI MODEL: GEMINI 1.5 PRO', 56, 700)
+      ctx.fillText('AI MODEL: F1 AI Model', 56, 700)
       ctx.fillText('TTS ENGINE: VOCAL GUIDANCE READY', 56, 730)
       ctx.fillText(`GPS: ${(currentLocation || 'ZONE LOCATED').toUpperCase()}`, 56, 760)
 

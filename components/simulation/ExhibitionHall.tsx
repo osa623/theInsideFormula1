@@ -9,6 +9,7 @@ import {
   ExhibitionTriggerPoint,
 } from './types/exhibition'
 import { CarPlaceholder } from './types/simulation'
+import { sceneLoadingManager } from '@/lib/loading/sceneLoadingManager'
 
 interface ExhibitionHallProps {
   onPlaceholdersFound?: (placeholders: CarPlaceholder[]) => void
@@ -554,7 +555,7 @@ export default function ExhibitionHall({
 
                 ctx.fillStyle = 'rgba(255, 255, 255, 0.5)'
                 ctx.font = '700 13px monospace'
-                ctx.fillText('RESEARCH // NEURAL ARCHIVE // GEMINI 1.5 PRO', 86, 128)
+                ctx.fillText('RESEARCH // NEURAL ARCHIVE // F1 AI Model', 86, 128)
 
                 // Status pill
                 ctx.fillStyle = '#00f076'
@@ -697,6 +698,7 @@ export default function ExhibitionHall({
       obstacleBoxes: parsedData.obstacleBoxes,
       floorY: parsedData.floorY,
     })
+    sceneLoadingManager.notifySceneMounted('Exhibition Hall')
   }, [parsedData, onPlaceholdersFound, onPlayerHeightFound, onExhibitionDataLoaded])
 
   return <primitive object={scene} />

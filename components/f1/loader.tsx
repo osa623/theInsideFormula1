@@ -3,9 +3,9 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
 import { useLanguage } from '@/lib/language-context'
+import { sceneLoadingManager, SceneLoadingState } from '@/lib/loading/sceneLoadingManager'
 
-
-import formula1Logo from '../../public/images/Short_Banner_Imges/formula_logo_1.png';
+import formula1Logo from '../../public/images/Short_Banner_Imges/formula_logo_1.png'
 
 const SPEED_LINES = [
   { top: '18%', delay: 0, duration: 0.9, width: 180 },
@@ -16,38 +16,73 @@ const SPEED_LINES = [
 ]
 
 export function Loader({ onComplete }: { onComplete: () => void }) {
-  const [progress, setProgress] = useState(0)
+  const [loadingState, setLoadingState] = useState<SceneLoadingState>(() =>
+    sceneLoadingManager.getState()
+  )
+  const [displayProgress, setDisplayProgress] = useState(0)
   const [done, setDone] = useState(false)
   const { t } = useLanguage()
 
+  // Subscribe to real asset download, GLB parsing, and scene readiness
   useEffect(() => {
-    let raf: number
-    const start = performance.now()
-    const duration = 2400
-    const tick = (now: number) => {
-      const p = Math.min((now - start) / duration, 1)
-      // Non-linear like a rev counter
-      const eased = p < 0.7 ? p * 0.8 : 0.56 + (p - 0.7) * 1.4667
-      setProgress(Math.min(Math.round(eased * 100), 100))
-      if (p < 1) {
-        raf = requestAnimationFrame(tick)
-      } else {
-        setDone(true)
-        setTimeout(onComplete, 900)
+    const unsubscribe = sceneLoadingManager.subscribe((state) => {
+      setLoadingState(state)
+    })
+    return unsubscribe
+  }, [])
+
+  // Smoothly interpolate display progress towards real loading progress
+  useEffect(() => {
+    let animId: number
+    const target = loadingState.progress
+
+    const step = () => {
+      setDisplayProgress((prev) => {
+        if (prev < target) {
+          const delta = Math.max(1, Math.ceil((target - prev) * 0.18))
+          const next = Math.min(prev + delta, target)
+          return next
+        }
+        return prev
+      })
+
+      if (displayProgress < target) {
+        animId = requestAnimationFrame(step)
       }
     }
-    raf = requestAnimationFrame(tick)
-    return () => cancelAnimationFrame(raf)
-  }, [onComplete])
+
+    animId = requestAnimationFrame(step)
+    return () => cancelAnimationFrame(animId)
+  }, [loadingState.progress, displayProgress])
+
+  // Transition away ONLY when the application is actually ready for interaction
+  useEffect(() => {
+    if (loadingState.isApplicationReady && displayProgress >= 99) {
+      const exitTimer = setTimeout(() => {
+        setDone(true)
+        setTimeout(onComplete, 700)
+      }, 350)
+      return () => clearTimeout(exitTimer)
+    }
+
+    // Safety timeout (25s) in case of unexpected network stall on slow devices
+    const safetyTimer = setTimeout(() => {
+      setDone(true)
+      setTimeout(onComplete, 700)
+    }, 25000)
+
+    return () => clearTimeout(safetyTimer)
+  }, [loadingState.isApplicationReady, displayProgress, onComplete])
 
   return (
     <AnimatePresence>
       {!done ? (
         <motion.div
           key="loader"
-          className="fixed inset-0 z-[120] flex flex-col items-center justify-center bg-background"
-          exit={{ opacity: 0, filter: 'blur(20px)' }}
-          transition={{ duration: 0.8, ease: 'easeInOut' }}
+          className="fixed inset-0 z-[120] flex flex-col items-center justify-center bg-background select-none pointer-events-auto"
+          initial={{ opacity: 1 }}
+          exit={{ opacity: 0, filter: 'blur(16px)' }}
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
         >
           {/* Speed lines */}
           {SPEED_LINES.map((line, i) => (
@@ -88,34 +123,38 @@ export function Loader({ onComplete }: { onComplete: () => void }) {
                 animate={{ y: '0%' }}
                 transition={{ duration: 0.9, ease: [0.19, 1, 0.22, 1], delay: 0.2 }}
               >
-              <img
-              src={formula1Logo.src}
-              alt ="Formula One logo"
-              className="h-[25vh] w-full object-cover"
-            />
+                <img
+                  src={formula1Logo.src}
+                  alt="Formula One logo"
+                  className="h-[25vh] w-full object-cover"
+                />
               </motion.h1>
             </motion.div>
 
+            {/* Meaningful Real Loading Status Message */}
             <motion.p
-              className="font-mono text-[10px] uppercase tracking-[0.5em] text-muted-foreground"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: [0, 1, 0.4, 1] }}
-              transition={{ duration: 1.4, delay: 0.5 }}
+              key={loadingState.statusMessage}
+              className="font-mono text-[10px] uppercase tracking-[0.5em] text-muted-foreground text-center"
+              initial={{ opacity: 0, y: 4 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3 }}
             >
-              {t.loader.engineIgnition}
+              {loadingState.statusMessage || t.loader.engineIgnition}
             </motion.p>
 
-            {/* Progress bar */}
-            <div className="relative h-px w-56 overflow-hidden bg-border">
+            {/* Real Progress Bar */}
+            <div className="relative h-1.5 w-64 overflow-hidden rounded-full bg-white/10">
               <motion.div
-                className="absolute inset-y-0 left-0 bg-primary"
-                style={{ width: `${progress}%` }}
+                className="absolute inset-y-0 left-0 bg-gradient-to-r from-red-600 via-primary to-red-400 rounded-full"
+                style={{ width: `${displayProgress}%` }}
+                transition={{ duration: 0.15 }}
               />
             </div>
 
+            {/* Accurate Percentage Display */}
             <p className="font-mono text-xs tabular-nums text-muted-foreground">
-              {String(progress).padStart(3, '0')}
-              <span className="text-primary"> / 100</span>
+              {String(displayProgress).padStart(3, '0')}
+              <span className="text-primary font-bold"> / 100%</span>
             </p>
           </div>
         </motion.div>
