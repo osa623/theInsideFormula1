@@ -555,7 +555,7 @@ export default function ExhibitionHall({
 
                 ctx.fillStyle = 'rgba(255, 255, 255, 0.5)'
                 ctx.font = '700 13px monospace'
-                ctx.fillText('RESEARCH // NEURAL ARCHIVE // GEMINI 1.5 PRO', 86, 128)
+                ctx.fillText('RESEARCH // NEURAL ARCHIVE // F1 AI Model', 86, 128)
 
                 // Status pill
                 ctx.fillStyle = '#00f076'

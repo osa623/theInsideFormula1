@@ -320,7 +320,7 @@ export default function AITerminalModal({
                   {/* Message meta & TTS button for assistant */}
                   {msg.role === 'assistant' && (
                     <div className="mt-3 pt-2 border-t border-white/10 flex items-center justify-between gap-4 text-[10px] font-mono text-white/60">
-                      <span>SOURCE: {msg.source === 'gemini' ? 'GEMINI 1.5 PRO' : msg.source === 'openai' ? 'OPENAI GPT' : 'FIA 2026 ARCHIVE'}</span>
+                      <span>SOURCE: {msg.source === 'gemini' ? 'Inside F1 AI Model' : msg.source === 'openai' ? 'OPENAI GPT' : 'FIA 2026 ARCHIVE'}</span>
                       <button
                         type="button"
                         onClick={() => handleToggleAudio(msg.content)}

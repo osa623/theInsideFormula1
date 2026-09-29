@@ -30,11 +30,11 @@ function isLocalExhibitionKnowledgeSufficient(
   // 2. Specific questions about the 6 exhibition cars that have full local records
   const isStaticCarSpec =
     /\b(mp4|mp4\/6|senna.*car|1991.*mclaren|w11.*engine|w11.*power|das.*steering)\b/i.test(p) &&
-    !/\b(2025|2026|recent|latest|news|contract|transfer|standings|schedule|calendar|race result)\b/i.test(p)
+    !/\b(20\d\d|19\d\d|recent|latest|news|contract|transfer|standings|schedule|calendar|race result|who won|champion|title)\b/i.test(p)
 
   if (isStaticCarSpec) return true
 
-  // 3. Current calendar, live championship standings, recent race results, or modern F1 questions require web search
+  // 3. Current calendar, live championship standings, historical champions, race results, or modern F1 questions require web search
   return false
 }
 
@@ -80,7 +80,8 @@ export async function POST(req: NextRequest) {
     let exhibitionSearchResults: SearchResult[] = []
     let searchGroundingPrompt = ''
 
-    // FEATURE 1: Web search capability specifically for the Exhibition Hall AI Screen
+    // FEATURE 1: Web search capability for the Exhibition Hall AI Screen
+    // FLOW: get question -> not in local knowledge -> find answer from internet (Wikipedia) -> summarize and display
     if (isExhibitionMode) {
       const canUseLocalKnowledge = isLocalExhibitionKnowledgeSufficient(prompt, context)
 
@@ -90,14 +91,14 @@ export async function POST(req: NextRequest) {
         if (cached && cached.length > 0) {
           exhibitionSearchResults = cached
         } else {
-          // 2. Perform live web search
+          // 2. Perform live web search (Wikipedia + DuckDuckGo + Google)
           try {
             exhibitionSearchResults = await webSearchService.search(prompt, 4)
             if (exhibitionSearchResults.length > 0) {
               searchCache.set(prompt, exhibitionSearchResults)
             }
           } catch (err: any) {
-            console.warn('[Exhibition WebSearch] Search failed, continuing with local knowledge:', err?.message)
+            console.warn('[Exhibition WebSearch] Search failed:', err?.message)
           }
         }
 
@@ -142,19 +143,18 @@ export async function POST(req: NextRequest) {
     }
 
     const systemInstructionText = isExhibitionMode
-      ? 'You are the official Formula 1 Exhibition AI Terminal. ' +
-        'Answer technical, historical, and current Formula 1 inquiries with high factual precision. ' +
+      ? 'You are a Formula 1 knowledge assistant. ' +
+        'Provide a direct, factually accurate answer to the user\'s question. ' +
+        'Respond in 2 to 3 sentences. Do not include any meta-commentary, formatting instructions, or constraint checks in your response. ' +
         (searchGroundingPrompt
-          ? 'Use the provided verified web search results to answer accurately. When citing external information, mention the source name concisely. '
+          ? 'Base your answer on the following verified web search results and summarize the key facts clearly. '
           : '') +
-        'Keep answers concise, clear, and structured for an exhibition touchscreen display. ' +
-        'STRICT RULE: Reject all unrelated non-F1 queries with: "That question is outside my scope. I can help you with Formula One information or guide you around this experience." ' +
+        'If the question is not about Formula 1 or motorsport, reply with: "That question is outside my scope. I can help you with Formula One information or guide you around this experience." ' +
         contextPromptAddition
-      : 'You are the official Formula 1 Smart Guide for "The Inside Formula One". ' +
-        'Answer questions exclusively about Formula 1, motorsport history, engineering, technical regulations, circuits, drivers, teams, and racing cars. ' +
-        'Keep answers concise, factual, and easy to read on a mobile phone interface using short paragraphs. ' +
-        'CRITICAL RULE: The user question is the primary intent. NEVER replace an F1 answer with a location description. ' +
-        'STRICT RULE: Reject all unrelated non-F1 queries with: "That question is outside my scope. I can help you with Formula One information or guide you around this experience." ' +
+      : 'You are a Formula 1 knowledge assistant for "The Inside Formula One" experience. ' +
+        'Answer Formula 1 questions directly and concisely. Respond in 2 to 3 sentences. ' +
+        'Answer the user\'s actual question — never replace an F1 answer with a location description. ' +
+        'If the question is not about Formula 1 or motorsport, reply with: "That question is outside my scope. I can help you with Formula One information or guide you around this experience." ' +
         contextPromptAddition
 
     // Format sources to return to client if web search was used
@@ -223,84 +223,111 @@ export async function POST(req: NextRequest) {
       }
     }
 
-    // ── Attempt Gemini API Integration ──
+    // ── Attempt Gemini API Integration (with model cascade) ──
     if (isGeminiConfigured) {
-      try {
-        const contents: Array<{ role: string; parts: Array<{ text: string }> }> = []
+      const candidateModels = [
+        'gemini-3.5-flash',
+        'gemini-3.5-flash-lite',
+        'gemini-3.8-flash',
+      ]
 
-        if (Array.isArray(history) && history.length > 0) {
-          history.slice(-4).forEach((h) => {
-            contents.push({
-              role: h.role === 'assistant' ? 'model' : 'user',
-              parts: [{ text: h.content }],
-            })
+      const contents: Array<{ role: string; parts: Array<{ text: string }> }> = []
+
+      if (Array.isArray(history) && history.length > 0) {
+        history.slice(-4).forEach((h) => {
+          contents.push({
+            role: h.role === 'assistant' ? 'model' : 'user',
+            parts: [{ text: h.content }],
           })
-        }
-
-        contents.push({
-          role: 'user',
-          parts: [{ text: prompt }],
         })
+      }
 
-        const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent?key=${geminiApiKey}`
+      contents.push({
+        role: 'user',
+        parts: [{ text: prompt }],
+      })
 
-        const controller = new AbortController()
-        const timer = setTimeout(() => controller.abort(), 9000)
+      for (const modelName of candidateModels) {
+        try {
+          const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${modelName}:generateContent?key=${geminiApiKey}`
 
-        const geminiRes = await fetch(geminiUrl, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            contents,
-            systemInstruction: {
-              parts: [{ text: systemInstructionText }],
-            },
-            generationConfig: {
-              temperature: 0.35,
-              topK: 40,
-              topP: 0.9,
-              maxOutputTokens: 400,
-            },
-          }),
-          signal: controller.signal,
-        })
-        clearTimeout(timer)
+          const controller = new AbortController()
+          const timer = setTimeout(() => controller.abort(), 7000)
 
-        if (geminiRes.ok) {
-          const geminiData = await geminiRes.json()
-          const candidateText = geminiData?.candidates?.[0]?.content?.parts?.[0]?.text?.trim()
-          if (candidateText) {
-            return NextResponse.json({
-              reply: candidateText,
-              isF1Related: true,
-              source: 'gemini',
-              sources: returnedSources.length > 0 ? returnedSources : undefined,
-              contextUsed: {
-                location: context?.currentLocation || context?.location,
-                currentCar: context?.currentCar,
-                section: context?.currentSection || context?.section,
+          const geminiRes = await fetch(geminiUrl, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              contents,
+              systemInstruction: {
+                parts: [{ text: systemInstructionText }],
               },
-            } as AIChatResponse)
+              generationConfig: {
+                temperature: 0.25,
+                topK: 40,
+                topP: 0.9,
+                maxOutputTokens: 350,
+              },
+            }),
+            signal: controller.signal,
+          })
+          clearTimeout(timer)
+
+          if (geminiRes.ok) {
+            const geminiData = await geminiRes.json()
+            const candidateText = geminiData?.candidates?.[0]?.content?.parts?.[0]?.text?.trim()
+            if (candidateText && candidateText.length > 20) {
+              // Quality gate: reject meta-commentary responses from Gemini
+              const isMetaGarbage =
+                /^(check constraints|format:|note:|here is|i need to|let me|as an ai)/i.test(candidateText) ||
+                candidateText.includes('1-2 paragraphs') ||
+                candidateText.includes('2-3 sentences')
+              if (!isMetaGarbage) {
+                return NextResponse.json({
+                  reply: candidateText,
+                  isF1Related: true,
+                  source: 'gemini',
+                  sources: returnedSources.length > 0 ? returnedSources : undefined,
+                  contextUsed: {
+                    location: context?.currentLocation || context?.location,
+                    currentCar: context?.currentCar,
+                    section: context?.currentSection || context?.section,
+                  },
+                } as AIChatResponse)
+              }
+              console.warn(`[Gemini: ${modelName}] Rejected meta-commentary response:`, candidateText.slice(0, 60))
+            }
           }
+        } catch (geminiErr: any) {
+          console.warn(`[Gemini API: ${modelName}] Request error:`, geminiErr?.message)
         }
-      } catch (geminiErr: any) {
-        console.warn('[Gemini API] Request error or timeout: ', geminiErr?.message)
       }
     }
 
-    // ── Layer 3: Comprehensive Local F1 Knowledge Engine (Offline / Fallback) ──
-    let localAnswer = getLocalF1KnowledgeResponse(prompt, {
+    // ── Layer 3: Direct Web Search Summarization (guaranteed factual answer) ──
+    // If web search returned results, summarize them directly rather than showing a generic knowledge base answer!
+    if (exhibitionSearchResults.length > 0) {
+      const summarizedAnswer = webSearchService.summarizeSearchResults(prompt, exhibitionSearchResults)
+      return NextResponse.json({
+        reply: summarizedAnswer,
+        isF1Related: true,
+        source: 'knowledge_base',
+        sources: returnedSources,
+        contextUsed: {
+          location: context?.currentLocation || context?.location,
+          currentCar: context?.currentCar,
+          section: context?.currentSection || context?.section,
+        },
+      } as AIChatResponse)
+    }
+
+    // ── Layer 4: Offline Local Knowledge Base (only when no external data could be found) ──
+    const localAnswer = getLocalF1KnowledgeResponse(prompt, {
       currentCar: context?.currentCar,
       section: context?.currentSection || context?.section,
       location: context?.currentLocation || context?.location,
       currentLocation: context?.currentLocation,
     })
-
-    // If web search found information during local fallback, append summary snippet
-    if (exhibitionSearchResults.length > 0 && isExhibitionMode) {
-      const topResult = exhibitionSearchResults[0]
-      localAnswer += `\n\nLatest Source [${topResult.domain}]: ${topResult.snippet}`
-    }
 
     return NextResponse.json({
       reply: localAnswer,

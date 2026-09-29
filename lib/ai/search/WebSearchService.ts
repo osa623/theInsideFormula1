@@ -1,6 +1,52 @@
 import { SearchResult, WebSearchProvider } from './types'
 
 /**
+ * Sanitizes and extracts high-signal F1 keywords from user prompts.
+ * Corrects common typos and handles question phrases for precise Wikipedia lookups.
+ */
+export function prepareF1SearchQuery(rawQuery: string): string {
+  let q = rawQuery.toLowerCase()
+
+  // 1. Correct common F1 typographical errors
+  q = q
+    .replace(/\bchmapion\b/g, 'champion')
+    .replace(/\bchampoin\b/g, 'champion')
+    .replace(/\bchampionships?\b/g, 'champion')
+    .replace(/\bcalender\b/g, 'calendar')
+    .replace(/\bgrandprix\b/g, 'grand prix')
+    .replace(/\bferari\b/g, 'ferrari')
+    .replace(/\bmclern\b/g, 'mclaren')
+    .replace(/\bverstapen\b/g, 'verstappen')
+    .replace(/\blewis\s+hamilton\b/g, 'hamilton')
+
+  // 2. Identify year + championship query (e.g. "who is the formula 1 champion in 2016")
+  const yearMatch = q.match(/\b(19\d\d|20\d\d)\b/)
+  const year = yearMatch ? yearMatch[1] : ''
+
+  if (year && (q.includes('champion') || q.includes('winner') || q.includes('title') || q.includes('won'))) {
+    return `${year} Formula One World Championship`
+  }
+
+  // 3. Strip conversational question filler words
+  const stripped = q
+    .replace(
+      /\b(who is|who was|who won|what is|what was|what were|tell me about|can you tell me|which driver|did|the|in|for|of|a|an|about)\b/gi,
+      ' '
+    )
+    .replace(/\s+/g, ' ')
+    .trim()
+
+  if (stripped.length > 2) {
+    if (!stripped.includes('formula') && !stripped.includes('f1')) {
+      return `${stripped} Formula One`
+    }
+    return stripped
+  }
+
+  return rawQuery
+}
+
+/**
  * Wikipedia Search Provider — Uses the MediaWiki API to search for F1-related articles.
  * Free, no API key required, reliable for factual/encyclopedic information.
  */
@@ -8,16 +54,29 @@ class WikipediaProvider implements WebSearchProvider {
   public readonly name = 'Wikipedia'
 
   public isAvailable(): boolean {
-    return true // No API key needed
+    return true
   }
 
   public async search(query: string, maxResults = 3): Promise<SearchResult[]> {
+    const cleanedQuery = prepareF1SearchQuery(query)
+
+    let results = await this.executeWikiSearch(cleanedQuery, maxResults)
+
+    // Fallback: If cleaned query returned 0 results, retry with standard query
+    if (results.length === 0 && cleanedQuery !== query) {
+      results = await this.executeWikiSearch(`${query} Formula One`, maxResults)
+    }
+
+    return results
+  }
+
+  private async executeWikiSearch(searchQuery: string, maxResults: number): Promise<SearchResult[]> {
     const controller = new AbortController()
     const timer = setTimeout(() => controller.abort(), 4000)
 
     try {
       const url = `https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(
-        query + ' Formula One'
+        searchQuery
       )}&format=json&utf8=1&srlimit=${maxResults}`
 
       const res = await fetch(url, {
@@ -68,8 +127,9 @@ class DuckDuckGoProvider implements WebSearchProvider {
     const timer = setTimeout(() => controller.abort(), 3500)
 
     try {
+      const cleaned = prepareF1SearchQuery(query)
       const url = `https://api.duckduckgo.com/?q=${encodeURIComponent(
-        query + ' Formula 1'
+        cleaned
       )}&format=json&no_html=1&skip_disambig=1`
 
       const res = await fetch(url, { signal: controller.signal })
@@ -112,7 +172,6 @@ class DuckDuckGoProvider implements WebSearchProvider {
 
 /**
  * Google Custom Search Provider — Requires SEARCH_API_KEY and SEARCH_ENGINE_ID env vars.
- * Delivers highest-quality, most current web search results.
  */
 class GoogleCustomSearchProvider implements WebSearchProvider {
   public readonly name = 'Google'
@@ -135,8 +194,9 @@ class GoogleCustomSearchProvider implements WebSearchProvider {
     try {
       const apiKey = process.env.SEARCH_API_KEY!
       const cx = process.env.SEARCH_ENGINE_ID!
-      const url = `https://www.googleapis.com/customsearch/v1?key=${apiKey}&cx=${cx}&q=${encodeURIComponent(
-        query + ' Formula 1'
+      const cleaned = prepareF1SearchQuery(query)
+      const url = `https://googleapis.com/customsearch/v1?key=${apiKey}&cx=${cx}&q=${encodeURIComponent(
+        cleaned
       )}&num=${maxResults}`
 
       const res = await fetch(url, { signal: controller.signal })
@@ -167,8 +227,6 @@ class GoogleCustomSearchProvider implements WebSearchProvider {
 
 /**
  * WebSearchService — Aggregated search service combining multiple providers.
- * Prioritizes Google Custom Search (if configured), then Wikipedia + DuckDuckGo.
- * All calls are server-side only. Never exposes API keys to the client.
  */
 export class WebSearchService {
   private static instance: WebSearchService | null = null
@@ -197,7 +255,6 @@ export class WebSearchService {
     const allResults: SearchResult[] = []
     const seenUrls = new Set<string>()
 
-    // Run all available providers concurrently
     const providerPromises = this.providers
       .filter((p) => p.isAvailable())
       .map(async (provider) => {
@@ -239,6 +296,44 @@ export class WebSearchService {
       .join('\n\n')
 
     return `[LIVE WEB SEARCH RESULTS]\n${formatted}`
+  }
+
+  /**
+   * Deterministically summarizes web search results into a direct, factual answer.
+   * Used when LLM endpoints are unavailable or rate-limited, preventing generic fallbacks.
+   */
+  public summarizeSearchResults(query: string, results: SearchResult[]): string {
+    if (!results.length) {
+      return 'I searched Formula 1 records but could not find a verified answer for that specific question.'
+    }
+
+    // 1. Direct championship parsing (e.g. "Drivers' Champion: Nico Rosberg Constructors' Champion: Mercedes")
+    for (const r of results) {
+      const s = r.snippet
+      const champMatch = s.match(
+        /Drivers'? Champion:\s*([A-Za-z\s\.\-]+?)(?:\s+Constructors'|\s+Previous|\s+Next|$|\.)/i
+      )
+      const constrMatch = s.match(
+        /Constructors'? Champion:\s*([A-Za-z0-9\s\-]+?)(?:\s+Previous|\s+Next|$|\.)/i
+      )
+      const yearMatch = r.title.match(/\b(19\d\d|20\d\d)\b/) || query.match(/\b(19\d\d|20\d\d)\b/)
+
+      if (champMatch) {
+        const driver = champMatch[1].trim()
+        const constructor = constrMatch ? ` driving for ${constrMatch[1].trim()}` : ''
+        const year = yearMatch ? `${yearMatch[1]} ` : ''
+        return `In the ${year}Formula One World Championship, the Drivers' World Champion was ${driver}${constructor}.`
+      }
+    }
+
+    // 2. Extract the highest-signal factual sentences from the top search result
+    const top = results[0]
+    const cleanSnippet = top.snippet
+      .replace(/\s+/g, ' ')
+      .replace(/\[\d+\]/g, '')
+      .trim()
+
+    return `According to official Formula 1 records (${top.title}):\n\n${cleanSnippet}`
   }
 }
 
