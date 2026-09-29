@@ -9,6 +9,7 @@ import {
   ExhibitionTriggerPoint,
 } from './types/exhibition'
 import { CarPlaceholder } from './types/simulation'
+import { sceneLoadingManager } from '@/lib/loading/sceneLoadingManager'
 
 interface ExhibitionHallProps {
   onPlaceholdersFound?: (placeholders: CarPlaceholder[]) => void
@@ -697,6 +698,7 @@ export default function ExhibitionHall({
       obstacleBoxes: parsedData.obstacleBoxes,
       floorY: parsedData.floorY,
     })
+    sceneLoadingManager.notifySceneMounted('Exhibition Hall')
   }, [parsedData, onPlaceholdersFound, onPlayerHeightFound, onExhibitionDataLoaded])
 
   return <primitive object={scene} />

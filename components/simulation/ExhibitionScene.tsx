@@ -22,7 +22,8 @@ import {
 } from './types/exhibition'
 import { useGraphicsQuality } from '@/lib/graphics/useGraphicsQuality'
 import { GraphicsConfig, GraphicsQuality } from '@/lib/graphics/GraphicsManager'
-import { useThree } from '@react-three/fiber'
+import { useThree, useFrame } from '@react-three/fiber'
+import { sceneLoadingManager } from '@/lib/loading/sceneLoadingManager'
 
 // Prerecorded narration audio files for Exhibition Hall cars
 const EXHIBITION_CAR_NARRATION_AUDIO: Record<string, string> = {
@@ -91,6 +92,22 @@ function GraphicsApplier({ config, quality }: { config: GraphicsConfig; quality:
       }
     })
   }, [config, quality, gl, scene, camera])
+
+  return null
+}
+
+function ExhibitionReadyWatcher({ isReady }: { isReady: boolean }) {
+  const hasNotified = useRef(false)
+
+  useFrame(() => {
+    if (isReady && !hasNotified.current) {
+      hasNotified.current = true
+      sceneLoadingManager.notifyPlayerReady()
+      requestAnimationFrame(() => {
+        sceneLoadingManager.notifyFirstFrameRendered()
+      })
+    }
+  })
 
   return null
 }
@@ -529,6 +546,9 @@ export default function ExhibitionScene() {
 
         {/* Camera Zoom to Naming Boards */}
         <CameraController isInspecting={isInspecting} activeBoard={activeBoard} />
+
+        {/* Notifies sceneLoadingManager when 3D scene & player are verified ready */}
+        <ExhibitionReadyWatcher isReady={triggers.length > 0} />
       </Canvas>
     </div>
   )

@@ -19,6 +19,7 @@ export interface AIMessage {
   timestamp: number
   audioText?: string
   source?: 'gemini' | 'openai' | 'knowledge_base' | 'domain_guard'
+  sources?: Array<{ title: string; url: string; domain: string }>
 }
 
 export interface AIChatRequest {
@@ -37,6 +38,7 @@ export interface AIChatResponse {
     section?: string | null
   }
   audioText?: string
+  sources?: Array<{ title: string; url: string; domain: string }>
 }
 
 export interface SmartGuideZone {

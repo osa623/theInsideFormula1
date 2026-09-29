@@ -5,6 +5,7 @@ import { useFrame } from '@react-three/fiber'
 import { useEffect, useMemo } from 'react'
 import { useRef } from 'react'
 import * as THREE from 'three'
+import { sceneLoadingManager } from '@/lib/loading/sceneLoadingManager'
 import {
   CarnivalDestinationId,
   CarnivalEntrance,
@@ -2355,6 +2356,7 @@ export default function CarnivalEnvironment({ onReady }: CarnivalEnvironmentProp
 
   useEffect(() => {
     onReady(metadata)
+    sceneLoadingManager.notifySceneMounted('Carnival')
   }, [metadata, onReady])
 
   return <primitive object={gltf.scene} />

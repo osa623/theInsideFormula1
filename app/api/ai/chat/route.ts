@@ -6,79 +6,36 @@ import {
   resolveLocationQuery,
 } from '@/lib/ai/f1KnowledgeBase'
 import { AIChatRequest, AIChatResponse } from '@/lib/ai/types'
+import { webSearchService } from '@/lib/ai/search/WebSearchService'
+import { searchCache } from '@/lib/ai/search/SearchCache'
+import { SearchResult } from '@/lib/ai/search/types'
 
 /**
- * Searches the live internet for Formula 1 facts, articles, and real-time knowledge.
- * Acts as an online grounding source for Formula 1 queries.
+ * Checks whether an Exhibition Hall inquiry can be answered reliably from local exhibition knowledge.
+ * If true, local context is sufficient. If false, external web search should be triggered.
  */
-async function searchInternetForF1(query: string): Promise<string> {
-  const cleanQ = query.replace(/[?.,!]/g, '').trim()
-  const searchResults: string[] = []
+function isLocalExhibitionKnowledgeSufficient(
+  prompt: string,
+  context?: { currentCar?: string | null }
+): boolean {
+  const p = prompt.toLowerCase()
 
-  // 1. Live Wikipedia Knowledge Search API
-  try {
-    const controller = new AbortController()
-    const timer = setTimeout(() => controller.abort(), 4000)
-    const wikiUrl = `https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(
-      cleanQ + ' Formula One'
-    )}&format=json&utf8=1&srlimit=2`
-
-    const res = await fetch(wikiUrl, {
-      headers: {
-        'User-Agent':
-          'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-      },
-      signal: controller.signal,
-    })
-    clearTimeout(timer)
-
-    if (res.ok) {
-      const data = await res.json()
-      const searchItems = data?.query?.search || []
-      for (const item of searchItems) {
-        if (item.snippet) {
-          const cleanSnippet = item.snippet
-            .replace(/<[^>]+>/g, '')
-            .replace(/&quot;/g, '"')
-            .replace(/&#039;/g, "'")
-            .replace(/&amp;/g, '&')
-            .trim()
-          if (cleanSnippet) {
-            searchResults.push(`${item.title}: ${cleanSnippet}`)
-          }
-        }
-      }
-    }
-  } catch (err: any) {
-    // Graceful fallback if network is restricted
+  // 1. If user is in front of an exhibition car and asking direct spec/driver questions about that car
+  if (context?.currentCar) {
+    const isDirectCarSpecQuery =
+      /\b(this|it|the car|specs?|engine|power|weight|driver|who drove|innovations?|chassis)\b/i.test(p)
+    if (isDirectCarSpecQuery) return true
   }
 
-  // 2. DuckDuckGo Instant Answer API
-  try {
-    const controller = new AbortController()
-    const timer = setTimeout(() => controller.abort(), 3500)
-    const ddgUrl = `https://api.duckduckgo.com/?q=${encodeURIComponent(
-      cleanQ + ' Formula 1'
-    )}&format=json&no_html=1&skip_disambig=1`
+  // 2. Specific questions about the 6 exhibition cars that have full local records
+  const isStaticCarSpec =
+    /\b(mp4|mp4\/6|senna.*car|1991.*mclaren|w11.*engine|w11.*power|das.*steering)\b/i.test(p) &&
+    !/\b(2025|2026|recent|latest|news|contract|transfer|standings|schedule|calendar|race result)\b/i.test(p)
 
-    const res = await fetch(ddgUrl, { signal: controller.signal })
-    clearTimeout(timer)
+  if (isStaticCarSpec) return true
 
-    if (res.ok) {
-      const data = await res.json()
-      if (data.AbstractText) {
-        searchResults.push(data.AbstractText)
-      } else if (data.RelatedTopics && data.RelatedTopics.length > 0) {
-        for (const topic of data.RelatedTopics.slice(0, 2)) {
-          if (topic.Text) searchResults.push(topic.Text)
-        }
-      }
-    }
-  } catch (err: any) {
-    // Graceful fallback
-  }
-
-  return searchResults.join('\n')
+  // 3. Current calendar, live championship standings, recent race results, or modern F1 questions require web search
+  return false
 }
 
 export async function POST(req: NextRequest) {
@@ -93,7 +50,7 @@ export async function POST(req: NextRequest) {
       )
     }
 
-    // ── Layer 1: Intent Classification & Domain Validation ──
+    // ── Layer 1: Intent Classification & F1 Domain Validation ──
     const validation = F1DomainGuard.validate(prompt, context)
     if (!validation.isAllowed) {
       return NextResponse.json({
@@ -119,12 +76,35 @@ export async function POST(req: NextRequest) {
     }
 
     // ── Priority 2: Category B — Formula One Knowledge Queries ──
-    // Search the live internet for Formula 1 information
-    let internetSearchResults = ''
-    try {
-      internetSearchResults = await searchInternetForF1(prompt)
-    } catch {
-      // Non-blocking fallback
+    const isExhibitionMode = context?.mode === 'exhibition'
+    let exhibitionSearchResults: SearchResult[] = []
+    let searchGroundingPrompt = ''
+
+    // FEATURE 1: Web search capability specifically for the Exhibition Hall AI Screen
+    if (isExhibitionMode) {
+      const canUseLocalKnowledge = isLocalExhibitionKnowledgeSufficient(prompt, context)
+
+      if (!canUseLocalKnowledge) {
+        // 1. Check cache first
+        const cached = searchCache.get(prompt)
+        if (cached && cached.length > 0) {
+          exhibitionSearchResults = cached
+        } else {
+          // 2. Perform live web search
+          try {
+            exhibitionSearchResults = await webSearchService.search(prompt, 4)
+            if (exhibitionSearchResults.length > 0) {
+              searchCache.set(prompt, exhibitionSearchResults)
+            }
+          } catch (err: any) {
+            console.warn('[Exhibition WebSearch] Search failed, continuing with local knowledge:', err?.message)
+          }
+        }
+
+        if (exhibitionSearchResults.length > 0) {
+          searchGroundingPrompt = webSearchService.formatForPrompt(exhibitionSearchResults)
+        }
+      }
     }
 
     // Check API Keys (OpenAI preferred or Gemini)
@@ -157,18 +137,32 @@ export async function POST(req: NextRequest) {
       }
     }
 
-    if (internetSearchResults) {
-      contextPromptAddition += `\n[LIVE INTERNET SEARCH RESULTS: ${internetSearchResults}]\n`
+    if (searchGroundingPrompt) {
+      contextPromptAddition += `\n${searchGroundingPrompt}\n`
     }
 
-    const systemInstructionText =
-      'You are the official Formula 1 Smart Guide for "The Inside Formula One". ' +
-      'Answer questions exclusively about Formula 1, motorsport history, engineering, technical regulations, circuits, drivers, teams, and racing cars. ' +
-      'Use the provided live internet search results and knowledge to give up-to-date, factually accurate answers. ' +
-      'Keep answers concise, factual, and easy to read on a mobile phone interface using short paragraphs. ' +
-      'CRITICAL RULE: The user question is the primary intent. NEVER replace an F1 answer with a location description. For example, if the user asks "Who is Lewis Hamilton?" or "What engine did the W11 use?", answer that question directly—do NOT describe their physical location in the carnival. ' +
-      'STRICT RULE: Reject all unrelated non-F1 queries with: "That question is outside my scope. I can help you with Formula One information or guide you around this experience." ' +
-      contextPromptAddition
+    const systemInstructionText = isExhibitionMode
+      ? 'You are the official Formula 1 Exhibition AI Terminal. ' +
+        'Answer technical, historical, and current Formula 1 inquiries with high factual precision. ' +
+        (searchGroundingPrompt
+          ? 'Use the provided verified web search results to answer accurately. When citing external information, mention the source name concisely. '
+          : '') +
+        'Keep answers concise, clear, and structured for an exhibition touchscreen display. ' +
+        'STRICT RULE: Reject all unrelated non-F1 queries with: "That question is outside my scope. I can help you with Formula One information or guide you around this experience." ' +
+        contextPromptAddition
+      : 'You are the official Formula 1 Smart Guide for "The Inside Formula One". ' +
+        'Answer questions exclusively about Formula 1, motorsport history, engineering, technical regulations, circuits, drivers, teams, and racing cars. ' +
+        'Keep answers concise, factual, and easy to read on a mobile phone interface using short paragraphs. ' +
+        'CRITICAL RULE: The user question is the primary intent. NEVER replace an F1 answer with a location description. ' +
+        'STRICT RULE: Reject all unrelated non-F1 queries with: "That question is outside my scope. I can help you with Formula One information or guide you around this experience." ' +
+        contextPromptAddition
+
+    // Format sources to return to client if web search was used
+    const returnedSources = exhibitionSearchResults.map((r) => ({
+      title: r.title,
+      url: r.url,
+      domain: r.domain,
+    }))
 
     // ── Attempt OpenAI API Integration ──
     if (isOpenAiConfigured) {
@@ -215,6 +209,7 @@ export async function POST(req: NextRequest) {
               reply: candidateText,
               isF1Related: true,
               source: 'openai',
+              sources: returnedSources.length > 0 ? returnedSources : undefined,
               contextUsed: {
                 location: context?.currentLocation || context?.location,
                 currentCar: context?.currentCar,
@@ -222,15 +217,13 @@ export async function POST(req: NextRequest) {
               },
             } as AIChatResponse)
           }
-        } else {
-          console.warn(`[OpenAI API] Returned HTTP ${openaiRes.status}`)
         }
       } catch (openAiErr: any) {
         console.warn('[OpenAI API] Request error or timeout: ', openAiErr?.message)
       }
     }
 
-    // ── Attempt Gemini API Integration with Live Search Grounding ──
+    // ── Attempt Gemini API Integration ──
     if (isGeminiConfigured) {
       try {
         const contents: Array<{ role: string; parts: Array<{ text: string }> }> = []
@@ -249,7 +242,6 @@ export async function POST(req: NextRequest) {
           parts: [{ text: prompt }],
         })
 
-        // Supported Gemini model with Google Search grounding
         const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent?key=${geminiApiKey}`
 
         const controller = new AbortController()
@@ -263,7 +255,6 @@ export async function POST(req: NextRequest) {
             systemInstruction: {
               parts: [{ text: systemInstructionText }],
             },
-            tools: [{ googleSearch: {} }],
             generationConfig: {
               temperature: 0.35,
               topK: 40,
@@ -283,6 +274,7 @@ export async function POST(req: NextRequest) {
               reply: candidateText,
               isF1Related: true,
               source: 'gemini',
+              sources: returnedSources.length > 0 ? returnedSources : undefined,
               contextUsed: {
                 location: context?.currentLocation || context?.location,
                 currentCar: context?.currentCar,
@@ -290,26 +282,31 @@ export async function POST(req: NextRequest) {
               },
             } as AIChatResponse)
           }
-        } else {
-          console.warn(`[Gemini API] Returned HTTP ${geminiRes.status}`)
         }
       } catch (geminiErr: any) {
         console.warn('[Gemini API] Request error or timeout: ', geminiErr?.message)
       }
     }
 
-    // ── Layer 3: Comprehensive Local F1 Knowledge Engine + Internet Search Grounding ──
-    const localAnswer = getLocalF1KnowledgeResponse(prompt, {
+    // ── Layer 3: Comprehensive Local F1 Knowledge Engine (Offline / Fallback) ──
+    let localAnswer = getLocalF1KnowledgeResponse(prompt, {
       currentCar: context?.currentCar,
       section: context?.currentSection || context?.section,
       location: context?.currentLocation || context?.location,
       currentLocation: context?.currentLocation,
     })
 
+    // If web search found information during local fallback, append summary snippet
+    if (exhibitionSearchResults.length > 0 && isExhibitionMode) {
+      const topResult = exhibitionSearchResults[0]
+      localAnswer += `\n\nLatest Source [${topResult.domain}]: ${topResult.snippet}`
+    }
+
     return NextResponse.json({
       reply: localAnswer,
       isF1Related: true,
       source: 'knowledge_base',
+      sources: returnedSources.length > 0 ? returnedSources : undefined,
       contextUsed: {
         location: context?.currentLocation || context?.location,
         currentCar: context?.currentCar,

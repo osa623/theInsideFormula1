@@ -4,6 +4,7 @@ import { usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { Loader } from '@/components/f1/loader'
 import { LanguageProvider } from '@/lib/language-context'
+import { sceneLoadingManager } from '@/lib/loading/sceneLoadingManager'
 
 function GlobalLoaderShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
@@ -13,6 +14,8 @@ function GlobalLoaderShell({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     setLoaded(false)
     setActivePath(pathname)
+    const is3D = pathname === '/simulation' || pathname === '/carnival'
+    sceneLoadingManager.startRoute(is3D)
   }, [pathname])
 
   useEffect(() => {

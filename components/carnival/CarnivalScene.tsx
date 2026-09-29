@@ -38,6 +38,7 @@ import { ttsService } from '@/lib/ai/ttsService'
 import { CARNIVAL_ZONES_KNOWLEDGE } from '@/lib/ai/f1KnowledgeBase'
 import { SmartGuideZone } from '@/lib/ai/types'
 import { CarnivalLocationState } from '@/lib/ai/carnivalLocations'
+import { sceneLoadingManager } from '@/lib/loading/sceneLoadingManager'
 
 function CarnivalLighting({ config }: { config: GraphicsConfig }) {
   const lightRef = useRef<THREE.DirectionalLight>(null)
@@ -210,6 +211,22 @@ function AdaptiveResolution({ config, quality }: { config: GraphicsConfig; quali
       } else if (avgDt < 16.0 && currentDpr < config.dprMax) {
         gl.setPixelRatio(Math.min(config.dprMax, +(currentDpr + 0.02).toFixed(2)))
       }
+    }
+  })
+
+  return null
+}
+
+function CarnivalReadyWatcher({ isReady }: { isReady: boolean }) {
+  const hasNotified = useRef(false)
+
+  useFrame(() => {
+    if (isReady && !hasNotified.current) {
+      hasNotified.current = true
+      sceneLoadingManager.notifyPlayerReady()
+      requestAnimationFrame(() => {
+        sceneLoadingManager.notifyFirstFrameRendered()
+      })
     }
   })
 
@@ -771,6 +788,9 @@ export default function CarnivalScene() {
 
         {/* Smart Guide Phone 3D (first-person held device) */}
         <CarnivalPhone3D isOpen={isPhoneOpen} activeZone={activeSmartZone} currentLocation={liveLocation.location} />
+
+        {/* Notifies sceneLoadingManager when Carnival scene & player are verified ready */}
+        <CarnivalReadyWatcher isReady={!!metadata} />
       </Canvas>
 
       <CarnivalHUD
