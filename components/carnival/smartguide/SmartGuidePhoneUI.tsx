@@ -111,7 +111,7 @@ export default function SmartGuidePhoneUI({
           'Where am I right now?',
           'What is an F1 monocoque made of?',
           'How does the Halo protect F1 drivers?',
-          'What crash tests does the FIA mandate?',
+          'What crash tests does the Formula One safety program mandate?',
         ]
       }
       if (sec === 'tracks') {
@@ -125,7 +125,7 @@ export default function SmartGuidePhoneUI({
       if (sec === 'formula' || sec === 'formula-franchise') {
         return [
           'Where am I right now?',
-          'How does a driver earn an FIA Superlicense?',
+          'How does a driver earn a Formula One Superlicense?',
           'What is the difference between F2 and F1?',
           'What are the new 2026 engine regulations?',
         ]

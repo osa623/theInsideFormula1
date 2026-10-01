@@ -51,7 +51,7 @@ explodeVector: [0, 0.5, 1.2]
   material: 'Carbon Fibre Composite with Zylon Anti-Intrusion Panels',
   purpose: 'Absorbs frontal crash energy and supports front aerodynamic structures.',
   description:
-    'The nose cone is an FIA crash-tested structure designed to protect the driver while providing aerodynamic airflow guidance toward the floor.',
+    'The nose cone is a crash-tested structure designed to protect the driver while providing aerodynamic airflow guidance toward the floor.',
   technicalDetails: {
     weight: 'Approx 45 kg including survival cell integration',
     materialSpec: 'Carbon fibre Nomex honeycomb structure',
@@ -185,7 +185,7 @@ defaultOffset: {
   purpose:
     'Reduces aerodynamic drag to increase straight-line speed.',
   description:
-    'A movable rear wing flap activated under FIA regulations to reduce drag on designated track sections.',
+    'A movable rear wing flap activated under official regulations to reduce drag on designated track sections.',
   technicalDetails: {
     performance: '+10-15 km/h straight-line advantage',
     weight: 'Hydraulic mechanism included',
@@ -231,7 +231,7 @@ explodeVector: [0, 1, 0]
   description:
     'The central structural component of the F1 car where the cockpit, suspension and power unit connect.',
   technicalDetails: {
-    weight: '45 kg minimum FIA structure',
+    weight: '45 kg minimum structure',
     materialSpec: 'Carbon composite sandwich structure',
     efficiency: 'Extreme crash protection'
   },
@@ -253,7 +253,7 @@ explodeVector: [0, 0, 0]
     'A highly efficient Formula 1 power unit consisting of a 1.6L turbocharged V6 internal combustion engine combined with electric motor systems.',
   technicalDetails: {
     performance: '1000+ horsepower combined output',
-    weight: 'Minimum FIA regulated mass',
+    weight: 'Minimum regulated mass',
     materialSpec: 'High temperature aerospace alloys',
     efficiency: '>50% thermal efficiency'
   },
@@ -343,7 +343,7 @@ explodeVector: [0, 0.8, -1]
     'The ECU manages thousands of parameters including fuel injection, energy recovery and engine performance.',
   technicalDetails: {
     efficiency: 'Real-time vehicle control',
-    materialSpec: 'FIA standard electronics package'
+    materialSpec: 'standard electronics package'
   },
 defaultOffset: {
   cameraPosition: [-2, 2, 1],
@@ -667,7 +667,7 @@ explodeVector:[1.5,0,1]
     'The cockpit integrates steering wheel controls, seat, safety systems and driver interfaces.',
   technicalDetails: {
     materialSpec: 'Carbon fibre survival cell',
-    efficiency: 'FIA safety compliant'
+    efficiency: 'Safety compliant'
   },
 defaultOffset:{
  cameraPosition:[0,2.5,3],
@@ -767,7 +767,7 @@ explodeVector:[0,1,0]
  material:'Carbon Fibre Survival Cell',
  purpose:'Driver protection and vehicle control interface.',
  description:
- 'The cockpit contains the driver seating position, steering system and FIA safety structures.',
+ 'The cockpit contains the driver seating position, steering system and safety structures.',
  technicalDetails:{
    materialSpec:'Carbon fibre monocoque'
  },
@@ -805,7 +805,7 @@ explodeVector:[0,1,0]
  material:'LED High Intensity Light',
  purpose:'Improves visibility in wet race conditions.',
  description:
- 'FIA mandated rear flashing light used during rain and low visibility races.',
+ 'Mandatory rear flashing light used during rain and low visibility races.',
  technicalDetails:{
    efficiency:'High brightness LED'
  },

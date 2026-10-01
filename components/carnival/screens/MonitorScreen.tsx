@@ -125,7 +125,7 @@ export default function MonitorScreen({
             <div className="flex items-center gap-3">
               <span className="w-2.5 h-2.5 bg-[#e10600] animate-pulse inline-block" />
               <span className="text-xs font-bold tracking-widest text-[#00d2be]">
-                FIA TELEMETRY KIOSK // K-01
+                TELEMETRY KIOSK // K-01
               </span>
             </div>
             <div className="flex items-center gap-4 text-[11px] text-[#758292]">
@@ -264,7 +264,7 @@ export default function MonitorScreen({
           {/* Bottom Telemetry Ticker */}
           <div className="flex items-center justify-between text-[10px] text-[#525f70] border-t border-[#181d24] pt-2">
             <span>TERMINAL ID: 2026-F1-MONITOR</span>
-            <span>DATA ENCRYPTION: FIA-AES256</span>
+            <span>DATA ENCRYPTION: AES256</span>
             <span>STATUS: ACTIVE ONLINE</span>
           </div>
         </div>

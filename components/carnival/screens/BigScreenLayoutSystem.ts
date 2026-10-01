@@ -155,7 +155,7 @@ export class BigScreenLayoutSystem {
       { id: 'progress', label: '05 // SEASON PROGRESS' },
     ]
 
-    this.drawHeader(ctx, 'FIA FORMULA 1 WORLD CHAMPIONSHIP // OFFICIAL RACE CALENDAR', tabs, scene)
+    this.drawHeader(ctx, 'FORMULA 1 WORLD CHAMPIONSHIP // OFFICIAL RACE CALENDAR', tabs, scene)
 
     if (scene === 'calendar') {
       this.renderMasterCalendarJourney(ctx, allRaces, nextRace)
@@ -219,7 +219,7 @@ export class BigScreenLayoutSystem {
 
     ctx.fillStyle = '#7a8c9e'
     ctx.font = 'bold 11px monospace'
-    ctx.fillText('GLOBAL RACING TOUR // FIA WORLD CHAMPIONSHIP', leftX + 16, leftY + 424)
+    ctx.fillText('GLOBAL RACING TOUR // WORLD CHAMPIONSHIP', leftX + 16, leftY + 424)
     ctx.fillStyle = '#ffffff'
     ctx.font = '900 20px "Arial Black", sans-serif'
     ctx.fillText(`${totalRounds} GRANDS PRIX // OFFICIAL CALENDAR`, leftX + 16, leftY + 448)
@@ -873,7 +873,7 @@ export class BigScreenLayoutSystem {
       { id: 'journey', label: '05 // TIMELINE' },
     ]
 
-    const titleText = latestRace ? `LATEST GP: ${latestRace.name.toUpperCase()} (P1: ${latestRace.winner.toUpperCase()})` : 'FIA FORMULA 1 WORLD CHAMPIONSHIP'
+    const titleText = latestRace ? `LATEST GP: ${latestRace.name.toUpperCase()} (P1: ${latestRace.winner.toUpperCase()})` : 'FORMULA 1 WORLD CHAMPIONSHIP'
     this.drawHeader(ctx, `LIVE TELEMETRY // ${titleText}`, tabs, scene)
     this.renderMasterCalendarJourney(ctx, allRaces, nextRace)
     this.drawFooter(ctx, 'Big_Screen2', 'CIRCUIT TELEMETRY & WORLD CHAMPIONSHIP ROADMAP')

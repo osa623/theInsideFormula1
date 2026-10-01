@@ -197,14 +197,14 @@ export const CARNIVAL_ZONES_KNOWLEDGE: Record<string, SmartGuideZone> = {
     bullets: [
       'Autoclave-cured carbon fiber and Kevlar anti-intrusion panels',
       'Titanium Halo supports 120 kN (equivalent to 12 metric tonnes)',
-      'Front Impact Structure (FIAS) provides controlled crash deceleration',
+      'Front impact structure provides controlled crash deceleration',
       'Minimum complete car weight regulation strictly maintained at 798 kg',
     ],
     suggestedQuestions: [
       'What is an F1 monocoque made of?',
       'How does the Halo protect Formula 1 drivers?',
       'How heavy is a modern Formula 1 chassis?',
-      'What crash tests does the FIA mandate for F1 cars?',
+      'What crash tests does the Formula One safety program mandate for F1 cars?',
     ],
     accentColor: '#00d2be',
   },
@@ -239,17 +239,17 @@ export const CARNIVAL_ZONES_KNOWLEDGE: Record<string, SmartGuideZone> = {
     subtitle: 'The Single-Seater Pyramid from Karting to Formula 1',
     eyebrow: 'EDUCATIONAL ZONE // SYMBOL 001',
     description:
-      'The ladder to motorsport glory. Explore the FIA progression ladder from Karting to Formula 4, Formula Regional, Formula 3, Formula 2, and the pinnacle Formula 1. Discover the FIA Superlicense point system and financial cost cap rules.',
+      'The ladder to motorsport glory. Explore the progression ladder from Karting to Formula 4, Formula Regional, Formula 3, Formula 2, and the pinnacle Formula 1. Discover the Formula One Superlicense point system and financial cost cap rules.',
     audioNarration:
-      'Welcome to the Formula Racing Ecosystem station. To reach Formula One, young drivers climb the FIA ladder through Formula Four, Formula Three, and Formula Two, accumulating forty Superlicense points across three seasons to earn the right to race at the pinnacle.',
+      'Welcome to the Formula Racing Ecosystem station. To reach Formula One, young drivers climb the Formula ladder through Formula Four, Formula Three, and Formula Two, accumulating forty Superlicense points across three seasons to earn the right to race at the pinnacle.',
     bullets: [
-      'FIA Superlicense requires 40 points accumulated over 3 seasons',
+      'Formula One Superlicense requires 40 points accumulated over 3 seasons',
       'Formula 2 feeder series features spec 620 HP Mechachrome V6 turbo cars',
       'Formula 1 budget cost cap introduced to promote competitive parity',
       '2026 Engine regulations split hybrid power 50% ICE and 50% Electric',
     ],
     suggestedQuestions: [
-      'How does a driver earn an FIA Superlicense for Formula 1?',
+      'How does a driver earn a Formula One Superlicense for Formula 1?',
       'What is the difference between Formula 2 and Formula 1 cars?',
       'What are the new 2026 Formula 1 engine regulations?',
       'What is the Formula 1 budget cost cap?',
@@ -299,7 +299,7 @@ export const CARNIVAL_ZONES_KNOWLEDGE: Record<string, SmartGuideZone> = {
     suggestedQuestions: [
       'What do all the F1 racing flags mean?',
       'What is the 107% qualifying rule in Formula 1?',
-      'How does the FIA safety car restart protocol work?',
+      'How does the safety car restart protocol work?',
       'What are the penalties for exceeding track limits?',
     ],
     accentColor: '#a78bfa',
@@ -357,7 +357,7 @@ export const CARNIVAL_ZONES_KNOWLEDGE: Record<string, SmartGuideZone> = {
     description:
       'The technical heart of the Carnival. Features four dedicated interactive technology stations (Tyres, Chassis, Circuits, Formula Ecosystem), historic race displays, and technical circuit maps.',
     audioNarration:
-      'Welcome to the Educational Zone. Walk up to any of the four technology stations to inspect tyre compounds, chassis engineering, circuit topography, and the FIA Formula ladder.',
+      'Welcome to the Educational Zone. Walk up to any of the four technology stations to inspect tyre compounds, chassis engineering, circuit topography, and the Formula ladder.',
     bullets: [
       'Four dedicated technical stations (Symbols 001 - 004)',
       'Display F1 cars and aero packages',
@@ -459,7 +459,7 @@ export function resolveLocationQuery(
     return 'The Championship Section is located in the Second Main Area. Walk through the main pathway archway into the Second Main Area to explore displays commemorating Formula 1 World Champions from 2000 through 2025.'
   }
   if (/\b(educational\s+zone|education\s+zone)\b/i.test(p)) {
-    return 'The Formula 1 Educational Zone is located directly along the main thoroughfare. It features interactive technical stations covering Tyres, Chassis Engineering, Circuit Topography, and the FIA Formula ladder.'
+    return 'The Formula 1 Educational Zone is located directly along the main thoroughfare. It features interactive technical stations covering Tyres, Chassis Engineering, Circuit Topography, and the Formula ladder.'
   }
   if (/\b(exhibition\s+hall|exhibition|museum)\b/i.test(p)) {
     return 'The Formula 1 Exhibition Hall is located near the start of the Carnival. Head towards the large glass building with the "Formula 1 Exhibition" signage and press [E] at the entrance to step inside.'
@@ -528,13 +528,13 @@ export function resolveLocationQuery(
       return 'You are currently in the Formula 1 Tyres section of the Educational Zone. Here you can explore Pirelli tyre compound chemistry, thermal operating windows, contact patch mechanics, and pit stop tyre strategy.'
     }
     if (sec === 'chassis' || trig === 'symmbol.003') {
-      return 'You are currently in the Formula 1 Chassis section of the Educational Zone. This exhibit covers aerospace-grade carbon fiber monocoque safety cells, titanium Halo impact resistance, and FIA crash load dissipation.'
+      return 'You are currently in the Formula 1 Chassis section of the Educational Zone. This exhibit covers aerospace-grade carbon fiber monocoque safety cells, titanium Halo impact resistance, and crash load dissipation.'
     }
     if (sec === 'tracks' || trig === 'symmbol.002') {
       return 'You are currently in the Circuit Technology section of the Educational Zone, studying racing asphalt topography, kerb profiles, DRS zone placement, and high-downforce vs low-drag aerodynamic setups.'
     }
     if (sec === 'formula' || sec === 'formula-franchise' || trig === 'symmbol.001') {
-      return 'You are currently in the Formula Racing Ecosystem section of the Educational Zone, detailing the single-seater progression ladder from Karting to F4, F3, F2, and Formula 1, along with the FIA Superlicense point system and financial cost cap rules.'
+      return 'You are currently in the Formula Racing Ecosystem section of the Educational Zone, detailing the single-seater progression ladder from Karting to F4, F3, F2, and Formula 1, along with the Formula One Superlicense point system and financial cost cap rules.'
     }
     return 'You are currently in the Educational Zone of the Formula 1 Carnival. Here you can explore four dedicated technical stations (Tyres, Chassis, Circuits, and Formula Ecosystem), view display cars, and inspect circuit telemetry.'
   }
@@ -716,11 +716,11 @@ export function getLocalF1KnowledgeResponse(
 
   // ── 7. General F1 Knowledge ──
   if (p.includes('what is formula 1') || p.includes('what is f1') || p.includes('what is formula one')) {
-    return 'Formula 1 is the highest class of international single-seater open-wheel auto racing sanctioned by the FIA. Teams engineer proprietary racing machines under stringent aerodynamic and hybrid powertrain regulations, competing worldwide across Grands Prix for the Drivers and Constructors World Championships.'
+    return 'Formula 1 is the highest class of international single-seater open-wheel auto racing. Teams engineer proprietary racing machines under stringent aerodynamic and hybrid powertrain regulations, competing worldwide across Grands Prix for the Drivers and Constructors World Championships.'
   }
 
   if (p.includes('difference between f1 and f2') || (p.includes('f1') && p.includes('f2'))) {
-    return 'Formula 1 is a premier constructor championship where teams design and build their own bespoke 1,000+ HP hybrid cars. Formula 2 is a spec feeder series where all drivers compete in identical Dallara chassis and Mecachrome engines, highlighting raw driver skill to earn the FIA Superlicense needed to enter F1.'
+    return 'Formula 1 is a premier constructor championship where teams design and build their own bespoke 1,000+ HP hybrid cars. Formula 2 is a spec feeder series where all drivers compete in identical Dallara chassis and Mecachrome engines, highlighting raw driver skill to earn the Formula One Superlicense needed to enter F1.'
   }
 
   if (p.includes('how many teams') || p.includes('number of teams')) {

@@ -115,7 +115,7 @@ export default function LargeDriverHistoryScreen({ anchor }: LargeDriverHistoryS
             <div className="flex items-center gap-4">
               <span className="w-3.5 h-3.5 bg-[#e10600] animate-pulse inline-block" />
               <span className="text-base font-black tracking-widest text-white">
-                FIA FORMULA 1 HISTORICAL & TECHNICAL DATABASE // 2026 ARCHIVE
+                FORMULA 1 HISTORICAL & TECHNICAL DATABASE // 2026 ARCHIVE
               </span>
             </div>
 
@@ -261,7 +261,7 @@ export default function LargeDriverHistoryScreen({ anchor }: LargeDriverHistoryS
                       <div className="border-l-2 border-[#ffb800] pl-3">
                         <span className="text-xs text-[#6e7e90] block">Status</span>
                         <span className="text-xs font-black text-[#00d2be] uppercase pt-1 block">
-                          ACTIVE FIA SUPERLICENSE
+                          ACTIVE SUPERLICENSE
                         </span>
                       </div>
                     </div>
@@ -401,7 +401,7 @@ export default function LargeDriverHistoryScreen({ anchor }: LargeDriverHistoryS
           <div className="f1-header-bar px-6 py-2 text-[11px] text-[#647486] flex items-center justify-between">
             <span>OFFICIAL DATABASE QUERY: OK</span>
             <span>DISPLAY CYCLE: {(SCREEN_CONFIG.large.sceneInterval / 1000).toFixed(1)}S INTERVAL // AUTOMATED PRESENTATION</span>
-            <span>FIA ARCHIVES VERIFIED</span>
+            <span>ARCHIVES VERIFIED</span>
           </div>
         </div>
       </Html>

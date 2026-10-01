@@ -108,7 +108,7 @@ export default function InsideScreen2Controller({
             <div className="flex items-center gap-4">
               <span className="w-3 h-3 bg-[#00d2be] animate-pulse inline-block" />
               <span className="text-sm font-black tracking-widest text-white">
-                FIA FORMULA 1 DRIVER ARCHIVE // 2026 GRID PROFILES & CAREER METRICS
+                FORMULA 1 DRIVER ARCHIVE // 2026 GRID PROFILES & CAREER METRICS
               </span>
               <span className="text-xs px-2 py-0.5 bg-[#182029] border border-[#2b3747] text-[#00d2be] font-bold">
                 DRIVER INTELLIGENCE
@@ -189,7 +189,7 @@ export default function InsideScreen2Controller({
                     {activeDriver.name}
                   </h1>
                   <p className="text-xs text-[#9eb1c4] leading-relaxed">
-                    Competing for {activeDriver.team} in the 2026 FIA Formula 1 World Championship.
+                    Competing for {activeDriver.team} in the 2026 Formula 1 World Championship.
                     Currently holding Position {activeDriver.season2026.position} in the Driver Standings
                     with {activeDriver.season2026.points} Championship Points.
                   </p>
@@ -226,7 +226,7 @@ export default function InsideScreen2Controller({
                     {activeDriver.team}
                   </div>
                   <div className="mt-3 pt-3 border-t border-[#1f2835] w-full text-[11px] text-[#6f8092]">
-                    RACING LICENSE: FIA SUPER LICENSE A1
+                    R
                   </div>
                 </div>
               </div>
@@ -296,7 +296,7 @@ export default function InsideScreen2Controller({
                   <div className="bg-[#121822] border border-[#243142] p-4 rounded text-center">
                     <div className="text-[11px] text-[#718294] font-bold">WORLD TITLES</div>
                     <div className="text-3xl font-black text-[#ffb800] pt-1">{activeDriver.career.championships}</div>
-                    <div className="text-[10px] text-[#556677] pt-1">FIA WDC TITLES</div>
+                    <div className="text-[10px] text-[#556677] pt-1">WDC TITLES</div>
                   </div>
                   <div className="bg-[#121822] border border-[#243142] p-4 rounded text-center">
                     <div className="text-[11px] text-[#718294] font-bold">CAREER STARTS</div>
@@ -321,7 +321,7 @@ export default function InsideScreen2Controller({
                 </div>
 
                 <div className="flex items-center justify-between text-xs text-[#6e7e90] border-t border-[#1a2029] pt-2 px-2">
-                  <span>HISTORICAL RECOGNITION: FIA FORMULA 1 WORLD CHAMPIONSHIP HALL OF RECORDS</span>
+                  <span>HISTORICAL RECOGNITION: FORMULA 1 WORLD CHAMPIONSHIP HALL OF RECORDS</span>
                   <span>WIN PERCENTAGE: {activeDriver.career.starts > 0 ? Math.round((activeDriver.career.wins / activeDriver.career.starts) * 100) : 0}%</span>
                 </div>
               </div>
@@ -348,7 +348,7 @@ export default function InsideScreen2Controller({
                 </div>
 
                 <div className="flex items-center justify-between text-xs text-[#6e7e90] border-t border-[#1a2029] pt-2 px-2">
-                  <span>CAREER ACCREDITATION: MOTORSPORT UK & FIA SUPER LICENSE</span>
+                  <span>CAREER ACCREDITATION: MOTORSPORT UK & SUPER LICENSE</span>
                   <span>VERIFIED RECORD // 2026 ARCHIVE</span>
                 </div>
               </div>

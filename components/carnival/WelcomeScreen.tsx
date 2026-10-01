@@ -71,9 +71,9 @@ const SCENARIOS: WelcomeScenario[] = [
     title: 'INTERACTIVE ARENA & QUIZ',
     subtitle: 'COMPETITION, KIOSKS & GAMING',
     description:
-      'Test your technical motorsport acumen at the 40-question FIA certification kiosks, challenge simulation reaction stations, and discover interactive exhibits.',
+      'Test your technical motorsport acumen at the 40-question FORMULA certification kiosks, challenge simulation reaction stations, and discover interactive exhibits.',
     image: '/images/Welcome_images/loading4.png',
-    tags: ['40-QUESTION EXAM', 'SIMULATION MINIGAMES', 'FIA TELEMETRY KIOSK'],
+    tags: ['40-QUESTION EXAM', 'SIMULATION MINIGAMES', 'FORMULA TELEMETRY KIOSK'],
     animationVariant: {
       initial: { scale: 1.14, x: '2.5%', y: '1%' },
       animate: { scale: [1.14, 1.06], x: ['2.5%', '-2.5%'], y: ['1%', '-1%'] },
@@ -260,7 +260,7 @@ export default function WelcomeScreen({ isOpen, onEnter }: WelcomeScreenProps) {
             <div className="hidden h-6 w-px bg-white/20 sm:block" />
             <div className="hidden flex-col sm:flex">
               <span className="font-mono text-[10px] font-bold uppercase tracking-[0.35em] text-[#00d2be]">
-                FIA TECHNICAL EXHIBITION
+                FORMULA TECHNICAL EXHIBITION
               </span>
               <span className="font-mono text-[9px] uppercase tracking-[0.25em] text-white/50">
                 THE INSIDE FORMULA ONE // IMMERSIVE WORLD

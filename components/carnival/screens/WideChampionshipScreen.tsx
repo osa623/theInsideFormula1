@@ -93,7 +93,7 @@ export default function WideChampionshipScreen({ anchor }: WideChampionshipScree
             <div className="flex items-center gap-4">
               <span className="w-3 h-3 bg-[#e10600] animate-pulse inline-block" />
               <span className="text-sm font-black tracking-widest text-white">
-                FIA FORMULA 1 WORLD CHAMPIONSHIP // 2026 OFFICIAL TELEMETRY BROADCAST
+                FORMULA 1 WORLD CHAMPIONSHIP // 2026 OFFICIAL TELEMETRY BROADCAST
               </span>
             </div>
 
@@ -402,7 +402,7 @@ export default function WideChampionshipScreen({ anchor }: WideChampionshipScree
                       </div>
                     ))}
                   </div>
-                  <div className="text-[10px] text-[#556577] text-right">VERIFIED FIA TELEMETRY DATA</div>
+                  <div className="text-[10px] text-[#556577] text-right">VERIFIED TELEMETRY DATA</div>
                 </div>
               </div>
             )}

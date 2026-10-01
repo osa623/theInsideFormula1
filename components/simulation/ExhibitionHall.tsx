@@ -496,7 +496,7 @@ export default function ExhibitionHall({
                 ctx.fillStyle = 'rgba(0, 229, 255, 0.75)'
                 ctx.fillText('OBSERVATION TOUR RUNNING // HIGH-FIDELITY SPEECH REPLAY ENABLED // 6 EXHIBITS', 52, 920)
                 ctx.fillStyle = 'rgba(0, 229, 255, 0.5)'
-                ctx.fillText('FIA TECHNICAL ARCHIVE // REAL-TIME AI GUIDANCE', 52, 946)
+                ctx.fillText('TECHNICAL ARCHIVE // REAL-TIME AI GUIDANCE', 52, 946)
               } else {
                 // ════════════════════════════════════════════════════════════════
                 // ── NORMAL MODE: CLASSIC F1 RED RACING TERMINAL DESIGN

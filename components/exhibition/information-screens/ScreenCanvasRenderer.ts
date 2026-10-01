@@ -244,7 +244,7 @@ function drawAtmosphericBackground(ctx: CanvasRenderingContext2D, width: number,
   // Technical coordinate labels
   ctx.font = '700 11px monospace'
   ctx.fillStyle = 'rgba(255, 255, 255, 0.35)'
-  ctx.fillText('FIA TECH REG // 2026 ARCHIVE', 30, 26)
+  ctx.fillText('TECH REG // 2026 ARCHIVE', 30, 26)
   ctx.fillText('COORD [1920x1080] // CALIBRATED', width - 260, 26)
   ctx.restore()
 }
@@ -434,7 +434,7 @@ function drawDomainWatermark(
 
     ctx.font = '700 12px monospace'
     ctx.fillStyle = 'rgba(244, 6, 18, 0.35)'
-    ctx.fillText('FIA PATHWAY: F4 » F1', cx, cy + 88)
+    ctx.fillText('PATHWAY: F4 » F1', cx, cy + 88)
   }
 
   ctx.restore()
@@ -559,7 +559,7 @@ function drawHeroColumn(
   // Attribution subline
   ctx.font = '700 13px monospace'
   ctx.fillStyle = COLOR.gold
-  ctx.fillText('OFFICIAL FIA HOMOLOGATION DOSSIER // VERIFIED SPECIFICATION', x + innerPad + 60, calloutY + calloutH - 18)
+  ctx.fillText('OFFICIAL HOMOLOGATION DOSSIER // VERIFIED SPECIFICATION', x + innerPad + 60, calloutY + calloutH - 18)
 
   ctx.restore()
 }

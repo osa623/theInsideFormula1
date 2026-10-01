@@ -307,7 +307,7 @@ function drawDomainWatermark(ctx: CanvasRenderingContext2D, screenName: string, 
     ctx.strokeRect(cx + 114, cy, 34, 50)
     ctx.font = '700 10px monospace'
     ctx.fillStyle = 'rgba(244, 6, 18, 0.25)'
-    ctx.fillText('FIA PATHWAY: F4 » F1', cx, cy + 66)
+    ctx.fillText('PATHWAY: F4 » F1', cx, cy + 66)
   }
 
   ctx.restore()
@@ -345,7 +345,7 @@ export class InformationScreenRenderer {
     // Coordinate labels
     ctx.font = '700 10px monospace'
     ctx.fillStyle = 'rgba(255, 255, 255, 0.30)'
-    ctx.fillText('FIA TECH REG // 2026', 34, 40)
+    ctx.fillText('TECH REG // 2026', 34, 40)
     ctx.fillText(`[${width}×${height}] CALIBRATED`, width - 180, 40)
 
     // ── Layer 2: Header ──
@@ -526,7 +526,7 @@ export class InformationScreenRenderer {
     // Attribution line
     ctx.font = '700 11px monospace'
     ctx.fillStyle = GOLD
-    ctx.fillText('SOURCE: FIA 2026 TECHNICAL REGULATIONS', sideX + 28, height - 118)
+    ctx.fillText('SOURCE: 2026 TECHNICAL REGULATIONS', sideX + 28, height - 118)
 
     // ── Layer 7: Enhanced Footer ──
     const footerY = height - 76

@@ -109,12 +109,12 @@ export default function ComputerQuizController({
             <div className="flex items-center gap-3">
               <span className="w-2.5 h-2.5 bg-[#e10600] animate-pulse inline-block" />
               <span className="text-xs font-bold tracking-widest text-[#00d2be]">
-                FIA TELEMETRY KIOSK // STATION K-01
+                TELEMETRY KIOSK // STATION K-01
               </span>
             </div>
             <div className="flex items-center gap-4 text-[11px] text-[#758292]">
               <span>SYSTEM: ONLINE</span>
-              <span>PROTOCOL: FIA-2026</span>
+              <span>PROTOCOL: F-2026</span>
               {isInteracting && (
                 <button
                   onClick={onExit}

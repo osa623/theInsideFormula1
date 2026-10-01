@@ -103,7 +103,7 @@ export default function InsideScreen1Controller({
             <div className="flex items-center gap-4">
               <span className="w-3 h-3 bg-[#e10600] animate-pulse inline-block" />
               <span className="text-sm font-black tracking-widest text-white">
-                FIA FORMULA 1 WORLD CHAMPIONSHIP // 2026 OFFICIAL BROADCAST
+                FORMULA 1 WORLD CHAMPIONSHIP // 2026 OFFICIAL BROADCAST
               </span>
               <span className="text-xs px-2 py-0.5 bg-[#182029] border border-[#2b3747] text-[#00d2be] font-bold">
                 LIVE TELEMETRY
@@ -147,7 +147,7 @@ export default function InsideScreen1Controller({
                     2026 Championship Status
                   </h1>
                   <p className="text-xs text-[#9eb1c4] leading-relaxed">
-                    Welcome to the 2026 FIA Formula 1 World Championship. Featuring next-generation
+                    Welcome to the 2026 Formula 1 World Championship. Featuring next-generation
                     active aerodynamics, 100% sustainable advanced fuels, and a 50/50 internal
                     combustion to electrical power unit split generating over 1,000 BHP.
                   </p>
@@ -186,7 +186,7 @@ export default function InsideScreen1Controller({
                     </div>
                     <div className="bg-[#141a22] p-3 border border-[#25303e]">
                       <div className="text-[#8899aa] text-[10px]">SAFETY RATING</div>
-                      <div className="text-white font-bold">FIA GRADE 1+</div>
+                      <div className="text-white font-bold">GRADE 1+</div>
                     </div>
                   </div>
                 </div>

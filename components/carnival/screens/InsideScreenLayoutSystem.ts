@@ -156,7 +156,7 @@ export class InsideScreenLayoutSystem {
     // Master layout directly matching Reference Image 2 (media_1788886677569.jpg)
     this.renderMasterStandingsDashboard(ctx, drivers, constructors, graphData)
 
-    this.drawFooter(ctx, 'inside_screen', 'FIA FORMULA 1 WORLD CHAMPIONSHIP // OFFICIAL BROADCAST TELEMETRY')
+    this.drawFooter(ctx, 'inside_screen', 'FORMULA 1 WORLD CHAMPIONSHIP // OFFICIAL BROADCAST TELEMETRY')
   }
 
   /**

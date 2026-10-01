@@ -573,7 +573,7 @@ function RaceStop({ race, index }: { race: CalendarRace; index: number }) {
           )}
 
           <div className="absolute bottom-6 left-6 right-6 flex items-center justify-between text-xs font-mono text-white/70">
-            <span>{race.country ? race.country.toUpperCase() : 'FIA F1 WORLD CHAMPIONSHIP'}</span>
+            <span>{race.country ? race.country.toUpperCase() : 'FORMULA 1 WORLD CHAMPIONSHIP'}</span>
             <span className="text-white/90 font-bold">{formattedDate}</span>
           </div>
         </div>
@@ -719,7 +719,7 @@ export function Calendar() {
               {isLoading
                 ? 'SYNCING 2026 CALENDAR FEED...'
                 : isLiveApi
-                ? 'FIA 2026 REAL API FEED // JOLPICA ERGAST'
+                ? '2026 REAL API FEED // JOLPICA ERGAST'
                 : 'OFFICIAL 2026 CALENDAR ARCHIVE'}
             </span>
           </div>

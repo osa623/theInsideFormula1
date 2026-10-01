@@ -30,7 +30,7 @@ export const EXHIBITION_SCREEN_CONFIG = {
     objectName: 'Big_Screen1',
     layoutFamily: 'big',
     interactive: false,
-    title: '2026 FIA FORMULA 1 WORLD CHAMPIONSHIP CALENDAR',
+    title: '2026 FORMULA 1 WORLD CHAMPIONSHIP CALENDAR',
     subtitle: 'OFFICIAL SEASON SCHEDULE & RESULTS',
     maxViewDistance: 120.0,
     staggerDelayMs: 4000,

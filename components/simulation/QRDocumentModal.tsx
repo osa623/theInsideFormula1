@@ -55,7 +55,7 @@ export default function QRDocumentModal({ data, isOpen, onClose }: QRDocumentMod
         <div className="flex flex-wrap items-center gap-2 mb-4 font-mono text-xs">
           <span className="flex items-center gap-1.5 px-3.5 py-1.5 bg-[#e10600]/20 border border-[#e10600]/70 rounded-full text-[#ff2200] font-black uppercase tracking-widest">
             <FileText className="w-4 h-4" />
-            OFFICIAL FIA TECHNICAL DOSSIER
+            OFFICIAL TECHNICAL DOSSIER
           </span>
           <span className="px-3 py-1 bg-white/10 border border-white/15 rounded-full text-white/70 uppercase">
             REF: DOC-{data.year}-SPEC
@@ -99,7 +99,7 @@ export default function QRDocumentModal({ data, isOpen, onClose }: QRDocumentMod
             <div className="bg-[#10141e] border border-white/15 rounded-2xl p-5 sm:p-6 font-mono text-xs sm:text-sm space-y-3 shadow-inner">
               <div className="text-xs uppercase tracking-widest text-[#e10600] font-black border-b border-white/10 pb-2 flex items-center justify-between">
                 <span>VEHICLE ARCHIVE SPECIFICATIONS</span>
-                <span className="text-white/40 font-normal">FIA CLASS: FORMULA 1</span>
+                <span className="text-white/40 font-normal">CLASS: FORMULA 1</span>
               </div>
 
               {data.specs.engine && (

@@ -95,7 +95,7 @@ export default function BigScreen2Controller({
             <div className="flex items-center gap-4">
               <span className="w-3.5 h-3.5 bg-[#00d2be] animate-pulse inline-block" />
               <span className="text-base font-black tracking-widest text-white">
-                FIA FORMULA 1 GRAND PRIX & CIRCUIT INTELLIGENCE
+                FORMULA 1 GRAND PRIX & CIRCUIT INTELLIGENCE
               </span>
               <span className="text-xs px-2.5 py-0.5 bg-[#182029] border border-[#2b3747] text-[#00d2be] font-bold">
                 TOWER DISPLAY 02
@@ -257,7 +257,7 @@ export default function BigScreen2Controller({
 
                 <div className="flex items-center justify-between text-xs text-[#6e7e90] border-t border-[#1a2029] pt-3 px-2">
                   <span>CONSTRUCTORS POINTS IN ROUND 14: MERCEDES (40), RED BULL (30), MCLAREN (27)</span>
-                  <span>FIA POST-RACE SCRUTINEERING: ALL CARS PASSED LEGALITY CHECKS</span>
+                  <span>POST-RACE SCRUTINEERING: ALL CARS PASSED LEGALITY CHECKS</span>
                 </div>
               </div>
             )}
@@ -362,7 +362,7 @@ export default function BigScreen2Controller({
                   <div className="text-2xl font-black text-[#8ca0b4] pt-1">4°32'27" E</div>
                   <div className="mt-4 pt-4 border-t border-[#1f2937] w-full text-xs text-[#708194]">
                     <div>ELEVATION: 15M ABOVE SEA LEVEL</div>
-                    <div className="pt-1">ORGANIZER: DUTCH GP CORP / FIA</div>
+                    <div className="pt-1">ORGANIZER: DUTCH GP CORP</div>
                   </div>
                 </div>
               </div>

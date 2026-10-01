@@ -104,7 +104,7 @@ export default function BigScreen1Controller({
             <div className="flex items-center gap-4">
               <span className="w-3.5 h-3.5 bg-[#e10600] animate-pulse inline-block" />
               <span className="text-base font-black tracking-widest text-white">
-                FIA FORMULA 1 WORLD CHAMPIONSHIP // 2026 OFFICIAL RACING CALENDAR
+                 FORMULA 1 WORLD CHAMPIONSHIP // 2026 OFFICIAL RACING CALENDAR
               </span>
               <span className="text-xs px-2.5 py-0.5 bg-[#182029] border border-[#2b3747] text-[#00d2be] font-bold">
                 TOWER DISPLAY 01
@@ -180,7 +180,7 @@ export default function BigScreen1Controller({
                 </div>
 
                 <div className="flex items-center justify-between text-xs text-[#6e7e90] border-t border-[#1a2029] pt-3 px-2">
-                  <span>24 OFFICIAL FIA FORMULA 1 WORLD CHAMPIONSHIP ROUNDS // ACROSS 5 CONTINENTS</span>
+                  <span>24 OFFICIAL FORMULA 1 WORLD CHAMPIONSHIP ROUNDS // ACROSS 5 CONTINENTS</span>
                   <span>RECORD BREAKING SEASON ATTENDANCE & TELEMETRY SYNC</span>
                 </div>
               </div>
@@ -236,7 +236,7 @@ export default function BigScreen1Controller({
                     UPCOMING ROUND // NEXT IN LINE
                   </div>
                   <div className="text-sm font-bold tracking-widest text-[#728599]">
-                    ROUND 15 OF 24 // FIA FORMULA 1 CALENDAR
+                    ROUND 15 OF 24 // FORMULA CALENDAR
                   </div>
                   <h1 className="text-5xl font-black tracking-tight text-white uppercase">
                     {nextRace?.name || 'DUTCH GRAND PRIX'}
@@ -272,7 +272,7 @@ export default function BigScreen1Controller({
                       <div className="text-3xl font-black text-white">{nextRace?.circuit || 'Circuit Zandvoort'}</div>
                       <div className="text-xs text-[#718294]">SEASIDE DUNES // HIGH DOWNFORCE</div>
                       <div className="f1-telemetry-badge text-[#00d2be] mt-2 inline-block">
-                        FIA GRADE 1 CERTIFIED
+                        FORMULA GRADE 1 CERTIFIED
                       </div>
                     </div>
                   </div>
@@ -328,7 +328,7 @@ export default function BigScreen1Controller({
                     Championship Season Progress
                   </h1>
                   <p className="text-xs text-[#9eb1c4] leading-relaxed">
-                    With {completedCount} of 24 Grand Prix in the books, the 2026 FIA Formula 1 World
+                    With {completedCount} of 24 Grand Prix in the books, the 2026 Formula 1 World
                     Championship enters the critical European summer phase before heading overseas to the
                     Americas and Middle Eastern season finale.
                   </p>
@@ -377,7 +377,7 @@ export default function BigScreen1Controller({
           <div className="flex items-center justify-between text-[11px] text-[#525f70] border-t border-[#181d24] pt-2 px-2">
             <span>SCREEN: BIG_SCREEN1 (FAMILY B - TOWER EAST)</span>
             <span>DISPLAY RESOLUTION: 1920 x 844 (2.28:1)</span>
-            <span>FIA 2026 OFFICIAL SPORTING REGULATIONS ACCREDITED</span>
+            <span>FORMULA SPORTING REGULATIONS ACCREDITED</span>
           </div>
         </div>
       </Html>
